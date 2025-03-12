@@ -36,7 +36,7 @@ public class run {
         // Test querying admin data
         try {
             AdminDAO adminDAO = new AdminDAO();
-            List<Admin> admins = adminDAO.getAll();
+            List<Admin> admins = (List<Admin>) adminDAO.getAll();
             if (admins == null) System.out.println("Null");
             System.out.println("Admin data:");
             for (Admin admin : admins) {

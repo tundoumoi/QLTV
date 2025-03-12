@@ -4,35 +4,39 @@
  */
 package DAO;
 
+import java.awt.print.Book;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.TreeSet;
 
-public class BookDAO implements GenericDAO{
+public class BookDAO implements IBookDAO{
 
     @Override
-    public List getAll() throws SQLException {
+    public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Object getById(String id) throws SQLException {
+    public void update(BookDAO entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void insert(Object entity) throws SQLException {
+    public void insert(BookDAO entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(Object entity) throws SQLException {
+    public BookDAO getById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void delete(String id) throws SQLException {
+    public TreeSet<Book> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
 
    
 }

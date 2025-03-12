@@ -1,8 +1,11 @@
 package DAO;
 
 import Model.Customer;
+<<<<<<< HEAD
 import java.sql.SQLException;
 import java.util.List;
+=======
+>>>>>>> 1b12b1a728f7ee688ca170402123c382533880dc
 import java.util.TreeSet;
 
 public class CustomerDAO implements ICustomerDAO{
