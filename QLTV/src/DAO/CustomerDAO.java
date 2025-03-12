@@ -1,17 +1,24 @@
 package DAO;
 
 import Model.Customer;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.TreeSet;
 
 public class CustomerDAO implements ICustomerDAO{
 
     @Override
     public void delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM Customer WHERE CustomerID = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();      
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
-
     @Override
     public void update(Customer entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
