@@ -50,6 +50,7 @@ public HashMap<String,String> loadAdminAcc() throws SQLException{
         }
            return ADacc;
 }
+  
     @Override
     public List<Admin> getAll() throws SQLException {
         return adminList;
