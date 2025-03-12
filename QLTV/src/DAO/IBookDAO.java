@@ -4,10 +4,13 @@
  */
 package DAO;
 
+import Model.Book;
+import java.util.HashMap;
+
 /**
  *
  * @author Admin
  */
-public interface IBookDAO {
+public interface IBookDAO extends GenericDAO<Book, HashMap>{
     
 }
