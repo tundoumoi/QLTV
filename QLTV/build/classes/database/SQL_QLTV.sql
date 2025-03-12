@@ -1,4 +1,6 @@
-﻿-- bảng account
+﻿-- bảng accoun
+craete DataBase QLTV
+use QLTV
 CREATE TABLE Account (
 	AccountId INT PRIMARY KEY,
 	username VARCHAR(50) UNIQUE NOT NULL,
@@ -145,3 +147,4 @@ CREATE TABLE Bill (
 	FOREIGN KEY (Cid) REFERENCES Customer(Cid),
     FOREIGN KEY (employeeCode) REFERENCES Employee(Eid)
 );
+
