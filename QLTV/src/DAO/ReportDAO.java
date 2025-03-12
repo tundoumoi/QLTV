@@ -1,33 +1,35 @@
 package DAO;
 
-import java.sql.SQLException;
-import java.util.List;
+import Model.Report;
+import java.util.TreeSet;
 
-public class ReportDAO implements GenericDAO{
+public class ReportDAO implements IReportDAO{
 
     @Override
-    public List getAll() throws SQLException {
+    public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Object getById(String id) throws SQLException {
+    public void update(Report entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void insert(Object entity) throws SQLException {
+    public void insert(Report entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(Object entity) throws SQLException {
+    public Report getById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void delete(String id) throws SQLException {
+    public TreeSet<Report> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
     
 }

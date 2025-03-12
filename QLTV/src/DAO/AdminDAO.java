@@ -10,8 +10,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeSet;
 
-public class AdminDAO implements GenericDAO {
+public class AdminDAO implements IAdminDAO {
     private List<Admin> adminList = new ArrayList<>();
 
     public AdminDAO() throws SQLException {
@@ -51,72 +52,98 @@ public HashMap<String,String> loadAdminAcc() throws SQLException{
            return ADacc;
 }
   
+//    @Override
+//    public List<Admin> getAll() throws SQLException {
+//        return adminList;
+//    }
+//
+//    @Override
+//    public Admin getById(String id) throws SQLException {
+//        for (Admin admin : adminList) {
+//            if (admin.getADid().equals(id)) {
+//                return admin;
+//            }
+//        }
+//        return null;
+//    }
+
+//    @Override
+//    public void insert(Object entity) throws SQLException {
+//        if (!(entity instanceof Admin)) {
+//            throw new IllegalArgumentException("Entity must be an instance of Admin");
+//        }
+//        Admin admin = (Admin) entity;
+//        String query = "INSERT INTO Admin (ADid, ADbirthDate, ADgender, ADaddress, AccountId) VALUES (?, ?, ?, ?, ?)";
+//        try (Connection conn = DatabaseConnection.getConnection();
+//             PreparedStatement stmt = conn.prepareStatement(query)) {
+//            stmt.setString(1, admin.getADid());
+//            stmt.setDate(2, Date.valueOf(admin.getADbirthDate()));
+//            stmt.setString(3, admin.getADgender());
+//            stmt.setString(4, admin.getADaddress());
+//            stmt.setInt(5, admin.getAccountId());
+//            stmt.executeUpdate();
+//            adminList.add(admin);
+//        }
+//    }
+
+//    @Override
+//    public void update(Object entity) throws SQLException {
+//        if (!(entity instanceof Admin)) {
+//            throw new IllegalArgumentException("Entity must be an instance of Admin");
+//        }
+//        Admin admin = (Admin) entity;
+//        String query = "UPDATE Admin SET ADbirthDate = ?, ADgender = ?, ADaddress = ?, AccountId = ? WHERE ADid = ?";
+//        try (Connection conn = DatabaseConnection.getConnection();
+//             PreparedStatement stmt = conn.prepareStatement(query)) {
+//            stmt.setDate(1, Date.valueOf(admin.getADbirthDate()));
+//            stmt.setString(2, admin.getADgender());
+//            stmt.setString(3, admin.getADaddress());
+//            stmt.setInt(4, admin.getAccountId());
+//            stmt.setString(5, admin.getADid());
+//            stmt.executeUpdate();
+//            for (int i = 0; i < adminList.size(); i++) {
+//                if (adminList.get(i).getADid().equals(admin.getADid())) {
+//                    adminList.set(i, admin);
+//                    break;
+//                }
+//            }
+//        }
+//    }
+
+//    @Override
+//    public void delete(String id) throws SQLException {
+//        String query = "DELETE FROM Admin WHERE ADid = ?";
+//        try (Connection conn = DatabaseConnection.getConnection();
+//             PreparedStatement stmt = conn.prepareStatement(query)) {
+//            stmt.setString(1, id);
+//            stmt.executeUpdate();
+//            adminList.removeIf(admin -> admin.getADid().equals(id));
+//        }
+//    }
+
     @Override
-    public List<Admin> getAll() throws SQLException {
-        return adminList;
+    public void update(AdminDAO entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Admin getById(String id) throws SQLException {
-        for (Admin admin : adminList) {
-            if (admin.getADid().equals(id)) {
-                return admin;
-            }
-        }
-        return null;
+    public void insert(AdminDAO entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void insert(Object entity) throws SQLException {
-        if (!(entity instanceof Admin)) {
-            throw new IllegalArgumentException("Entity must be an instance of Admin");
-        }
-        Admin admin = (Admin) entity;
-        String query = "INSERT INTO Admin (ADid, ADbirthDate, ADgender, ADaddress, AccountId) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, admin.getADid());
-            stmt.setDate(2, Date.valueOf(admin.getADbirthDate()));
-            stmt.setString(3, admin.getADgender());
-            stmt.setString(4, admin.getADaddress());
-            stmt.setInt(5, admin.getAccountId());
-            stmt.executeUpdate();
-            adminList.add(admin);
-        }
+    public AdminDAO getById(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
+    @Override
+    public void delete(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(Object entity) throws SQLException {
-        if (!(entity instanceof Admin)) {
-            throw new IllegalArgumentException("Entity must be an instance of Admin");
-        }
-        Admin admin = (Admin) entity;
-        String query = "UPDATE Admin SET ADbirthDate = ?, ADgender = ?, ADaddress = ?, AccountId = ? WHERE ADid = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setDate(1, Date.valueOf(admin.getADbirthDate()));
-            stmt.setString(2, admin.getADgender());
-            stmt.setString(3, admin.getADaddress());
-            stmt.setInt(4, admin.getAccountId());
-            stmt.setString(5, admin.getADid());
-            stmt.executeUpdate();
-            for (int i = 0; i < adminList.size(); i++) {
-                if (adminList.get(i).getADid().equals(admin.getADid())) {
-                    adminList.set(i, admin);
-                    break;
-                }
-            }
-        }
-    }
-
-    @Override
-    public void delete(String id) throws SQLException {
-        String query = "DELETE FROM Admin WHERE ADid = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, id);
-            stmt.executeUpdate();
-            adminList.removeIf(admin -> admin.getADid().equals(id));
-        }
+    public TreeSet<Admin> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
