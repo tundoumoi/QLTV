@@ -13,15 +13,17 @@ import java.time.LocalDate;
 public abstract class Person {
     protected String id;
     protected String name;
+    protected String SSN;
     protected LocalDate birthDate;
     protected String gender;
     protected String phoneNumber;
     protected String email;
     protected String address;
 
-    public Person(String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address) {
+    public Person(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address) {
         this.id = id;
         this.name = name;
+        this.SSN = SSN;
         this.birthDate = birthDate;
         this.gender = gender;
         this.phoneNumber = phoneNumber;

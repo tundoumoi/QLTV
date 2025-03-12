@@ -11,15 +11,15 @@ import java.time.LocalDate;
  * @author Admin
  */
 public class Book {
-    private String bookId;
-    private String title;
-    private String author;
-    private String publisher;
-    private LocalDate publishedDate;
-    private double price;
-    private int quantity;
-    private String type;
-    private String language;
+    protected String bookId;
+    protected String title;
+    protected String author;
+    protected String publisher;
+    protected LocalDate publishedDate;
+    protected double price;
+    protected int quantity;
+    protected String type;
+    protected String language;
 
     public Book(String bookId, String title, String author, String publisher, LocalDate publishedDate, double price, int quantity, String type, String language) {
         this.bookId = bookId;

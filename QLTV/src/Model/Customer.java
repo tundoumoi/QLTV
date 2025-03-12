@@ -15,8 +15,8 @@ public abstract class Customer extends Person {
     protected String accountId;
 
 
-    public Customer(String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId) {
-        super(id, name, birthDate, gender, phoneNumber, email, address);
+    public Customer(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId) {
+        super(id, name,SSN, birthDate, gender, phoneNumber, email, address);
         this.totalPayment = totalPayment;
         this.accountId = accountId;
     }

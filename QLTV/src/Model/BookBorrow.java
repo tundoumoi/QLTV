@@ -11,18 +11,20 @@ import java.time.LocalDate;
  * @author Admin
  */
 public class BookBorrow{
+    private int borrowId;
     private String cardId;
     private String bookId;
     private String bookTitle;
-    private String customerBorrow;
+    private String Cid;
     private LocalDate borrowDate;
     private LocalDate endDate;
 
-    public BookBorrow(String cardId, String bookId, String bookTitle, String customerBorrow, LocalDate borrowDate, LocalDate endDate) {
+    public BookBorrow(int borrowId, String cardId, String bookId, String bookTitle, String Cid, LocalDate borrowDate, LocalDate endDate) {
+        this.borrowId = borrowId;
         this.cardId = cardId;
         this.bookId = bookId;
         this.bookTitle = bookTitle;
-        this.customerBorrow = customerBorrow;
+        this.Cid = Cid;
         this.borrowDate = borrowDate;
         this.endDate = endDate;
     }
@@ -52,14 +54,6 @@ public class BookBorrow{
         this.bookId = bookId;
     }
 
-    public String getCustomerBorrow() {
-        return customerBorrow;
-    }
-
-    public void setCustomerBorrow(String customerBorrow) {
-        this.customerBorrow = customerBorrow;
-    }
-
     public LocalDate getBorrowDate() {
         return borrowDate;
     }
@@ -74,11 +68,6 @@ public class BookBorrow{
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
-    }
-
-    @Override
-    public String toString() {
-        return "BookBorrow{" + "cardId=" + cardId + ", bookId=" + bookId + ", bookTitle=" + bookTitle + ", customerBorrow=" + customerBorrow + ", borrowDate=" + borrowDate + ", endDate=" + endDate + '}';
     }
 
  

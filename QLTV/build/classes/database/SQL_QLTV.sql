@@ -1,4 +1,4 @@
-﻿-- bảng accoun
+﻿﻿-- bảng accoun
 create DataBase QLTV
 use QLTV
 CREATE TABLE Account (
@@ -11,8 +11,11 @@ CREATE TABLE Account (
 CREATE TABLE Admin (
     ADid VARCHAR(50) PRIMARY KEY,
 	Aname VARCHAR(50),
+	Assn VARCHAR(50),
 	ADbirthDate DATE,
     ADgender NVARCHAR(10),
+	ADphoneNumber NVARCHAR(10),
+	ADemail NVARCHAR(50),
     ADaddress VARCHAR(255),
     AccountId INT,
 	FOREIGN KEY (AccountId) REFERENCES Account(AccountId) ON DELETE CASCADE
@@ -22,8 +25,11 @@ CREATE TABLE Admin (
 CREATE TABLE Employee (
     Eid VARCHAR(50) PRIMARY KEY,
 	Ename VARCHAR(50),
+	Essn VARCHAR(50),
     EbirthDate DATE,
     Egender NVARCHAR(10),
+	EphoneNumber NVARCHAR(10),
+	EDemail NVARCHAR(50),
     Eaddress NVARCHAR(255),
     Eposition NVARCHAR(50),
     Esalary FLOAT,
@@ -33,14 +39,16 @@ CREATE TABLE Employee (
 );
 
 -- Bảng Customer (kế thừa Person)
+-- thieu sdt email account id
 CREATE TABLE Customer (
     Cid VARCHAR(50) PRIMARY KEY,
 	Cname VARCHAR(50),
+	Cssn VARCHAR(50),
 	CbirthDate DATE,
     Cgender NVARCHAR(10),
+	CphoneNumber NVARCHAR(10),
+	Cemail NVARCHAR(50),
     Caddress NVARCHAR(255),
-    CphoneNumber VARCHAR(15),
-    Cemail VARCHAR(100),
     CtotalPayment FLOAT DEFAULT 0,
 	AccountId INT,
 	FOREIGN KEY (AccountId) REFERENCES Account(AccountId) ON DELETE CASCADE
@@ -84,7 +92,7 @@ CREATE TABLE BorrowBook (
     borrowId INT PRIMARY KEY IDENTITY,
     cardId VARCHAR(50),
     bookId VARCHAR(50),
-    customerBorrow VARCHAR(50),
+    Cid VARCHAR(50)UNIQUE NOT NULL,
     borrowDate DATE,
     endDate DATE,
     FOREIGN KEY (cardId) REFERENCES CustomerBorrow(cardId) ON DELETE CASCADE,
@@ -94,7 +102,7 @@ CREATE TABLE BorrowBook (
 -- Bảng BuyBook (mối quan hệ giữa CustomerBuy và Book)
 CREATE TABLE BuyBook (
     orderId VARCHAR(50) PRIMARY KEY,
-    Cid VARCHAR(50),
+    Cid VARCHAR(50) UNIQUE NOT NULL,
     bookId VARCHAR(50),
     quantity INT CHECK (quantity > 0),
     totalPrice FLOAT CHECK (totalPrice >= 0),

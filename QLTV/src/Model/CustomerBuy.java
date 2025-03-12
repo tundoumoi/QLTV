@@ -15,8 +15,8 @@ public class CustomerBuy extends Customer {
 
     // Constructor, getters, setters, toString
 
-    public CustomerBuy(String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId, String membershipLevel) {
-        super(id, name, birthDate, gender, phoneNumber, email, address, totalPayment, accountId);
+    public CustomerBuy(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId, String membershipLevel) {
+        super(id, name,SSN, birthDate, gender, phoneNumber, email, address, totalPayment, accountId);
         this.membershipLevel = membershipLevel;
     }
 

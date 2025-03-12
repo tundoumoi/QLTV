@@ -18,8 +18,8 @@ public class Employee extends Person {
 
     // Constructor, getters, setters, toString
 
-    public Employee(String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address, String position, double salary, LocalDate startDate, String accountId) {
-        super(id, name, birthDate, gender, phoneNumber, email, address);
+    public Employee(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, String position, double salary, LocalDate startDate, String accountId) {
+        super(id, name,SSN, birthDate, gender, phoneNumber, email, address);
         this.position = position;
         this.salary = salary;
         this.startDate = startDate;
