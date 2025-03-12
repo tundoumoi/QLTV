@@ -5,15 +5,13 @@
 package DAO;
 
 import Model.Employee;
-import java.sql.SQLException;
-import java.util.List;
 import java.util.TreeSet;
 
 /**
  *
  * @author LENOVO Ideapad 3
  */
-public interface IEmployeeDAO extends GenericDAO2<Employee, TreeSet<Employee>>{
+public interface IEmployeeDAO extends GenericDAO<Employee, TreeSet<Employee>>{
 
     @Override
     public TreeSet<Employee> getAll();

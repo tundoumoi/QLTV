@@ -8,7 +8,7 @@ package DAO;
  *
  * @author LENOVO Ideapad 3
  */
-public interface GenericDAO2<T, C> {
+public interface GenericDAO<T, C> {
     // Lấy tất cả các bản ghi từ bảng
     C getAll();
 
