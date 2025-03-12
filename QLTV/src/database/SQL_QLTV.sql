@@ -1,5 +1,5 @@
 ﻿-- bảng accoun
-craete DataBase QLTV
+create DataBase QLTV
 use QLTV
 CREATE TABLE Account (
 	AccountId INT PRIMARY KEY,

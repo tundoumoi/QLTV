@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=qltv10;encrypt=false";
+    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=QLTV;encrypt=false";
     private static final String USER = "sa";
     private static final String PASSWORD = "12345";
     // Phương thức để lấy kết nối

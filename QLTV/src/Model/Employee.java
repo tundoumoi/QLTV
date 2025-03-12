@@ -14,14 +14,16 @@ public class Employee extends Person {
     private String position;
     private double salary;
     private LocalDate startDate;
+    private String accountId;
 
     // Constructor, getters, setters, toString
 
-    public Employee(String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address, String position, double salary, LocalDate startDate) {
+    public Employee(String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address, String position, double salary, LocalDate startDate, String accountId) {
         super(id, name, birthDate, gender, phoneNumber, email, address);
         this.position = position;
         this.salary = salary;
         this.startDate = startDate;
+        this.accountId = accountId;
     }
 
     public String getPosition() {

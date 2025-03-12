@@ -11,34 +11,13 @@ import java.time.LocalDate;
  * @author Admin
  */
 public class CustomerBuy extends Customer {
-    private String customerId;
-    private double totalPurchase;
     private String membershipLevel;
 
     // Constructor, getters, setters, toString
 
-    public CustomerBuy(String customerId, double totalPurchase, String membershipLevel, String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address) {
-        super(id, name, birthDate, gender, phoneNumber, email, address);
-        this.customerId = customerId;
-        this.totalPurchase = totalPurchase;
+    public CustomerBuy(String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId, String membershipLevel) {
+        super(id, name, birthDate, gender, phoneNumber, email, address, totalPayment, accountId);
         this.membershipLevel = membershipLevel;
-    }
-
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public double getTotalPurchase() {
-        return totalPurchase;
-    }
-
-    public void setTotalPurchase(double totalPurchase) {
-        this.totalPurchase = totalPurchase;
     }
 
     public String getMembershipLevel() {
@@ -107,7 +86,7 @@ public class CustomerBuy extends Customer {
 
     @Override
     public String toString() {
-        return super.toString()+ "CustomerBuy{" + "customerId=" + customerId + ", totalPurchase=" + totalPurchase + ", membershipLevel=" + membershipLevel + '}';
+        return "CustomerBuy{" + ", membershipLevel=" + membershipLevel + ", accountId=" + accountId + '}';
     }
     
 }

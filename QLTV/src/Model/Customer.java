@@ -11,11 +11,14 @@ import java.time.LocalDate;
  * @author Admin
  */
 public abstract class Customer extends Person {
-    private double totalPayment;
+    protected double totalPayment;
+    protected String accountId;
 
 
-    public Customer(String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address) {
+    public Customer(String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId) {
         super(id, name, birthDate, gender, phoneNumber, email, address);
+        this.totalPayment = totalPayment;
+        this.accountId = accountId;
     }
 
     public double getTotalPayment() {
@@ -84,9 +87,8 @@ public abstract class Customer extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + "Customer{" + "totalPayment=" + totalPayment + '}';
+        return "Customer{" + "totalPayment=" + totalPayment + ", accountId=" + accountId + '}';
     }
-
 
 }
 

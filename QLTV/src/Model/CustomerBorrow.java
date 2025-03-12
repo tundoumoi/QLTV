@@ -17,11 +17,10 @@ public class CustomerBorrow extends Customer {
     private LocalDate registrationDate;
     private LocalDate expirationDate;
     private int borrowLimit;
-
     // Constructor, getters, setters, toString
 
-    public CustomerBorrow(String cardId, String typeCard, LocalDate cardExpiry, LocalDate registrationDate, LocalDate expirationDate, int borrowLimit, String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address) {
-        super(id, name, birthDate, gender, phoneNumber, email, address);
+    public CustomerBorrow(String id, String name, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId, String cardId, String typeCard, LocalDate cardExpiry, LocalDate registrationDate, LocalDate expirationDate, int borrowLimit) {
+        super(id, name, birthDate, gender, phoneNumber, email, address, totalPayment, accountId);
         this.cardId = cardId;
         this.typeCard = typeCard;
         this.cardExpiry = cardExpiry;
