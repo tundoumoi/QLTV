@@ -30,7 +30,7 @@ CREATE TABLE Employee (
     Egender NVARCHAR(10),
 	EphoneNumber NVARCHAR(10),
 	EDemail NVARCHAR(50),
-    Eaddress NVARCHAR(255),
+    Eaddress VARCHAR(255),
     Eposition NVARCHAR(50),
     Esalary FLOAT,
     EstartDate DATE,
@@ -48,7 +48,7 @@ CREATE TABLE Customer (
     Cgender NVARCHAR(10),
 	CphoneNumber NVARCHAR(10),
 	Cemail NVARCHAR(50),
-    Caddress NVARCHAR(255),
+    Caddress VARCHAR(255),
     CtotalPayment FLOAT DEFAULT 0,
 	AccountId INT,
 	FOREIGN KEY (AccountId) REFERENCES Account(AccountId) ON DELETE CASCADE
@@ -156,6 +156,37 @@ CREATE TABLE Bill (
     FOREIGN KEY (employeeCode) REFERENCES Employee(Eid)
 );
 
+INSERT INTO Account (AccountId, username, APass) VALUES
+(1, 'nam bau troi', 'nam fan bac meo'),
+(2, 'la di ti ti', 'dititi'),
+(3, 'hoangluu', 'hoangluu217');
+
+INSERT INTO Admin (ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress, AccountId) VALUES
+('AD001', 'Admin One', 'SSN001', '1980-01-01', 'Male', '0123456789', 'admin1@example.com', '123 Admin St', 1);
+
+INSERT INTO Employee (Eid, Ename, Essn, EbirthDate, Egender, EphoneNumber, EDemail, Eaddress, Eposition, Esalary, EstartDate, AccountId) VALUES
+('E001', 'Employee One', 'SSN002', '1990-02-02', 'Female', '0987654321', 'employee1@example.com', '456 Employee Ave', 'Manager', 50000, '2020-01-01', 2);
+
+INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId) VALUES
+('C001', 'Customer One', 'SSN003', '2000-03-03', 'Male', '0112233445', 'customer1@example.com', '789 Customer Blvd', 0, 3);
+
+INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES
+('C001', 0, 'Bronze');
+
+INSERT INTO CustomerBorrow (cardId, Cid, typeCard, cardExpiry, registrationDate, expirationDate, borrowLimit) VALUES
+('CB001', 'C001', 'Silver', '2025-12-31', '2023-01-01', '2025-12-31', 5);
+
+INSERT INTO Promotion (Pid, ADid, Pname, discountRate, startDate, endDate, Pdescription) VALUES
+('P001', 'AD001', 'New Year Sale', 20, '2023-01-01', '2023-01-31', '20% off on all books');
+
+INSERT INTO Voucher (VoucherID, Pid, discountRate, quantity) VALUES
+('V001', 'P001', 10, 100);
+
+INSERT INTO Report (customerId, bookId, title, content) VALUES
+('C001', 'B101', 'Damaged Book', 'The book was damaged upon delivery.');
+
+INSERT INTO Bill (invoiceCode, bookId, Cid, employeeCode, billTime, unitPrice) VALUES
+(1, 'B101', 'C001', 'E001', '2023-01-01 10:00:00', 12.99);
 
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B101', 'The Hidden Legacy', 'Oliver Sinclair', 'Pearson Books', '2013-06-15', 12.99, 10, 'Mystery', 'English'),
