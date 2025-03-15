@@ -292,6 +292,8 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B201', 'Bi mat bi lang quen', 'Derek Walsh', 'Bungei Shunju', '2015-11-09', 1550, 7, 'Bi an', 'Tieng Nhat'),
 ('B202', 'Khu rung ma thuat', 'Sophia Henderson', 'Hayakawa Shobo', '2013-03-17', 2500, 4, 'Gia tuong', 'Tieng Nhat'),
 ('B203', 'Tieng than khoc ao anh', 'Vincent Ellis', 'Shodensha', '2016-05-28', 1700, 6, 'Kinh di', 'Tieng Nhat'),
-('B204', 'Ngon lua ben trong', 'Amelia Hudson', 'Futabasha', '2020-04-21', 2100, 5, 'Phieu luu', 'Tieng Nhat'),
+('B204', 'Ngon lua ben trong', 'Amelia Hudson', 'Futabasha', '2020-04-21', 2100, 5, 'Phieu luu', 'Tieng Nhat')
 
 select * from Book
+select * from Admin
+select * from Account
