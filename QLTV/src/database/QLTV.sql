@@ -33,7 +33,7 @@ CREATE TABLE Employee (
     Eaddress VARCHAR(255),
     Eposition NVARCHAR(50),
     Esalary FLOAT,
-    EstartDate DATE,
+    EstartDate DATE ,
 	AccountId INT,
 	FOREIGN KEY (AccountId) REFERENCES Account(AccountId) ON DELETE CASCADE
 );
@@ -49,7 +49,7 @@ CREATE TABLE Customer (
 	CphoneNumber NVARCHAR(10),
 	Cemail NVARCHAR(50),
     Caddress VARCHAR(255),
-    CtotalPayment FLOAT DEFAULT 0,
+    CtotalPayment FLOAT DEFAULT 0,--(giá trị của typeCard + totalpurchase)tăng lên khi mua sách và làm thẻ
 	AccountId INT,
 	FOREIGN KEY (AccountId) REFERENCES Account(AccountId) ON DELETE CASCADE
 );
@@ -57,7 +57,7 @@ CREATE TABLE Customer (
 -- Bảng CustomerBuy (kế thừa Customer)
 CREATE TABLE CustomerBuy (
     Cid VARCHAR(50) PRIMARY KEY,
-    totalPurchase FLOAT DEFAULT 0,
+    totalPurchase FLOAT DEFAULT 0,--dựa trên mua sách 
     membershipLevel NVARCHAR(50),
 	FOREIGN KEY (Cid) REFERENCES Customer(Cid) ON DELETE CASCADE
 );
@@ -65,12 +65,12 @@ CREATE TABLE CustomerBuy (
 -- Bảng CustomerBorrow (kế thừa Customer)
 CREATE TABLE CustomerBorrow (
     cardId VARCHAR(50) PRIMARY KEY,
-    Cid VARCHAR(50) UNIQUE NOT NULL,
-    typeCard NVARCHAR(50), -- Đồng, Bạc, Vàng
-    cardExpiry DATE,
+    Cid VARCHAR(50) NOT NULL,
+    typeCard NVARCHAR(50), -- Đồng : 50.000, Bạc 100000, Vàng : 200000
+    cardExpiry DATE, --hêt tiền 1 tháng là cook 
     registrationDate DATE,
-    expirationDate DATE,
-    borrowLimit INT CHECK (borrowLimit >= 0),
+	cardValue FLOAT DEFAULT 0,--(gán giá trị theo typeCard) sau đó trừ đi khi thuê
+    borrowLimit INT CHECK (borrowLimit >= 0),--Đồng 10 , bạc 15 , vàng no limit
     FOREIGN KEY (Cid) REFERENCES Customer(Cid) ON DELETE CASCADE
 );
 
@@ -92,17 +92,16 @@ CREATE TABLE BorrowBook (
     borrowId INT PRIMARY KEY IDENTITY,
     cardId VARCHAR(50),
     bookId VARCHAR(50),
-    Cid VARCHAR(50)UNIQUE NOT NULL,
     borrowDate DATE,
     endDate DATE,
-    FOREIGN KEY (cardId) REFERENCES CustomerBorrow(cardId) ON DELETE CASCADE,
+	FOREIGN KEY (cardId) REFERENCES CustomerBorrow(cardId) ON DELETE CASCADE,
     FOREIGN KEY (bookId) REFERENCES Book(bookId) ON DELETE CASCADE
 );
 
 -- Bảng BuyBook (mối quan hệ giữa CustomerBuy và Book)
 CREATE TABLE BuyBook (
     orderId VARCHAR(50) PRIMARY KEY,
-    Cid VARCHAR(50) UNIQUE NOT NULL,
+    Cid VARCHAR(50) NOT NULL,
     bookId VARCHAR(50),
     quantity INT CHECK (quantity > 0),
     totalPrice FLOAT CHECK (totalPrice >= 0),
@@ -111,82 +110,47 @@ CREATE TABLE BuyBook (
     FOREIGN KEY (bookId) REFERENCES Book(bookId) ON DELETE CASCADE
 );
 
--- Bảng Promotion (Admin quản lý)
-CREATE TABLE Promotion (
-	Pid	VARCHAR(10) PRIMARY KEY,
-    ADid VARCHAR(50) ,
-    Pname NVARCHAR(100),
-    discountRate FLOAT CHECK (discountRate >= 0 AND discountRate <= 100),
-    startDate DATE,
-    endDate DATE,
-    Pdescription NVARCHAR(255),
-    FOREIGN KEY (ADid) REFERENCES Admin(ADid) ON DELETE SET NULL
-);
 
--- Bảng voucher
-CREATE TABLE Voucher (
-	VoucherID VARCHAR(10) PRIMARY KEY, 
-	Pid VARCHAR(10),
-	discountRate INT,
-	quantity INT,
-	FOREIGN KEY (Pid) REFERENCES Promotion(Pid) ON DELETE CASCADE 
-)
 
 -- Bảng Report (Khách hàng báo cáo về sách)
 CREATE TABLE Report (
     reportId INT PRIMARY KEY IDENTITY,
     customerId VARCHAR(50),
     bookId VARCHAR(50),
-    title NVARCHAR(100),
     reportDate DATE DEFAULT GETDATE(),
     content NVARCHAR(MAX),
     FOREIGN KEY (customerId) REFERENCES Customer(Cid) ON DELETE CASCADE,
     FOREIGN KEY (bookId) REFERENCES Book(bookId) ON DELETE CASCADE
+
 );
+-- Bảng voucher
+CREATE TABLE Voucher (
+	VoucherID VARCHAR(10) PRIMARY KEY, 
+	discountRate Int CHECK (discountRate > 0 AND discountRate <= 100),--(cho Nam mua ssach)
+	quantity INT Check(quantity > 0),
+    startDate DATE,
+    endDate DATE,
+    Vdescription NVARCHAR(255)
+)
 --Bảng Bill
 CREATE TABLE Bill (
-    invoiceCode INT PRIMARY KEY,
-    bookId VARCHAR(50),
-	Cid VARCHAR(50),
-    employeeCode VARCHAR(50),
+    billID INT identity(1,1) PRIMARY KEY,
+    bookId VARCHAR(50) not null,
+	Cid VARCHAR(50) not null,
+    Eid VARCHAR(50),
+	VoucherID VARCHAR(10),
     billTime DATETIME,
     unitPrice FLOAT,
     FOREIGN KEY (bookId) REFERENCES Book(bookId),
 	FOREIGN KEY (Cid) REFERENCES Customer(Cid),
-    FOREIGN KEY (employeeCode) REFERENCES Employee(Eid)
+    FOREIGN KEY (Eid) REFERENCES Employee(Eid),
+	FOREIGN KEY (VoucherID) REFERENCES Voucher(VoucherID) ON DELETE CASCADE
 );
 
 INSERT INTO Account (AccountId, username, APass) VALUES
 (1, 'nam bau troi', 'nam fan bac meo'),
 (2, 'la di ti ti', 'dititi'),
 (3, 'hoangluu', 'hoangluu217');
-
-INSERT INTO Admin (ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress, AccountId) VALUES
-('AD001', 'Admin One', 'SSN001', '1980-01-01', 'Male', '0123456789', 'admin1@example.com', '123 Admin St', 1);
-
-INSERT INTO Employee (Eid, Ename, Essn, EbirthDate, Egender, EphoneNumber, EDemail, Eaddress, Eposition, Esalary, EstartDate, AccountId) VALUES
-('E001', 'Employee One', 'SSN002', '1990-02-02', 'Female', '0987654321', 'employee1@example.com', '456 Employee Ave', 'Manager', 50000, '2020-01-01', 2);
-
-INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId) VALUES
-('C001', 'Customer One', 'SSN003', '2000-03-03', 'Male', '0112233445', 'customer1@example.com', '789 Customer Blvd', 0, 3);
-
-INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES
-('C001', 0, 'Bronze');
-
-INSERT INTO CustomerBorrow (cardId, Cid, typeCard, cardExpiry, registrationDate, expirationDate, borrowLimit) VALUES
-('CB001', 'C001', 'Silver', '2025-12-31', '2023-01-01', '2025-12-31', 5);
-
-INSERT INTO Promotion (Pid, ADid, Pname, discountRate, startDate, endDate, Pdescription) VALUES
-('P001', 'AD001', 'New Year Sale', 20, '2023-01-01', '2023-01-31', '20% off on all books');
-
-INSERT INTO Voucher (VoucherID, Pid, discountRate, quantity) VALUES
-('V001', 'P001', 10, 100);
-
-INSERT INTO Report (customerId, bookId, title, content) VALUES
-('C001', 'B101', 'Damaged Book', 'The book was damaged upon delivery.');
-
-INSERT INTO Bill (invoiceCode, bookId, Cid, employeeCode, billTime, unitPrice) VALUES
-(1, 'B101', 'C001', 'E001', '2023-01-01 10:00:00', 12.99);
 
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B101', 'The Hidden Legacy', 'Oliver Sinclair', 'Pearson Books', '2013-06-15', 12.99, 10, 'Mystery', 'English'),
@@ -213,7 +177,7 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B115', 'The Last Sanctuary', 'Patrick Wallace', 'Random House', '2014-11-10', 17.25, 9, 'Drama', 'English'),
 ('B116', 'The Haunting of Blackwood Manor', 'Teresa Carter', 'Dark Horse', '2021-03-18', 15.90, 5, 'Horror', 'English'),
 ('B117', 'Gates of Destiny', 'Nathaniel Brooks', 'Del Rey', '2010-08-26', 22.10, 4, 'Fantasy', 'English'),
-('B118', 'Dark Prophecy', 'Catherine Andrews', 'Penguin Books', '2007-04-13', 18.40, 8, 'Thriller', 'English'),
+('B118', 'Dark Prophecy', 'Catherine Andrews', 'Penguin Books', '2007-04-13', 18.40, 8, 'Thriller', 'English')
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B119', 'The Emperor’s Curse', 'Frederick Langley', 'Tor Books', '2019-12-20', 24.50, 3, 'Fantasy', 'English'),
 ('B120', 'The Vanishing Truth', 'Melissa Quinn', 'Simon & Schuster', '2013-09-29', 11.75, 12, 'Mystery', 'English'),
@@ -301,8 +265,6 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B201', 'Bi mat bi lang quen', 'Derek Walsh', 'Bungei Shunju', '2015-11-09', 1550, 7, 'Bi an', 'Tieng Nhat'),
 ('B202', 'Khu rung ma thuat', 'Sophia Henderson', 'Hayakawa Shobo', '2013-03-17', 2500, 4, 'Gia tuong', 'Tieng Nhat'),
 ('B203', 'Tieng than khoc ao anh', 'Vincent Ellis', 'Shodensha', '2016-05-28', 1700, 6, 'Kinh di', 'Tieng Nhat'),
-('B204', 'Ngon lua ben trong', 'Amelia Hudson', 'Futabasha', '2020-04-21', 2100, 5, 'Phieu luu', 'Tieng Nhat')
+('B204', 'Ngon lua ben trong', 'Amelia Hudson', 'Futabasha', '2020-04-21', 2100, 5, 'Phieu luu', 'Tieng Nhat'),
 
 select * from Book
-select * from Admin
-select * from Account
