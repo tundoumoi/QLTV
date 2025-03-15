@@ -36,6 +36,7 @@ public class AdminDAO implements IAdminDAO {
         }
         
     }
+    
 public HashMap<String,String> loadAdminAcc() throws SQLException{
     HashMap<String , String > ADacc = new HashMap<>();
     String query = "Select username , Apass from Admin ad join account acc on ad.accountid = acc.accountid";

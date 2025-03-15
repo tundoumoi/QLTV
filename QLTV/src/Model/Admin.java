@@ -13,8 +13,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class Admin  {
     private String ADid;
+    private String Aname;
+    private String Assn;
     private LocalDate ADbirthDate;
     private String ADgender;
+    private String ADphoneNumber;
+    private String ADEmail;
     private String ADaddress;
     private int AccountId;
 

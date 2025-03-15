@@ -34,17 +34,7 @@ public class run {
         }
 
         // Test querying admin data
-        try {
-            AdminDAO adminDAO = new AdminDAO();
-            List<Admin> admins = (List<Admin>) adminDAO.getAll();
-            if (admins == null) System.out.println("Null");
-            System.out.println("Admin data:");
-            for (Admin admin : admins) {
-                System.out.println(admin);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+ 
         AdminDAO adminDAO = new AdminDAO();
         HashMap<String , String > ADacc = new HashMap<>();
         ADacc = adminDAO.loadAdminAcc();
