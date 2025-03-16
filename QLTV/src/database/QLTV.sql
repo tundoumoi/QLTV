@@ -149,9 +149,14 @@ CREATE TABLE Bill (
 
 INSERT INTO Account (AccountId, username, APass) VALUES
 (1, 'nam bau troi', 'nam fan bac meo'),
-(2, 'la di ti ti', 'dititi'),
-(3, 'hoangluu', 'hoangluu217');
-
+(2, 'ladititi', 'dititi'),
+(3, 'hoangluu', 'hoangluu217'),
+(4,'tundaumoi','tundaumoi1'),
+(5,'manhthang','manhthang1'),
+(6,'employee','employee1'),
+(7,'customer','customer1');
+delete from account;
+select * from Account;
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B101', 'The Hidden Legacy', 'Oliver Sinclair', 'Pearson Books', '2013-06-15', 12.99, 10, 'Mystery', 'English'),
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES

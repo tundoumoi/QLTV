@@ -6,6 +6,7 @@ package Swing;
 
 import DAO.AdminDAO;
 import Service.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,8 +18,11 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+   
     public Login() {
         initComponents();
+        setLocation(750, 350);
+        setResizable(false);
     }
 
     /**
@@ -33,7 +37,7 @@ public class Login extends javax.swing.JFrame {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        button1 = new java.awt.Button();
+        LoginBut = new java.awt.Button();
         JchoiceRole = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldUser = new javax.swing.JTextField();
@@ -47,8 +51,18 @@ public class Login extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
-        button1.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
-        button1.setLabel("Login");
+        LoginBut.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        LoginBut.setLabel("Login");
+        LoginBut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LoginButMouseClicked(evt);
+            }
+        });
+        LoginBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginButActionPerformed(evt);
+            }
+        });
 
         JchoiceRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee", "Customer", " " }));
         JchoiceRole.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +79,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addComponent(JchoiceRole, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LoginBut, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
         jPanel2Layout.setVerticalGroup(
@@ -73,19 +87,18 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LoginBut, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JchoiceRole, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        button1.getAccessibleContext().setAccessibleName("login");
+        LoginBut.getAccessibleContext().setAccessibleName("login");
 
         jLabel1.setFont(new java.awt.Font("Unispace", 1, 36)); // NOI18N
         jLabel1.setText("LOGIN PAGE");
 
         jTextFieldUser.setBackground(new java.awt.Color(204, 204, 204));
-        jTextFieldUser.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextFieldUser.setText("ENTER USER NAME"); // NOI18N
+        jTextFieldUser.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTextFieldUserMouseClicked(evt);
@@ -169,19 +182,32 @@ public class Login extends javax.swing.JFrame {
 
     private void jTextFieldUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldUserMouseClicked
         // TODO add your handling code here:
-        jTextFieldUser.setText("");
+        jTextFieldUser.setText(" ");
     }//GEN-LAST:event_jTextFieldUserMouseClicked
 
     private void JchoiceRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JchoiceRoleActionPerformed
         // TODO add your handling code here:
-        if(JchoiceRole.getModel().equals("Admin")){
-           String user=  jTextFieldUser.getText();
+
+    }//GEN-LAST:event_JchoiceRoleActionPerformed
+
+    private void LoginButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoginButActionPerformed
+
+    private void LoginButMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButMouseClicked
+        // TODO add your handling code here:
+        
+        if(JchoiceRole.getSelectedItem().equals("Admin")){
+           String user =  jTextFieldUser.getText();
            String pass = jPasswordField1.getText();
            if(AddSer.CheckAccount(user, pass)){
                JOptionPane.showMessageDialog(rootPane, "Login successfull");
+               jTextFieldUser.setText("");
+               jPasswordField1.setText("");
            }
         }
-    }//GEN-LAST:event_JchoiceRoleActionPerformed
+    }//GEN-LAST:event_LoginButMouseClicked
 
     /**
      * @param args the command line arguments
@@ -213,16 +239,18 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+               
                 new Login().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> JchoiceRole;
+    private java.awt.Button LoginBut;
     private java.awt.Label PassWordLabel;
     private java.awt.Label UserLabel;
-    private java.awt.Button button1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

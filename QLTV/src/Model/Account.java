@@ -44,4 +44,9 @@ public class Account {
         this.Pass = Pass;
     }
 
+    @Override
+    public String toString() {
+        return "Account{" + "username=" + username + ", Pass=" + Pass + '}';
+    }
+
 }

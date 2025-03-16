@@ -14,24 +14,35 @@ public class AdminDAO implements IAdminDAO {
 
     private final HashMap<Integer, Admin> AdminMap = new HashMap<Integer, Admin>();
     private HashMap<Integer, Account> adminAcc = new HashMap<>();
-    private AccountDAO AccDAO = new AccountDAO();
 
-    public AdminDAO() throws SQLException {
+    public AdminDAO(){
+        loadAcc();
     }
 
-    public void loadAcc(int AccountID) throws SQLException {
-
-        String query = "Select userName , AccountId From Account where AccountId = ? ";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                String userName = rs.getString("username");
-                String APass = rs.getString("Apass");
-                int AccountId = rs.getInt("AccountID");
-                Account acc = new Account(userName, APass);
-                adminAcc.put(AccountId, acc);
+    public void loadAcc() {
+        String query = "SELECT * FROM Account";
+        try (Connection conn = DatabaseConnection.getConnection(); 
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String userName = rs.getString("userName");
+                    String APass = rs.getString("APass");
+                    int accountId = rs.getInt("AccountId");
+                    Account acc = new Account(userName, APass);
+                    adminAcc.put(accountId, acc);
+                }
             }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
         }
+    }
 
+    public HashMap<Integer, Admin> getAdminMap() {
+        return AdminMap;
+    }
+
+    public HashMap<Integer, Account> getAdminAcc() {
+        return adminAcc;
     }
 
     public Account FindAcc(int AccountID) {
@@ -41,9 +52,6 @@ public class AdminDAO implements IAdminDAO {
             Account val = entry.getValue();
             if (key == AccountID) {
                 acc = val;
-            } else {
-                View.view view = new View.view();
-                view.message("Something Wrong.");
             }
 
         }

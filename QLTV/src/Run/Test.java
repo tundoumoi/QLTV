@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 import DAO.CustomerDAO;
 import DAO.DatabaseConnection;
+import Model.Account;
 import Model.Admin;
 import Model.Customer;
 import Model.CustomerBorrow;
@@ -34,7 +35,7 @@ public class Test {
         CustomerDAO customerDAO = new CustomerDAO();
         AdminService addSer = new AdminService();
         CustomerService customerService = new CustomerService();
-        HashMap<Integer, Admin> AdminMap = new HashMap<Integer, Admin>();
+        HashMap<Integer, Account> AdminMap = new HashMap<Integer, Account>();
         AdminService adSer = new AdminService();
         ArrayList<CustomerBorrow> cusBorrowList = new ArrayList<>();
         ArrayList<CustomerBuy> cusBuyList = new ArrayList<>();
@@ -58,11 +59,11 @@ public class Test {
 //            System.out.println(e.getMessage());
 //
 //        }
-        AdminMap = adSer.AdMap();
-        for (Map.Entry<Integer, Admin> entry : AdminMap.entrySet()) {
+        AdminMap = adSer.getAdminAcc();
+        for (Map.Entry<Integer,Account> entry : AdminMap.entrySet()) {
             Object key = entry.getKey();
             Object val = entry.getValue();
-            System.out.println(entry.getValue());
+            System.out.println(entry.getValue().toString());
         }
 //        //customerDAO.delete("C001");
 //        ArrayList<Customer> cus = new ArrayList<>();

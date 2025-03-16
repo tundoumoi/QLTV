@@ -111,7 +111,7 @@
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="JchoiceRole" min="-2" pref="123" max="-2" attributes="0"/>
                       <EmptySpace pref="71" max="32767" attributes="0"/>
-                      <Component id="button1" min="-2" pref="112" max="-2" attributes="0"/>
+                      <Component id="LoginBut" min="-2" pref="112" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -121,7 +121,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="button1" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Component id="LoginBut" min="-2" pref="38" max="-2" attributes="0"/>
                           <Component id="JchoiceRole" min="-2" pref="38" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="22" max="32767" attributes="0"/>
@@ -130,7 +130,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="java.awt.Button" name="button1">
+            <Component class="java.awt.Button" name="LoginBut">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Courier New" size="14" style="0"/>
@@ -143,6 +143,10 @@
                   <ComponentRef name="default"/>
                 </Property>
               </AccessibilityProperties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="LoginButMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LoginButActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="JchoiceRole">
               <Properties>
@@ -177,8 +181,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="ENTER USER NAME" noResource="true"/>
+            <Property name="horizontalAlignment" type="int" value="2"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldUserMouseClicked"/>
