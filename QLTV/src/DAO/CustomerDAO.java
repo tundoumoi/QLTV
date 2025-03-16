@@ -171,6 +171,22 @@ public class CustomerDAO implements ICustomerDAO {
         }
         return null;
     }
+        public CustomerBuy getCusBuyById(String id) {
+        for (CustomerBuy customer : cusBuyList) {
+            if (customer.getCid().equalsIgnoreCase(id)) {
+                return customer;
+            }
+        }
+        return null;
+    }
+                public CustomerBorrow getCusBorrowById(String id) {
+        for (CustomerBorrow customer : cusBorrowList) {
+            if (customer.getcId().equalsIgnoreCase(id)) {
+                return customer;
+            }
+        }
+        return null;
+    }
 
     @Override
     public ArrayList<Customer> getAll() {
@@ -236,4 +252,5 @@ public class CustomerDAO implements ICustomerDAO {
         }
         return cusBuyList;
     }
+    // Update CusBorrow , cusBuy
 }
