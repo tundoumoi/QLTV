@@ -275,6 +275,19 @@ INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemai
 ('C004', 'Pham Van Đạt', '876543219', '1997-07-25', 'Nam', '0934876543', 'phamvand@example.com', 'Can Tho', 1000000, 1),
 ('C005', 'Bui Thi Yến', '456123789', '1999-03-05', 'Nu', '0945123789', 'buithie@example.com', 'Hai Phong', 450000, 1);
 
+INSERT INTO CustomerBorrow (cardId, Cid, typeCard, cardExpiry, registrationDate, cardValue, borrowLimit) VALUES
+('CB001', 'C001', 'Dong', '2024-04-01', '2024-03-01', 50000, 10),
+('CB002', 'C002', 'Bac', '2024-04-05', '2024-03-05', 100000, 15),
+('CB003', 'C003', 'Vang', '2024-04-10', '2024-03-10', 200000, NULL),
+('CB004', 'C004', 'Dong', '2024-04-12', '2024-03-12', 50000, 10),
+('CB005', 'C005', 'Bac', '2024-04-15', '2024-03-15', 100000, 15);
+
+INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES
+('C001', 120000, 'Silver'),
+('C002', 250000, 'Gold'),
+('C003', 50000, 'Bronze'),
+('C004', 300000, 'Platinum'),
+('C005', 150000, 'Silver');
 
 select * from Book
 delete from Customer
