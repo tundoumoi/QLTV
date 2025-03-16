@@ -12,20 +12,22 @@ import java.time.LocalDate;
  */
 public class CustomerBorrow extends Customer {
     private String cardId;
+    private String cId;
+    
     private String typeCard;
     private LocalDate cardExpiry;
     private LocalDate registrationDate;
-    private LocalDate expirationDate;
+    private double cardValue;
     private int borrowLimit;
-    // Constructor, getters, setters, toString
 
-    public CustomerBorrow(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId, String cardId, String typeCard, LocalDate cardExpiry, LocalDate registrationDate, LocalDate expirationDate, int borrowLimit) {
-        super(id, name,SSN, birthDate, gender, phoneNumber, email, address, totalPayment, accountId);
+    public CustomerBorrow(String cardId, String cId, String typeCard, LocalDate cardExpiry, LocalDate registrationDate, double cardValue, int borrowLimit, String id, String name, String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId) {
+        super(id, name, SSN, birthDate, gender, phoneNumber, email, address, totalPayment, accountId);
         this.cardId = cardId;
+        this.cId = cId;
         this.typeCard = typeCard;
         this.cardExpiry = cardExpiry;
         this.registrationDate = registrationDate;
-        this.expirationDate = expirationDate;
+        this.cardValue = cardValue;
         this.borrowLimit = borrowLimit;
     }
 
@@ -35,6 +37,14 @@ public class CustomerBorrow extends Customer {
 
     public void setCardId(String cardId) {
         this.cardId = cardId;
+    }
+
+    public String getcId() {
+        return cId;
+    }
+
+    public void setcId(String cId) {
+        this.cId = cId;
     }
 
     public String getTypeCard() {
@@ -61,12 +71,12 @@ public class CustomerBorrow extends Customer {
         this.registrationDate = registrationDate;
     }
 
-    public LocalDate getExpirationDate() {
-        return expirationDate;
+    public double getCardValue() {
+        return cardValue;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setCardValue(double cardValue) {
+        this.cardValue = cardValue;
     }
 
     public int getBorrowLimit() {
@@ -75,6 +85,22 @@ public class CustomerBorrow extends Customer {
 
     public void setBorrowLimit(int borrowLimit) {
         this.borrowLimit = borrowLimit;
+    }
+
+    public double getTotalPayment() {
+        return totalPayment;
+    }
+
+    public void setTotalPayment(double totalPayment) {
+        this.totalPayment = totalPayment;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public String getId() {
@@ -91,6 +117,14 @@ public class CustomerBorrow extends Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSSN() {
+        return SSN;
+    }
+
+    public void setSSN(String SSN) {
+        this.SSN = SSN;
     }
 
     public LocalDate getBirthDate() {
@@ -135,8 +169,9 @@ public class CustomerBorrow extends Customer {
 
     @Override
     public String toString() {
-        return super.toString()+"CustomerBorrow{" + "cardId=" + cardId + ", typeCard=" + typeCard + ", cardExpiry=" + cardExpiry + ", registrationDate=" + registrationDate + ", expirationDate=" + expirationDate + ", borrowLimit=" + borrowLimit + '}';
+        return "CustomerBorrow{" + "cardId=" + cardId + ", cId=" + cId + ", typeCard=" + typeCard + ", cardExpiry=" + cardExpiry + ", registrationDate=" + registrationDate + ", cardValue=" + cardValue + ", borrowLimit=" + borrowLimit + '}';
     }
     
+   
 }
 

@@ -10,7 +10,7 @@ import java.time.LocalDate;
  *
  * @author Admin
  */
-public abstract class Customer extends Person {
+public class Customer extends Person {
     protected double totalPayment;
     protected String accountId;
 

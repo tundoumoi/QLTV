@@ -2,16 +2,18 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.TreeSet;
 
 import Model.Customer;
+import java.time.LocalDate;
 
 public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public void delete(String id) {
-        String sql = "DELETE FROM Customer WHERE CustomerID = ?";
+        String sql = "DELETE FROM Customer WHERE Cid = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, id);
             pstmt.executeUpdate();
@@ -153,7 +155,29 @@ public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public TreeSet<Customer> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT * FROM CUSTOMER";
+        TreeSet<Customer> CusTree = new TreeSet<>();
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                String Cid = rs.getString("Cid");
+                String Cname = rs.getString("Cname");
+                String Cssn = rs.getString("Cssn");
+                String CbirthDate = rs.getString("CbirthDate");
+                String Cgender = rs.getString("Cgender");
+                String CphoneNumber = rs.getString("CphoneNumber");
+                String Cemail = rs.getString("Cemail");
+                String Caddress = rs.getString("Caddress");
+                double CtotalPayment = rs.getDouble("CtotalPayment");
+                String AccountId = rs.getString("AccountId");
+                Customer customer = new Customer(Cid, Cname, Cssn, LocalDate.parse(CbirthDate), Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId);
+                CusTree.add(customer);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return CusTree;
     }
+    
 
 }
