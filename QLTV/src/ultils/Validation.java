@@ -99,7 +99,7 @@ public class Validation implements IValidation {
         }
     }
 
-        public String getValidatedInput(String prompt, String errorMessage, String regex) {
+    public String getValidatedInput(String prompt, String errorMessage, String regex) {
         String input;
         while (true) {
             System.out.print(prompt);
@@ -110,6 +110,18 @@ public class Validation implements IValidation {
                 System.err.println(errorMessage);
             }
         }
+    }
+    
+    public String getDate(String msg) {
+        String Date;
+        do {
+            Date = getValidatedInput(msg, "Wrong format, pls try again!", BIRTH_DATE_REGEX);
+            if (!isValidDate(Date)) {
+                System.err.println("Invalid birth date format. Please try again.");
+
+            }
+        } while (Date == null);
+        return Date;
     }
 
     public boolean isValidDate(String dateStr) {
@@ -137,7 +149,6 @@ public class Validation implements IValidation {
         }
         return false;
     }
-    
 
     private int calculateAge(String birthDateStr) {
         try {
@@ -170,6 +181,7 @@ public class Validation implements IValidation {
         } while (birthDate == null);
         return birthDate;
     }
+    
 
     public String getId(String msg, String ID_REGEX) {
         String id;
@@ -189,13 +201,15 @@ public class Validation implements IValidation {
     }
 
     public String getName(String msg) {
-        String name = getValidatedInput( msg , "Wrong form name, pls enter again!", NAME_REGEX);
+        String name = getValidatedInput(msg, "Wrong form name, pls enter again!", NAME_REGEX);
         return name;
     }
+
     public String getType(String msg, String REGEX) {
-        String type = getValidatedInput("Enter " + msg , "Wrong form type, pls enter again!", REGEX);
+        String type = getValidatedInput("Enter " + msg, "Wrong form type, pls enter again!", REGEX);
         return type;
     }
+
     public String getPhone(String msg) {
         String phone = getValidatedInput("Enter " + msg + " phone number (0xxxxxxxxx): ", "Invalid phone number. Please try again.", PHONE_REGEX);
         return phone;
