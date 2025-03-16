@@ -30,7 +30,7 @@ public class AdminDAO implements IAdminDAO {
                 String ADgender = rs.getString("ADgender");
                 String ADaddress = rs.getString("ADaddress");
                 int AccountId = rs.getInt("AccountId");
-                Admin admin = new Admin(ADid, ADbirthDate, ADgender, ADaddress, AccountId);
+                //Admin admin = new Admin(ADid, ADbirthDate, ADgender, ADaddress, AccountId);
                 adminList.add(admin);
             }
         }

@@ -84,6 +84,12 @@ public abstract class Customer extends Person {
     public void setAddress(String address) {
         this.address = address;
     }
+    public String getAccountId() {
+        return accountId;
+    }
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
 
     @Override
     public String toString() {
