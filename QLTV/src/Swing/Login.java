@@ -23,6 +23,8 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocation(750, 350);
         setResizable(false);
+        setTitle("Đăng Nhập Vào Hệ Thống");
+        
     }
 
     /**
@@ -51,6 +53,7 @@ public class Login extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
 
+        LoginBut.setBackground(new java.awt.Color(153, 153, 153));
         LoginBut.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         LoginBut.setLabel("Login");
         LoginBut.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -64,6 +67,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        JchoiceRole.setBackground(new java.awt.Color(153, 153, 153));
         JchoiceRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee", "Customer", " " }));
         JchoiceRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +139,7 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jTextFieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
+                .addGap(0, 13, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
