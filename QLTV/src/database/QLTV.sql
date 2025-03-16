@@ -57,7 +57,7 @@ CREATE TABLE Customer (
 -- Bảng CustomerBuy (kế thừa Customer)
 CREATE TABLE CustomerBuy (
     Cid VARCHAR(50) PRIMARY KEY,
-    totalPurchase FLOAT DEFAULT 0,--dựa trên mua sách 
+    totalPurchase FLOAT DEFAULT 0,--dựa trên mua sách    <500.000: member; < 1.000.000:vip ; > 1.000.000 : platinum
     membershipLevel NVARCHAR(50),
 	FOREIGN KEY (Cid) REFERENCES Customer(Cid) ON DELETE CASCADE
 );
@@ -283,13 +283,13 @@ INSERT INTO CustomerBorrow (cardId, Cid, typeCard, cardExpiry, registrationDate,
 ('CB005', 'C005', 'Bac', '2024-04-15', '2024-03-15', 100000, 15);
 
 INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES
-('C001', 120000, 'Silver'),
-('C002', 250000, 'Gold'),
-('C003', 50000, 'Bronze'),
-('C004', 300000, 'Platinum'),
-('C005', 150000, 'Silver');
+('C001', 120000, 'Member'),
+('C002', 600000, 'Vip'),
+('C003', 50000, 'Member'),
+('C004', 3000000, 'Platinum'),
+('C005', 150000, 'Member');
 
 select * from Book
-delete from Customer
+delete from CustomerBuy
 
-select * from Customer
+select * from CustomerBuy
