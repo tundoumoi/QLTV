@@ -29,71 +29,19 @@ public class Customer extends Person {
         this.totalPayment = totalPayment;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
     public String getAccountId() {
         return accountId;
     }
+
     public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 
+
+
     @Override
     public String toString() {
-        return "Customer{" + "totalPayment=" + totalPayment + ", accountId=" + accountId + '}';
+        return super.toString() +  "totalPayment=" + totalPayment + ", accountId=" + accountId + '}';
     }
 
 }

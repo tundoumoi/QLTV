@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import DAO.CustomerDAO;
 import DAO.DatabaseConnection;
 import Model.Customer;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 /**
@@ -47,8 +48,9 @@ public class Test {
 //
 //        }
 
-        customerDAO.delete("C001");
-        TreeSet<Customer> cus = customerDAO.getAll();
+        //customerDAO.delete("C001");
+        ArrayList<Customer> cus = new ArrayList<>();
+               cus = customerDAO.getAll();
         for (Customer cu : cus) {
             System.out.println(cu);
         }

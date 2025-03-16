@@ -5,13 +5,13 @@
 package DAO;
 
 import Model.Customer;
-import java.util.TreeSet;
+import java.util.ArrayList;
 
 /**
  *
  * @author NHAT NAM
  */
-public interface ICustomerDAO extends GenericDAO<Customer, TreeSet<Customer>>{
+public interface ICustomerDAO extends GenericDAO<Customer, ArrayList<Customer>>{
 
     @Override
     public void delete(String id);
@@ -26,6 +26,6 @@ public interface ICustomerDAO extends GenericDAO<Customer, TreeSet<Customer>>{
     public Customer getById(String id);
 
     @Override
-    public TreeSet<Customer> getAll();
+    public ArrayList<Customer> getAll();
     
 }

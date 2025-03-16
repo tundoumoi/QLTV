@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 import Model.Customer;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class CustomerDAO implements ICustomerDAO {
 
@@ -154,9 +155,9 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     @Override
-    public TreeSet<Customer> getAll() {
+    public ArrayList<Customer> getAll() {
         String sql = "SELECT * FROM CUSTOMER";
-        TreeSet<Customer> CusTree = new TreeSet<>();
+        ArrayList<Customer> CusTree = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 String Cid = rs.getString("Cid");

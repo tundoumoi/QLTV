@@ -47,6 +47,14 @@ public abstract class Person {
         this.name = name;
     }
 
+    public String getSSN() {
+        return SSN;
+    }
+
+    public void setSSN(String SSN) {
+        this.SSN = SSN;
+    }
+
     public LocalDate getBirthDate() {
         return birthDate;
     }
@@ -89,13 +97,8 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return " VALUES (" +
-               "'" + id + "', " +
-               "'" + name + "', " +
-               "'" + birthDate + "', " +
-               "'" + gender + "', " +
-               "'" + phoneNumber + "', " +
-               "'" + email + "', " +
-               "'" + address + "');";
+        return "Person{" + "id=" + id + ", name=" + name + ", SSN=" + SSN + ", birthDate=" + birthDate + ", gender=" + gender + ", phoneNumber=" + phoneNumber + ", email=" + email + ", address=" + address + '}';
     }
+
+
 }
