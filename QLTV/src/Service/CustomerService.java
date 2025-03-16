@@ -5,9 +5,14 @@ import Model.Customer;
 import Model.CustomerBorrow;
 import Model.CustomerBuy;
 import View.view;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import ultils.CustomerValidation;
+import ultils.Validation;
 
 public class CustomerService implements Service<Customer> {
-
+    CustomerValidation cusVal = new CustomerValidation();
+    Validation val = new Validation();
     CustomerDAO cusDao = new CustomerDAO();
     View.view view = new view();
 
@@ -50,7 +55,20 @@ public class CustomerService implements Service<Customer> {
 
     @Override
     public Customer insert() {
-        String Cid =
+          DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-dd-MM");
+        String Cid = cusVal.getCustomerID();
+        String Name = val.getName("enter customer name: ");
+        String SSN = val.getID_Card("Enter customer SSN: ");
+        String Dob = val.getDate("Enter Birthday(yyyy-MM-dd): ");
+        LocalDate Birthday = LocalDate.parse(Dob,DATE_FORMAT );
+        String Gender = val.getGender();
+        String PhoneNum = val.getPhone("Enter phone number(10 number): ");
+        String mail = val.getEmail();
+        String Address = val.getValue("Enter Address: ", "NGU");
+        double Total = 0 ;
+        int Account = val.getInt("Enter account Number: ", 1, Integer.MAX_VALUE);
+        Customer cus = new Customer(Cid, Name, SSN, Birthday, Gender, PhoneNum, mail, Address, Total, Account);
+        return cus;
        }
 
 }

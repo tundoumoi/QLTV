@@ -12,10 +12,10 @@ import java.time.LocalDate;
  */
 public class Customer extends Person {
     protected double totalPayment;
-    protected String accountId;
+    protected int accountId;
 
 
-    public Customer(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId) {
+    public Customer(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, int accountId) {
         super(id, name,SSN, birthDate, gender, phoneNumber, email, address);
         this.totalPayment = totalPayment;
         this.accountId = accountId;
@@ -29,13 +29,15 @@ public class Customer extends Person {
         this.totalPayment = totalPayment;
     }
 
-    public String getAccountId() {
+    public int getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(String accountId) {
+    public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
+
+
 
 
 

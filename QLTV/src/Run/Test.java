@@ -60,8 +60,8 @@ public class Test {
         for (Customer cu : cus) {
             System.out.println(cu);
         }
-//
-//        System.out.println("cus:" + customerService.findById("C002"));
+
+        System.out.println("cus:" + customerService.findById("C002"));
         cusBorrowList = customerDAO.getAllCustomerBorrow();
         for (CustomerBorrow customer : cusBorrowList) {
             Customer cusOrigin = customerDAO.getById(customer.getcId());

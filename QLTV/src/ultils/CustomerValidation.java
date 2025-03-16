@@ -8,6 +8,15 @@ package ultils;
  *
  * @author NHAT NAM
  */
-public class CustomerValidation implements ICustomerValidation{
-    
+public class CustomerValidation implements ICustomerValidation {
+
+    Validation val = new Validation();
+
+    public String getCardId() {
+        return val.getId("Enter Card ID(CB-XXX): ", CARD_ID_REGEX);
+
+    }
+    public String getCustomerID(){
+        return val.getId("Enter Customer ID (C-XXX): ", CUSTOMER_ID_REGEX);
+    }
 }
