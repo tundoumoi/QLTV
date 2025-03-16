@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import DAO.CustomerDAO;
 import DAO.DatabaseConnection;
 import Model.Customer;
+import Model.CustomerBorrow;
+import Model.CustomerBuy;
 import Service.CustomerService;
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -29,6 +31,8 @@ public class Test {
         CustomerDAO customerDAO = new CustomerDAO();
         CustomerService customerService = new CustomerService();
 
+        ArrayList<CustomerBorrow> cusBorrowList = new ArrayList<>();
+        ArrayList<CustomerBuy> cusBuyList = new ArrayList<>();
 //        // TODO code application logic here
 //        String query = "Select * from Admin";
 //        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
@@ -52,13 +56,22 @@ public class Test {
 
         //customerDAO.delete("C001");
         ArrayList<Customer> cus = new ArrayList<>();
-               cus = customerDAO.getCusList();
+        cus = customerDAO.getCusList();
         for (Customer cu : cus) {
             System.out.println(cu);
         }
-        
-        System.out.println("cus:" + customerService.findById("C002"));
+//
+//        System.out.println("cus:" + customerService.findById("C002"));
+        cusBorrowList = customerDAO.getAllCustomerBorrow();
+        for (CustomerBorrow customer : cusBorrowList) {
+            Customer cusOrigin = customerDAO.getById(customer.getcId());
+            System.out.println("cus borrow: " + customer + ", " + cusOrigin.getName());
 
+        }
+        cusBuyList = customerDAO.getAllCustomerBuy();
+        for (CustomerBuy customer : cusBuyList) {
+            System.out.println("cus buy: " + customer);
+
+        }
     }
-    
 }

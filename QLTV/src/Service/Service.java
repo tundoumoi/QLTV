@@ -12,7 +12,7 @@ public interface Service<T> {
 
     T findById(String id);
 
-    void insert(T entity);
+    T insert();
 
     void delete(String id);
     

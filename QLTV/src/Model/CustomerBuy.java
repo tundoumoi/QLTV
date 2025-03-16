@@ -16,7 +16,7 @@ public class CustomerBuy {
     private double totalPurchase;
     // Constructor, getters, setters, toString
 
-    public CustomerBuy(String Cid, String membershipLevel, double totalPurchase) {
+    public CustomerBuy(String Cid, double totalPurchase, String membershipLevel) {
         this.Cid = Cid;
         this.membershipLevel = membershipLevel;
         this.totalPurchase = totalPurchase;

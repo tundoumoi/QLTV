@@ -208,7 +208,7 @@ public class CustomerDAO implements ICustomerDAO {
                 String registrationDate = rs.getString("registrationDate");
                 double cardValue = rs.getDouble("cardValue");
                 int borrowLimit = rs.getInt("borrowLimit");
-                CustomerBorrow cusBorrow = new CustomerBorrow(cardId, Cid, typeCard, LocalDate.parse(Cid), LocalDate.parse(Cid), cardValue, borrowLimit);
+                CustomerBorrow cusBorrow = new CustomerBorrow(cardId, Cid, typeCard, LocalDate.parse(cardExpiry), LocalDate.parse(registrationDate), cardValue, borrowLimit);
                 cusBorrowList.add(cusBorrow);
 
             }
@@ -220,13 +220,13 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     public ArrayList<CustomerBuy> getAllCustomerBuy() {
-        String sql = "SELECT * FROM Customerborrow";
+        String sql = "SELECT * FROM CustomerBuy";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 String Cid = rs.getString("Cid");
                 double totalPurchase = rs.getDouble("totalPurchase");
                 String membershipLevel = rs.getString("membershipLevel");
-                CustomerBuy cusBuy = new CustomerBuy(Cid, membershipLevel, totalPurchase);
+                CustomerBuy cusBuy = new CustomerBuy(Cid, totalPurchase, membershipLevel);
                 cusBuyList.add(cusBuy);
 
             }
