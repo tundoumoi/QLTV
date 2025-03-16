@@ -159,14 +159,14 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B103', 'Beneath the Ruins', 'Edward Harris', 'Vintage Press', '2009-04-10', 18.75, 5, 'Historical Fiction', 'English'),
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
-('B104', 'The Secret Diary', 'Emma Clarkson', 'Penguin Books', '2018-11-30', 9.99, 12, 'Romance', 'English'),
+('B104', 'The Secret Diary', 'Emma Clarkson', 'Penguin Books', '2018-11-30', 9.99, 12, 'Romance', 'English')
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
-('B105', 'The Forsaken Kingdom', 'William Everett', 'Orbit Publishing', '2020-07-12', 22.00, 7, 'Fantasy', 'English'),
+('B105', 'The Forsaken Kingdom', 'William Everett', 'Orbit Publishing', '2020-07-12', 22.00, 7, 'Fantasy', 'English')
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
-('B106', 'Silent Footsteps', 'Julia Bennett', 'Simon & Schuster', '2014-03-25', 14.50, 6, 'Mystery', 'English'),
+('B106', 'Silent Footsteps', 'Julia Bennett', 'Simon & Schuster', '2014-03-25', 14.50, 6, 'Mystery', 'English')
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B107', 'The Iron Crown', 'Marcus Holt', 'Tor Books', '2017-08-19', 20.75, 9, 'Fantasy', 'English'),
-('B108', 'Forgotten Whispers', 'Charlotte Evans', 'Dark Horse', '2012-12-05', 13.40, 11, 'Horror', 'English'),
+('B108', 'Forgotten Whispers', 'Charlotte Evans', 'Dark Horse', '2012-12-05', 13.40, 11, 'Horror', 'English')
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B109', 'Tides of Time', 'Hannah Richardson', 'Del Rey', '2019-05-14', 16.99, 4, 'Science Fiction', 'English'),
 ('B110', 'The Hidden Cove', 'Benjamin Scott', 'Macmillan', '2011-02-18', 12.20, 15, 'Adventure', 'English'),
@@ -267,4 +267,16 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B203', 'Tieng than khoc ao anh', 'Vincent Ellis', 'Shodensha', '2016-05-28', 1700, 6, 'Kinh di', 'Tieng Nhat'),
 ('B204', 'Ngon lua ben trong', 'Amelia Hudson', 'Futabasha', '2020-04-21', 2100, 5, 'Phieu luu', 'Tieng Nhat'),
 
+
+INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId) VALUES
+('C001', 'Nguyen Van An', '123456789', '1995-05-20', 'Nam', '0905123456', 'nguyenvana@example.com', 'Ha Noi', 500000, 1),
+('C002', 'Tran Thi Bình', '987654321', '1998-09-15', 'Nu', '0912987654', 'tranthib@example.com', 'TP Ho Chi Minh', 200000, 2),
+('C003', 'Le Hoang Cường', '567891234', '2000-12-10', 'Nam', '0923567891', 'lehoangc@example.com', 'Da Nang', 750000, 3),
+('C004', 'Pham Van Đạt', '876543219', '1997-07-25', 'Nam', '0934876543', 'phamvand@example.com', 'Can Tho', 1000000, 1),
+('C005', 'Bui Thi Yến', '456123789', '1999-03-05', 'Nu', '0945123789', 'buithie@example.com', 'Hai Phong', 450000, 1);
+
+
 select * from Book
+delete from Customer
+
+select * from Customer
