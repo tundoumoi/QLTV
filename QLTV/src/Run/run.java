@@ -35,16 +35,16 @@ public class run {
 
         // Test querying admin data
  
-        AdminDAO adminDAO = new AdminDAO();
-        HashMap<String , String > ADacc = new HashMap<>();
-        ADacc = adminDAO.loadAdminAcc();
-        for (Map.Entry<String, String> entry : ADacc.entrySet()) {
-            Object key = entry.getKey();
-            Object val = entry.getValue();
-            if(key.equals("hoangluu217")){
-            System.out.println(val);
-            }
-        }
+//        AdminDAO adminDAO = new AdminDAO();
+//        HashMap<String , String > ADacc = new HashMap<>();
+//        ADacc = adminDAO.loadAdminAcc();
+//        for (Map.Entry<String, String> entry : ADacc.entrySet()) {
+//            Object key = entry.getKey();
+//            Object val = entry.getValue();
+//            if(key.equals("hoangluu217")){
+//            System.out.println(val);
+//            }
+//        }
         // Example of inserting a new admin
 //        try {
 //            AdminDAO adminDAO = new AdminDAO();

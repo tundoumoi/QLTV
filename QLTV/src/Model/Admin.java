@@ -19,12 +19,11 @@ public class Admin  {
     private String ADphoneNumber;
     private String ADEmail;
     private String ADaddress;
-    private int AccountId;
 
     public Admin() {
     }
 
-    public Admin(String ADid, String Aname, String Assn, LocalDate ADbirthDate, String ADgender, String ADphoneNumber, String ADEmail, String ADaddress, int AccountId) {
+    public Admin(String ADid, String Aname, String Assn, LocalDate ADbirthDate, String ADgender, String ADphoneNumber, String ADEmail, String ADaddress) {
         this.ADid = ADid;
         this.Aname = Aname;
         this.Assn = Assn;
@@ -33,7 +32,6 @@ public class Admin  {
         this.ADphoneNumber = ADphoneNumber;
         this.ADEmail = ADEmail;
         this.ADaddress = ADaddress;
-        this.AccountId = AccountId;
     }
 
     public String getADid() {
@@ -100,17 +98,11 @@ public class Admin  {
         this.ADaddress = ADaddress;
     }
 
-    public int getAccountId() {
-        return AccountId;
-    }
 
-    public void setAccountId(int AccountId) {
-        this.AccountId = AccountId;
-    }
 
     @Override
     public String toString() {
-        return "Admin{" + "ADid=" + ADid + ", Aname=" + Aname + ", Assn=" + Assn + ", ADbirthDate=" + ADbirthDate + ", ADgender=" + ADgender + ", ADphoneNumber=" + ADphoneNumber + ", ADEmail=" + ADEmail + ", ADaddress=" + ADaddress + ", AccountId=" + AccountId + '}';
+        return "Admin{" + "ADid=" + ADid + ", Aname=" + Aname + ", Assn=" + Assn + ", ADbirthDate=" + ADbirthDate + ", ADgender=" + ADgender + ", ADphoneNumber=" + ADphoneNumber + ", ADEmail=" + ADEmail + ", ADaddress=" + ADaddress + ", AccountId=" +  '}';
     }
 
     

@@ -11,11 +11,14 @@ import java.sql.SQLException;
 
 import DAO.CustomerDAO;
 import DAO.DatabaseConnection;
+import Model.Admin;
 import Model.Customer;
 import Model.CustomerBorrow;
 import Model.CustomerBuy;
-import Service.CustomerService;
+import Service.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeSet;
 
 /**
@@ -29,8 +32,10 @@ public class Test {
      */
     public static void main(String[] args) {
         CustomerDAO customerDAO = new CustomerDAO();
+        AdminService addSer = new AdminService();
         CustomerService customerService = new CustomerService();
-
+        HashMap<Integer, Admin> AdminMap = new HashMap<Integer, Admin>();
+        AdminService adSer = new AdminService();
         ArrayList<CustomerBorrow> cusBorrowList = new ArrayList<>();
         ArrayList<CustomerBuy> cusBuyList = new ArrayList<>();
 //        // TODO code application logic here
@@ -53,25 +58,30 @@ public class Test {
 //            System.out.println(e.getMessage());
 //
 //        }
-
-        //customerDAO.delete("C001");
-        ArrayList<Customer> cus = new ArrayList<>();
-        cus = customerDAO.getCusList();
-        for (Customer cu : cus) {
-            System.out.println(cu);
+        AdminMap = adSer.AdMap();
+        for (Map.Entry<Integer, Admin> entry : AdminMap.entrySet()) {
+            Object key = entry.getKey();
+            Object val = entry.getValue();
+            System.out.println(entry.getValue());
         }
-
-        System.out.println("cus:" + customerService.findById("C002"));
-        cusBorrowList = customerDAO.getAllCustomerBorrow();
-        for (CustomerBorrow customer : cusBorrowList) {
-            Customer cusOrigin = customerDAO.getById(customer.getcId());
-            System.out.println("cus borrow: " + customer + ", " + cusOrigin.getName());
-
-        }
-        cusBuyList = customerDAO.getAllCustomerBuy();
-        for (CustomerBuy customer : cusBuyList) {
-            System.out.println("cus buy: " + customer);
-
-        }
+//        //customerDAO.delete("C001");
+//        ArrayList<Customer> cus = new ArrayList<>();
+//        cus = customerDAO.getCusList();
+//        for (Customer cu : cus) {
+//            System.out.println(cu);
+//        }
+//
+//        System.out.println("cus:" + customerService.findById("C002"));
+//        cusBorrowList = customerDAO.getAllCustomerBorrow();
+//        for (CustomerBorrow customer : cusBorrowList) {
+//            Customer cusOrigin = customerDAO.getById(customer.getcId());
+//            System.out.println("cus borrow: " + customer + ", " + cusOrigin.getName());
+//
+//        }
+//        cusBuyList = customerDAO.getAllCustomerBuy();
+//        for (CustomerBuy customer : cusBuyList) {
+//            System.out.println("cus buy: " + customer);
+//
+//        }
     }
 }
