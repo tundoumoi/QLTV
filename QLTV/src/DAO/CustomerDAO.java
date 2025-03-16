@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import Model.Customer;
 import Model.CustomerBorrow;
+import Model.CustomerBuy;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class CustomerDAO implements ICustomerDAO {
 
     private ArrayList<Customer> CusList = new ArrayList<>();
     private ArrayList<CustomerBorrow> cusBorrowList = new ArrayList<>();
+    private ArrayList<CustomerBuy> cusBuyList = new ArrayList<>();
 
     public CustomerDAO() {
         CusList = getAll();
@@ -194,7 +196,7 @@ public class CustomerDAO implements ICustomerDAO {
         }
         return CusList;
     }
-    
+
     public ArrayList<CustomerBorrow> getAllCustomerBorrow() {
         String sql = "SELECT * FROM Customerborrow";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
@@ -208,13 +210,30 @@ public class CustomerDAO implements ICustomerDAO {
                 int borrowLimit = rs.getInt("borrowLimit");
                 CustomerBorrow cusBorrow = new CustomerBorrow(cardId, Cid, typeCard, LocalDate.parse(Cid), LocalDate.parse(Cid), cardValue, borrowLimit);
                 cusBorrowList.add(cusBorrow);
-                
+
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return cusBorrowList;
-    } 
+    }
 
+    public ArrayList<CustomerBuy> getAllCustomerBuy() {
+        String sql = "SELECT * FROM Customerborrow";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                String Cid = rs.getString("Cid");
+                double totalPurchase = rs.getDouble("totalPurchase");
+                String membershipLevel = rs.getString("membershipLevel");
+                CustomerBuy cusBuy = new CustomerBuy(Cid, membershipLevel, totalPurchase);
+                cusBuyList.add(cusBuy);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cusBuyList;
+    }
 }

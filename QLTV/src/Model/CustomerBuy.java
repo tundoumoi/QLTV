@@ -10,14 +10,24 @@ import java.time.LocalDate;
  *
  * @author Admin
  */
-public class CustomerBuy extends Customer {
+public class CustomerBuy {
+    private String Cid;
     private String membershipLevel;
-
+    private double totalPurchase;
     // Constructor, getters, setters, toString
 
-    public CustomerBuy(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, String accountId, String membershipLevel) {
-        super(id, name,SSN, birthDate, gender, phoneNumber, email, address, totalPayment, accountId);
+    public CustomerBuy(String Cid, String membershipLevel, double totalPurchase) {
+        this.Cid = Cid;
         this.membershipLevel = membershipLevel;
+        this.totalPurchase = totalPurchase;
+    }
+
+    public String getCid() {
+        return Cid;
+    }
+
+    public void setCid(String Cid) {
+        this.Cid = Cid;
     }
 
     public String getMembershipLevel() {
@@ -28,66 +38,20 @@ public class CustomerBuy extends Customer {
         this.membershipLevel = membershipLevel;
     }
 
-    public String getId() {
-        return id;
+    public double getTotalPurchase() {
+        return totalPurchase;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setTotalPurchase(double totalPurchase) {
+        this.totalPurchase = totalPurchase;
     }
 
     @Override
     public String toString() {
-        return "CustomerBuy{" + ", membershipLevel=" + membershipLevel + ", accountId=" + accountId + '}';
+        return "CustomerBuy{" + "Cid=" + Cid + ", membershipLevel=" + membershipLevel + ", totalPurchase=" + totalPurchase + '}';
     }
+
     
+
 }
 
