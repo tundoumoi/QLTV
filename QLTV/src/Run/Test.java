@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import DAO.CustomerDAO;
 import DAO.DatabaseConnection;
 import Model.Customer;
+import Service.CustomerService;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -26,6 +27,7 @@ public class Test {
      */
     public static void main(String[] args) {
         CustomerDAO customerDAO = new CustomerDAO();
+        CustomerService customerService = new CustomerService();
 
 //        // TODO code application logic here
 //        String query = "Select * from Admin";
@@ -50,11 +52,12 @@ public class Test {
 
         //customerDAO.delete("C001");
         ArrayList<Customer> cus = new ArrayList<>();
-               cus = customerDAO.getAll();
+               cus = customerDAO.getCusList();
         for (Customer cu : cus) {
             System.out.println(cu);
         }
         
+        System.out.println("cus:" + customerService.findById("C002"));
 
     }
 }

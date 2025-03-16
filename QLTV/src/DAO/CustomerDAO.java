@@ -4,13 +4,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.TreeSet;
-
 import Model.Customer;
+import Model.CustomerBorrow;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CustomerDAO implements ICustomerDAO {
+
+    private ArrayList<Customer> CusList = new ArrayList<>();
+    private ArrayList<CustomerBorrow> cusBorrowList = new ArrayList<>();
+
+    public CustomerDAO() {
+        CusList = getAll();
+    }
+
+    public ArrayList<Customer> getCusList() {
+        return CusList;
+    }
 
     @Override
     public void delete(String id) {
@@ -151,13 +162,17 @@ public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public Customer getById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (Customer customer : CusList) {
+            if (customer.getId().equalsIgnoreCase(id)) {
+                return customer;
+            }
+        }
+        return null;
     }
 
     @Override
     public ArrayList<Customer> getAll() {
         String sql = "SELECT * FROM CUSTOMER";
-        ArrayList<Customer> CusTree = new ArrayList<>();
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 String Cid = rs.getString("Cid");
@@ -171,14 +186,35 @@ public class CustomerDAO implements ICustomerDAO {
                 double CtotalPayment = rs.getDouble("CtotalPayment");
                 String AccountId = rs.getString("AccountId");
                 Customer customer = new Customer(Cid, Cname, Cssn, LocalDate.parse(CbirthDate), Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId);
-                CusTree.add(customer);
+                CusList.add(customer);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return CusTree;
+        return CusList;
     }
     
+    public ArrayList<CustomerBorrow> getAllCustomerBorrow() {
+        String sql = "SELECT * FROM Customerborrow";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                String cardId = rs.getString("cardId");
+                String Cid = rs.getString("Cid");
+                String typeCard = rs.getString("typeCard");
+                String cardExpiry = rs.getString("cardExpiry");
+                String registrationDate = rs.getString("registrationDate");
+                double cardValue = rs.getDouble("cardValue");
+                int borrowLimit = rs.getInt("borrowLimit");
+                CustomerBorrow cusBorrow = new CustomerBorrow(cardId, Cid, typeCard, LocalDate.parse(Cid), LocalDate.parse(Cid), cardValue, borrowLimit);
+                cusBorrowList.add(cusBorrow);
+                
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cusBorrowList;
+    } 
 
 }
