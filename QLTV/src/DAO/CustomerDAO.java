@@ -47,7 +47,7 @@ public class CustomerDAO implements ICustomerDAO {
             pstmt.setString(5, entity.getPhoneNumber());
             pstmt.setString(6, entity.getEmail());
             pstmt.setDouble(7, entity.getTotalPayment());
-            pstmt.setString(8, entity.getAccountId());
+            pstmt.setInt(8, entity.getAccountId());
             pstmt.setString(9, entity.getId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -155,7 +155,7 @@ public class CustomerDAO implements ICustomerDAO {
             pstmt.setString(6, entity.getPhoneNumber());
             pstmt.setString(7, entity.getEmail());
             pstmt.setDouble(8, entity.getTotalPayment());
-            pstmt.setString(9, entity.getAccountId());
+            pstmt.setInt(9, entity.getAccountId());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -202,7 +202,7 @@ public class CustomerDAO implements ICustomerDAO {
                 String Cemail = rs.getString("Cemail");
                 String Caddress = rs.getString("Caddress");
                 double CtotalPayment = rs.getDouble("CtotalPayment");
-                String AccountId = rs.getString("AccountId");
+                int AccountId = rs.getInt("AccountId");
                 Customer customer = new Customer(Cid, Cname, Cssn, LocalDate.parse(CbirthDate), Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId);
                 CusList.add(customer);
             }
