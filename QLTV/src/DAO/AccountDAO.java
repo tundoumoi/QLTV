@@ -54,4 +54,13 @@ public class AccountDAO {
         }
         return countNumber;
     }
+
+    public HashMap<Integer, Account> getAdminAcc() {
+        return adminAcc;
+    }
+
+    public void setAdminAcc(HashMap<Integer, Account> adminAcc) {
+        this.adminAcc = adminAcc;
+    }
+    
 }

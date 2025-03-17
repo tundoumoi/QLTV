@@ -14,11 +14,11 @@ public class Employee extends Person {
     private String position;
     private double salary;
     private LocalDate startDate;
-    private String accountId;
+    private int accountId;
 
     // Constructor, getters, setters, toString
 
-    public Employee(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, String position, double salary, LocalDate startDate, String accountId) {
+    public Employee(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, String position, double salary, LocalDate startDate, int accountId) {
         super(id, name,SSN, birthDate, gender, phoneNumber, email, address);
         this.position = position;
         this.salary = salary;
@@ -30,11 +30,11 @@ public class Employee extends Person {
         return position;
     }
 
-    public void setAccountId(String accountId) {
+    public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
 
-    public String getAccountId() {
+    public int getAccountId() {
         return accountId;
     }
 

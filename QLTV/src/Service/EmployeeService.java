@@ -112,7 +112,7 @@ public void updateEmployee(String id) {
                 employeeDAO.updateStartDate(id, startDate);
                 break;
             case 11:
-                String accountId = sc.nextLine();
+                int accountId = sc.nextInt();
                 employeeDAO.updateAccountId(id, accountId);
                 break;
             case 0:

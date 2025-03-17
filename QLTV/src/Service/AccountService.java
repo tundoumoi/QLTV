@@ -9,5 +9,9 @@ package Service;
  * @author dangt
  */
 public class AccountService {
-    
+    //tạo hash map lưu acc 
+    // 1 acc + int để lưu id
+    // hàm gọi lại hàm đếm để cộng sst id
+    // insert acc truyền acc 
+    //set pass
 }
