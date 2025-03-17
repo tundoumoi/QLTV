@@ -12,43 +12,51 @@ import java.time.LocalDate;
  */
 public class Bill {
 
-    private int invoiceCode;
-    private int bookCode;
-    private int employeeCode;
+    private int BillCode;
+    private String bookID;
+    private String employeeID;
     private LocalDate time;
     private float unitPrice;
 
-    public Bill(int invoiceCode, int bookCode, int employeeCode, LocalDate time, float unitPrice) {
-        this.invoiceCode = invoiceCode;
-        this.bookCode = bookCode;
-        this.employeeCode = employeeCode;
+    public Bill(int BillCode, String bookID, String employeeID, LocalDate time, float unitPrice) {
+        this.BillCode = BillCode;
+        this.bookID = bookID;
+        this.employeeID = employeeID;
         this.time = time;
         this.unitPrice = unitPrice;
     }
 
-    public int getInvoiceCode() {
-        return invoiceCode;
+
+
+    public int getBillCode() {
+        return BillCode;
     }
 
-    public void setInvoiceCode(int invoiceCode) {
-        this.invoiceCode = invoiceCode;
+    public void setBillCode(int BillCode) {
+        this.BillCode = BillCode;
     }
 
-    public int getBookCode() {
-        return bookCode;
+    public String getBookID() {
+        return bookID;
     }
 
-    public void setBookCode(int bookCode) {
-        this.bookCode = bookCode;
+    public void setBookID(String bookID) {
+        this.bookID = bookID;
     }
 
-    public int getEmployeeCode() {
-        return employeeCode;
+    public String getEmployeeID() {
+        return employeeID;
     }
 
-    public void setEmployeeCode(int employeeCode) {
-        this.employeeCode = employeeCode;
+    public void setEmployeeID(String employeeID) {
+        this.employeeID = employeeID;
     }
+
+
+
+
+
+   
 
     public LocalDate getTime() {
         return time;
@@ -68,7 +76,10 @@ public class Bill {
 
     @Override
     public String toString() {
-        return "Bill{" + "invoiceCode=" + invoiceCode + ", bookCode=" + bookCode + ", employeeCode=" + employeeCode + ", time=" + time + ", unitPrice=" + unitPrice + '}';
+        return "Bill{" + "BillCode=" + BillCode + ", bookID=" + bookID + ", employeeID=" + employeeID + ", time=" + time + ", unitPrice=" + unitPrice + '}';
     }
+
+
+ 
 
 }
