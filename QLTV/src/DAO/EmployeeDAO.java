@@ -44,7 +44,7 @@ public class EmployeeDAO implements IEmployeeDAO {
                 String accountId = rs.getString("AccountId");
 
                 Employee emp = new Employee(id, name, ssn, LocalDate.parse(birthDate), gender, phoneNumber, email, address, position, salary, startDate, accountId);
-                EList.add(emp); // TreeSet tự loại bỏ trùng
+                EList.add(emp); 
             }
 
         } catch (SQLException e) {
@@ -70,7 +70,7 @@ public class EmployeeDAO implements IEmployeeDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, emp.getId());
             pstmt.setString(2, emp.getName());
-            pstmt.setString(3, emp.getId());
+            pstmt.setString(3, emp.getSSN());
             pstmt.setString(4, emp.getBirthDate().toString());
             pstmt.setString(5, emp.getGender());
             pstmt.setString(6, emp.getPhoneNumber());
@@ -94,7 +94,7 @@ public void update(Employee emp) {
     try (Connection conn = DatabaseConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setString(1, emp.getName());
-        pstmt.setString(2, emp.getId());
+        pstmt.setString(2, emp.getSSN());
         pstmt.setString(3, emp.getBirthDate().toString());
         pstmt.setString(4, emp.getGender());
         pstmt.setString(5, emp.getPhoneNumber());
@@ -143,8 +143,27 @@ public void update(Employee emp) {
             emp.setName(name);
             break;
         }
+    } 
+} 
+  public void updateSSN(String id, String ssn) {
+    String sql = "UPDATE Employee SET Essn = ? WHERE Eid = ?";
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, ssn);
+        pstmt.setString(2, id);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    for (Employee emp : EList) {
+        if (emp.getId().equalsIgnoreCase(id)) {
+            emp.setSSN(ssn);
+            break;
+        }
     }
 }
+
 
 public void updateBirthDate(String id, String birthDate) {
     String sql = "UPDATE Employee SET EbirthDate = ? WHERE Eid = ?";

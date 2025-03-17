@@ -11,31 +11,16 @@ import java.time.LocalDate;
  * @author Admin
  */
 public class BookBorrow{
-    private int borrowId;
     private String cardId;
     private String bookId;
-    private String bookTitle;
-    private String Cid;
     private LocalDate borrowDate;
     private LocalDate endDate;
 
-    public BookBorrow(int borrowId, String cardId, String bookId, String bookTitle, String Cid, LocalDate borrowDate, LocalDate endDate) {
-        this.borrowId = borrowId;
+public BookBorrow(String cardId, String bookId, LocalDate borrowDate, LocalDate endDate) {
         this.cardId = cardId;
         this.bookId = bookId;
-        this.bookTitle = bookTitle;
-        this.Cid = Cid;
         this.borrowDate = borrowDate;
         this.endDate = endDate;
-    }
-
-    public String getBookTitle() {
-        return bookTitle;
-    }
-
-    // Constructor, getters, setters, toString
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
     }
 
     public String getCardId() {

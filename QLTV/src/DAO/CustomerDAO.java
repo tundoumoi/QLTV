@@ -1,17 +1,17 @@
 package DAO;
 
-import Model.Account;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import Model.Account;
 import Model.Customer;
 import Model.CustomerBorrow;
 import Model.CustomerBuy;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class CustomerDAO implements ICustomerDAO {
 
@@ -174,7 +174,8 @@ public class CustomerDAO implements ICustomerDAO {
         }
         return null;
     }
-        public CustomerBuy getCusBuyById(String id) {
+
+    public CustomerBuy getCusBuyById(String id) {
         for (CustomerBuy customer : cusBuyList) {
             if (customer.getCid().equalsIgnoreCase(id)) {
                 return customer;
@@ -182,7 +183,8 @@ public class CustomerDAO implements ICustomerDAO {
         }
         return null;
     }
-                public CustomerBorrow getCusBorrowById(String id) {
+
+    public CustomerBorrow getCusBorrowById(String id) {
         for (CustomerBorrow customer : cusBorrowList) {
             if (customer.getcId().equalsIgnoreCase(id)) {
                 return customer;
@@ -256,12 +258,12 @@ public class CustomerDAO implements ICustomerDAO {
         return cusBuyList;
     }
     // Update CusBorrow , cusBuy    
-    
+
     public void loadAcc() {
         String query = "SELECT cus.AccountId, a.Apass FROM Account a join customer cus on cus.AccountID = ad.AccountId";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)){
-            try (ResultSet rs = pstmt.executeQuery()){
-                while (rs.next()) {                    
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
                     String userName = rs.getString("UserName");
                     String Apass = rs.getString("Apass");
                     int accountId = rs.getInt("AccountId");
@@ -285,6 +287,5 @@ public class CustomerDAO implements ICustomerDAO {
     public HashMap<Integer, Account> getCustomerACC() {
         return customerACC;
     }
-    
-    
+
 }
