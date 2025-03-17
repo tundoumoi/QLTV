@@ -62,6 +62,14 @@ public class Employee extends Person {
         return name;
     }
 
+    public void setSSN(String SSN) {
+        this.SSN = SSN;
+    }
+
+    public String getSSN() {
+        return SSN;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
