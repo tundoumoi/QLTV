@@ -8,6 +8,6 @@ package ultils;
  *
  * @author dangt
  */
-public class BookValidation {
+public class BookValidation implements IBookValidation{
     
 }
