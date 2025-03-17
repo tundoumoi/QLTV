@@ -41,7 +41,7 @@ public class EmployeeDAO implements IEmployeeDAO {
                 String position = rs.getString("Eposition");
                 double salary = rs.getDouble("Esalary");
                 LocalDate startDate = LocalDate.parse(rs.getString("EstartDate"));
-                String accountId = rs.getString("AccountId");
+                int accountId = rs.getInt("AccountId");
 
                 Employee emp = new Employee(id, name, ssn, LocalDate.parse(birthDate), gender, phoneNumber, email, address, position, salary, startDate, accountId);
                 EList.add(emp); 
@@ -79,7 +79,7 @@ String sql = "INSERT INTO Employee (Eid, Ename, Essn, EbirthDate, Egender, Ephon
             pstmt.setString(9, emp.getPosition());
             pstmt.setDouble(10, emp.getSalary());
             pstmt.setString(11, emp.getStartDate().toString());
-            pstmt.setString(12, emp.getAccountId());
+            pstmt.setInt(12, emp.getAccountId());
 
             pstmt.executeUpdate();
             EList.add(emp); 
@@ -103,7 +103,7 @@ String sql = "UPDATE Employee SET Ename = ?, Essn = ?, EbirthDate = ?, Egender =
         pstmt.setString(8, emp.getPosition());
         pstmt.setDouble(9, emp.getSalary());
         pstmt.setString(10, emp.getStartDate().toString());
-        pstmt.setString(11, emp.getAccountId());
+        pstmt.setInt(11, emp.getAccountId());
         pstmt.setString(12, emp.getId());
 
         pstmt.executeUpdate();
@@ -319,11 +319,11 @@ public void updateStartDate(String id, String startDate) {
     }
 }
 
-public void updateAccountId(String id, String accountId) {
+public void updateAccountId(String id, int accountId) {
     String sql = "UPDATE Employee SET AccountId = ? WHERE Eid = ?";
     try (Connection conn = DatabaseConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setString(1, accountId);
+        pstmt.setInt(1, accountId);
         pstmt.setString(2, id);
         pstmt.executeUpdate();
     } catch (SQLException e) {
