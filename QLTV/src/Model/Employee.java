@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author Admin
- */
 public class Employee extends Person {
     private String position;
     private double salary;
@@ -68,6 +60,14 @@ public class Employee extends Person {
 
     public String getName() {
         return name;
+    }
+
+    public void setSSN(String SSN) {
+        this.SSN = SSN;
+    }
+
+    public String getSSN() {
+        return SSN;
     }
 
     public void setName(String name) {
