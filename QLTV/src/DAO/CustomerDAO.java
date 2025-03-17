@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Account;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,12 +11,14 @@ import Model.CustomerBuy;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CustomerDAO implements ICustomerDAO {
 
     private ArrayList<Customer> CusList = new ArrayList<>();
     private ArrayList<CustomerBorrow> cusBorrowList = new ArrayList<>();
     private ArrayList<CustomerBuy> cusBuyList = new ArrayList<>();
+    private HashMap<Integer, Account> customerACC = new HashMap<>();
 
     public CustomerDAO() {
         CusList = getAll();
@@ -252,5 +255,36 @@ public class CustomerDAO implements ICustomerDAO {
         }
         return cusBuyList;
     }
-    // Update CusBorrow , cusBuy
+    // Update CusBorrow , cusBuy    
+    
+    public void loadAcc() {
+        String query = "SELECT cus.AccountId, a.Apass FROM Account a join customer cus on cus.AccountID = ad.AccountId";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)){
+            try (ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()) {                    
+                    String userName = rs.getString("UserName");
+                    String Apass = rs.getString("Apass");
+                    int accountId = rs.getInt("AccountId");
+                    Account acc = new Account(userName, Apass);
+                    customerACC.put(accountId, acc);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public ArrayList<CustomerBorrow> getCusBorrowList() {
+        return cusBorrowList;
+    }
+
+    public ArrayList<CustomerBuy> getCusBuyList() {
+        return cusBuyList;
+    }
+
+    public HashMap<Integer, Account> getCustomerACC() {
+        return customerACC;
+    }
+    
+    
 }
