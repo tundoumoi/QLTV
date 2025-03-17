@@ -15,17 +15,19 @@ import javax.swing.JOptionPane;
  * @author Admin
  */
 public class Login extends javax.swing.JFrame {
+
     private AdminService AddSer = new AdminService();
+    private CustomerService CusSer = new CustomerService();
+
     /**
      * Creates new form Login
      */
-   
     public Login() {
         initComponents();
         setLocation(750, 350);
         setResizable(false);
         setTitle("Đăng Nhập Vào Hệ Thống");
-        
+
     }
 
     /**
@@ -213,8 +215,8 @@ public class Login extends javax.swing.JFrame {
 
     private void jTextFieldUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUserActionPerformed
         // TODO add your handling code here:
-        
-    
+
+
     }//GEN-LAST:event_jTextFieldUserActionPerformed
 
     private void jTextFieldUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldUserMouseClicked
@@ -233,18 +235,29 @@ public class Login extends javax.swing.JFrame {
 
     private void LoginButMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButMouseClicked
         // TODO add your handling code here:
-        
-        if(JchoiceRole.getSelectedItem().equals("Admin")){
-           String user =  jTextFieldUser.getText();
-           String pass = jPasswordField1.getText();
-           if(AddSer.CheckAccount(user, pass)){
-               JOptionPane.showMessageDialog(rootPane, "Login successfull");
-               jTextFieldUser.setText("");
-               jPasswordField1.setText("");
-               EmployeePage Empage = new EmployeePage();
-               Empage.setVisible(true);
-               setVisible(false);
-           }
+
+        if (JchoiceRole.getSelectedItem().equals("Admin")) {
+            String user = jTextFieldUser.getText();
+            String pass = jPasswordField1.getText();
+            if (AddSer.CheckAccount(user, pass)) {
+                jTextFieldUser.setText("");
+                jPasswordField1.setText("");
+                EmployeePage Empage = new EmployeePage();
+                Empage.setVisible(true);
+                setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Login fail!");
+            }
+        } else if (JchoiceRole.getSelectedItem().equals("Customer")) {
+            String user = jTextFieldUser.getText();
+            String pass = jPasswordField1.getText();
+            if (CusSer.CheckAccount(user, pass)) {
+
+                jTextFieldUser.setText("");
+                jPasswordField1.setText("");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Login fail!");
+            }
         }
     }//GEN-LAST:event_LoginButMouseClicked
 
@@ -253,23 +266,23 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1MouseClicked
 
     private void jPasswordField1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordField1MouseReleased
- 
+
 
     }//GEN-LAST:event_jPasswordField1MouseReleased
 
     private void jPasswordField1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordField1MousePressed
         // TODO add your handling code here:
-         
+
     }//GEN-LAST:event_jPasswordField1MousePressed
 
     private void ShowPassMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPassMousePressed
         // TODO add your handling code here:
-         jPasswordField1.setEchoChar((char) 0); // Hiện mật khẩu khi giữ chuột
+        jPasswordField1.setEchoChar((char) 0); // Hiện mật khẩu khi giữ chuột
     }//GEN-LAST:event_ShowPassMousePressed
 
     private void ShowPassMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPassMouseReleased
         // TODO add your handling code here:
-          jPasswordField1.setEchoChar('*'); // Ẩn mật khẩu khi thả chuột
+        jPasswordField1.setEchoChar('*'); // Ẩn mật khẩu khi thả chuột
     }//GEN-LAST:event_ShowPassMouseReleased
 
     /**
@@ -302,9 +315,9 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               
+
                 new Login().setVisible(true);
-                
+
             }
         });
     }
