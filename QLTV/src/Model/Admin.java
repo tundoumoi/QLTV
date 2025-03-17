@@ -19,11 +19,12 @@ public class Admin  {
     private String ADphoneNumber;
     private String ADEmail;
     private String ADaddress;
+    private int AccountId;
 
     public Admin() {
     }
 
-    public Admin(String ADid, String Aname, String Assn, LocalDate ADbirthDate, String ADgender, String ADphoneNumber, String ADEmail, String ADaddress) {
+    public Admin(String ADid, String Aname, String Assn, LocalDate ADbirthDate, String ADgender, String ADphoneNumber, String ADEmail, String ADaddress, int AccountId) {
         this.ADid = ADid;
         this.Aname = Aname;
         this.Assn = Assn;
@@ -32,7 +33,10 @@ public class Admin  {
         this.ADphoneNumber = ADphoneNumber;
         this.ADEmail = ADEmail;
         this.ADaddress = ADaddress;
+        this.AccountId = AccountId;
     }
+
+
 
     public String getADid() {
         return ADid;
@@ -96,6 +100,14 @@ public class Admin  {
 
     public void setADaddress(String ADaddress) {
         this.ADaddress = ADaddress;
+    }
+
+    public int getAccountId() {
+        return AccountId;
+    }
+
+    public void setAccountId(int AccountId) {
+        this.AccountId = AccountId;
     }
 
 
