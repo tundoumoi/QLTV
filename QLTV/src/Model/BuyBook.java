@@ -11,20 +11,17 @@ import java.time.LocalDate;
  * @author Admin
  */
 public class BuyBook {
+
     private String orderId;
     private String customerId;
-    private String bookTitle;
     private String bookId;
     private int quantity;
     private double totalPrice;
     private LocalDate purchaseDate;
 
-    // Constructor, getters, setters, toString
-
-    public BuyBook(String orderId, String customerId, String bookTitle, String bookId, int quantity, double totalPrice, LocalDate purchaseDate) {
+    public BuyBook(String orderId, String customerId, String bookId, int quantity, double totalPrice, LocalDate purchaseDate) {
         this.orderId = orderId;
         this.customerId = customerId;
-        this.bookTitle = bookTitle;
         this.bookId = bookId;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
@@ -45,14 +42,6 @@ public class BuyBook {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
-    }
-
-    public String getBookTitle() {
-        return bookTitle;
-    }
-
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
     }
 
     public String getBookId() {
@@ -89,10 +78,6 @@ public class BuyBook {
 
     @Override
     public String toString() {
-        return "BuyBook{" + "orderId=" + orderId + ", customerId=" + customerId + ", bookTitle=" + bookTitle + ", bookId=" + bookId + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", purchaseDate=" + purchaseDate + '}';
+        return "BuyBook{" + "orderId=" + orderId + ", customerId=" + customerId + ", bookId=" + bookId + ", quantity=" + quantity + ", totalPrice=" + totalPrice + ", purchaseDate=" + purchaseDate + '}';
     }
-
-
-    
 }
-
