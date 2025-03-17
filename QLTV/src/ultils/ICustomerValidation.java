@@ -6,7 +6,7 @@ package ultils;
 
 /**
  *
- * @author NHAT NAM
+ * @author NHAT NAM FAN BAC MEO 
  */
 public interface ICustomerValidation {
     static final String CUSTOMER_ID_REGEX = "C-\\d{3}";

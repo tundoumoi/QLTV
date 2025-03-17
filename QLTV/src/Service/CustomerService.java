@@ -19,7 +19,7 @@ public class CustomerService implements Service<Customer> {
     CustomerDAO cusDao = new CustomerDAO();
     View.view view = new view();
     private HashMap<Integer, Account> customerACC = new HashMap<>();
-
+    
     
     public Boolean CheckAccount(String userName, String Pass) {
         for (Map.Entry<Integer, Account> entry : customerACC.entrySet()) {

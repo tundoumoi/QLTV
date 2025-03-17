@@ -71,7 +71,6 @@ public class AdminDAO implements IAdminDAO {
                 String ADemail = rs.getString("ADemail");
                 String ADaddress = rs.getString("ADaddress");
                 int AccountId = rs.getInt("AccountId");
-
                 Admin admin = new Admin(ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress);
                 AdminMap.put(AccountId, admin);
             }
