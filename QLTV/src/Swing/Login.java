@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Admin
+ * @author AdminPage
  */
 public class Login extends javax.swing.JFrame {
 
@@ -257,8 +257,9 @@ public class Login extends javax.swing.JFrame {
             if (AddSer.CheckAccount(user, pass)) {
                 jTextFieldUser.setText("");
                 jPasswordField1.setText("");
-                EmployeePage Empage = new EmployeePage();
-                Empage.setVisible(true);
+                AdminPage adminpage = new AdminPage();
+                
+                adminpage.setVisible(true);
                 setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Login fail!");

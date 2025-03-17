@@ -152,7 +152,7 @@ VALUES
 ('AD002', 'Dang Thanh Tung', '987654321', '1992-07-20', 'Nam', '0912345678', 'tungdang@gmail.com', 'TP.HCM', 2),
 ('AD003', 'Luong Dang Hoang Luu', '456789123', '1988-09-10', 'Nam', '0901122334', 'luuhoang@gmail.com', 'Đà Nẵng', 3),
 ('AD004', 'Tuan dau moi', '321654987', '1995-12-01', 'Nam', '0933221144', 'tuanmoi@gmail.com', 'Cần Thơ', 4),
-('AD005', 'Manh Thang', '159753468', '1993-03-25', 'Nam', '0977885566', 'manhthang@gmail.com', 'Hải Phòng', 5);
+('AD005', 'Manh Thang', '159753468', '1993-03-25', 'Nam', '0977885566', 'manhthang@gmail.com', 'Hải Phòng', 5)
 
 
 INSERT INTO Account (AccountId, username, APass) VALUES
@@ -162,17 +162,17 @@ INSERT INTO Account (AccountId, username, APass) VALUES
 (4,'tundaumoi','tundaumoi1'),
 (5,'manhthang','manhthang1'),
 (6,'employee','employee1'),
-(7,'customer','customer1');
+(7,'customer','customer1')
 
 SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a.AccountId = ad.AccountId
-delete from account;
+--delete from account;
 select * from Account;
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
-('B101', 'The Hidden Legacy', 'Oliver Sinclair', 'Pearson Books', '2013-06-15', 12.99, 10, 'Mystery', 'English'),
+('B101', 'The Hidden Legacy', 'Oliver Sinclair', 'Pearson Books', '2013-06-15', 12.99, 10, 'Mystery', 'English')
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
-('B102', 'The Final Clue', 'Rachel Dawson', 'HarperCollins', '2016-09-22', 15.50, 8, 'Thriller', 'English'),
+('B102', 'The Final Clue', 'Rachel Dawson', 'HarperCollins', '2016-09-22', 15.50, 8, 'Thriller', 'English')
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
-('B103', 'Beneath the Ruins', 'Edward Harris', 'Vintage Press', '2009-04-10', 18.75, 5, 'Historical Fiction', 'English'),
+('B103', 'Beneath the Ruins', 'Edward Harris', 'Vintage Press', '2009-04-10', 18.75, 5, 'Historical Fiction', 'English')
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B104', 'The Secret Diary', 'Emma Clarkson', 'Penguin Books', '2018-11-30', 9.99, 12, 'Romance', 'English')
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
@@ -201,7 +201,7 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B123', 'Broken Chains', 'Samantha Price', 'Vintage Press', '2011-01-27', 14.10, 10, 'Drama', 'English'),
 ('B124', 'Into the Abyss', 'Alexander Foster', 'Dark Horse', '2018-05-23', 18.00, 5, 'Horror', 'English'),
 ('B125', 'The Silver Dagger', 'Richard Coleman', 'Penguin Books', '2005-09-18', 15.20, 6, 'Mystery', 'English'),
-('B126', 'Eternal Silence', 'Jonathan Nash', 'Simon & Schuster', '2016-03-07', 17.80, 7, 'Psychological Thriller', 'English'),
+('B126', 'Eternal Silence', 'Jonathan Nash', 'Simon & Schuster', '2016-03-07', 17.80, 7, 'Psychological Thriller', 'English')
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B127', 'The Winter’s Curse', 'Isabelle Norton', 'Orbit Publishing', '2020-12-01', 21.00, 4, 'Fantasy', 'English'),
 ('B128', 'Secrets of the Forgotten', 'Derek Walsh', 'HarperCollins', '2014-08-14', 14.50, 9, 'Mystery', 'English'),
@@ -280,7 +280,7 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B201', 'Bi mat bi lang quen', 'Derek Walsh', 'Bungei Shunju', '2015-11-09', 1550, 7, 'Bi an', 'Tieng Nhat'),
 ('B202', 'Khu rung ma thuat', 'Sophia Henderson', 'Hayakawa Shobo', '2013-03-17', 2500, 4, 'Gia tuong', 'Tieng Nhat'),
 ('B203', 'Tieng than khoc ao anh', 'Vincent Ellis', 'Shodensha', '2016-05-28', 1700, 6, 'Kinh di', 'Tieng Nhat'),
-('B204', 'Ngon lua ben trong', 'Amelia Hudson', 'Futabasha', '2020-04-21', 2100, 5, 'Phieu luu', 'Tieng Nhat'),
+('B204', 'Ngon lua ben trong', 'Amelia Hudson', 'Futabasha', '2020-04-21', 2100, 5, 'Phieu luu', 'Tieng Nhat')
 
 
 INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId) VALUES
@@ -288,21 +288,21 @@ INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemai
 ('C002', 'Tran Thi Bình', '987654321', '1998-09-15', 'Nu', '0912987654', 'tranthib@example.com', 'TP Ho Chi Minh', 200000, 2),
 ('C003', 'Le Hoang Cường', '567891234', '2000-12-10', 'Nam', '0923567891', 'lehoangc@example.com', 'Da Nang', 750000, 3),
 ('C004', 'Pham Van Đạt', '876543219', '1997-07-25', 'Nam', '0934876543', 'phamvand@example.com', 'Can Tho', 1000000, 1),
-('C005', 'Bui Thi Yến', '456123789', '1999-03-05', 'Nu', '0945123789', 'buithie@example.com', 'Hai Phong', 450000, 1);
+('C005', 'Bui Thi Yến', '456123789', '1999-03-05', 'Nu', '0945123789', 'buithie@example.com', 'Hai Phong', 450000, 1)
 
 INSERT INTO CustomerBorrow (cardId, Cid, typeCard, cardExpiry, registrationDate, cardValue, borrowLimit) VALUES
 ('CB001', 'C001', 'Member', '2024-04-01', '2024-03-01', 50000, 10),
 ('CB002', 'C002', 'Vip', '2024-04-05', '2024-03-05', 100000, 15),
 ('CB003', 'C003', 'Platinum', '2024-04-10', '2024-03-10', 200000, NULL),
 ('CB004', 'C004', 'Member', '2024-04-12', '2024-03-12', 50000, 10),
-('CB005', 'C005', 'Vip', '2024-04-15', '2024-03-15', 100000, 15);
+('CB005', 'C005', 'Vip', '2024-04-15', '2024-03-15', 100000, 15)
 
 INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES
 ('C001', 120000, 'Member'),
 ('C002', 600000, 'Vip'),
 ('C003', 50000, 'Member'),
 ('C004', 3000000, 'Platinum'),
-('C005', 150000, 'Member');
+('C005', 150000, 'Member')
 
 select * from Book
 delete from CustomerBuy

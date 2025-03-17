@@ -35,8 +35,8 @@ public class EmployeeDAO implements IEmployeeDAO {
                 String ssn = rs.getString("Essn");
                 String birthDate = rs.getString("EbirthDate");
                 String gender = rs.getString("Egender");
-                String phoneNumber = rs.getString("Ephone");
-                String email = rs.getString("Eemail");
+               String phoneNumber = rs.getString("EphoneNumber");
+                String email = rs.getString("EDemail");
                 String address = rs.getString("Eaddress");
                 String position = rs.getString("Eposition");
                 double salary = rs.getDouble("Esalary");
@@ -65,7 +65,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 
     @Override
     public void insert(Employee emp) {
-        String sql = "INSERT INTO Employee (Eid, Ename, Essn, EbirthDate, Egender, Ephone, Eemail, Eaddress, Eposition, Esalary, EstartDate, AccountId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+String sql = "INSERT INTO Employee (Eid, Ename, Essn, EbirthDate, Egender, EphoneNumber, EDemail, Eaddress, Eposition, Esalary, EstartDate, AccountId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, emp.getId());
@@ -90,7 +90,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 
   @Override
 public void update(Employee emp) { 
-    String sql = "UPDATE Employee SET Ename = ?, Essn = ?, EbirthDate = ?, Egender = ?, Ephone = ?, Eemail = ?, Eaddress = ?, Eposition = ?, Esalary = ?, EstartDate = ?, AccountId = ? WHERE Eid = ?";
+String sql = "UPDATE Employee SET Ename = ?, Essn = ?, EbirthDate = ?, Egender = ?, EphoneNumber = ?, EDemail = ?, Eaddress = ?, Eposition = ?, Esalary = ?, EstartDate = ?, AccountId = ? WHERE Eid = ?";
     try (Connection conn = DatabaseConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setString(1, emp.getName());
@@ -224,7 +224,7 @@ public void updateAddress(String id, String address) {
 }
 
 public void updatePhoneNumber(String id, String phoneNumber) {
-    String sql = "UPDATE Employee SET Ephone = ? WHERE Eid = ?";
+String sql = "UPDATE Employee SET EphoneNumber = ? WHERE Eid = ?";
     try (Connection conn = DatabaseConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setString(1, phoneNumber);
@@ -243,7 +243,7 @@ public void updatePhoneNumber(String id, String phoneNumber) {
 }
 
 public void updateEmail(String id, String email) {
-    String sql = "UPDATE Employee SET Eemail = ? WHERE Eid = ?";
+    String sql = "UPDATE Employee SET EDemail = ? WHERE Eid = ?";
     try (Connection conn = DatabaseConnection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setString(1, email);

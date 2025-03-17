@@ -122,9 +122,24 @@ public class Employee extends Person {
         this.address = address;
     }
 
+  
     @Override
-    public String toString() {
-        return "Employee{" + "position=" + position + ", salary=" + salary + ", startDate=" + startDate + '}';
-    }
+public String toString() {
+    return "Employee {" +
+            "ID='" + id + '\'' +
+            ", Name='" + name + '\'' +
+            ", SSN='" + SSN + '\'' +
+            ", Birth Date=" + birthDate +
+            ", Gender='" + gender + '\'' +
+            ", Phone Number='" + phoneNumber + '\'' +
+            ", Email='" + email + '\'' +
+            ", Address='" + address + '\'' +
+            ", Position='" + position + '\'' +
+            ", Salary=" + salary +
+            ", Start Date=" + startDate +
+            ", Account ID='" + accountId + '\'' +
+            '}';
+}
+
 
 }

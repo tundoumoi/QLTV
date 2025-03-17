@@ -14,64 +14,80 @@ import ultils.CustomerValidation;
 import ultils.Validation;
 
 public class CustomerService implements Service<Customer> {
+
     CustomerValidation cusVal = new CustomerValidation();
     Validation val = new Validation();
     CustomerDAO cusDao = new CustomerDAO();
     View.view view = new view();
     private HashMap<Integer, Account> customerACC = new HashMap<>();
-    
-    
+
     public Boolean CheckAccount(String userName, String Pass) {
         for (Map.Entry<Integer, Account> entry : customerACC.entrySet()) {
             Integer key = entry.getKey();
             Account value = entry.getValue();
-            if (value.getUsername().equals(userName)&&value.getPass().equals(Pass)) {
-               return true;
+            if (value.getUsername().equals(userName) && value.getPass().equals(Pass)) {
+                return true;
             }
-        }return false;
-    } 
-    
-   
+        }
+        return false;
+    }
+
     @Override
     public Customer findById(String id) {
-        Customer cusFind = cusDao.getById(id);
-        if (cusFind == null) {
-            view.message("Invalid id customer.");
-        }
-        return cusFind;
+        return cusDao.getById(id);
     }
 
     public CustomerBuy findCusBuyById(String id) {
-        CustomerBuy cusBuyFind = cusDao.getCusBuyById(id);
-        if (cusBuyFind == null) {
-            view.message("Invalid id customer.");
-        }
-        return cusBuyFind;
+        return cusDao.getCusBuyById(id);
     }
 
     public CustomerBorrow findBorrowById(String id) {
-        CustomerBorrow cusBorrowFind = cusDao.getCusBorrowById(id);
-        if (cusBorrowFind == null) {
-            view.message("Invalid id customer.");
-        }
-        return cusBorrowFind;
+        return cusDao.getCusBorrowById(id);
     }
-
 
     @Override
     public void delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        cusDao.delete(id);
     }
 
     @Override
     public void display(Customer entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // No output needed
+    }
+
+    public void update(int choice, String id, String string) {
+        switch (choice) {
+            case 1:
+                cusDao.updateName(id, string);
+                break;
+            case 2:
+                cusDao.updateAddress(id, string);
+                break;
+            case 3:
+                cusDao.updatePhoneNumber(id, string);
+                break;
+            case 4:
+                cusDao.updateEmail(id, string);
+                break;
+            case 5:
+                
+                cusDao.updateBirthDate(id, string);
+                break;
+            case 6:
+                double totalPayment = Double.parseDouble(string);
+                cusDao.updateTotalPayment(id, totalPayment);
+                break;
+            case 7:
+                int accountId = Integer.parseInt(string);
+                cusDao.updateAccountId(id, string);
+                break;
+        }
+
     }
 
     @Override
     public Customer insert(Customer entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        cusDao.insert(entity);
+        return entity;
     }
-
-  
 }
