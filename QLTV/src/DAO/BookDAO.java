@@ -14,8 +14,7 @@ import Model.BuyBook;
 public class BookDAO implements IBookDAO {
 
     private ArrayList<Book> bookList = new ArrayList<>();
-    private ArrayList<BookBorrow> bookBorrowList = new ArrayList<>();
-    private ArrayList<BuyBook> bookBuyList = new ArrayList<>();
+    
 
     public BookDAO() {
         bookList = getAll();
@@ -195,41 +194,8 @@ public class BookDAO implements IBookDAO {
         return bookList;
     }
 
-    public ArrayList<BookBorrow> getAllBorrow() {
-        String sql = "SELECT * FROM BookBorrow";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                String cardId = rs.getString("cardId");
-                String bookId = rs.getString("bookId");
-                String borrowDate = rs.getString("borrowDate");
-                String endDate = rs.getString("endDate");
-                BookBorrow bookBorrow = new BookBorrow(cardId, bookId, LocalDate.parse(borrowDate), LocalDate.parse(endDate));
-                bookBorrowList.add(bookBorrow);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return bookBorrowList;
-    }
+    
 
-    public ArrayList<BuyBook> getAllBuy() {
-        String sql = "SELECT * FROM BuyBook";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                String orderId = rs.getString("orderId");
-                String Cid = rs.getString("Cid");
-                String bookId = rs.getString("bookId");
-                int quantity = rs.getInt("quantity");
-                double totalPrice = rs.getDouble("totalPrice");
-                String purchaseDate = rs.getString("purchaseDate");
-                BuyBook buyBook = new BuyBook(orderId, Cid, bookId, quantity, totalPrice, LocalDate.parse(purchaseDate));
-                bookBuyList.add(buyBook);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return bookBuyList;
-    }
-
+    
 }
 
