@@ -20,7 +20,7 @@ public class AdminDAO implements IAdminDAO {
     }
 
     public void loadAcc() {
-        String query = "SELECT * FROM Account";
+        String query = "SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a.AccountId = ad.AccountId";
         try (Connection conn = DatabaseConnection.getConnection(); 
              PreparedStatement stmt = conn.prepareStatement(query)) {
             try (ResultSet rs = stmt.executeQuery()) {
