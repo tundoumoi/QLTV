@@ -1,10 +1,12 @@
 package Service;
 
 import DAO.EmployeeDAO;
+import Model.Account;
 import Model.Employee;
 import java.util.TreeSet;
 import View.view;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Scanner;
 public class EmployeeService implements Service<Employee> {
     private final EmployeeDAO employeeDAO = new EmployeeDAO();
@@ -14,6 +16,16 @@ public class EmployeeService implements Service<Employee> {
         employTree = employeeDAO.getAll();
     }
 
+       public Boolean CheckAccount(String userName, String Pass) {
+        for (Map.Entry<Integer, Account> entry : customerACC.entrySet()) {
+            Integer key = entry.getKey();
+            Account value = entry.getValue();
+            if (value.getUsername().equals(userName) && value.getPass().equals(Pass)) {
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public Employee findById(String id) {
         Employee employeeFind = employeeDAO.getById(id);
