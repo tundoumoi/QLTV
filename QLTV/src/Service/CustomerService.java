@@ -69,21 +69,9 @@ public class CustomerService implements Service<Customer> {
     }
 
     @Override
-    public Customer insert() {
-          DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-dd-MM");
-        String Cid = cusVal.getCustomerID();
-        String Name = val.getName("enter customer name: ");
-        String SSN = val.getID_Card("Enter customer SSN: ");
-        String Dob = val.getDate("Enter Birthday(yyyy-MM-dd): ");
-        LocalDate Birthday = LocalDate.parse(Dob,DATE_FORMAT );
-        String Gender = val.getGender();
-        String PhoneNum = val.getPhone("Enter phone number(10 number): ");
-        String mail = val.getEmail();
-        String Address = val.getValue("Enter Address: ", "NAM FAN NGU");
-        double Total = 0 ;
-        int Account = val.getInt("Enter account Number: ", 1, Integer.MAX_VALUE);
-        Customer cus = new Customer(Cid, Name, SSN, Birthday, Gender, PhoneNum, mail, Address, Total, Account);
-        return cus;
-       }
+    public Customer insert(Customer entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
+  
 }
