@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author Admin
- */
 public class Report {
     private String customerId;
     private String bookId;
@@ -17,7 +9,17 @@ public class Report {
     private LocalDate reportDate;
     private String content;
 
-    // Constructor, getters, setters, toString
+
+    public Report(String customerId, String bookId) {
+        this.customerId = customerId;
+        this.bookId = bookId;
+    }
+
+    public Report(String title, LocalDate reportDate, String content) {
+        this.title = title;
+        this.reportDate = reportDate;
+        this.content = content;
+    }
 
     public Report(String customerId, String bookId, String title, LocalDate reportDate, String content) {
         this.customerId = customerId;
@@ -26,6 +28,8 @@ public class Report {
         this.reportDate = reportDate;
         this.content = content;
     }
+
+    
 
     public String getCustomerId() {
         return customerId;
