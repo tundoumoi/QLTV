@@ -20,7 +20,7 @@ CREATE TABLE Admin (
     AccountId INT,
 	FOREIGN KEY (AccountId) REFERENCES Account(AccountId) ON DELETE CASCADE
 );
-
+SELECT * FROM Account a inner join admin ad on a.AccountId = ad.AccountId
 -- Bảng Employee (kế thừa Person)
 CREATE TABLE Employee (
     Eid VARCHAR(50) PRIMARY KEY,
@@ -146,15 +146,25 @@ CREATE TABLE Bill (
     FOREIGN KEY (Eid) REFERENCES Employee(Eid),
 	FOREIGN KEY (VoucherID) REFERENCES Voucher(VoucherID) ON DELETE CASCADE
 );
+INSERT INTO Admin (ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress, AccountId)
+VALUES 
+('AD001', 'Phan Nhat Nam', '123456789', '1990-05-15', 'Nam', '0987654321', 'namphan@gmail.com', 'Hà Nội', 1),
+('AD002', 'Dang Thanh Tung', '987654321', '1992-07-20', 'Nam', '0912345678', 'tungdang@gmail.com', 'TP.HCM', 2),
+('AD003', 'Luong Dang Hoang Luu', '456789123', '1988-09-10', 'Nam', '0901122334', 'luuhoang@gmail.com', 'Đà Nẵng', 3),
+('AD004', 'Tuan dau moi', '321654987', '1995-12-01', 'Nam', '0933221144', 'tuanmoi@gmail.com', 'Cần Thơ', 4),
+('AD005', 'Manh Thang', '159753468', '1993-03-25', 'Nam', '0977885566', 'manhthang@gmail.com', 'Hải Phòng', 5);
+
 
 INSERT INTO Account (AccountId, username, APass) VALUES
-(1, 'nam bau troi', 'nam fan bac meo'),
+(1, 'nambautroi', 'namfanbacmeo'),
 (2, 'ladititi', 'dititi'),
 (3, 'hoangluu', 'hoangluu217'),
 (4,'tundaumoi','tundaumoi1'),
 (5,'manhthang','manhthang1'),
 (6,'employee','employee1'),
 (7,'customer','customer1');
+
+SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a.AccountId = ad.AccountId
 delete from account;
 select * from Account;
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
