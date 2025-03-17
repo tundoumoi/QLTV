@@ -64,7 +64,7 @@ public class CustomerService implements Service<Customer> {
         String Gender = val.getGender();
         String PhoneNum = val.getPhone("Enter phone number(10 number): ");
         String mail = val.getEmail();
-        String Address = val.getValue("Enter Address: ", "NGU");
+        String Address = val.getValue("Enter Address: ", "NAM FAN NGU");
         double Total = 0 ;
         int Account = val.getInt("Enter account Number: ", 1, Integer.MAX_VALUE);
         Customer cus = new Customer(Cid, Name, SSN, Birthday, Gender, PhoneNum, mail, Address, Total, Account);
