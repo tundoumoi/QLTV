@@ -18,8 +18,6 @@ public class Account {
         this.Pass = Pass;
     }
 
-
-
     public int getAccountId() {
         return AccountId;
     }

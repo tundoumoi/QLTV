@@ -194,8 +194,55 @@ public class BookDAO implements IBookDAO {
         return bookList;
     }
 
-    
+    public ArrayList<Book> findBookByPublishedDate(LocalDate publishedDate) {
+        String sql = "SELECT * FROM Book WHERE publishedDate = ?";
+        return findBooksByCriteria(sql, publishedDate.toString());
+    }
 
-    
+    public ArrayList<Book> findBookByTitle(String title) {
+        String sql = "SELECT * FROM Book WHERE title LIKE ?";
+        return findBooksByCriteria(sql, "%" + title + "%");
+    }
+
+    public ArrayList<Book> findBookByType(String type) {
+        String sql = "SELECT * FROM Book WHERE type = ?";
+        return findBooksByCriteria(sql, type);
+    }
+
+    public ArrayList<Book> findBookByLanguage(String language) {
+        String sql = "SELECT * FROM Book WHERE language = ?";
+        return findBooksByCriteria(sql, language);
+    }
+
+    public ArrayList<Book> findBookByAuthor(String author) {
+        String sql = "SELECT * FROM Book WHERE author LIKE ?";
+        return findBooksByCriteria(sql, "%" + author + "%");
+    }
+
+    private ArrayList<Book> findBooksByCriteria(String sql, String param) {
+        ArrayList<Book> books = new ArrayList<>();
+        try (Connection conn = DatabaseConnection.getConnection(); 
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, param);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    books.add(new Book(
+                        rs.getString("bookId"),
+                        rs.getString("title"),
+                        rs.getString("author"),
+                        rs.getString("publisher"),
+                        LocalDate.parse(rs.getString("publishedDate")),
+                        rs.getDouble("price"),
+                        rs.getInt("quantity"),
+                        rs.getString("type"),
+                        rs.getString("language")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return books;
+    }
 }
 

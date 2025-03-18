@@ -10,36 +10,35 @@ import java.awt.event.*;
  *
  * @author LENOVO Ideapad 3
  */
-public class GUI_chatbot extends javax.swing.JFrame {
+public class GUI_chatbot extends JPanel {
     private JTextArea chatArea;
     private JTextField inputField;
     private JButton sendButton;
     private final ChatbotController controller;
     
     public GUI_chatbot() {
-        super("Chatbot Quản Lý Thư Viện");
         controller = new ChatbotController();
-
+        
         // Thiết lập vùng hiển thị tin nhắn
         chatArea = new JTextArea(20, 40);
         chatArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(chatArea);
-
-        // Thiết lập ô nhập liệu
+        
+        // Thiết lập ô nhập liệu và nút gửi
         inputField = new JTextField(30);
         sendButton = new JButton("Gửi");
-
+        
         // Panel chứa input
         JPanel inputPanel = new JPanel();
         inputPanel.add(inputField);
         inputPanel.add(sendButton);
-
-        // Cấu trúc bố cục
+        
+        // Cấu trúc bố cục của panel
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
         add(inputPanel, BorderLayout.SOUTH);
-
-        // Sự kiện gửi tin nhắn khi nhấn nút hoặc Enter
+        
+        // Xử lý sự kiện gửi tin nhắn
         sendButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 processInput();
@@ -50,12 +49,7 @@ public class GUI_chatbot extends javax.swing.JFrame {
                 processInput();
             }
         });
-
-        // Cài đặt cửa sổ
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
+        
     }
 
     private void processInput() {
@@ -67,12 +61,6 @@ public class GUI_chatbot extends javax.swing.JFrame {
             inputField.setText("");
         }
     }
-
-    public static void main(String[] args) {
-        new GUI_chatbot();
-    }
-
-    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
