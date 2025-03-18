@@ -7,6 +7,8 @@ package chatbot;
 import DAO.BookDAO;
 import Model.Book;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -18,69 +20,73 @@ public class ChatbotController {
     public ChatbotController() {
         bookDAO = new BookDAO();
     }
-    
+
     public String getResponse(String input) {
-        input = input.toLowerCase();
-        String response = "";
+        input = input.toLowerCase().trim();
         
-        // Nếu người dùng gõ "danh sách", trả về danh sách sách hiện có
         if (input.contains("danh sách")) {
-            ArrayList<Book> books = bookDAO.getBookList();
-            if (books.isEmpty()) {
-                response = "Hiện tại thư viện không có sách.";
-            } else {
-                StringBuilder sb = new StringBuilder("Danh sách sách:\n");
-                for (Book book : books) {
-                    sb.append(book.getBookId())
-                      .append(" - ")
-                      .append(book.getTitle())
-                      .append("\n");
-                }
-                response = sb.toString();
-            }
+            return handleBookList();
+        } else if (input.contains("mua") && input.contains("mã")) {
+            return handlePurchase(input);
+        } else if (input.contains("thuê") && input.contains("mã")) {
+            return handleRental(input);
+        } else {
+            return "Sorry, I don't understand your request. Please enter 'danh sách' to view books or 'mua/thuê mã [book ID]' to make a transaction.";
         }
-        // Nếu người dùng muốn mua sách (ví dụ: "mua sách mã X")
-        else if (input.contains("mua") && input.contains("mã")) {
-            // Trích xuất mã sách từ input (cần cải tiến xử lý regex)
-            String[] parts = input.split(" ");
-            String bookId = "";
-            for (int i = 0; i < parts.length; i++) {
-                if (parts[i].equals("mã") && i+1 < parts.length) {
-                    bookId = parts[i+1];
-                    break;
-                }
-            }
-            Book book = bookDAO.getById(bookId);
-            if (book != null) {
-                response = "Book " + book.getTitle() + " has been added to your cart. Please confirm payment.";
-                // Ở đây có thể gọi thêm các logic cập nhật số lượng, tạo đơn hàng, v.v.
-            } else {
-                response = "No book found with ID " + bookId + ".";
-            }
-        }
-        // Nếu người dùng muốn thuê sách
-        else if (input.contains("thuê") && input.contains("mã")) {
-            // Tương tự xử lý như mua sách, với logic thuê khác (ví dụ cập nhật trạng thái thuê)
-            String[] parts = input.split(" ");
-            String bookId = "";
-            for (int i = 0; i < parts.length; i++) {
-                if (parts[i].equals("mã") && i+1 < parts.length) {
-                    bookId = parts[i+1];
-                    break;
-                }
-            }
-            Book book = bookDAO.getById(bookId);
-            if (book != null) {
-                response = "Sách " + book.getTitle() + " has been booked. Please confirm your rental information.";
-                // Cập nhật logic thuê (ví dụ: giảm số lượng có sẵn, ghi nhận ngày thuê)
-            } else {
-                response = "No book found with ID " + bookId + ".";
-            }
-        }
-        // Các trường hợp khác: trả lời mặc định
-        else {
-            response = "Sorry, I don't understand your request. Please enter 'danh sách' to view books or 'mua/thuê ID [book ID]' to make a transaction.";
-        }
-        return response;
     }
+
+    private String handleBookList() {
+        ArrayList<Book> books = bookDAO.getBookList();
+        if (books.isEmpty()) {
+            return "The library currently has no books.";
+        } else {
+            StringBuilder sb = new StringBuilder("List of books:\n");
+            for (Book book : books) {
+                sb.append(book.getBookId())
+                  .append(" - ")
+                  .append(book.getTitle())
+                  .append("\n");
+            }
+            return sb.toString();
+        }
+    }
+
+    private String handlePurchase(String input) {
+        String bookId = extractBookId(input);
+        if (bookId.isEmpty()) {
+            return "The book code in your request was not found.";
+        }
+        Book book = bookDAO.getById(bookId);
+        if (book != null) {
+            // Có thể thêm logic đặt hàng ở đây
+            return "Book " + book.getTitle() + " has been added to your cart. Please confirm payment.";
+        } else {
+            return "No book found with ID " + bookId + ".";
+        }
+    }
+
+    private String handleRental(String input) {
+        String bookId = extractBookId(input);
+        if (bookId.isEmpty()) {
+            return "The book code in your request was not found.";
+        }
+        Book book = bookDAO.getById(bookId);
+        if (book != null) {
+            // Có thể thêm logic cập nhật thuê ở đây
+            return "Book " + book.getTitle() + " has been booked. Please confirm your rental information.";
+        } else {
+            return "No book found with ID " + bookId + ".";
+        }
+    }
+
+    private String extractBookId(String input) {
+        // Regex giải thích:
+        // "mã" theo sau bởi khoảng trắng tùy ý, sau đó có thể có "là" và khoảng trắng, sau đó là nhóm ký tự đại diện cho mã sách (chữ và số).
+        Pattern pattern = Pattern.compile("mã\\s*(?:là\\s*)?([A-Za-z0-9]+)", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()) {
+             return matcher.group(1);
+        }
+        return "";
+}
 }

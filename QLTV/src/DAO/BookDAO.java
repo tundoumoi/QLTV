@@ -26,7 +26,7 @@ public class BookDAO implements IBookDAO {
 
     @Override
     public void delete(String id) {
-        String sql = "DELETE FROM Book WHERE Bid = ?";
+        String sql = "DELETE FROM Book WHERE bookId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, id);
             pstmt.executeUpdate();
@@ -37,7 +37,7 @@ public class BookDAO implements IBookDAO {
 
     @Override
     public void update(Book entity) {
-        String sql = "UPDATE Book SET Bname = ?, Bauthor = ?, Bpublisher = ?, Bpublicdate = ?, Bprice = ?, Bquantity = ?, Btype = ?, Blanguage = ? WHERE Bid = ?";
+        String sql = "UPDATE Book SET title = ?, author = ?, publisher = ?, publishedDate = ?, price = ?, quantity = ?, type = ?, language = ? WHERE bookId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, entity.getTitle());
             pstmt.setString(2, entity.getAuthor());
@@ -55,7 +55,7 @@ public class BookDAO implements IBookDAO {
     }
 
     public void updateName(String id, String name) {
-        String sql = "UPDATE Book SET Bname = ? WHERE Bid = ?";
+        String sql = "UPDATE Book SET title = ? WHERE bookId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, name);
             pstmt.setString(2, id);
@@ -66,7 +66,7 @@ public class BookDAO implements IBookDAO {
     }
 
     public void updateAuthor(String id, String author) {
-        String sql = "UPDATE Book SET Bauthor = ? WHERE Bid = ?";
+        String sql = "UPDATE Book SET author = ? WHERE bookId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, author);
             pstmt.setString(2, id);
@@ -77,7 +77,7 @@ public class BookDAO implements IBookDAO {
     }
 
     public void updatePublisher(String id, String publisher) {
-        String sql = "UPDATE Book SET Bpublisher = ? WHERE Bid = ?";
+        String sql = "UPDATE Book SET publisher = ? WHERE bookId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, publisher);
             pstmt.setString(2, id);
@@ -88,7 +88,7 @@ public class BookDAO implements IBookDAO {
     }
 
     public void updatePublicdate(String id, String publicdate) {
-        String sql = "UPDATE Book SET Bpublicdate = ? WHERE Bid = ?";
+        String sql = "UPDATE Book SET publishedDate = ? WHERE bookId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, publicdate);
             pstmt.setString(2, id);
@@ -99,7 +99,7 @@ public class BookDAO implements IBookDAO {
     }
 
     public void updatePrice(String id, double price) {
-        String sql = "UPDATE Book SET Bprice = ? WHERE Bid = ?";
+        String sql = "UPDATE Book SET price = ? WHERE bookId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setDouble(1, price);
             pstmt.setString(2, id);
@@ -110,7 +110,7 @@ public class BookDAO implements IBookDAO {
     }
 
     public void updateQuantity(String id, int quantity) {
-        String sql = "UPDATE Book SET Bquantity = ? WHERE Bid = ?";
+        String sql = "UPDATE Book SET quantity = ? WHERE bookId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, quantity);
             pstmt.setString(2, id);
@@ -121,7 +121,7 @@ public class BookDAO implements IBookDAO {
     }
 
     public void updateType(String id, String type) {
-        String sql = "UPDATE Book SET Btype = ? WHERE Bid = ?";
+        String sql = "UPDATE Book SET type = ? WHERE bookId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, type);
             pstmt.setString(2, id);
@@ -132,7 +132,7 @@ public class BookDAO implements IBookDAO {
     }
 
     public void updateLanguage(String id, String language) {
-        String sql = "UPDATE Book SET Blanguage = ? WHERE Bid = ?";
+        String sql = "UPDATE Book SET language = ? WHERE bookId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, language);
             pstmt.setString(2, id);
@@ -144,17 +144,17 @@ public class BookDAO implements IBookDAO {
 
     @Override
     public void insert(Book entity) {
-        String sql = "INSERT INTO Book (Bid, Bname, Bauthor, Bpublisher,Bpublicdate, Bprice, Bquantity, Btype, Blanguage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, entity.getBookId());
             pstmt.setString(2, entity.getTitle());
             pstmt.setString(3, entity.getAuthor());
             pstmt.setString(4, entity.getPublisher());
             pstmt.setString(5, entity.getPublishedDate().toString());
-            pstmt.setDouble(5, entity.getPrice());
-            pstmt.setInt(6, entity.getQuantity());
-            pstmt.setString(7, entity.getType());
-            pstmt.setString(8, entity.getLanguage());
+            pstmt.setDouble(6, entity.getPrice());
+            pstmt.setInt(7, entity.getQuantity());
+            pstmt.setString(8, entity.getType());
+            pstmt.setString(9, entity.getLanguage());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,16 +176,16 @@ public class BookDAO implements IBookDAO {
         String sql = "SELECT * FROM Book";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
-                String Bid = rs.getString("Bid");
-                String Bname = rs.getString("Bname");
-                String Bauthor = rs.getString("Bauthor");
-                String Bpublisher = rs.getString("Bpublisher");
-                String Bpublicdate = rs.getString("Bpublicdate");
-                double Bprice = rs.getDouble("Bprice");
-                int Bquantity = rs.getInt("Bquantity");
-                String Btype = rs.getString("Btype");
-                String Blanguage = rs.getString("Blanguage");
-                Book book = new Book(Bid, Bname, Bauthor, Bpublisher, LocalDate.parse(Bpublicdate), Bprice, Bquantity, Btype, Blanguage);
+                String bookId = rs.getString("bookId");
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                String publisher = rs.getString("publisher");
+                String publishedDate = rs.getString("publishedDate");
+                double price = rs.getDouble("price");
+                int quantity = rs.getInt("quantity");
+                String type = rs.getString("type");
+                String language = rs.getString("language");
+                Book book = new Book(bookId, title, author, publisher, LocalDate.parse(publishedDate), price, quantity, type, language);
                 bookList.add(book);
             }
         } catch (SQLException e) {
