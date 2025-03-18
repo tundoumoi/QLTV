@@ -162,7 +162,8 @@ INSERT INTO Account (AccountId, username, APass) VALUES
 (4,'tundaumoi','tundaumoi1'),
 (5,'manhthang','manhthang1'),
 (6,'employee','employee1'),
-(7,'customer','customer1')
+(7,'customer','customer1'),
+(8,'customer2','customer2')
 
 SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a.AccountId = ad.AccountId
 --delete from account;
@@ -284,27 +285,24 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 
 
 INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId) VALUES
-('C001', 'Nguyen Van An', '123456789', '1995-05-20', 'Nam', '0905123456', 'nguyenvana@example.com', 'Ha Noi', 500000, 1),
-('C002', 'Tran Thi Bình', '987654321', '1998-09-15', 'Nu', '0912987654', 'tranthib@example.com', 'TP Ho Chi Minh', 200000, 2),
-('C003', 'Le Hoang Cường', '567891234', '2000-12-10', 'Nam', '0923567891', 'lehoangc@example.com', 'Da Nang', 750000, 3),
-('C004', 'Pham Van Đạt', '876543219', '1997-07-25', 'Nam', '0934876543', 'phamvand@example.com', 'Can Tho', 1000000, 1),
-('C005', 'Bui Thi Yến', '456123789', '1999-03-05', 'Nu', '0945123789', 'buithie@example.com', 'Hai Phong', 450000, 1)
+('C001', 'Nguyen Van An', '123456789', '1995-05-20', 'Male', '0905123456', 'nguyenvana@example.com', 'Ha Noi', 500000, 7),
+('C002', 'Tran Thi Bình', '987654321', '1998-09-15', 'Female', '0912987654', 'tranthib@example.com', 'TP Ho Chi Minh', 200000, 8)
+
 
 INSERT INTO CustomerBorrow (cardId, Cid, typeCard, cardExpiry, registrationDate, cardValue, borrowLimit) VALUES
 ('CB001', 'C001', 'Member', '2024-04-01', '2024-03-01', 50000, 10),
-('CB002', 'C002', 'Vip', '2024-04-05', '2024-03-05', 100000, 15),
-('CB003', 'C003', 'Platinum', '2024-04-10', '2024-03-10', 200000, NULL),
-('CB004', 'C004', 'Member', '2024-04-12', '2024-03-12', 50000, 10),
-('CB005', 'C005', 'Vip', '2024-04-15', '2024-03-15', 100000, 15)
+('CB002', 'C002', 'Vip', '2024-04-05', '2024-03-05', 100000, 15)
+
 
 INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES
 ('C001', 120000, 'Member'),
-('C002', 600000, 'Vip'),
-('C003', 50000, 'Member'),
-('C004', 3000000, 'Platinum'),
-('C005', 150000, 'Member')
+('C002', 600000, 'Vip')
 
 select * from Book
 delete from CustomerBuy
 delete from CustomerBorrow
 select * from CustomerBuy
+SELECT a.AccountId,a.userName , a.Apass FROM Account a join customer cus on cus.AccountID = a.AccountId
+select * from Customer
+delete from Customer
+delete from Account

@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class Testnhucc {
     public static void main(String[] args) {
         CustomerService customerService = new CustomerService();
-        customerService.update(1, "C001", "Nguyen Thanh Cuong");
+        customerService.update(7, "C001", "7");
         System.out.println(customerService.findById("C001"));
         
     }     

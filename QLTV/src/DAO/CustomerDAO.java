@@ -260,7 +260,7 @@ public class CustomerDAO implements ICustomerDAO {
     // Update CusBorrow , cusBuy    
 
     public void loadAcc() {
-        String query = "SELECT cus.AccountId, a.Apass FROM Account a join customer cus on cus.AccountID = ad.AccountId";
+        String query = "SELECT a.AccountId,a.userName , a.Apass FROM Account a join customer cus on cus.AccountID = a.AccountId";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -285,6 +285,8 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     public HashMap<Integer, Account> getCustomerACC() {
+        customerACC.clear();
+        loadAcc();
         return customerACC;
     }
 

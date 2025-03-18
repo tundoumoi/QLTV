@@ -268,17 +268,22 @@ public class Login extends javax.swing.JFrame {
             String user = jTextFieldUser.getText();
             String pass = jPasswordField1.getText();
             if (CusSer.CheckAccount(user, pass)) {
-
-                jTextFieldUser.setText("");
-                jPasswordField1.setText("");
+                CustomerPage cusPage = new CustomerPage();
+                cusPage.setVisible(true);
+                setVisible(false);
+                
             } else {
-
+                jTextFieldUser.setToolTipText("Wrong.");
                 JOptionPane.showMessageDialog(rootPane, "Login fail!");
             }
         } else if (JchoiceRole.getSelectedItem().equals("Employee")) {
             String user = jTextFieldUser.getText();
             String pass = jPasswordField1.getText();
-            if(EmSer.)
+            if(EmSer.CheckAccount(user, pass));{
+            EmployeePage emPage = new EmployeePage();
+            emPage.setVisible(true);
+            setVisible(false);
+        }
         }
     }//GEN-LAST:event_LoginButMouseClicked
 

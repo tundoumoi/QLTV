@@ -14,7 +14,6 @@ import ultils.CustomerValidation;
 import ultils.Validation;
 
 public class CustomerService implements Service<Customer> {
-
     CustomerValidation cusVal = new CustomerValidation();
     Validation val = new Validation();
     CustomerDAO cusDao = new CustomerDAO();
@@ -22,6 +21,7 @@ public class CustomerService implements Service<Customer> {
     private HashMap<Integer, Account> customerACC = new HashMap<>();
 
     public Boolean CheckAccount(String userName, String Pass) {
+        customerACC = cusDao.getCustomerACC();
         for (Map.Entry<Integer, Account> entry : customerACC.entrySet()) {
             Integer key = entry.getKey();
             Account value = entry.getValue();
@@ -70,7 +70,7 @@ public class CustomerService implements Service<Customer> {
                 cusDao.updateEmail(id, string);
                 break;
             case 5:
-                
+
                 cusDao.updateBirthDate(id, string);
                 break;
             case 6:
