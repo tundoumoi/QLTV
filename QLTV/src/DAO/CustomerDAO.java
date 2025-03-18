@@ -135,10 +135,10 @@ public class CustomerDAO implements ICustomerDAO {
         }
     }
 
-    public void updateAccountId(String id, String accountId) {
+    public void updateAccountId(String id, int accountId) {
         String sql = "UPDATE Customer SET AccountId = ? WHERE Cid = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, accountId);
+            pstmt.setInt(1, accountId);
             pstmt.setString(2, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -274,6 +274,20 @@ public class CustomerDAO implements ICustomerDAO {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public int getnumberCus() {
+        String sql = "SELECT COUNT(*) FROM Customer";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                return rs.getInt(1);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public ArrayList<CustomerBorrow> getCusBorrowList() {

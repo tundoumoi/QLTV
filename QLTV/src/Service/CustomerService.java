@@ -55,31 +55,35 @@ public class CustomerService implements Service<Customer> {
         // No output needed
     }
 
-    public void update(int choice, String id, String string) {
+    public void update(int choice, String id, Object Value) {
         switch (choice) {
             case 1:
-                cusDao.updateName(id, string);
+                String newName = (String) Value;
+                cusDao.updateName(id, newName);
                 break;
             case 2:
-                cusDao.updateAddress(id, string);
+                String newAddress = (String) Value;
+                cusDao.updateAddress(id, newAddress);
                 break;
             case 3:
-                cusDao.updatePhoneNumber(id, string);
+                String newPhone = (String) Value;
+                cusDao.updatePhoneNumber(id, newPhone);
                 break;
             case 4:
-                cusDao.updateEmail(id, string);
+                String newEmail = (String) Value;
+                cusDao.updateEmail(id, newEmail);
                 break;
             case 5:
-
-                cusDao.updateBirthDate(id, string);
+                String NewBirthDate = (String) Value;
+                cusDao.updateBirthDate(id, NewBirthDate);
                 break;
             case 6:
-                double totalPayment = Double.parseDouble(string);
+                double totalPayment = (double) Value;
                 cusDao.updateTotalPayment(id, totalPayment);
                 break;
             case 7:
-                int accountId = Integer.parseInt(string);
-                cusDao.updateAccountId(id, string);
+                int accountId = (int) Value;
+                cusDao.updateAccountId(id, accountId);
                 break;
         }
 
