@@ -18,7 +18,7 @@ public class Login extends javax.swing.JFrame {
 
     private AdminService AddSer = new AdminService();
     private CustomerService CusSer = new CustomerService();
-
+    private EmployeeService EmSer = new EmployeeService();
     /**
      * Creates new form Login
      */
@@ -258,7 +258,7 @@ public class Login extends javax.swing.JFrame {
                 jTextFieldUser.setText("");
                 jPasswordField1.setText("");
                 AdminPage adminpage = new AdminPage();
-                
+
                 adminpage.setVisible(true);
                 setVisible(false);
             } else {
@@ -272,8 +272,13 @@ public class Login extends javax.swing.JFrame {
                 jTextFieldUser.setText("");
                 jPasswordField1.setText("");
             } else {
+
                 JOptionPane.showMessageDialog(rootPane, "Login fail!");
             }
+        } else if (JchoiceRole.getSelectedItem().equals("Employee")) {
+            String user = jTextFieldUser.getText();
+            String pass = jPasswordField1.getText();
+            if(EmSer.)
         }
     }//GEN-LAST:event_LoginButMouseClicked
 
