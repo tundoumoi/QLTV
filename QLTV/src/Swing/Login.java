@@ -271,8 +271,8 @@ public class Login extends javax.swing.JFrame {
             String user = jTextFieldUser.getText();
             String pass = jPasswordField1.getText();
             if (CusSer.CheckAccount(user, pass)) {
-                CustomerPage cusPage = new CustomerPage();
-                cusPage.setVisible(true);
+//                CustomerP
+//                cusPage.setVisible(true);
                 setVisible(false);
                 
             } else {

@@ -55,6 +55,8 @@ public class BookService implements Service<Book> {
     }
 
     public ArrayList<Book> getBookList() {
+        bookList.clear();
+        bookList = bookDAO.getAll();
         return bookList;
     }
 }

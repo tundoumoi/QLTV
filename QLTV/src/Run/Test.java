@@ -108,7 +108,14 @@ public class Test {
 //   
 //        empService.display(emp2);
 //        empService.display(emp3);
+
+    AccountService acc = new AccountService();
+        System.out.println(acc.increaAcc()+1);
+        CustomerService cusSer = new CustomerService();
+        System.out.println(cusSer.increaseCUSID());
     }
+    
+            
 }
 
     

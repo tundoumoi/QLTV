@@ -20,7 +20,7 @@ public class AccountService {
     //set pass
     
     public int increaAcc(){
-        return accDao.getAccountCount();
+        return accDao.getAccountCount()+1;
     }
     public void insertAcc(Account acc){
         accDao.insert(acc);
