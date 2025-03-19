@@ -17,7 +17,6 @@ public class AdminDAO implements IAdminDAO {
     private HashSet<Account> adminAcc = new HashSet<>();
 
     public AdminDAO() {
-        loadAcc();
     }
 
     public void loadAcc() {
@@ -42,6 +41,8 @@ public class AdminDAO implements IAdminDAO {
     }
 
     public HashSet<Account> getAdminAcc() {
+        adminAcc.clear();
+        loadAcc();
         return adminAcc;
     }
 

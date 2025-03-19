@@ -170,20 +170,13 @@ SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a
 select * from Account;
 INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B101', 'The Hidden Legacy', 'Oliver Sinclair', 'Pearson Books', '2013-06-15', 12.99, 10, 'Mystery', 'English')
-INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B102', 'The Final Clue', 'Rachel Dawson', 'HarperCollins', '2016-09-22', 15.50, 8, 'Thriller', 'English')
-INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B103', 'Beneath the Ruins', 'Edward Harris', 'Vintage Press', '2009-04-10', 18.75, 5, 'Historical Fiction', 'English')
-INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B104', 'The Secret Diary', 'Emma Clarkson', 'Penguin Books', '2018-11-30', 9.99, 12, 'Romance', 'English')
-INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B105', 'The Forsaken Kingdom', 'William Everett', 'Orbit Publishing', '2020-07-12', 22.00, 7, 'Fantasy', 'English')
-INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B106', 'Silent Footsteps', 'Julia Bennett', 'Simon & Schuster', '2014-03-25', 14.50, 6, 'Mystery', 'English')
-INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B107', 'The Iron Crown', 'Marcus Holt', 'Tor Books', '2017-08-19', 20.75, 9, 'Fantasy', 'English'),
 ('B108', 'Forgotten Whispers', 'Charlotte Evans', 'Dark Horse', '2012-12-05', 13.40, 11, 'Horror', 'English')
-INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B109', 'Tides of Time', 'Hannah Richardson', 'Del Rey', '2019-05-14', 16.99, 4, 'Science Fiction', 'English'),
 ('B110', 'The Hidden Cove', 'Benjamin Scott', 'Macmillan', '2011-02-18', 12.20, 15, 'Adventure', 'English'),
 ('B111', 'The Eternal Pact', 'Daniel Stevenson', 'Orbit Publishing', '2023-01-10', 19.99, 3, 'Fantasy', 'English'),
@@ -194,7 +187,6 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B116', 'The Haunting of Blackwood Manor', 'Teresa Carter', 'Dark Horse', '2021-03-18', 15.90, 5, 'Horror', 'English'),
 ('B117', 'Gates of Destiny', 'Nathaniel Brooks', 'Del Rey', '2010-08-26', 22.10, 4, 'Fantasy', 'English'),
 ('B118', 'Dark Prophecy', 'Catherine Andrews', 'Penguin Books', '2007-04-13', 18.40, 8, 'Thriller', 'English')
-INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B119', 'The Emperor’s Curse', 'Frederick Langley', 'Tor Books', '2019-12-20', 24.50, 3, 'Fantasy', 'English'),
 ('B120', 'The Vanishing Truth', 'Melissa Quinn', 'Simon & Schuster', '2013-09-29', 11.75, 12, 'Mystery', 'English'),
 ('B121', 'Rogue Nation', 'David Thornton', 'HarperCollins', '2022-06-11', 26.30, 6, 'Thriller', 'English'),
@@ -203,7 +195,6 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B124', 'Into the Abyss', 'Alexander Foster', 'Dark Horse', '2018-05-23', 18.00, 5, 'Horror', 'English'),
 ('B125', 'The Silver Dagger', 'Richard Coleman', 'Penguin Books', '2005-09-18', 15.20, 6, 'Mystery', 'English'),
 ('B126', 'Eternal Silence', 'Jonathan Nash', 'Simon & Schuster', '2016-03-07', 17.80, 7, 'Psychological Thriller', 'English')
-INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B127', 'The Winter’s Curse', 'Isabelle Norton', 'Orbit Publishing', '2020-12-01', 21.00, 4, 'Fantasy', 'English'),
 ('B128', 'Secrets of the Forgotten', 'Derek Walsh', 'HarperCollins', '2014-08-14', 14.50, 9, 'Mystery', 'English'),
 ('B129', 'The Enchanted Forest', 'Sophia Henderson', 'Tor Books', '2012-02-09', 22.75, 5, 'Fantasy', 'English'),
@@ -227,7 +218,8 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B147', 'Vung Dat Bi An', 'Trinh Huu Nam', 'NXB Van Hoc', '2014-06-20', 105000, 7, 'Phieu luu', 'Viet'),
 ('B148', 'Cuoc Chien Khong Hoi Ket', 'Ngo Thanh Hai', 'NXB Quan Doi', '2013-12-10', 125000, 5, 'Lich su', 'Viet'),
 ('B149', 'Ban Tay Mau', 'Vu Dinh Lam', 'NXB Tre', '2018-04-25', 95000, 6, 'Kinh di', 'Viet'),
-('B150', 'Tam Ly Hoc Dam Dong', 'Le Huu Phuoc', 'NXB Tong Hop', '2021-10-01', 135000, 10, 'Tam ly', 'Viet'),
+('B150', 'Tam Ly Hoc Dam Dong', 'Le Huu Phuoc', 'NXB Tong Hop', '2021-10-01', 135000, 10, 'Tam ly', 'Viet')
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B151', 'Vuot Qua So Phan', 'Tran Ngoc Minh', 'NXB Phu Nu', '2015-01-30', 89000, 4, 'Tu truyen', 'Viet'),
 ('B152', 'Chinh Phuc Giac Mo', 'Dinh Hoang Phong', 'NXB Thanh Nien', '2017-07-22', 99000, 6, 'Ky nang song', 'Viet'),
 ('B153', 'Am Anh', 'Ho Thanh Tam', 'NXB Van Hoc', '2019-06-18', 108000, 8, 'Kinh di', 'Viet'),

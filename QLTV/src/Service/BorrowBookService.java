@@ -6,6 +6,7 @@ package Service;
 
 import DAO.BorrowBookDAO;
 import Model.BookBorrow;
+import View.view;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 public class BorrowBookService implements Service<BookBorrow> {
     private final BorrowBookDAO borrowBookDAO = new BorrowBookDAO();
     private ArrayList<BookBorrow> borrowBookList = new ArrayList<>();
-
+    View.view view = new view();
+    
     public BorrowBookService() {
         borrowBookList = borrowBookDAO.getAllBorrow();
     }
@@ -27,7 +29,7 @@ public class BorrowBookService implements Service<BookBorrow> {
                 return borrowBook;
             }
         }
-        System.out.println("Invalid id.");
+        view.message("Invalid id Book");
         return null;
     }
 

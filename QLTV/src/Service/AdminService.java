@@ -21,12 +21,12 @@ public class AdminService implements Service<Admin> {
     private HashMap<Integer, Admin> AdminMap = new HashMap<Integer, Admin>();
     private final AdminDAO adminDAO = new AdminDAO();
 
-    public AdminService() {
-        adminAcc = adminDAO.getAdminAcc();
+    public AdminService() {      
         AdminMap = adminDAO.getAll();
     }
 
     public Boolean CheckAccount(String userName, String Pass) {
+        adminAcc = adminDAO.getAdminAcc();
         for (Account account : adminAcc) {
             if (account.getUsername().equals(userName) && account.getPass().equals(Pass)) {
                 return true;

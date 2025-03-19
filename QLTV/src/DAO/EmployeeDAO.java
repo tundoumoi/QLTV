@@ -131,7 +131,6 @@ String sql = "UPDATE Employee SET Ename = ?, Essn = ?, EbirthDate = ?, Egender =
         pstmt.setString(10, emp.getStartDate().toString());
         pstmt.setInt(11, emp.getAccountId());
         pstmt.setString(12, emp.getId());
-
         pstmt.executeUpdate();
 
        

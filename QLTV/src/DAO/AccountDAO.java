@@ -10,13 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  *
  * @author dangt
  */
-public class AccountDAO {
-
+public class AccountDAO implements IAccountDAO {
 
     public AccountDAO() {
 
@@ -62,5 +62,36 @@ public class AccountDAO {
 //    public void setAdminAcc(HashMap<Integer, Account> adminAcc) {
 //        this.adminAcc = adminAcc;
 //    }
+
+    @Override
+    public HashSet<Account> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public AccountDAO getById(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void insert(Account account) {
+        String sql = "INSERT INTO Account (AccountId, username, Apass) VALUES (?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, account.getAccountId());
+            pstmt.setString(2, account.getUsername());
+            pstmt.setString(3, account.getPass());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(AccountDAO entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void delete(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

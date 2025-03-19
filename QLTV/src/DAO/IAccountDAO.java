@@ -1,36 +1,35 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package DAO;
 
-import Model.Admin;
-import java.util.ArrayList;
-import java.util.HashMap;
+import Model.Account;
+import java.util.HashSet;
 
 /**
  *
- * @author NHAT NAM
+ * @author dangt
  */
-public interface IAdminDAO extends GenericDAO<AdminDAO, HashMap<Integer,Admin>>{
+public interface IAccountDAO extends GenericDAO<AccountDAO, HashSet<Account>>{
 
     @Override
-    public default HashMap<Integer,Admin> getAll() {
+    public default HashSet<Account> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public default AdminDAO getById(String id) {
+    public default AccountDAO getById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public default void insert(AdminDAO entity) {
+    public default void insert(AccountDAO entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public default void update(AdminDAO admin) {
+    public default void update(AccountDAO entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -38,8 +37,5 @@ public interface IAdminDAO extends GenericDAO<AdminDAO, HashMap<Integer,Admin>>{
     public default void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-   
-    
     
 }

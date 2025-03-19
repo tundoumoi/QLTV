@@ -2,11 +2,13 @@ package Service;
 
 import DAO.BookDAO;
 import Model.Book;
+import View.view;
 import java.util.ArrayList;
 
 public class BookService implements Service<Book> {
     private final BookDAO bookDAO = new BookDAO();
     private ArrayList<Book> bookList = new ArrayList<>();
+    View.view view = new view();
 
     public BookService() {
         bookList = bookDAO.getAll();
@@ -19,7 +21,7 @@ public class BookService implements Service<Book> {
                 return book;
             }
         }
-        System.out.println("Invalid id.");
+        view.message("Invalid id Book");
         return null;
     }
 
