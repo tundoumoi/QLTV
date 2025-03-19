@@ -13,11 +13,11 @@ import java.util.Scanner;
  *
  * @author dangt
  */
-public class Testnhucc {
-    public static void main(String[] args) {
-        CustomerService customerService = new CustomerService();
-        customerService.update(7, "C001", "7");
-        System.out.println(customerService.findById("C001"));
-        
-    }     
-}
+//public class Testnhucc {
+//    public static void main(String[] args) {
+//        CustomerService customerService = new CustomerService();
+//        customerService.update(7, "C001", "7");
+//        System.out.println(customerService.findById("C001"));
+//        
+//    }     
+//}

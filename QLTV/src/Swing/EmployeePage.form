@@ -151,8 +151,22 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jButtonAdd" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jButtonEdit" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jButtonDelete" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jButtonFind" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <Component id="jScrollPane1" min="-2" pref="1374" max="-2" attributes="0"/>
                               <EmptySpace pref="7" max="32767" attributes="0"/>
                           </Group>
@@ -164,7 +178,16 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane1" min="-2" pref="765" max="-2" attributes="0"/>
-                                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jButtonAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButtonEdit" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButtonDelete" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButtonFind" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                               <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
                           </Group>
@@ -224,7 +247,7 @@
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTextPubDate" max="32767" attributes="0"/>
+                                          <Component id="jFormattedDate" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -238,8 +261,8 @@
                                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="ValueQuantity" max="32767" attributes="0"/>
-                                              <Component id="jComberType" pref="227" max="32767" attributes="0"/>
-                                              <Component id="jComboBox2" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jComberType" max="32767" attributes="0"/>
+                                              <Component id="jComboBox2" alignment="0" pref="227" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -273,7 +296,7 @@
                                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextPubDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jFormattedDate" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -381,8 +404,6 @@
                         </Component>
                         <Component class="javax.swing.JTextField" name="JPublisher">
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextPubDate">
-                        </Component>
                         <Component class="javax.swing.JTextField" name="jPrice">
                         </Component>
                         <Component class="javax.swing.JSpinner" name="ValueQuantity">
@@ -411,10 +432,10 @@
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="4">
-                                <StringItem index="0" value="Item 1"/>
-                                <StringItem index="1" value="Item 2"/>
-                                <StringItem index="2" value="Item 3"/>
-                                <StringItem index="3" value="Item 4"/>
+                                <StringItem index="0" value="English"/>
+                                <StringItem index="1" value="Vietnamese"/>
+                                <StringItem index="2" value="Japanese"/>
+                                <StringItem index="3" value="chinese"/>
                               </StringArray>
                             </Property>
                           </Properties>
@@ -422,8 +443,33 @@
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
                         </Component>
+                        <Component class="javax.swing.JFormattedTextField" name="jFormattedDate">
+                          <Events>
+                            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="jFormattedDateAncestorAdded"/>
+                          </Events>
+                        </Component>
                       </SubComponents>
                     </Container>
+                    <Component class="javax.swing.JButton" name="jButtonAdd">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="ADD"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButtonEdit">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Edit"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButtonDelete">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Delete"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButtonFind">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Find"/>
+                      </Properties>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JDesktopPane" name="jDesktopPane3">

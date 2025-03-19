@@ -290,7 +290,12 @@ INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES
 ('C001', 120000, 'Member'),
 ('C002', 600000, 'Vip')
 
-select * from Book
+select language from Book 
+SELECT DISTINCT type 
+FROM Book
+ORDER BY type;
+
+
 delete from CustomerBuy
 delete from CustomerBorrow
 select * from CustomerBuy
