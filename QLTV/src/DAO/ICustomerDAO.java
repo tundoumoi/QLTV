@@ -1,9 +1,11 @@
 package DAO;
 
 import Model.Customer;
-import java.util.ArrayList;
 
-public interface ICustomerDAO extends GenericDAO<Customer, ArrayList<Customer>>{
+import java.util.HashSet;
+
+public interface ICustomerDAO extends GenericDAO<Customer, HashSet<Customer>> {
+
 
     @Override
     public void delete(String id);
@@ -18,6 +20,6 @@ public interface ICustomerDAO extends GenericDAO<Customer, ArrayList<Customer>>{
     public Customer getById(String id);
 
     @Override
-    public ArrayList<Customer> getAll();
+    public HashSet<Customer> getAll();
     
 }

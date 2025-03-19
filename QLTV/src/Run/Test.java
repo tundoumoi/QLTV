@@ -86,28 +86,28 @@ public class Test {
 //            System.out.println("cus buy: " + customer);
 //
 //        }
-        EmployeeService empService = new EmployeeService();
-
-    
-        Employee emp2 = new Employee(
-                empService.increaseEMPID(), "Tran Thi B", "987654321",
-                LocalDate.of(1992, 2, 2), "Nu", "0909765432", "ttb@gmail.com",
-                "Da Nang", "Thu kho", 4500.0, LocalDate.of(2021, 5, 10), 002);
-
-        Employee emp3 = new Employee(
-                empService.increaseEMPID(), "Le Van C", "456789123",
-                LocalDate.of(1995, 3, 3), "Nam", "0909988776", "lvc@gmail.com",
-                "Sai Gon", "Ke toan", 5500.0, LocalDate.of(2022, 8, 20), 003);
-
-        // Them vao database va TreeSet
-    
-        empService.insert(emp2);
-        empService.insert(emp3);
-
-        // Hien thi thong tin
-   
-        empService.display(emp2);
-        empService.display(emp3);
+//        EmployeeService empService = new EmployeeService();
+//
+//    
+//        Employee emp2 = new Employee(
+//                empService.increaseEMPID(), "Tran Thi B", "987654321",
+//                LocalDate.of(1992, 2, 2), "Nu", "0909765432", "ttb@gmail.com",
+//                "Da Nang", "Thu kho", 4500.0, LocalDate.of(2021, 5, 10), 002);
+//
+//        Employee emp3 = new Employee(
+//                empService.increaseEMPID(), "Le Van C", "456789123",
+//                LocalDate.of(1995, 3, 3), "Nam", "0909988776", "lvc@gmail.com",
+//                "Sai Gon", "Ke toan", 5500.0, LocalDate.of(2022, 8, 20), 003);
+//
+//        // Them vao database va TreeSet
+//    
+//        empService.insert(emp2);
+//        empService.insert(emp3);
+//
+//        // Hien thi thong tin
+//   
+//        empService.display(emp2);
+//        empService.display(emp3);
     }
 }
 

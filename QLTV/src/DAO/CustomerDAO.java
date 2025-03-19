@@ -12,20 +12,22 @@ import Model.Account;
 import Model.Customer;
 import Model.CustomerBorrow;
 import Model.CustomerBuy;
+import java.util.HashSet;
 
 public class CustomerDAO implements ICustomerDAO {
 
-    private ArrayList<Customer> CusList = new ArrayList<>();
-    private ArrayList<CustomerBorrow> cusBorrowList = new ArrayList<>();
-    private ArrayList<CustomerBuy> cusBuyList = new ArrayList<>();
-    private HashMap<Integer, Account> customerACC = new HashMap<>();
+    private HashSet<Customer> cusSet = new HashSet<>();
+    private HashSet<CustomerBorrow> cusBorrowSet = new HashSet<>();
+    private HashSet<CustomerBuy> cusBuySet = new HashSet<>();
+    private HashSet<Account> customerAccSet = new HashSet<>();
 
     public CustomerDAO() {
-        CusList = getAll();
+        cusSet = getAll();
+        loadAcc();
     }
 
-    public ArrayList<Customer> getCusList() {
-        return CusList;
+    public HashSet<Customer> getCusSet() {
+        return cusSet;
     }
 
     @Override
@@ -167,7 +169,7 @@ public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public Customer getById(String id) {
-        for (Customer customer : CusList) {
+        for (Customer customer : cusSet) {
             if (customer.getId().equalsIgnoreCase(id)) {
                 return customer;
             }
@@ -176,7 +178,7 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     public CustomerBuy getCusBuyById(String id) {
-        for (CustomerBuy customer : cusBuyList) {
+        for (CustomerBuy customer : cusBuySet) {
             if (customer.getCid().equalsIgnoreCase(id)) {
                 return customer;
             }
@@ -185,18 +187,19 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     public CustomerBorrow getCusBorrowById(String id) {
-        for (CustomerBorrow customer : cusBorrowList) {
+        for (CustomerBorrow customer : cusBorrowSet) {
             if (customer.getcId().equalsIgnoreCase(id)) {
                 return customer;
             }
         }
         return null;
     }
-
     @Override
-    public ArrayList<Customer> getAll() {
+    public HashSet<Customer> getAll() {
         String sql = "SELECT * FROM CUSTOMER";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 String Cid = rs.getString("Cid");
                 String Cname = rs.getString("Cname");
@@ -209,18 +212,19 @@ public class CustomerDAO implements ICustomerDAO {
                 double CtotalPayment = rs.getDouble("CtotalPayment");
                 int AccountId = rs.getInt("AccountId");
                 Customer customer = new Customer(Cid, Cname, Cssn, LocalDate.parse(CbirthDate), Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId);
-                CusList.add(customer);
+                cusSet.add(customer);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return CusList;
+        return cusSet;
     }
 
-    public ArrayList<CustomerBorrow> getAllCustomerBorrow() {
-        String sql = "SELECT * FROM Customerborrow";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+    public HashSet<CustomerBorrow> getAllCustomerBorrow() {
+        String sql = "SELECT * FROM CustomerBorrow";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 String cardId = rs.getString("cardId");
                 String Cid = rs.getString("Cid");
@@ -230,51 +234,48 @@ public class CustomerDAO implements ICustomerDAO {
                 double cardValue = rs.getDouble("cardValue");
                 int borrowLimit = rs.getInt("borrowLimit");
                 CustomerBorrow cusBorrow = new CustomerBorrow(cardId, Cid, typeCard, LocalDate.parse(cardExpiry), LocalDate.parse(registrationDate), cardValue, borrowLimit);
-                cusBorrowList.add(cusBorrow);
-
+                cusBorrowSet.add(cusBorrow);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return cusBorrowList;
+        return cusBorrowSet;
     }
 
-    public ArrayList<CustomerBuy> getAllCustomerBuy() {
+    public HashSet<CustomerBuy> getAllCustomerBuy() {
         String sql = "SELECT * FROM CustomerBuy";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 String Cid = rs.getString("Cid");
                 double totalPurchase = rs.getDouble("totalPurchase");
                 String membershipLevel = rs.getString("membershipLevel");
                 CustomerBuy cusBuy = new CustomerBuy(Cid, totalPurchase, membershipLevel);
-                cusBuyList.add(cusBuy);
-
+                cusBuySet.add(cusBuy);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return cusBuyList;
+        return cusBuySet;
     }
-    // Update CusBorrow , cusBuy    
 
     public void loadAcc() {
-        String query = "SELECT a.AccountId,a.userName , a.Apass FROM Account a join customer cus on cus.AccountID = a.AccountId";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
-            try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    String userName = rs.getString("UserName");
-                    String Apass = rs.getString("Apass");
-                    int accountId = rs.getInt("AccountId");
-                    Account acc = new Account(accountId, userName, Apass);
-                    customerACC.put(accountId, acc);
-                }
+        String query = "SELECT a.AccountId, a.userName, a.Apass FROM Account a INNER JOIN Customer cus ON cus.AccountID = a.AccountId";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                String userName = rs.getString("userName");
+                String Apass = rs.getString("Apass");
+                int accountId = rs.getInt("AccountId");
+                Account acc = new Account(accountId, userName, Apass);
+                customerAccSet.add(acc);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }
+    }   
 
     public int getnumberCus() {
         String sql = "SELECT COUNT(*) FROM Customer";
@@ -290,18 +291,18 @@ public class CustomerDAO implements ICustomerDAO {
         return 0;
     }
 
-    public ArrayList<CustomerBorrow> getCusBorrowList() {
-        return cusBorrowList;
+   public HashSet<CustomerBorrow> getCusBorrowSet() {
+        return cusBorrowSet;
     }
 
-    public ArrayList<CustomerBuy> getCusBuyList() {
-        return cusBuyList;
+    public HashSet<CustomerBuy> getCusBuySet() {
+        return cusBuySet;
     }
 
-    public HashMap<Integer, Account> getCustomerACC() {
-        customerACC.clear();
+    public HashSet<Account> getCustomerAccSet() {
+        customerAccSet.clear();
         loadAcc();
-        return customerACC;
+        return customerAccSet;
     }
 
 }
