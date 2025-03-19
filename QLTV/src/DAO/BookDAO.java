@@ -244,5 +244,31 @@ public class BookDAO implements IBookDAO {
         }
         return books;
     }
+    
+    public ArrayList<Book> getBooksWithQuantityGreaterThanZero() {
+        ArrayList<Book> availableBooks = new ArrayList<>();
+        String sql = "SELECT * FROM Book WHERE quantity > 0";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                Book book = new Book(
+                    rs.getString("bookId"),
+                    rs.getString("title"),
+                    rs.getString("author"),
+                    rs.getString("publisher"),
+                    rs.getString("publishedDate"),
+                    rs.getDouble("price"),
+                    rs.getInt("quantity"),
+                    rs.getString("type"),
+                    rs.getString("language")
+                );
+                availableBooks.add(book);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return availableBooks;
+    }
 }
 
