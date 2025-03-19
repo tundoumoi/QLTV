@@ -3,9 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package Model;
-
-import java.time.LocalDate;
-
 /**
  *
  * @author Admin
@@ -15,13 +12,13 @@ public class Book {
     protected String title;
     protected String author;
     protected String publisher;
-    protected LocalDate publishedDate;
+    protected String publishedDate;
     protected double price;
     protected int quantity;
     protected String type;
     protected String language;
 
-    public Book(String bookId, String title, String author, String publisher, LocalDate publishedDate, double price, int quantity, String type, String language) {
+    public Book(String bookId, String title, String author, String publisher, String publishedDate, double price, int quantity, String type, String language) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
@@ -65,11 +62,11 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public LocalDate getPublishedDate() {
+    public String getPublishedDate() {
         return publishedDate;
     }
 
-    public void setPublishedDate(LocalDate publishedDate) {
+    public void setPublishedDate(String publishedDate) {
         this.publishedDate = publishedDate;
     }
 

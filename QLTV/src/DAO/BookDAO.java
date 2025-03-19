@@ -42,7 +42,7 @@ public class BookDAO implements IBookDAO {
             pstmt.setString(1, entity.getTitle());
             pstmt.setString(2, entity.getAuthor());
             pstmt.setString(3, entity.getPublisher());
-            pstmt.setString(4, entity.getPublishedDate().toString());
+            pstmt.setString(4, entity.getPublishedDate());
             pstmt.setDouble(5, entity.getPrice());
             pstmt.setInt(6, entity.getQuantity());
             pstmt.setString(7, entity.getType());
@@ -185,7 +185,7 @@ public class BookDAO implements IBookDAO {
                 int quantity = rs.getInt("quantity");
                 String type = rs.getString("type");
                 String language = rs.getString("language");
-                Book book = new Book(bookId, title, author, publisher, LocalDate.parse(publishedDate), price, quantity, type, language);
+                Book book = new Book(bookId, title, author, publisher, publishedDate, price, quantity, type, language);
                 bookList.add(book);
             }
         } catch (SQLException e) {
@@ -231,7 +231,7 @@ public class BookDAO implements IBookDAO {
                         rs.getString("title"),
                         rs.getString("author"),
                         rs.getString("publisher"),
-                        LocalDate.parse(rs.getString("publishedDate")),
+                        rs.getString("publishedDate"),
                         rs.getDouble("price"),
                         rs.getInt("quantity"),
                         rs.getString("type"),

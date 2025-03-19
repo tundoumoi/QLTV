@@ -147,11 +147,11 @@ public class ContentBasedRecommender {
     public static void main(String[] args) {
         // Tạo một số cuốn sách mẫu (trong thực tế, bạn có thể lấy từ BookDAO)
         List<Book> books = new ArrayList<>();
-        books.add(new Book("1", "Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Bloomsbury", java.time.LocalDate.of(1997, 6, 26), 20.0, 100, "Fantasy", "English"));
-        books.add(new Book("2", "Harry Potter and the Chamber of Secrets", "J.K. Rowling", "Bloomsbury", java.time.LocalDate.of(1998, 7, 2), 22.0, 100, "Fantasy", "English"));
-        books.add(new Book("3", "The Hobbit", "J.R.R. Tolkien", "Allen & Unwin", java.time.LocalDate.of(1937, 9, 21), 15.0, 50, "Fantasy", "English"));
-        books.add(new Book("4", "A Brief History of Time", "Stephen Hawking", "Bantam", java.time.LocalDate.of(1988, 4, 1), 18.0, 70, "Science", "English"));
-        
+//        books.add(new Book("1", "Harry Potter and the Sorcerer's Stone", "J.K. Rowling", "Bloomsbury", java.time.LocalDate.of(1997, 6, 26), 20.0, 100, "Fantasy", "English"));
+//        books.add(new Book("2", "Harry Potter and the Chamber of Secrets", "J.K. Rowling", "Bloomsbury", java.time.LocalDate.of(1998, 7, 2), 22.0, 100, "Fantasy", "English"));
+//        books.add(new Book("3", "The Hobbit", "J.R.R. Tolkien", "Allen & Unwin", java.time.LocalDate.of(1937, 9, 21), 15.0, 50, "Fantasy", "English"));
+//        books.add(new Book("4", "A Brief History of Time", "Stephen Hawking", "Bantam", java.time.LocalDate.of(1988, 4, 1), 18.0, 70, "Science", "English"));
+//        
         ContentBasedRecommender recommender = new ContentBasedRecommender(books);
         
         // Lấy gợi ý cho sách mục tiêu đầu tiên
