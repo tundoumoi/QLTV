@@ -5,7 +5,14 @@
 package Swing;
 
 import DAO.BookDAO;
+import DAO.BorrowBookDAO;
+import DAO.BuyBookDAO;
+import DAO.ReportDAO;
 import Model.Book;
+import Model.BookBorrow;
+import Model.BuyBook;
+import Model.Report;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,12 +22,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CustomerPage extends javax.swing.JFrame {
 
+    private String selectedBookId = null;
+    private String selectedBookTitle = null;
+    
     /**
      * Creates new form NewJFrame
      */
     public CustomerPage() {
         initComponents();
         populateAvailableBooks();
+        Find.addActionListener(this::FindActionPerformed);
+        ResultOfFind.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ResultOfFindMouseClicked(evt);
+            }
+        });
+        BUY.addActionListener(this::BUYActionPerformed);
+        BORROW.addActionListener(this::BORROWActionPerformed);
+        REPPORT.addActionListener(this::REPPORTActionPerformed);
 
         // Tạo instance của Chatbot (lớp Chatbot kế thừa từ JPanel)
         chatbot.Chatbot chatbotPanel = new chatbot.Chatbot();
@@ -51,6 +70,30 @@ public class CustomerPage extends javax.swing.JFrame {
         }
     }
 
+    private void updateResultTable(ArrayList<Book> books) {
+        DefaultTableModel model = (DefaultTableModel) ResultOfFind.getModel();
+        model.setRowCount(0); 
+
+        for (Book book : books) {
+            model.addRow(new Object[]{book.getTitle(), book.getQuantity()});
+        }
+    }
+
+    private void ResultOfFindMouseClicked(java.awt.event.MouseEvent evt) { 
+        int selectedRow = ResultOfFind.getSelectedRow();
+        if (selectedRow != -1) {
+            selectedBookTitle = ResultOfFind.getValueAt(selectedRow, 0).toString(); // Cột 0 là title
+            selectedBookId = findBookIdByTitle(selectedBookTitle); // Tìm bookId từ title
+        }
+    }
+    
+    private String findBookIdByTitle(String title) {
+        BookDAO bookDAO = new BookDAO();
+        ArrayList<Book> books = bookDAO.findBookByTitle(title);
+        return books.isEmpty() ? null : books.get(0).getBookId();
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,9 +113,9 @@ public class CustomerPage extends javax.swing.JFrame {
         AvailableBook = new javax.swing.JTable();
         InputToFind = new javax.swing.JTextField();
         Find = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        SelectedToFind = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        ResultOfFind = new javax.swing.JTable();
         BUY = new javax.swing.JButton();
         BORROW = new javax.swing.JButton();
         REPPORT = new javax.swing.JButton();
@@ -167,12 +210,25 @@ public class CustomerPage extends javax.swing.JFrame {
             }
         });
 
-        Find.setText("jButton1");
+        Find.setText("Find");
+        Find.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FindActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        SelectedToFind.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "bookId", "title", "type", "publishedDate" }));
+        SelectedToFind.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SelectedToFindActionPerformed(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        ResultOfFind.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
                 {null, null},
                 {null, null},
                 {null, null},
@@ -196,7 +252,7 @@ public class CustomerPage extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(ResultOfFind);
 
         BUY.setText("BUY");
         BUY.addActionListener(new java.awt.event.ActionListener() {
@@ -206,8 +262,18 @@ public class CustomerPage extends javax.swing.JFrame {
         });
 
         BORROW.setText("BORROW");
+        BORROW.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BORROWActionPerformed(evt);
+            }
+        });
 
         REPPORT.setText("REPORT");
+        REPPORT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                REPPORTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -219,13 +285,14 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(BUY)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BORROW)
-                        .addGap(74, 74, 74)
-                        .addComponent(REPPORT))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(REPPORT)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(SelectedToFind, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Find))
                     .addComponent(InputToFind)
@@ -241,7 +308,7 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Find)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SelectedToFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -279,7 +346,7 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ChatbotPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(557, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(545, 545, 545))
         );
@@ -312,11 +379,138 @@ public class CustomerPage extends javax.swing.JFrame {
 
     private void BUYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUYActionPerformed
         // TODO add your handling code here:
+        if (selectedBookId == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách!");
+            return;
+        }
+
+        String customerId = "C123"; // Lấy ID khách hàng, giả sử đã đăng nhập
+        int quantity = 1; // Giả định mua 1 quyển sách
+        LocalDate purchaseDate = LocalDate.now();
+
+        BookDAO bookDAO = new BookDAO();
+        Book book = bookDAO.getById(selectedBookId);
+        if (book.getQuantity() < quantity) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Sách không đủ số lượng!");
+            return;
+        }
+
+        // Tạo hóa đơn mua sách
+        BuyBook buyBook = new BuyBook("Order" + System.currentTimeMillis(), customerId, selectedBookId, quantity, book.getPrice() * quantity, purchaseDate);
+        BuyBookDAO buyBookDAO = new BuyBookDAO();
+        buyBookDAO.insertBuyB(buyBook);
+
+        // Cập nhật số lượng sách còn lại
+        bookDAO.updateQuantity(selectedBookId, book.getQuantity() - quantity);
+
+        // Ghi lại giao dịch trong ReportContent
+        ReportContent.setText("Bạn đã mua sách: " + selectedBookTitle + "\nSố lượng: " + quantity);
     }//GEN-LAST:event_BUYActionPerformed
 
     private void InputToFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputToFindActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_InputToFindActionPerformed
+
+    private void SelectedToFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectedToFindActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SelectedToFindActionPerformed
+
+    private void FindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindActionPerformed
+        // TODO add your handling code here:
+        String keyword = InputToFind.getText().trim();
+        String selectedCriteria = SelectedToFind.getSelectedItem().toString();
+        BookDAO bookDAO = new BookDAO();
+        ArrayList<Book> result = new ArrayList<>();
+
+        if (keyword.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin tìm kiếm!");
+            return;
+        }
+
+        switch (selectedCriteria) {
+            case "bookId":
+                Book book = bookDAO.getById(keyword);
+                if (book != null) {
+                    result.add(book);
+                }
+                break;
+            case "title":
+                result = bookDAO.findBookByTitle(keyword);
+                break;
+            case "type":
+                result = bookDAO.findBookByType(keyword);
+                break;
+            case "publishedDate":
+                result = bookDAO.findBookByPublishedDate(java.time.LocalDate.parse(keyword));
+                break;
+            default:
+                javax.swing.JOptionPane.showMessageDialog(this, "Tiêu chí tìm kiếm không hợp lệ!");
+                return;
+        }
+
+        updateResultTable(result);
+    }//GEN-LAST:event_FindActionPerformed
+
+    private void BORROWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BORROWActionPerformed
+        // TODO add your handling code here:
+        if (selectedBookId == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách!");
+            return;
+        }
+
+        String cardId = "Card123"; // ID thẻ thư viện của người dùng
+        LocalDate borrowDate = LocalDate.now();
+        LocalDate endDate = borrowDate.plusDays(14); // Mượn trong 14 ngày
+
+        BookDAO bookDAO = new BookDAO();
+        Book book = bookDAO.getById(selectedBookId);
+        if (book.getQuantity() < 1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Sách không có sẵn để mượn!");
+            return;
+        }
+
+        // Tạo thông tin mượn sách
+        BookBorrow borrow = new BookBorrow(cardId, selectedBookId, borrowDate, endDate);
+        BorrowBookDAO borrowBookDAO = new BorrowBookDAO();
+        borrowBookDAO.insertBorrowB(borrow);
+
+        // Cập nhật số lượng sách còn lại
+        bookDAO.updateQuantity(selectedBookId, book.getQuantity() - 1);
+
+        // Ghi lại giao dịch trong ReportContent
+        ReportContent.setText("Bạn đã mượn sách: " + selectedBookTitle + "\nNgày mượn: " + borrowDate + "\nNgày trả: " + endDate);
+    }//GEN-LAST:event_BORROWActionPerformed
+
+    private void REPPORTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPPORTActionPerformed
+        // TODO add your handling code here:
+        // Kiểm tra xem đã chọn sách chưa
+        if (selectedBookId == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách để báo cáo!");
+            return;
+        }
+
+        // Lấy nội dung báo cáo từ ReportContent
+        String reportContent = ReportContent.getText().trim();
+        if (reportContent.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập nội dung báo cáo!");
+            return;
+        }
+
+        // Lấy customerId hợp lệ (ở đây dùng giá trị mẫu, bạn cần thay bằng thông tin đăng nhập thực tế)
+        String customerId = "C123"; 
+        LocalDate reportDate = LocalDate.now();
+
+        // Tạo đối tượng Report sử dụng constructor gồm customerId, bookId, title, reportDate và content
+        Report report = new Report(customerId, selectedBookId, selectedBookTitle, reportDate, reportContent);
+
+        // Lưu báo cáo vào cơ sở dữ liệu thông qua ReportDAO
+        ReportDAO reportDAO = new ReportDAO();
+        reportDAO.insert(report);
+
+        // Reset nội dung ReportContent và thông báo thành công
+        ReportContent.setText("");
+        javax.swing.JOptionPane.showMessageDialog(this, "Báo cáo thành công cho sách: " + selectedBookTitle);
+    }//GEN-LAST:event_REPPORTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,7 +557,8 @@ public class CustomerPage extends javax.swing.JFrame {
     private javax.swing.JTextField InputToFind;
     private javax.swing.JButton REPPORT;
     private javax.swing.JTextField ReportContent;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTable ResultOfFind;
+    private javax.swing.JComboBox<String> SelectedToFind;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -372,6 +567,5 @@ public class CustomerPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
