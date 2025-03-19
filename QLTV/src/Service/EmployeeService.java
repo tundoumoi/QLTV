@@ -67,73 +67,62 @@ public class EmployeeService implements Service<Employee> {
     int count = employTree.size() + 1;  
     return String.format("E%03d", count);  
 }
-
-
-public void updateEmployee(String id) {
-    Employee emp = findById(id);
-    if (emp == null) {
-        return;
-    }
-
-    Scanner sc = new Scanner(System.in);
-    boolean keepUpdating = true;
-
-    while (keepUpdating) {
-    
-        int choice = Integer.parseInt(sc.nextLine());
-
-        switch (choice) {
-            case 1:
-                String name = sc.nextLine();
-                employeeDAO.updateName(id, name);
-                break;
-            case 2:
-                String ssn = sc.nextLine();
-                employeeDAO.updateSSN(id, ssn);
-                break;
-            case 3:
-                String birthDate = sc.nextLine();
-                employeeDAO.updateBirthDate(id, birthDate);
-                break;
-            case 4:
-                String gender = sc.nextLine();
-                employeeDAO.updateGender(id, gender);
-                break;
-            case 5:
-                String address = sc.nextLine();
-                employeeDAO.updateAddress(id, address);
-                break;
-            case 6:
-                String phone = sc.nextLine();
-                employeeDAO.updatePhoneNumber(id, phone);
-                break;
-            case 7:
-                String email = sc.nextLine();
-                employeeDAO.updateEmail(id, email);
-                break;
-            case 8:
-                String position = sc.nextLine();
-                employeeDAO.updatePosition(id, position);
-                break;
-            case 9:
-                double salary = Double.parseDouble(sc.nextLine());
-                employeeDAO.updateSalary(id, salary);
-                break;
-            case 10:
-                String startDate = sc.nextLine();
-                employeeDAO.updateStartDate(id, startDate);
-                break;
-            case 11:
-                int accountId = sc.nextInt();
-                employeeDAO.updateAccountId(id, accountId);
-                break;
-            case 0:
-                keepUpdating = false;
-                break;
-            default:
-        }
-    }
-}
+//
+//
+//public void updateEmployee(int choice , String id) {
+//    Employee emp = findById(id);
+//    if (emp == null) {
+//        return;
+//    }
+//    boolean keepUpdating = true;
+//
+//    while (keepUpdating) {
+//
+//        switch (choice) {
+//            case 1:
+//                employeeDAO.updateName(id, name);
+//                break;
+//            case 2:
+//                employeeDAO.updateSSN(id, ssn);
+//                break;
+//            case 3:
+//                employeeDAO.updateBirthDate(id, birthDate);
+//                break;
+//            case 4:
+//                employeeDAO.updateGender(id, gender);
+//                break;
+//            case 5:
+//                employeeDAO.updateAddress(id, address);
+//                break;
+//            case 6:
+//                employeeDAO.updatePhoneNumber(id, phone);
+//                break;
+//            case 7:
+//                employeeDAO.updateEmail(id, email);
+//                break;
+//            case 8:
+//                employeeDAO.updatePosition(id, position);
+//                break;
+//            case 9:
+//                employeeDAO.updateSalary(id, salary);
+//                break;
+//            case 10:
+//                employeeDAO.updateStartDate(id, startDate);
+//                break;
+//            case 11:
+//                employeeDAO.updateAccountId(id, accountId);
+//                break;
+//            case 0:
+//                keepUpdating = false;
+//                break;
+//            default:
+//        }
+//    }
+//}
+   
+   public void update(Employee employee){
+      employeeDAO.update(employee);
+   }
  
 }
 

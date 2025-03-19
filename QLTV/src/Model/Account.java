@@ -13,10 +13,13 @@ public class Account {
 	String username ;
 	String Pass ;
 
-    public Account(String username, String Pass) {
+    public Account(int AccountId, String username, String Pass) {
+        this.AccountId = AccountId;
         this.username = username;
         this.Pass = Pass;
     }
+
+
 
     public int getAccountId() {
         return AccountId;
