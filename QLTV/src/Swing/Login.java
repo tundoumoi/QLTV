@@ -84,6 +84,9 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Press to create Customer Account");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel2MousePressed(evt);
             }
@@ -313,9 +316,15 @@ public class Login extends javax.swing.JFrame {
 
     private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
         // TODO add your handling code here:
+
+    }//GEN-LAST:event_jLabel2MousePressed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+                setVisible(false);
         Register rg = new Register();
         rg.setVisible(true);
-    }//GEN-LAST:event_jLabel2MousePressed
+    }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments

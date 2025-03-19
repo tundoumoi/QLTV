@@ -57,6 +57,7 @@ public CustomerService() {
     @Override
     public Customer insert(Customer entity) {
         cusDao.insert(entity);
+        customerSet.add(entity);
         return entity;
     }
     public String increaseCUSID() {
