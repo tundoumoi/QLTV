@@ -12,6 +12,12 @@ import java.util.HashSet;
 public class CustomerService implements Service<Customer> {
     CustomerDAO cusDao = new CustomerDAO();
     private HashSet<Account> customerACC = new HashSet<>();
+    private HashSet<Customer> customerSet = new HashSet<>();
+
+public CustomerService() {
+    customerSet = cusDao.getAll(); 
+}
+
 
     public Boolean CheckAccount(String userName, String Pass) {
         for (Account account : customerACC) {
@@ -53,5 +59,9 @@ public class CustomerService implements Service<Customer> {
         cusDao.insert(entity);
         return entity;
     }
-    
+    public String increaseCUSID() {
+    int count = customerSet.size() + 1;
+    return String.format("C%03d", count);
+}
+
 }
