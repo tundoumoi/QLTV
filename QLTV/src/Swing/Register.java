@@ -4,6 +4,7 @@
  */
 package Swing;
 
+import Model.Account;
 import Model.Customer;
 import Service.AccountService;
 import Service.AdminService;
@@ -76,7 +77,7 @@ public class Register extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jCheckMale = new javax.swing.JCheckBox();
         jLabel11 = new javax.swing.JLabel();
-        jCheckLgbt = new javax.swing.JCheckBox();
+        jCheckOther = new javax.swing.JCheckBox();
         Back = new javax.swing.JLabel();
         ShowPasss = new javax.swing.JButton();
 
@@ -372,15 +373,15 @@ public class Register extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Other");
 
-        jCheckLgbt.setBackground(new java.awt.Color(204, 204, 204));
-        jCheckLgbt.addMouseListener(new java.awt.event.MouseAdapter() {
+        jCheckOther.setBackground(new java.awt.Color(204, 204, 204));
+        jCheckOther.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jCheckLgbtMouseClicked(evt);
+                jCheckOtherMouseClicked(evt);
             }
         });
-        jCheckLgbt.addActionListener(new java.awt.event.ActionListener() {
+        jCheckOther.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckLgbtActionPerformed(evt);
+                jCheckOtherActionPerformed(evt);
             }
         });
 
@@ -433,7 +434,7 @@ public class Register extends javax.swing.JFrame {
                                         .addGap(12, 12, 12)
                                         .addComponent(jLabel11)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckLgbt))
+                                        .addComponent(jCheckOther))
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(jPanel3Layout.createSequentialGroup()
                                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -505,7 +506,7 @@ public class Register extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCheckLgbt, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCheckOther, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING))
                         .addComponent(jChecKFemale, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9))
@@ -611,17 +612,14 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField2MouseReleased
 
     private void RegisterBut1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterBut1MouseClicked
-        insertCus();
-        insertAccount();
+        if(insertAccountAndCustomer()){
+        JOptionPane.showMessageDialog(rootPane, "Register Successful!");
+        login.setVisible(true);
+        setVisible(false);}
     }//GEN-LAST:event_RegisterBut1MouseClicked
 
     private void RegisterBut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterBut1ActionPerformed
-        
-        if(checkValidInput())
-        {
-            login.setVisible(true);
-            setVisible(false);
-        }
+
 
         // TODO add your handling code here:
     }//GEN-LAST:event_RegisterBut1ActionPerformed
@@ -653,33 +651,33 @@ public class Register extends javax.swing.JFrame {
 
     private void jChecKFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jChecKFemaleActionPerformed
         jCheckMale.setSelected(false);
-        jCheckLgbt.setSelected(false);
+        jCheckOther.setSelected(false);
     }//GEN-LAST:event_jChecKFemaleActionPerformed
 
     private void jCheckMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckMaleActionPerformed
         jChecKFemale.setSelected(false);
-        jCheckLgbt.setSelected(false);
+        jCheckOther.setSelected(false);
     }//GEN-LAST:event_jCheckMaleActionPerformed
 
-    private void jCheckLgbtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckLgbtActionPerformed
+    private void jCheckOtherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckOtherActionPerformed
         jCheckMale.setSelected(false);
         jChecKFemale.setSelected(false);
-    }//GEN-LAST:event_jCheckLgbtActionPerformed
+    }//GEN-LAST:event_jCheckOtherActionPerformed
 
     private void jChecKFemaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jChecKFemaleMouseClicked
         jCheckMale.setSelected(false);
-        jCheckLgbt.setSelected(false);
+        jCheckOther.setSelected(false);
     }//GEN-LAST:event_jChecKFemaleMouseClicked
 
     private void jCheckMaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckMaleMouseClicked
         jChecKFemale.setSelected(false);
-        jCheckLgbt.setSelected(false);
+        jCheckOther.setSelected(false);
     }//GEN-LAST:event_jCheckMaleMouseClicked
 
-    private void jCheckLgbtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckLgbtMouseClicked
+    private void jCheckOtherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckOtherMouseClicked
         jCheckMale.setSelected(false);
         jChecKFemale.setSelected(false);
-    }//GEN-LAST:event_jCheckLgbtMouseClicked
+    }//GEN-LAST:event_jCheckOtherMouseClicked
 
     private void BackMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMousePressed
         // TODO add your handling code here:
@@ -703,87 +701,103 @@ public class Register extends javax.swing.JFrame {
             return "Male";
         } else if (jChecKFemale.isSelected()) {
             return "Female";
-        } else if (jCheckLgbt.isSelected()) {
+        } else if (jCheckOther.isSelected()) {
             return "Other";
         }
         return "Not specified";
     }
+ public boolean insertAccountAndCustomer() {
+    // Lấy thông tin tài khoản
+    String UserName = jTextFieldUser1.getText().trim();
+    String PassWord = jPasswordField2.getText().trim();
+    String ConfirmPassword = jPasswordField3.getText().trim();
 
-    public void insertCus() {
-        String CusID = CusSer.increaseCUSID();
-        String Name = TextName.getText();
-        String SSN = jFormattedTextSSN.getText();
-        LocalDate BirthDate = LocalDate.parse(jFormattedTextBirthDate.getText());
-        String gender = Genger();
-        String PhoneNumber = jFormattedTextPhone.getText();
-        String Email = EmailText.getText();
-        String Address = jTextAddress.getText();
-        double totalPayment = 0.0;
-        int accountId = accSer.increaAcc();
-        Customer cus = new Customer(CusID, Name, SSN, BirthDate, gender, PhoneNumber, Email, Address, totalPayment, accountId);
+    // Lấy thông tin khách hàng
+    String Name = TextName.getText().trim();
+    String SSN = jFormattedTextSSN.getText().trim();
+    String BirthDateStr = jFormattedTextBirthDate.getText().trim();
+    String gender = Genger();
+    String PhoneNumber = jFormattedTextPhone.getText().trim();
+    String Email = EmailText.getText().trim();
+    String Address = jTextAddress.getText().trim();
+
+    // Kiểm tra thông tin tài khoản và khách hàng đầy đủ
+    if (UserName.isEmpty() || PassWord.isEmpty() || ConfirmPassword.isEmpty() ||
+        Name.isEmpty() || SSN.isEmpty() || BirthDateStr.isEmpty() || gender.isEmpty() ||
+        PhoneNumber.isEmpty() || Email.isEmpty() || Address.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin tài khoản và khách hàng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Kiểm tra tài khoản hợp lệ
+    if (UserName.length() < 5) {
+        JOptionPane.showMessageDialog(null, "Tên tài khoản phải có ít nhất 5 ký tự!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    if (!PassWord.equals(ConfirmPassword)) {
+        JOptionPane.showMessageDialog(null, "Mật khẩu không khớp! Vui lòng nhập lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    if (PassWord.length() < 6) {
+        JOptionPane.showMessageDialog(null, "Mật khẩu phải có ít nhất 6 ký tự!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Kiểm tra ngày sinh hợp lệ
+    LocalDate BirthDate;
+    try {
+        BirthDate = LocalDate.parse(BirthDateStr);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ! (Định dạng YYYY-MM-DD)", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Kiểm tra SSN hợp lệ (9 hoặc 12 số)
+    if (!SSN.matches("\\d{9}|\\d{12}")) {
+        JOptionPane.showMessageDialog(null, "SSN phải có 9 hoặc 12 chữ số!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Kiểm tra Email hợp lệ
+    if (!Email.matches("^[\\w.-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,6}$")) {
+        JOptionPane.showMessageDialog(null, "Email không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Kiểm tra số điện thoại hợp lệ (9-10 số)
+    if (!PhoneNumber.matches("\\d{9,10}")) {
+        JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ! Phải có 9-10 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // 🔹 **Tạo AccountId duy nhất**
+    int newAccountId = accSer.increaAcc() + 1;
+
+    // Tạo tài khoản
+    Account acc = new Account(newAccountId, UserName, PassWord);
+    try {
+        accSer.insertAcc(acc);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Lỗi khi tạo tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false; // Nếu lỗi, dừng lại
+    }
+
+    // 🔹 **Tạo CusID duy nhất**
+    String CusID = CusSer.increaseCUSID(); // Tạo CusID mới (không trùng lặp)
+
+    double totalPayment = 0.0;
+    Customer cus = new Customer(CusID, Name, SSN, BirthDate, gender, PhoneNumber, Email, Address, totalPayment, newAccountId);
+
+    try {
         CusSer.insert(cus);
+        JOptionPane.showMessageDialog(null, "Tài khoản và khách hàng đã được đăng ký thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        return true;
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Lỗi khi đăng ký khách hàng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
     }
+}
 
-    public void insertAccount() {
-        int AccountID = accSer.increaAcc();
-        String UserName = jTextFieldUser1.getText();
-        String PassWord = null;
-        if (jPasswordField2.getText().equals(jPasswordField3.getText())) {
-            PassWord = jPasswordField2.getText();
-
-            JOptionPane.showMessageDialog(rootPane, "Register Successfull!");
-        } else {
-            jPasswordField2.setText("");
-
-            jPasswordField3.setToolTipText("");
-            JOptionPane.showMessageDialog(rootPane, "Register Fail, Password is not the same!");
-        }
-    }
-
-    private boolean checkValidInput() {
-        String Name = TextName.getText().trim();
-        String SSN = jFormattedTextSSN.getText().trim();
-        String BirthDateStr = jFormattedTextBirthDate.getText().trim();
-        String gender = Genger();
-        String PhoneNumber = jFormattedTextPhone.getText().trim();
-        String Email = EmailText.getText().trim();
-        String Address = jTextAddress.getText().trim();
-
-        // Kiểm tra trường nào bị bỏ trống
-        if (Name.isEmpty() || SSN.isEmpty() || BirthDateStr.isEmpty() || gender.isEmpty()
-                || PhoneNumber.isEmpty() || Email.isEmpty() || Address.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Kiểm tra ngày sinh hợp lệ
-        try {
-            LocalDate BirthDate = LocalDate.parse(BirthDateStr);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ! (Định dạng YYYY-MM-DD)", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Kiểm tra số chứng minh nhân dân / căn cước (SSN) phải có 9 hoặc 12 chữ số
-        if (!SSN.matches("\\d{9}|\\d{12}")) {
-            JOptionPane.showMessageDialog(null, "SSN phải có 9 hoặc 12 chữ số!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Kiểm tra định dạng Email hợp lệ
-        if (!Email.matches("^[\\w.-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,6}$")) {
-            JOptionPane.showMessageDialog(null, "Email không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Kiểm tra số điện thoại phải có 9-10 chữ số
-        if (!PhoneNumber.matches("\\d{9,10}")) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ! Phải có 9-10 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        return true; // Nếu tất cả đều hợp lệ
-    }
 
     /**
      * @param args the command line arguments
@@ -836,8 +850,8 @@ public class Register extends javax.swing.JFrame {
     private java.awt.Label UserLabel1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox jChecKFemale;
-    private javax.swing.JCheckBox jCheckLgbt;
     private javax.swing.JCheckBox jCheckMale;
+    private javax.swing.JCheckBox jCheckOther;
     private javax.swing.JFormattedTextField jFormattedTextBirthDate;
     private javax.swing.JFormattedTextField jFormattedTextPhone;
     private javax.swing.JFormattedTextField jFormattedTextSSN;

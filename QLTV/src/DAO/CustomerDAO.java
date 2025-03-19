@@ -12,6 +12,7 @@ import Model.Account;
 import Model.Customer;
 import Model.CustomerBorrow;
 import Model.CustomerBuy;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 
 public class CustomerDAO implements ICustomerDAO {
@@ -149,18 +150,22 @@ public class CustomerDAO implements ICustomerDAO {
     }
 
     @Override
-    public void insert(Customer entity) {
-        String sql = "INSERT INTO Customer (Cid, Cname, CbirthDate, Cgender, Caddress, Cphone, Cemail, CtotalPayment, AccountId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, entity.getId());
-            pstmt.setString(2, entity.getName());
-            pstmt.setString(3, entity.getBirthDate().toString());
-            pstmt.setString(4, entity.getGender());
-            pstmt.setString(5, entity.getAddress());
-            pstmt.setString(6, entity.getPhoneNumber());
-            pstmt.setString(7, entity.getEmail());
-            pstmt.setDouble(8, entity.getTotalPayment());
-            pstmt.setInt(9, entity.getAccountId());
+   public void insert(Customer entity) {
+    String sql = "INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
+        pstmt.setString(1, entity.getId());
+        pstmt.setString(2, entity.getName());
+        pstmt.setString(3, entity.getSSN());
+        pstmt.setDate(4, java.sql.Date.valueOf(entity.getBirthDate()));
+        pstmt.setString(5, entity.getGender());
+        pstmt.setString(6, entity.getPhoneNumber());
+        pstmt.setString(7, entity.getEmail());
+        pstmt.setString(8, entity.getAddress());
+        pstmt.setDouble(9, entity.getTotalPayment());
+        pstmt.setInt(10, entity.getAccountId());
+        
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
