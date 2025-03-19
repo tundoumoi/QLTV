@@ -8,31 +8,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class AdminDAO implements IAdminDAO {
 
     private final HashMap<Integer, Admin> AdminMap = new HashMap<Integer, Admin>();
-    private HashMap<Integer, Account> adminAcc = new HashMap<>();
+    private HashSet<Account> adminAcc = new HashSet<>();
 
-    public AdminDAO(){
+    public AdminDAO() {
         loadAcc();
     }
 
     public void loadAcc() {
         String query = "SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a.AccountId = ad.AccountId";
-        try (Connection conn = DatabaseConnection.getConnection(); 
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     String userName = rs.getString("userName");
                     String APass = rs.getString("APass");
                     int accountId = rs.getInt("AccountId");
                     Account acc = new Account(userName, APass);
-                    adminAcc.put(accountId, acc);
+                    adminAcc.add(acc);
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -41,21 +41,17 @@ public class AdminDAO implements IAdminDAO {
         return AdminMap;
     }
 
-    public HashMap<Integer, Account> getAdminAcc() {
+    public HashSet<Account> getAdminAcc() {
         return adminAcc;
     }
 
     public Account FindAcc(int AccountID) {
-        Account acc = null;
-        for (Map.Entry<Integer, Account> entry : adminAcc.entrySet()) {
-            int key = entry.getKey();
-            Account val = entry.getValue();
-            if (key == AccountID) {
-                acc = val;
+        for (Account account : adminAcc) {
+            if (account.getAccountId() == AccountID) {
+                return account;
             }
-
         }
-        return acc;
+        return null;
     }
 
     private HashMap<Integer, Admin> loadAdminsFromDatabase() throws SQLException {
@@ -71,19 +67,19 @@ public class AdminDAO implements IAdminDAO {
                 String ADemail = rs.getString("ADemail");
                 String ADaddress = rs.getString("ADaddress");
                 int AccountId = rs.getInt("AccountId");
-                Admin admin = new Admin(ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress,AccountId);
+                Admin admin = new Admin(ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress, AccountId);
                 AdminMap.put(AccountId, admin);
             }
         }
         return AdminMap;
     }
 
-    public HashMap<Integer, Account> adminAcc() {
+    public HashSet<Account> adminAcc() {
         for (Map.Entry<Integer, Admin> entry : AdminMap.entrySet()) {
             Integer key = entry.getKey();
             Admin value = entry.getValue();
             Account acc = FindAcc(key);
-            adminAcc.put(key, acc);
+            adminAcc.add(acc);
         }
         return adminAcc;
     }

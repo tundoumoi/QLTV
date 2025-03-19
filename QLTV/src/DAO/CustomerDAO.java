@@ -267,7 +267,7 @@ public class CustomerDAO implements ICustomerDAO {
                     String userName = rs.getString("UserName");
                     String Apass = rs.getString("Apass");
                     int accountId = rs.getInt("AccountId");
-                    Account acc = new Account(userName, Apass);
+                    Account acc = new Account(accountId, userName, Apass);
                     customerACC.put(accountId, acc);
                 }
             }

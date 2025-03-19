@@ -8,33 +8,34 @@ import DAO.AdminDAO;
 import Model.Account;
 import Model.Admin;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
  *
  * @author Admin
  */
-public class AdminService implements Service<Admin>{
-    private HashMap<Integer, Account> adminAcc = new HashMap<>();
+public class AdminService implements Service<Admin> {
+
+    private HashSet<Account> adminAcc = new HashSet<>();
     private HashMap<Integer, Admin> AdminMap = new HashMap<Integer, Admin>();
-    private final AdminDAO addDAO = new AdminDAO() ;
+    private final AdminDAO addDAO = new AdminDAO();
 
     public AdminService() {
         adminAcc = addDAO.getAdminAcc();
-        AdminMap= addDAO.getAll();
-    }
-    public Boolean CheckAccount(String userName, String Pass){
-        for (Map.Entry<Integer, Account> entry : adminAcc.entrySet()) {
-            Object key = entry.getKey();
-            Account val = entry.getValue();
-            if(val.getUsername().equals(userName)&&val.getPass().equals(Pass)){
-                return true;
-            }
-            
-        }return false;
+        AdminMap = addDAO.getAll();
     }
 
-    public HashMap<Integer, Account> getAdminAcc() {
+    public Boolean CheckAccount(String userName, String Pass) {
+        for (Account account : adminAcc) {
+            if (account.getUsername().equals(userName) && account.getPass().equals(Pass)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public HashSet<Account> getAdminAcc() {
         return adminAcc;
     }
 
@@ -62,6 +63,4 @@ public class AdminService implements Service<Admin>{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    
-    
 }
