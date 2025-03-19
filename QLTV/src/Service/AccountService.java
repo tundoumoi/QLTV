@@ -5,6 +5,7 @@
 package Service;
 
 import DAO.AccountDAO;
+import Model.Account;
 
 /**
  *
@@ -19,7 +20,10 @@ public class AccountService {
     //set pass
     
     public int increaAcc(){
-        return accDao.getAccountCount() +1;
+        return accDao.getAccountCount();
+    }
+    public void insertAcc(Account acc){
+        accDao.insert(acc);
     }
     
 }
