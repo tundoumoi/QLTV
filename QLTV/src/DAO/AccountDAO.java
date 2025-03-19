@@ -16,29 +16,29 @@ import java.util.HashMap;
  * @author dangt
  */
 public class AccountDAO {
-    private HashMap<Integer, Account> adminAcc = new HashMap<>();
+
 
     public AccountDAO() {
-        loadAcc();
+
     } 
     
-    public void loadAcc() {
-        String query = "SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a.AccountId = ad.AccountId";
-        try (Connection conn = DatabaseConnection.getConnection(); 
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    String userName = rs.getString("userName");
-                    String APass = rs.getString("APass");
-                    int accountId = rs.getInt("AccountId");
-                    Account acc = new Account(userName, APass);
-                    adminAcc.put(accountId, acc);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//    public void loadAcc() {
+//        String query = "SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a.AccountId = ad.AccountId";
+//        try (Connection conn = DatabaseConnection.getConnection(); 
+//             PreparedStatement stmt = conn.prepareStatement(query)) {
+//            try (ResultSet rs = stmt.executeQuery()) {
+//                while (rs.next()) {
+//                    String userName = rs.getString("userName");
+//                    String APass = rs.getString("APass");
+//                    int accountId = rs.getInt("AccountId");
+//                    Account acc = new Account(userName, APass);
+//                    adminAcc.put(accountId, acc);
+//                }
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 
     public int getAccountCount() {
         int countNumber = 0;
@@ -55,12 +55,12 @@ public class AccountDAO {
         return countNumber;
     }
 
-    public HashMap<Integer, Account> getAdminAcc() {
-        return adminAcc;
-    }
-
-    public void setAdminAcc(HashMap<Integer, Account> adminAcc) {
-        this.adminAcc = adminAcc;
-    }
+//    public HashMap<Integer, Account> getAdminAcc() {
+//        return adminAcc;
+//    }
+//
+//    public void setAdminAcc(HashMap<Integer, Account> adminAcc) {
+//        this.adminAcc = adminAcc;
+//    }
     
 }

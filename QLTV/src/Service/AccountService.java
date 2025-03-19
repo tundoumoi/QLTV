@@ -4,14 +4,22 @@
  */
 package Service;
 
+import DAO.AccountDAO;
+
 /**
  *
  * @author dangt
  */
 public class AccountService {
+    AccountDAO accDao = new AccountDAO();
     //tạo hash map lưu acc 
     // 1 acc + int để lưu id
     // hàm gọi lại hàm đếm để cộng sst id
     // insert acc truyền acc 
     //set pass
+    
+    public int increaAcc(){
+        return accDao.getAccountCount() +1;
+    }
+    
 }
