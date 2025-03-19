@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/chatbot/Chatbot.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/Swing/EmployeePage.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/Swing/Login.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/DAO/BookDAO.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/database/QLTV.sql</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/Model/Book.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/chatbot/ChatbotController.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/Swing/Register.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/Swing/CustomerPage.java</file>
+            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Service/BillService.java</file>
+            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/DAO/AccountDAO.java</file>
+            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/DAO/CustomerDAO.java</file>
+            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/DAO/BillDAO.java</file>
+            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/DAO/IBookDAO.java</file>
+            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Run/Testnhucc.java</file>
         </group>
     </open-files>
 </project-private>
