@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Account;
 import Model.Employee;
 import comparator.EmployeeComparator;
 import java.sql.Connection;
@@ -7,19 +8,44 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.TreeSet;
 
 
 public class EmployeeDAO implements IEmployeeDAO {
 
     private TreeSet<Employee> EList = new TreeSet<>(new EmployeeComparator());
-
+    private HashSet<Account> emAcc = new HashSet<>();
     public EmployeeDAO() {
         EList = getAll();  
+        loadAcc();
     }
 
     public TreeSet<Employee> getEList() {
         return EList;
+    }
+       public void loadAcc() {
+        String query = "SELECT a.AccountId, a.username , a.APass FROM Account a inner join Employee em on a.AccountId = em.AccountId";
+        try (Connection conn = DatabaseConnection.getConnection(); 
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String userName = rs.getString("userName");
+                    String APass = rs.getString("APass");
+                    int accountId = rs.getInt("AccountId");
+                    Account acc = new Account(accountId,userName, APass);
+                    emAcc.add(acc);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public HashSet<Account> getEmAcc() {
+        emAcc.clear();
+        loadAcc();
+        return emAcc;
     }
 
     @Override

@@ -6,31 +6,36 @@ import Model.Employee;
 import java.util.TreeSet;
 import View.view;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+
 public class EmployeeService implements Service<Employee> {
+
     private final EmployeeDAO employeeDAO = new EmployeeDAO();
     private TreeSet<Employee> employTree = new TreeSet<>();
+    private HashSet<Account> emAcc = new HashSet<>();
     View.view view = new view();
+
     public EmployeeService() {
         employTree = employeeDAO.getAll();
     }
 
-       public Boolean CheckAccount(String userName, String Pass) {
-        for (Map.Entry<Integer, Account> entry : customerACC.entrySet()) {
-            Integer key = entry.getKey();
-            Account value = entry.getValue();
-            if (value.getUsername().equals(userName) && value.getPass().equals(Pass)) {
+    public Boolean CheckAccount(String userName, String Pass) {
+        emAcc = employeeDAO.getEmAcc();
+        for (Account account : emAcc) {
+            if(account.getUsername().equals(userName)&&account.getPass().equals(Pass)){
                 return true;
             }
         }
         return false;
     }
+
     @Override
     public Employee findById(String id) {
         Employee employeeFind = employeeDAO.getById(id);
         if (employeeFind == null) {
-           view.message("Invalid id employee");
+            view.message("Invalid id employee");
         }
         return employeeFind;
     }
@@ -53,20 +58,17 @@ public class EmployeeService implements Service<Employee> {
 
     @Override
     public void display(Employee employee) {
-       view.message("Display employee"+ employee);
-     }
+        view.message("Display employee" + employee);
+    }
 
-   
-    
-    
     public TreeSet<Employee> getEmployeeTree() {
         return employTree;
     }
 
-   public String increaseEMPID() {
-    int count = employTree.size() + 1;  
-    return String.format("E%03d", count);  
-}
+    public String increaseEMPID() {
+        int count = employTree.size() + 1;
+        return String.format("E%03d", count);
+    }
 //
 //
 //public void updateEmployee(int choice , String id) {
@@ -119,14 +121,9 @@ public class EmployeeService implements Service<Employee> {
 //        }
 //    }
 //}
-   
-   public void update(Employee employee){
-      employeeDAO.update(employee);
-   }
- 
+
+    public void update(Employee employee) {
+        employeeDAO.update(employee);
+    }
+
 }
-
-
-
-
-
