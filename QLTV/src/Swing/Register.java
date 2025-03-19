@@ -5,6 +5,7 @@
 package Swing;
 
 import Model.Customer;
+import Service.AccountService;
 import Service.AdminService;
 import Service.CustomerService;
 import java.awt.Dimension;
@@ -20,7 +21,7 @@ public class Register extends javax.swing.JFrame {
     private AdminService AddSer = new AdminService();
     private CustomerService CusSer = new CustomerService();
     private Login login = new Login();
-
+    private AccountService accSer = new AccountService();
     /**
      * Creates new form Register
      */
@@ -337,7 +338,7 @@ public class Register extends javax.swing.JFrame {
         jPasswordField3.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setText("FEMALE");
+        jLabel9.setText("Female");
 
         jChecKFemale.setBackground(new java.awt.Color(204, 204, 204));
         jChecKFemale.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -352,7 +353,7 @@ public class Register extends javax.swing.JFrame {
         });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel10.setText("MALE");
+        jLabel10.setText("Male");
 
         jCheckMale.setBackground(new java.awt.Color(204, 204, 204));
         jCheckMale.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -367,7 +368,7 @@ public class Register extends javax.swing.JFrame {
         });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel11.setText("LGBT");
+        jLabel11.setText("Other");
 
         jCheckLgbt.setBackground(new java.awt.Color(204, 204, 204));
         jCheckLgbt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -711,7 +712,7 @@ public class Register extends javax.swing.JFrame {
         } else if (jChecKFemale.isSelected()) {
             return "Female";
         } else if (jChecKFemale.isSelected()) {
-            return "LGBT";
+            return "Other";
         }
         return null;
     }
@@ -726,13 +727,13 @@ public class Register extends javax.swing.JFrame {
         String Email = EmailText.getText();
         String Address = jTextAddress.getText();
         double totalPayment = 0.0;
-        String accountId = ;
+        int accountId = accSer.increaAcc()  ;
         Customer cus = new Customer(CusID, Name, SSN, BirthDate, gender, PhoneNumber, Email, Address, totalPayment, accountId);
         CusSer.insert(cus);
     }
 
     public void insertAccount() {
-        int AccountID = ;
+        int AccountID = accSer.increaAcc() ;
         String UserName = jTextFieldUser1.getText();
         String PassWord = null;
         if (jPasswordField2.getText().equals(jPasswordField3.getText())) {

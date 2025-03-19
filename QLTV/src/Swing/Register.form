@@ -616,7 +616,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="FEMALE"/>
+            <Property name="text" type="java.lang.String" value="Female"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jChecKFemale">
@@ -635,7 +635,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="MALE"/>
+            <Property name="text" type="java.lang.String" value="Male"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckMale">
@@ -654,7 +654,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="LGBT"/>
+            <Property name="text" type="java.lang.String" value="Other"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckLgbt">
