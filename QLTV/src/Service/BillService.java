@@ -18,7 +18,7 @@ public class BillService implements Service<Bill>{
     }
 
     @Override
-    public Bill insert(Bill entity) {
+    public void insert(Bill entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

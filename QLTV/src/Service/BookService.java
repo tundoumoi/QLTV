@@ -26,10 +26,10 @@ public class BookService implements Service<Book> {
     }
 
     @Override
-    public Book insert(Book book) {
+    public void insert(Book book) {
         bookDAO.insert(book);
         bookList.add(book);
-        return book;
+        
     }
 
     @Override

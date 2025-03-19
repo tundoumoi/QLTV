@@ -22,10 +22,9 @@ public class ReportService implements Service<Report> {
     }
 
     @Override
-    public Report insert(Report report) {
+    public void insert(Report report) {
         reportDAO.insert(report);
         reportMap.put(new Report(report.getCustomerId(), report.getBookId()), report);
-        return report;
     }
 
     @Override

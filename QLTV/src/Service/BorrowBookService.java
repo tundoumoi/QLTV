@@ -34,10 +34,10 @@ public class BorrowBookService implements Service<BookBorrow> {
     }
 
     @Override
-    public BookBorrow insert(BookBorrow borrowBook) {
+    public void insert(BookBorrow borrowBook) {
         borrowBookDAO.insertBorrowB(borrowBook);
         borrowBookList.add(borrowBook);
-        return borrowBook;
+        
     }
 
     @Override

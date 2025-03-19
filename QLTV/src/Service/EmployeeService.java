@@ -41,10 +41,10 @@ public class EmployeeService implements Service<Employee> {
     }
 
     @Override
-    public Employee insert(Employee employee) {
+    public void insert(Employee employee) {
         employeeDAO.insert(employee);
         employTree.add(employee);
-        return employee;
+        
     }
 
     @Override

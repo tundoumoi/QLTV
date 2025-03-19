@@ -29,10 +29,10 @@ public class BuyBookService implements Service<BuyBook> {
     }
 
     @Override
-    public BuyBook insert(BuyBook buyBook) {
+    public void insert(BuyBook buyBook) {
         buyBookDAO.insertBuyB(buyBook);
         buyBookList.add(buyBook);
-        return buyBook;
+        
     }
 
     @Override

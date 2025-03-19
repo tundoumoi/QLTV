@@ -53,19 +53,13 @@ public CustomerService() {
     public void update(Customer customer) {
         cusDao.update(customer);
     }
-
-    public void insertCus(Customer entity) {
+    @Override
+    public void insert(Customer entity) {
         cusDao.insert(entity);
         customerSet.add(entity);
     }
     public String increaseCUSID() {
-    int count = customerSet.size() + 1;
-    return String.format("C%03d", count);
-}
-
-    @Override
-    public Customer insert(Customer entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int count = customerSet.size() + 1;
+        return String.format("C%03d", count);
     }
-
 }
