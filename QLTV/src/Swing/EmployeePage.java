@@ -19,7 +19,9 @@ import javax.swing.JScrollPane;
  * @author Admin
  */
 public class EmployeePage extends javax.swing.JFrame {
-Login login = new Login();
+
+    Login login = new Login();
+
     /**
      * Creates new form CustomerPage
      */
@@ -28,6 +30,7 @@ Login login = new Login();
         setTitle("Employee Page");
         setResizable(false);
         //setSize(WIDTH, );
+        jFormattedDate.setText("EX: 2025-03-25");
         setSize(Toolkit.getDefaultToolkit().getScreenSize());
     }
 
@@ -62,11 +65,15 @@ Login login = new Login();
         JTitle = new javax.swing.JTextField();
         jTextAuthor = new javax.swing.JTextField();
         JPublisher = new javax.swing.JTextField();
-        jTextPubDate = new javax.swing.JTextField();
         jPrice = new javax.swing.JTextField();
         ValueQuantity = new javax.swing.JSpinner();
         jComberType = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jFormattedDate = new javax.swing.JFormattedTextField();
+        jButtonAdd = new javax.swing.JButton();
+        jButtonEdit = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
+        jButtonFind = new javax.swing.JButton();
         jDesktopPane3 = new javax.swing.JDesktopPane();
         jDesktopPane4 = new javax.swing.JDesktopPane();
         jDesktopPane5 = new javax.swing.JDesktopPane();
@@ -151,7 +158,17 @@ Login login = new Login();
 
         jComberType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English", "Vietnamese", "Japanese", "chinese" }));
+
+        jFormattedDate.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jFormattedDateAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,7 +192,7 @@ Login login = new Login();
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextPubDate))
+                        .addComponent(jFormattedDate))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -187,8 +204,8 @@ Login login = new Login();
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ValueQuantity)
-                            .addComponent(jComberType, 0, 227, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jComberType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, 0, 227, Short.MAX_VALUE))))
                 .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
@@ -213,7 +230,7 @@ Login login = new Login();
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextPubDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -233,8 +250,20 @@ Login login = new Login();
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
+        jButtonAdd.setText("ADD");
+
+        jButtonEdit.setText("Edit");
+
+        jButtonDelete.setText("Delete");
+
+        jButtonFind.setText("Find");
+
         jDesktopPane2.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jButtonAdd, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jButtonEdit, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jButtonDelete, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jButtonFind, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
@@ -242,8 +271,19 @@ Login login = new Login();
             jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addComponent(jButtonAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonEdit)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonDelete)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonFind)
+                        .addGap(14, 14, 14)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1374, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(7, Short.MAX_VALUE))
         );
@@ -253,7 +293,14 @@ Login login = new Login();
                 .addContainerGap()
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonAdd)
+                            .addComponent(jButtonEdit)
+                            .addComponent(jButtonDelete)
+                            .addComponent(jButtonFind))))
                 .addGap(0, 136, Short.MAX_VALUE))
         );
 
@@ -366,6 +413,11 @@ Login login = new Login();
         setVisible(false);
     }//GEN-LAST:event_jLabel2MouseClicked
 
+    private void jFormattedDateAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jFormattedDateAncestorAdded
+        // TODO add your handling code here:
+        jFormattedDate.setText("");
+    }//GEN-LAST:event_jFormattedDateAncestorAdded
+
     /**
      * @param args the command line arguments
      */
@@ -408,6 +460,10 @@ Login login = new Login();
     private javax.swing.JTextField JPublisher;
     private javax.swing.JTextField JTitle;
     private javax.swing.JSpinner ValueQuantity;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonDelete;
+    private javax.swing.JButton jButtonEdit;
+    private javax.swing.JButton jButtonFind;
     private javax.swing.JComboBox<String> jComberType;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -415,6 +471,7 @@ Login login = new Login();
     private javax.swing.JDesktopPane jDesktopPane3;
     private javax.swing.JDesktopPane jDesktopPane4;
     private javax.swing.JDesktopPane jDesktopPane5;
+    private javax.swing.JFormattedTextField jFormattedDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -434,6 +491,5 @@ Login login = new Login();
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextAuthor;
     private javax.swing.JTextField jTextBookID;
-    private javax.swing.JTextField jTextPubDate;
     // End of variables declaration//GEN-END:variables
 }
