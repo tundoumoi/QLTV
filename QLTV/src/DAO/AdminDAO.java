@@ -28,7 +28,7 @@ public class AdminDAO implements IAdminDAO {
                     String userName = rs.getString("userName");
                     String APass = rs.getString("APass");
                     int accountId = rs.getInt("AccountId");
-                    Account acc = new Account(userName, APass);
+                    Account acc = new Account(accountId, userName, APass);
                     adminAcc.add(acc);
                 }
             }
@@ -84,10 +84,24 @@ public class AdminDAO implements IAdminDAO {
         return adminAcc;
     }
 
-    @Override
-    public void update(AdminDAO entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(Admin admin) {
+        String sql = "UPDATE Admin Set Aname = ?, Assn = ?, ADbirthdate = ?, ADgrender = ?, ADphoneNumber = ?, ADemail = ?, ADaddress = ?, AcountId = ? WHERE ADid = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, admin.getAname());
+            pstmt.setString(2, admin.getAssn());
+            pstmt.setString(3, admin.getADbirthDate().toString());
+            pstmt.setString(4, admin.getADgender());
+            pstmt.setString(5, admin.getADphoneNumber());
+            pstmt.setString(6, admin.getADEmail());
+            pstmt.setString(7, admin.getADaddress());
+            pstmt.setInt(8, admin.getAccountId());
+            pstmt.setString(9, admin.getADid());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+    
 
     @Override
     public void insert(AdminDAO entity) {

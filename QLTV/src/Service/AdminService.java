@@ -19,11 +19,11 @@ public class AdminService implements Service<Admin> {
 
     private HashSet<Account> adminAcc = new HashSet<>();
     private HashMap<Integer, Admin> AdminMap = new HashMap<Integer, Admin>();
-    private final AdminDAO addDAO = new AdminDAO();
+    private final AdminDAO adminDAO = new AdminDAO();
 
     public AdminService() {
-        adminAcc = addDAO.getAdminAcc();
-        AdminMap = addDAO.getAll();
+        adminAcc = adminDAO.getAdminAcc();
+        AdminMap = adminDAO.getAll();
     }
 
     public Boolean CheckAccount(String userName, String Pass) {
@@ -41,6 +41,10 @@ public class AdminService implements Service<Admin> {
 
     public HashMap<Integer, Admin> getAdminMap() {
         return AdminMap;
+    }
+    
+    public void update(Admin admin) {
+        adminDAO.update(admin);
     }
 
     @Override
