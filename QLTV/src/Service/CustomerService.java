@@ -1,5 +1,6 @@
 package Service;
 
+import DAO.AccountDAO;
 import DAO.CustomerDAO;
 import Model.Account;
 import Model.Customer;
@@ -11,17 +12,19 @@ import java.util.HashSet;
 
 public class CustomerService implements Service<Customer> {
     CustomerDAO cusDao = new CustomerDAO();
+    AccountDAO accDao = new AccountDAO();
     private HashSet<Account> customerACC = new HashSet<>();
     private HashSet<Customer> customerSet = new HashSet<>();
 
 public CustomerService() {
     customerSet = cusDao.getAll(); 
+    customerACC = accDao.getAll();
 }
 
 
     public Boolean CheckAccount(String userName, String Pass) {
         for (Account account : customerACC) {
-            if (account.getUsername().equals(userName) && account.getPass().equals(Pass)) {
+            if (account.getUsername().equalsIgnoreCase(userName) && account.getPass().equals(Pass)) {
                 return true;
             }
         }
@@ -61,5 +64,10 @@ public CustomerService() {
     public String increaseCUSID() {
         int count = customerSet.size() + 1;
         return String.format("C%03d", count);
+    }
+    
+    public String getCustomerIdByUsername(String username) {
+        Customer customer = CustomerDAO.findByUsername(username);
+        return customer != null ? customer.getId() : null;
     }
 }

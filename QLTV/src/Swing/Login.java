@@ -5,6 +5,7 @@
 package Swing;
 
 import DAO.AdminDAO;
+import DAO.CustomerDAO;
 import Service.*;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -271,22 +272,23 @@ public class Login extends javax.swing.JFrame {
             String user = jTextFieldUser.getText();
             String pass = jPasswordField1.getText();
             if (CusSer.CheckAccount(user, pass)) {
-//                CustomerP
-//                cusPage.setVisible(true);
+                // Lấy customerId thực tế từ username đăng nhập
+                String customerId = CusSer.getCustomerIdByUsername(user);
+                // Chuyển sang trang CustomerPage với customerId lấy được
+                CustomerPage.run(customerId);
                 setVisible(false);
-                
             } else {
                 jTextFieldUser.setToolTipText("Wrong.");
-                JOptionPane.showMessageDialog(rootPane, "Login fail!");
+                javax.swing.JOptionPane.showMessageDialog(rootPane, "Login fail!");
             }
         } else if (JchoiceRole.getSelectedItem().equals("Employee")) {
             String user = jTextFieldUser.getText();
             String pass = jPasswordField1.getText();
-            if(EmSer.CheckAccount(user, pass));{
-            EmployeePage emPage = new EmployeePage();
-            emPage.setVisible(true);
-            setVisible(false);
-        }
+            if(EmSer.CheckAccount(user, pass)){
+                EmployeePage emPage = new EmployeePage();
+                emPage.setVisible(true);
+                setVisible(false);
+            }
         }
     }//GEN-LAST:event_LoginButMouseClicked
 

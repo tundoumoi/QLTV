@@ -65,12 +65,41 @@ public class AccountDAO implements IAccountDAO {
 
     @Override
     public HashSet<Account> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        HashSet<Account> accounts = new HashSet<>();
+        String query = "SELECT * FROM Account";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                int accountId = rs.getInt("AccountId");
+                String username = rs.getString("username");
+                String pass = rs.getString("Apass");
+                accounts.add(new Account(accountId, username, pass));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return accounts;
     }
 
     @Override
-    public AccountDAO getById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Account getById(String id) {
+        String query = "SELECT * FROM Account WHERE AccountId = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int accountId = rs.getInt("AccountId");
+                    String username = rs.getString("username");
+                    String pass = rs.getString("Apass");
+                    return new Account(accountId, username, pass);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public void insert(Account account) {
@@ -85,13 +114,29 @@ public class AccountDAO implements IAccountDAO {
     }
 
     @Override
-    public void update(AccountDAO entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(Account entity) {
+        String query = "UPDATE Account SET username = ?, Apass = ? WHERE AccountId = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, entity.getUsername());
+            stmt.setString(2, entity.getPass());
+            stmt.setInt(3, entity.getAccountId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public void delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String query = "DELETE FROM Account WHERE AccountId = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
 }

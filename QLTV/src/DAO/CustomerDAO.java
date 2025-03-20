@@ -309,5 +309,35 @@ public class CustomerDAO implements ICustomerDAO {
         loadAcc();
         return customerAccSet;
     }
+    
+    public static Customer findByUsername(String username) {
+        String sql = "SELECT c.Cid, c.Cname, c.Cssn, c.CbirthDate, c.Cgender, c.CphoneNumber, c.Cemail, c.Caddress, c.CtotalPayment, c.AccountId " +
+                     "FROM Customer c JOIN Account a ON c.AccountId = a.AccountId " +
+                     "WHERE a.username = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, username);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String id = rs.getString("Cid");
+                    String name = rs.getString("Cname");
+                    String ssn = rs.getString("Cssn");
+                    String birthDateStr = rs.getString("CbirthDate");
+                    LocalDate birthDate = LocalDate.parse(birthDateStr);
+                    String gender = rs.getString("Cgender");
+                    String phoneNumber = rs.getString("CphoneNumber");
+                    String email = rs.getString("Cemail");
+                    String address = rs.getString("Caddress");
+                    double totalPayment = rs.getDouble("CtotalPayment");
+                    int accountId = rs.getInt("AccountId");
+
+                    return new Customer(id, name, ssn, birthDate, gender, phoneNumber, email, address, totalPayment, accountId);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

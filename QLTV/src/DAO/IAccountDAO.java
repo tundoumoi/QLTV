@@ -11,7 +11,7 @@ import java.util.HashSet;
  *
  * @author dangt
  */
-public interface IAccountDAO extends GenericDAO<AccountDAO, HashSet<Account>>{
+public interface IAccountDAO extends GenericDAO<Account, HashSet<Account>>{
 
     @Override
     public default HashSet<Account> getAll() {
@@ -19,17 +19,17 @@ public interface IAccountDAO extends GenericDAO<AccountDAO, HashSet<Account>>{
     }
 
     @Override
-    public default AccountDAO getById(String id) {
+    public default Account getById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public default void insert(AccountDAO entity) {
+    public default void insert(Account entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public default void update(AccountDAO entity) {
+    public default void update(Account entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

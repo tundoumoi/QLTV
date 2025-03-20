@@ -7,10 +7,12 @@ package Swing;
 import DAO.BookDAO;
 import DAO.BorrowBookDAO;
 import DAO.BuyBookDAO;
+import DAO.CustomerDAO;
 import DAO.ReportDAO;
 import Model.Book;
 import Model.BookBorrow;
 import Model.BuyBook;
+import Model.Customer;
 import Model.Report;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,13 +24,15 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CustomerPage extends javax.swing.JFrame {
 
+    private static String customerId;
     private String selectedBookId = null;
     private String selectedBookTitle = null;
     
     /**
      * Creates new form NewJFrame
      */
-    public CustomerPage() {
+    public CustomerPage(String customerId) {
+        this.customerId = customerId;
         initComponents();
         populateAvailableBooks();
         Find.addActionListener(this::FindActionPerformed);
@@ -40,6 +44,8 @@ public class CustomerPage extends javax.swing.JFrame {
         BUY.addActionListener(this::BUYActionPerformed);
         BORROW.addActionListener(this::BORROWActionPerformed);
         REPPORT.addActionListener(this::REPPORTActionPerformed);
+        
+        
 
         // Tạo instance của Chatbot (lớp Chatbot kế thừa từ JPanel)
         chatbot.Chatbot chatbotPanel = new chatbot.Chatbot();
@@ -93,7 +99,11 @@ public class CustomerPage extends javax.swing.JFrame {
         return books.isEmpty() ? null : books.get(0).getBookId();
     }
     
-    
+    public String getCustomerIdByUsername(String username) {
+        // Giả sử CustomerDAO có phương thức tìm kiếm theo username
+        Customer customer = CustomerDAO.findByUsername(username);
+        return customer != null ? customer.getId() : null;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,7 +117,7 @@ public class CustomerPage extends javax.swing.JFrame {
         ChatbotPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        TotalPurchaseAndMakingCard = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         AvailableBook = new javax.swing.JTable();
@@ -121,6 +131,18 @@ public class CustomerPage extends javax.swing.JFrame {
         REPPORT = new javax.swing.JButton();
         ReportContent = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TableBuy = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TableBorrow = new javax.swing.JTable();
+        Bill = new javax.swing.JTextField();
+        PAY = new javax.swing.JButton();
+        CreateCard = new javax.swing.JButton();
+        CardNotification = new javax.swing.JTextField();
+        TypeCard = new javax.swing.JComboBox<>();
+        RECHARGE = new javax.swing.JButton();
+        QuantityRecharge = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,8 +163,8 @@ public class CustomerPage extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CUSTOMER");
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 204, 255));
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        TotalPurchaseAndMakingCard.setBackground(new java.awt.Color(255, 204, 255));
+        TotalPurchaseAndMakingCard.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         AvailableBook.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -289,7 +311,7 @@ public class CustomerPage extends javax.swing.JFrame {
                         .addComponent(BORROW)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(REPPORT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(SelectedToFind, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,20 +343,151 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("SERVICE", jPanel3);
+        TotalPurchaseAndMakingCard.addTab("SERVICE", jPanel3);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("TOTAL PURCHASE");
+
+        TableBuy.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title", "Price", "Quantity"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(TableBuy);
+
+        TableBorrow.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title", "Price", "StartBorrowDate", "EndBorrowDate"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(TableBorrow);
+
+        Bill.setText("jTextField1");
+
+        PAY.setText("PAY");
+        PAY.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PAYActionPerformed(evt);
+            }
+        });
+
+        CreateCard.setText("CREATE");
+
+        CardNotification.setText("jTextField2");
+
+        TypeCard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ĐỒNG", "BẠC", "VÀNG" }));
+
+        RECHARGE.setText("RECHARGE");
+        RECHARGE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RECHARGEActionPerformed(evt);
+            }
+        });
+
+        QuantityRecharge.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                QuantityRechargeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 759, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(Bill, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CardNotification)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(RECHARGE)
+                                .addGap(18, 18, 18)
+                                .addComponent(QuantityRecharge)))))
+                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(PAY)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                .addComponent(CreateCard)
+                .addGap(66, 66, 66)
+                .addComponent(TypeCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 602, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PAY)
+                    .addComponent(CreateCard)
+                    .addComponent(TypeCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Bill, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(CardNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(RECHARGE)
+                            .addComponent(QuantityRecharge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("MAKING CARD", jPanel4);
+        TotalPurchaseAndMakingCard.addTab("TOTAL PURCHASE", jPanel4);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -342,7 +495,7 @@ public class CustomerPage extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(TotalPurchaseAndMakingCard, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ChatbotPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -360,7 +513,7 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ChatbotPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1)))
+                    .addComponent(TotalPurchaseAndMakingCard)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -378,32 +531,25 @@ public class CustomerPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BUYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUYActionPerformed
-        // TODO add your handling code here:
         if (selectedBookId == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách!");
             return;
         }
-
-        String customerId = "C123"; // Lấy ID khách hàng, giả sử đã đăng nhập
         int quantity = 1; // Giả định mua 1 quyển sách
         LocalDate purchaseDate = LocalDate.now();
-
         BookDAO bookDAO = new BookDAO();
         Book book = bookDAO.getById(selectedBookId);
         if (book.getQuantity() < quantity) {
             javax.swing.JOptionPane.showMessageDialog(this, "Sách không đủ số lượng!");
             return;
         }
-
-        // Tạo hóa đơn mua sách
+        // Sử dụng customerId đã được truyền từ Login
         BuyBook buyBook = new BuyBook("Order" + System.currentTimeMillis(), customerId, selectedBookId, quantity, book.getPrice() * quantity, purchaseDate);
         BuyBookDAO buyBookDAO = new BuyBookDAO();
         buyBookDAO.insertBuyB(buyBook);
-
-        // Cập nhật số lượng sách còn lại
         bookDAO.updateQuantity(selectedBookId, book.getQuantity() - quantity);
-
-        // Ghi lại giao dịch trong ReportContent
+        DefaultTableModel buyModel = (DefaultTableModel) TableBuy.getModel();
+        buyModel.addRow(new Object[]{selectedBookId, book.getPrice(), quantity});
         ReportContent.setText("Bạn đã mua sách: " + selectedBookTitle + "\nSố lượng: " + quantity);
     }//GEN-LAST:event_BUYActionPerformed
 
@@ -452,65 +598,63 @@ public class CustomerPage extends javax.swing.JFrame {
     }//GEN-LAST:event_FindActionPerformed
 
     private void BORROWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BORROWActionPerformed
-        // TODO add your handling code here:
         if (selectedBookId == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách!");
             return;
         }
-
-        String cardId = "Card123"; // ID thẻ thư viện của người dùng
+        // Giả sử cardId có thể được liên kết với customerId (có thể điều chỉnh theo logic của bạn)
+        String cardId = "CardFor_" + customerId; 
         LocalDate borrowDate = LocalDate.now();
-        LocalDate endDate = borrowDate.plusDays(14); // Mượn trong 14 ngày
-
+        LocalDate endDate = borrowDate.plusDays(7);
         BookDAO bookDAO = new BookDAO();
         Book book = bookDAO.getById(selectedBookId);
         if (book.getQuantity() < 1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Sách không có sẵn để mượn!");
             return;
         }
-
-        // Tạo thông tin mượn sách
         BookBorrow borrow = new BookBorrow(cardId, selectedBookId, borrowDate, endDate);
         BorrowBookDAO borrowBookDAO = new BorrowBookDAO();
         borrowBookDAO.insertBorrowB(borrow);
-
-        // Cập nhật số lượng sách còn lại
         bookDAO.updateQuantity(selectedBookId, book.getQuantity() - 1);
-
-        // Ghi lại giao dịch trong ReportContent
+        double rentalPrice = book.getPrice() / 10;
+        DefaultTableModel borrowModel = (DefaultTableModel) TableBorrow.getModel();
+        borrowModel.addRow(new Object[]{selectedBookId, rentalPrice, borrowDate, endDate});
         ReportContent.setText("Bạn đã mượn sách: " + selectedBookTitle + "\nNgày mượn: " + borrowDate + "\nNgày trả: " + endDate);
     }//GEN-LAST:event_BORROWActionPerformed
 
     private void REPPORTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPPORTActionPerformed
-        // TODO add your handling code here:
-        // Kiểm tra xem đã chọn sách chưa
+        // Kiểm tra đã chọn sách hay chưa
         if (selectedBookId == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách để báo cáo!");
             return;
         }
-
-        // Lấy nội dung báo cáo từ ReportContent
+        // Lấy nội dung báo cáo
         String reportContent = ReportContent.getText().trim();
         if (reportContent.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập nội dung báo cáo!");
             return;
         }
-
-        // Lấy customerId hợp lệ (ở đây dùng giá trị mẫu, bạn cần thay bằng thông tin đăng nhập thực tế)
-        String customerId = "C123"; 
         LocalDate reportDate = LocalDate.now();
-
-        // Tạo đối tượng Report sử dụng constructor gồm customerId, bookId, title, reportDate và content
+        // Tạo đối tượng Report với customerId từ đối tượng CustomerPage
         Report report = new Report(customerId, selectedBookId, selectedBookTitle, reportDate, reportContent);
-
-        // Lưu báo cáo vào cơ sở dữ liệu thông qua ReportDAO
         ReportDAO reportDAO = new ReportDAO();
         reportDAO.insert(report);
-
-        // Reset nội dung ReportContent và thông báo thành công
+        // Reset nội dung báo cáo và thông báo cho người dùng
         ReportContent.setText("");
         javax.swing.JOptionPane.showMessageDialog(this, "Báo cáo thành công cho sách: " + selectedBookTitle);
     }//GEN-LAST:event_REPPORTActionPerformed
+
+    private void PAYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PAYActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PAYActionPerformed
+
+    private void RECHARGEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RECHARGEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RECHARGEActionPerformed
+
+    private void QuantityRechargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuantityRechargeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_QuantityRechargeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -539,33 +683,47 @@ public class CustomerPage extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
-        /* Create and display the form */
+    }
+    
+    public static void run(String customerId) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerPage().setVisible(true);
+                new CustomerPage(customerId).setVisible(true);
             }
         });
-    }
+}
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable AvailableBook;
     private javax.swing.JButton BORROW;
     private javax.swing.JButton BUY;
+    private javax.swing.JTextField Bill;
+    private javax.swing.JTextField CardNotification;
     private javax.swing.JPanel ChatbotPanel;
+    private javax.swing.JButton CreateCard;
     private javax.swing.JButton Find;
     private javax.swing.JTextField InputToFind;
+    private javax.swing.JButton PAY;
+    private javax.swing.JTextField QuantityRecharge;
+    private javax.swing.JButton RECHARGE;
     private javax.swing.JButton REPPORT;
     private javax.swing.JTextField ReportContent;
     private javax.swing.JTable ResultOfFind;
     private javax.swing.JComboBox<String> SelectedToFind;
+    private javax.swing.JTable TableBorrow;
+    private javax.swing.JTable TableBuy;
+    private javax.swing.JTabbedPane TotalPurchaseAndMakingCard;
+    private javax.swing.JComboBox<String> TypeCard;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
