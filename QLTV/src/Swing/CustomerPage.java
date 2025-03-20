@@ -31,6 +31,7 @@ public class CustomerPage extends javax.swing.JFrame {
     private String customerId;
     private String selectedBookId = null;
     private String selectedBookTitle = null;
+    private boolean eventListenersAdded = false; // Biến để kiểm tra sự kiện đã được thêm hay chưa
     
     /**
      * Creates new form NewJFrame
@@ -39,18 +40,8 @@ public class CustomerPage extends javax.swing.JFrame {
         this.customerId = customerId;
         initComponents();
         populateAvailableBooks();
-        Find.addActionListener(this::FindActionPerformed);
-        ResultOfFind.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ResultOfFindMouseClicked(evt);
-            }
-        });
-        BUY.addActionListener(this::BUYActionPerformed);
-        BORROW.addActionListener(this::BORROWActionPerformed);
-        REPPORT.addActionListener(this::REPPORTActionPerformed);
+        addEventListeners();
         
-        
-
         // Tạo instance của Chatbot (lớp Chatbot kế thừa từ JPanel)
         chatbot.Chatbot chatbotPanel = new chatbot.Chatbot();
 
@@ -63,6 +54,21 @@ public class CustomerPage extends javax.swing.JFrame {
         // Nếu cần, gọi revalidate() và repaint() để cập nhật giao diện
         ChatbotPanel.revalidate();
         ChatbotPanel.repaint();
+    }
+
+    private void addEventListeners() {
+        if (!eventListenersAdded) {
+            Find.addActionListener(this::FindActionPerformed);
+            ResultOfFind.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    ResultOfFindMouseClicked(evt);
+                }
+            });
+            BUY.addActionListener(this::BUYActionPerformed);
+            BORROW.addActionListener(this::BORROWActionPerformed);
+            REPPORT.addActionListener(this::REPPORTActionPerformed);
+            eventListenersAdded = true; // Đánh dấu rằng sự kiện đã được thêm
+        }
     }
     
     private void populateAvailableBooks() {
