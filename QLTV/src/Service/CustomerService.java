@@ -23,7 +23,7 @@ public CustomerService() {
 }
 
 
-     public Boolean checkAccount(String userName, String pass) {
+     public Boolean CheckAccount(String userName, String pass) {
         for (Account account : customerACC.values()) {
             if (account.getUsername().equalsIgnoreCase(userName) && account.getPass().equals(pass)) {
                 return true;
