@@ -65,6 +65,22 @@ public CustomerService() {
         int count = customerSet.size() + 1;
         return String.format("C%03d", count);
     }
+
+    public CustomerDAO getCusDao() {
+        return cusDao;
+    }
+
+    public AccountDAO getAccDao() {
+        return accDao;
+    }
+
+    public HashSet<Account> getCustomerACC() {
+        return customerACC;
+    }
+
+    public HashSet<Customer> getCustomerSet() {
+        return customerSet;
+    }
     
     public String getCustomerIdByUsername(String username) {
         Customer customer = CustomerDAO.findByUsername(username);
