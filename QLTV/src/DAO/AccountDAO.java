@@ -145,4 +145,19 @@ public HashMap<Integer, Account> getAll() {
         }
     }
     
+    public boolean isduplicate(int accountId) {
+        String sql = "SELECT COUNT(*) FROM Account WHERE AccountId = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, accountId);
+            try (ResultSet rs = pstmt.executeQuery()){
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            } finally {
+            }
+        } catch (SQLException e) {
+        }
+        return false;
+    }
+    
 }

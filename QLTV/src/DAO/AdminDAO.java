@@ -103,6 +103,21 @@ public class AdminDAO implements IAdminDAO {
         }
     }
     
+    public boolean isDupliacate(String ADid) {
+        String sql = "SELECT COUNT (*) FROM Admin WHERE ADid = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, ADid);
+            try (ResultSet rs = pstmt.executeQuery()){
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }  
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
 
     @Override
     public void insert(AdminDAO entity) {

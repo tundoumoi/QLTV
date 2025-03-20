@@ -270,5 +270,20 @@ public class BookDAO implements IBookDAO {
         }
         return availableBooks;
     }
+    
+    public boolean isDuplicate (String bookId) {
+        String sql = "SELECT COUNT (*) FROM Book WHERE bookId = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, bookId);
+            try (ResultSet rs = pstmt.executeQuery()){
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            } 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
 
