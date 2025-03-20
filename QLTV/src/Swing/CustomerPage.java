@@ -8,12 +8,16 @@ import DAO.BookDAO;
 import DAO.BorrowBookDAO;
 import DAO.BuyBookDAO;
 import DAO.CustomerDAO;
+import DAO.DatabaseConnection;
 import DAO.ReportDAO;
 import Model.Book;
 import Model.BookBorrow;
 import Model.BuyBook;
 import Model.Customer;
 import Model.Report;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CustomerPage extends javax.swing.JFrame {
 
-    private static String customerId;
+    private String customerId;
     private String selectedBookId = null;
     private String selectedBookTitle = null;
     
@@ -535,21 +539,53 @@ public class CustomerPage extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách!");
             return;
         }
+
+        if (customerId == null || customerId.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi: Không xác định được customerId!");
+            return;
+        }
+
+        CustomerDAO customerDAO = new CustomerDAO();
+        if (!customerDAO.isCustomerInCustomerBuy(customerId)) {
+            // Nếu customer chưa có trong CustomerBuy, thêm vào trước
+            String insertSQL = "INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES (?, 0, 'Standard')";
+            try (Connection conn = DatabaseConnection.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+                pstmt.setString(1, customerId);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                javax.swing.JOptionPane.showMessageDialog(this, "Lỗi khi thêm khách hàng vào CustomerBuy!");
+                return;
+            }
+        }
+        
         int quantity = 1; // Giả định mua 1 quyển sách
         LocalDate purchaseDate = LocalDate.now();
         BookDAO bookDAO = new BookDAO();
         Book book = bookDAO.getById(selectedBookId);
-        if (book.getQuantity() < quantity) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sách không đủ số lượng!");
+
+        if (book == null || book.getQuantity() < quantity) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Sách không đủ số lượng hoặc không tồn tại!");
             return;
         }
-        // Sử dụng customerId đã được truyền từ Login
-        BuyBook buyBook = new BuyBook("Order" + System.currentTimeMillis(), customerId, selectedBookId, quantity, book.getPrice() * quantity, purchaseDate);
+
+        BuyBook buyBook = new BuyBook(
+            "Order" + System.currentTimeMillis(), 
+            customerId, 
+            selectedBookId, 
+            quantity, 
+            book.getPrice() * quantity, 
+            purchaseDate
+        );
+
         BuyBookDAO buyBookDAO = new BuyBookDAO();
         buyBookDAO.insertBuyB(buyBook);
         bookDAO.updateQuantity(selectedBookId, book.getQuantity() - quantity);
+
         DefaultTableModel buyModel = (DefaultTableModel) TableBuy.getModel();
         buyModel.addRow(new Object[]{selectedBookId, book.getPrice(), quantity});
+
         ReportContent.setText("Bạn đã mua sách: " + selectedBookTitle + "\nSố lượng: " + quantity);
     }//GEN-LAST:event_BUYActionPerformed
 

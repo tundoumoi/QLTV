@@ -277,6 +277,7 @@ public class Login extends javax.swing.JFrame {
                 // Chuyển sang trang CustomerPage với customerId lấy được
                 CustomerPage.run(customerId);
                 setVisible(false);
+                System.out.println("Đăng nhập thành công, customerId: " + customerId);
             } else {
                 jTextFieldUser.setToolTipText("Wrong.");
                 javax.swing.JOptionPane.showMessageDialog(rootPane, "Login fail!");

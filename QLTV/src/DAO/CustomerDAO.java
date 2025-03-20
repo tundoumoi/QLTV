@@ -312,8 +312,8 @@ public class CustomerDAO implements ICustomerDAO {
     
     public static Customer findByUsername(String username) {
         String sql = "SELECT c.Cid, c.Cname, c.Cssn, c.CbirthDate, c.Cgender, c.CphoneNumber, c.Cemail, c.Caddress, c.CtotalPayment, c.AccountId " +
-                     "FROM Customer c JOIN Account a ON c.AccountId = a.AccountId " +
-                     "WHERE a.username = ?";
+                 "FROM Customer c JOIN Account a ON c.AccountId = a.AccountId " +
+                 "WHERE a.userName = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
@@ -340,4 +340,20 @@ public class CustomerDAO implements ICustomerDAO {
         return null;
     }
 
+    public boolean isCustomerInCustomerBuy(String customerId) {
+        String sql = "SELECT COUNT(*) FROM CustomerBuy WHERE Cid = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, customerId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
 }

@@ -2,35 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< Updated upstream
         <group>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/DAO/EmployeeDAO.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/DAO/GenericDAO.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/DAO/IAccountDAO.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/DAO/AccountDAO.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/chatbot/Chatbot.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/DAO/IAdminDAO.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/database/QLTV.sql</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Model/Admin.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/chatbot/ChatbotController.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/DAO/BookDAO.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/DAO/CustomerDAO.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Service/CustomerService.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Service/AccountService.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/DAO/BorrowBookDAO.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Model/Account.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/DAO/AdminDAO.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Service/BookService.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Service/EmployeeService.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Model/Employee.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Service/Service.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Run/Testnhucc.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Model/Customer.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Service/BorrowBookService.java</file>
-            <file>file:/C:/Users/dangt/Documents/GitHub/QLTV/QLTV/src/Service/AdminService.java</file>
+            <file>file:/D:/LAB211/QLTV/QLTV/src/Swing/Login.java</file>
+            <file>file:/D:/LAB211/QLTV/QLTV/src/DAO/AccountDAO.java</file>
+            <file>file:/D:/LAB211/QLTV/QLTV/src/DAO/CustomerDAO.java</file>
+            <file>file:/D:/LAB211/QLTV/QLTV/src/Swing/CustomerPage.java</file>
+            <file>file:/D:/LAB211/QLTV/QLTV/src/Service/CustomerService.java</file>
         </group>
-=======
-        <group/>
->>>>>>> Stashed changes
     </open-files>
 </project-private>
