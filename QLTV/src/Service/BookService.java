@@ -3,41 +3,52 @@ package Service;
 import DAO.BookDAO;
 import Model.Book;
 import View.view;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class BookService implements Service<Book> {
     private final BookDAO bookDAO = new BookDAO();
-    private ArrayList<Book> bookList = new ArrayList<>();
+    private HashMap<String, Book> bookMap = new HashMap<>();
     View.view view = new view();
 
     public BookService() {
-        bookList = bookDAO.getAll();
+        List<Book> bookList = bookDAO.getAll();
+        for (Book book : bookList) {
+            bookMap.put(book.getBookId(), book);
+        }
     }
+public String increaseBOOKID() {
+        int count = bookMap.size() + 1;
+        return String.format("B%03d", count);
+    }
+
 
     @Override
     public Book findById(String id) {
-        for (Book book : bookList) {
-            if (book.getBookId().equals(id)) {
-                return book;
-            }
+        Book book = bookMap.get(id);
+        if (book == null) {
+            view.message("Invalid id Book");
         }
-        view.message("Invalid id Book");
-        return null;
+        return book;
     }
 
     @Override
     public void insert(Book book) {
-        bookDAO.insert(book);
-        bookList.add(book);
-        
+        if (!bookMap.containsKey(book.getBookId())) {
+            bookDAO.insert(book);
+            bookMap.put(book.getBookId(), book);
+        } else {
+            view.message("Book id da ton tai");
+        }
     }
 
     @Override
     public void delete(String id) {
-        Book book = findById(id);
-        if (book != null) {
+        if (bookMap.containsKey(id)) {
             bookDAO.delete(id);
-            bookList.remove(book);
+            bookMap.remove(id);
+        } else {
+            view.message("Invalid id Book");
         }
     }
 
@@ -47,16 +58,20 @@ public class BookService implements Service<Book> {
     }
 
     public void update(Book book) {
-        bookDAO.update(book);
-        int index = bookList.indexOf(book);
-        if (index != -1) {
-            bookList.set(index, book);
+        if (bookMap.containsKey(book.getBookId())) {
+            bookDAO.update(book);
+            bookMap.put(book.getBookId(), book);
+        } else {
+            view.message("Invalid id Book");
         }
     }
 
-    public ArrayList<Book> getBookList() {
-        bookList.clear();
-        bookList = bookDAO.getAll();
-        return bookList;
+    public HashMap<String, Book> getBookMap() {
+        bookMap.clear();
+        List<Book> bookList = bookDAO.getAll();
+        for (Book book : bookList) {
+            bookMap.put(book.getBookId(), book);
+        }
+        return bookMap;
     }
 }
