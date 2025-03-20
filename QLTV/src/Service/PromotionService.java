@@ -4,16 +4,10 @@
  */
 package Service;
 
-
-import DAO.PromotionDAO;
-import Model.Promotion;
 /**
  *
  * @author dangt
  */
 public class PromotionService {
-    private final PromotionDAO promotionDAO = new PromotionDAO();
-
-
     
 }

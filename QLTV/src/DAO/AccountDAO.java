@@ -156,6 +156,7 @@ public HashMap<Integer, Account> getAll() {
             } finally {
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         return false;
     }

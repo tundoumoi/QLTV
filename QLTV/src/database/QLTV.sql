@@ -37,6 +37,8 @@ CREATE TABLE Employee (
 	AccountId INT,
 	FOREIGN KEY (AccountId) REFERENCES Account(AccountId) ON DELETE CASCADE
 );
+
+
 -- Bảng Customer (kế thừa Person)
 -- thieu sdt email account id
 CREATE TABLE Customer (
@@ -784,6 +786,15 @@ INSERT INTO CustomerBorrow (cardId, Cid, typeCard, cardExpiry, registrationDate,
 INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES
 ('C001', 120000, 'Member'),
 ('C002', 600000, 'Vip')
+
+INSERT INTO Employee (Eid, Ename, Essn, EbirthDate, Egender, EphoneNumber, EDemail, Eaddress, Eposition, Esalary, EstartDate, AccountId) 
+VALUES 
+('E001', 'nam bau troi', '123456789', '1990-05-15', N'Nam', '0901234567', 'nva@example.com', 'Hà Nội', N'forever fan bac meo', 2000.0, '2020-06-01', 1),
+('E002', 'la dititi', '987654321', '1995-08-22', N'Nam', '0912345678', 'ttb@example.com', 'TP Hồ Chí Minh', N'lam cho vui', 1500.0, '2021-03-10', 2),
+('E003', 'hoang luu', '112233445', '1988-02-10', N'Nam', '0923456789', 'lvc@example.com', 'Đà Nẵng', N'Kế toán', 1800.0, '2019-11-20', 3),
+('E004', 'thang lo dai', '556677889', '1992-11-05', N'Nam', '0934567890', 'ptd@example.com', 'Cần Thơ', N'Nhân sự', 1700.0, '2022-07-15', 4),
+('E005', 'tun dau moi', '667788990', '1985-07-30', N'Nam', '0945678901', 'hme@example.com', 'Hải Phòng', N'Bán hàng', 1600.0, '2018-09-25', 5);
+
 
 
 select * from Book

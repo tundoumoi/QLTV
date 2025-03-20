@@ -11,6 +11,8 @@ import Model.Bill;
  * @author Admin
  */
 public class BillService implements Service<Bill>{
+    
+    
 
     @Override
     public Bill findById(String id) {

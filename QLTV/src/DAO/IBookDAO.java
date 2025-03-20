@@ -2,8 +2,6 @@ package DAO;
 
 import Model.Book;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.TreeSet;
 
 
 public interface IBookDAO extends GenericDAO<Book, ArrayList<Book>>{
