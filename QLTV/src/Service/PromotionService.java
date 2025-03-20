@@ -15,7 +15,5 @@ public class PromotionService {
     private final PromotionDAO promotionDAO = new PromotionDAO();
 
 
-    public Promotion checkVoucher(double purchaseAmount) {
-        return promotionDAO.checkVoucher(purchaseAmount);
-    }
+    
 }

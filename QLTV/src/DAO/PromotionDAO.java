@@ -6,7 +6,6 @@ package DAO;
 
 import Model.Promotion;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,21 +17,24 @@ import java.sql.SQLException;
 public class PromotionDAO implements IPromotionDAO{
 
     public Promotion checkVoucher(double purchaseAmount) {
-        String sql = "SELECT * FROM Voucher WHERE minPurchase <= ? ORDER BY discountRate DESC LIMIT 1";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setDouble(1, purchaseAmount);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                int discountRate = rs.getInt("discountRate");
-                String description = rs.getString("Vdescription");
-                double minPurchase = rs.getDouble("minPurchase");
-                return new Promotion(discountRate, description, minPurchase);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    String sql = "SELECT * FROM Voucher WHERE minPurchase <= ? ORDER BY discountRate DESC LIMIT 1";
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setDouble(1, purchaseAmount);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            int discountRate = rs.getInt("discountRate");
+            String description = rs.getString("Vdescription");
+            double minPurchase = rs.getDouble("minPurchase");
+
+            return new Promotion(discountRate, description, minPurchase);
         }
-        return null;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return null; // Trả về null nếu không có voucher phù hợp
+}
+
     
     @Override
     public PromotionDAO getAll() {

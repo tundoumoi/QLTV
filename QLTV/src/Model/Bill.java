@@ -26,8 +26,6 @@ public class Bill {
         this.unitPrice = unitPrice;
     }
 
-
-
     public int getBillCode() {
         return BillCode;
     }
@@ -51,12 +49,6 @@ public class Bill {
     public void setEmployeeID(String employeeID) {
         this.employeeID = employeeID;
     }
-
-
-
-
-
-   
 
     public LocalDate getTime() {
         return time;

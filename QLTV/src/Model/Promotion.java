@@ -9,25 +9,25 @@ package Model;
  * @author dangt
  */
 public class Promotion {
-    int discontRate;
+    int discountRate;
     String description;
     double minPurchase;
 
     public Promotion() {
     }
 
-    public Promotion(int discontRate, String description, double minPurchase) {
-        this.discontRate = discontRate;
+    public Promotion(int discountRate, String description, double minPurchase) {
+        this.discountRate = discountRate;
         this.description = description;
         this.minPurchase = minPurchase;
     }
 
     public int getDiscontRate() {
-        return discontRate;
+        return discountRate;
     }
 
     public void setDiscontRate(int discontRate) {
-        this.discontRate = discontRate;
+        this.discountRate = discontRate;
     }
 
     public String getDescription() {
@@ -48,7 +48,7 @@ public class Promotion {
 
     @Override
     public String toString() {
-        return "Promotion{" + "discontRate=" + discontRate + ", description=" + description + ", minPurchase=" + minPurchase + '}';
+        return "Promotion{" + "discontRate=" + discountRate + ", description=" + description + ", minPurchase=" + minPurchase + '}';
     }
     
     
