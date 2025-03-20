@@ -118,28 +118,33 @@ CREATE TABLE Report (
 );
 -- Bảng voucher
 CREATE TABLE Voucher (
-	VoucherID VARCHAR(10) PRIMARY KEY, 
-	discountRate Int CHECK (discountRate > 0 AND discountRate <= 100),--(cho Nam mua ssach)
-	quantity INT Check(quantity > 0),
-    startDate DATE,
-    endDate DATE,
-    Vdescription NVARCHAR(255)
-)
+    discountRate INT NOT NULL, 
+    Vdescription VARCHAR(255) NOT NULL,  
+    minPurchase DECIMAL(10,2) NOT NULL,
+);
+
 --Bảng Bill
 CREATE TABLE Bill (
     billID INT identity(1,1) PRIMARY KEY,
     bookId VARCHAR(50) not null,
-	Cid VARCHAR(50) not null,
+    Cid VARCHAR(50) not null,
     Eid VARCHAR(50),
-	VoucherID VARCHAR(10),
     billTime DATETIME,
     unitPrice FLOAT,
     FOREIGN KEY (bookId) REFERENCES Book(bookId),
-	FOREIGN KEY (Cid) REFERENCES Customer(Cid),
-    FOREIGN KEY (Eid) REFERENCES Employee(Eid),
-	FOREIGN KEY (VoucherID) REFERENCES Voucher(VoucherID) ON DELETE CASCADE
+    FOREIGN KEY (Cid) REFERENCES Customer(Cid),
+    FOREIGN KEY (Eid) REFERENCES Employee(Eid)
 );
 go
+
+    INSERT INTO Voucher (discountRate, Vdescription, minPurchase)
+    VALUES 
+    (10, 'Giam 10% khi mua tu $5', 9.99),
+    (20, 'Giam 20% khi mua tu $20', 19.99),
+    (50, 'Giam 50% khi mua tu $50', 49.99)
+
+
+
 INSERT INTO Admin (ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress, AccountId)
 VALUES 
 ('AD001', 'Phan Nhat Nam', '123456789', '1990-05-15', 'Nam', '0987654321', 'namphan@gmail.com', 'Hà Nội', 1),

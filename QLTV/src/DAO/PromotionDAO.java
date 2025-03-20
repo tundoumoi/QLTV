@@ -15,7 +15,6 @@ import java.sql.SQLException;
  * @author dangt
  */
 public class PromotionDAO implements IPromotionDAO{
-
     public Promotion checkVoucher(double purchaseAmount) {
     String sql = "SELECT * FROM Voucher WHERE minPurchase <= ? ORDER BY discountRate DESC LIMIT 1";
     try (Connection conn = DatabaseConnection.getConnection();
