@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Swing;
 
 import DAO.BookDAO;
@@ -15,23 +11,23 @@ import Model.BookBorrow;
 import Model.BuyBook;
 import Model.Customer;
 import Model.Report;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
-/**
- *
- * @author LENOVO Ideapad 3
- */
 public class CustomerPage extends javax.swing.JFrame {
 
+    private DefaultTableModel modelBuy;
     private String customerId;
     private String selectedBookId = null;
     private String selectedBookTitle = null;
-    private boolean eventListenersAdded = false; // Biến để kiểm tra sự kiện đã được thêm hay chưa
+    private boolean eventListenersAdded = false; // Kiểm tra xem đã thêm sự kiện hay chưa
     
     /**
      * Creates new form NewJFrame
@@ -42,16 +38,10 @@ public class CustomerPage extends javax.swing.JFrame {
         populateAvailableBooks();
         addEventListeners();
         
-        // Tạo instance của Chatbot (lớp Chatbot kế thừa từ JPanel)
+        // Khởi tạo Chatbot panel (nếu cần)
         chatbot.Chatbot chatbotPanel = new chatbot.Chatbot();
-
-        // Đặt layout cho ChatBotPanel nếu cần (ở đây dùng BorderLayout)
         ChatbotPanel.setLayout(new java.awt.BorderLayout());
-
-        // Thêm chatbotPanel vào ChatBotPanel tại vị trí CENTER
         ChatbotPanel.add(chatbotPanel, java.awt.BorderLayout.CENTER);
-
-        // Nếu cần, gọi revalidate() và repaint() để cập nhật giao diện
         ChatbotPanel.revalidate();
         ChatbotPanel.repaint();
     }
@@ -64,23 +54,16 @@ public class CustomerPage extends javax.swing.JFrame {
                     ResultOfFindMouseClicked(evt);
                 }
             });
-            BUY.addActionListener(this::BUYActionPerformed);
-            BORROW.addActionListener(this::BORROWActionPerformed);
-            REPPORT.addActionListener(this::REPPORTActionPerformed);
-            eventListenersAdded = true; // Đánh dấu rằng sự kiện đã được thêm
+            
+            eventListenersAdded = true;
         }
     }
     
     private void populateAvailableBooks() {
-        // Tạo instance của BookDAO và truy xuất danh sách sách có quantity > 0
         BookDAO bookDAO = new BookDAO();
         ArrayList<Book> availableBooks = bookDAO.getBooksWithQuantityGreaterThanZero();
-
-        // Lấy model của JTable
         DefaultTableModel model = (DefaultTableModel) AvailableBook.getModel();
-        model.setRowCount(0); // Xóa các dòng cũ (nếu có)
-
-        // Duyệt qua danh sách và thêm mỗi sách (chỉ lấy title và quantity) vào JTable
+        model.setRowCount(0); 
         for (Book book : availableBooks) {
             model.addRow(new Object[]{book.getTitle(), book.getQuantity()});
         }
@@ -88,18 +71,30 @@ public class CustomerPage extends javax.swing.JFrame {
 
     private void updateResultTable(ArrayList<Book> books) {
         DefaultTableModel model = (DefaultTableModel) ResultOfFind.getModel();
-        model.setRowCount(0); 
-
+        model.setRowCount(0);
         for (Book book : books) {
             model.addRow(new Object[]{book.getTitle(), book.getQuantity()});
         }
     }
-
+    
+    public void updateTableBuy() {
+        BuyBookDAO buyBookDAO = new BuyBookDAO();
+        ArrayList<BuyBook> buyBooks = buyBookDAO.getAllBuy();
+        modelBuy = new DefaultTableModel(new String[]{"Order ID", "Book ID", "Quantity"}, 0);
+        modelBuy.setRowCount(0);
+        for (BuyBook b : buyBooks) {
+            System.out.println("Đơn hàng: " + b.getOrderId() + " - " + b.getBookId() + " - " + b.getQuantity());
+            modelBuy.addRow(new Object[]{b.getOrderId(), b.getBookId(), b.getQuantity()});
+        }
+        // Nếu có bảng TableBuy trên giao diện, cập nhật model
+        TableBuy.setModel(modelBuy);
+    }
+    
     private void ResultOfFindMouseClicked(java.awt.event.MouseEvent evt) { 
         int selectedRow = ResultOfFind.getSelectedRow();
         if (selectedRow != -1) {
-            selectedBookTitle = ResultOfFind.getValueAt(selectedRow, 0).toString(); // Cột 0 là title
-            selectedBookId = findBookIdByTitle(selectedBookTitle); // Tìm bookId từ title
+            selectedBookTitle = ResultOfFind.getValueAt(selectedRow, 0).toString(); // Lấy title từ cột đầu tiên
+            selectedBookId = findBookIdByTitle(selectedBookTitle);
         }
     }
     
@@ -110,7 +105,6 @@ public class CustomerPage extends javax.swing.JFrame {
     }
     
     public String getCustomerIdByUsername(String username) {
-        // Giả sử CustomerDAO có phương thức tìm kiếm theo username
         Customer customer = CustomerDAO.findByUsername(username);
         return customer != null ? customer.getId() : null;
     }
@@ -269,7 +263,6 @@ public class CustomerPage extends javax.swing.JFrame {
                 {null, null},
                 {null, null},
                 {null, null},
-                {null, null},
                 {null, null}
             },
             new String [] {
@@ -320,8 +313,7 @@ public class CustomerPage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BORROW)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(REPPORT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(REPPORT))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(SelectedToFind, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -465,7 +457,7 @@ public class CustomerPage extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addComponent(PAY)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(CreateCard)
                 .addGap(66, 66, 66)
                 .addComponent(TypeCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -509,7 +501,7 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ChatbotPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(485, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(545, 545, 545))
         );
@@ -542,27 +534,27 @@ public class CustomerPage extends javax.swing.JFrame {
 
     private void BUYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUYActionPerformed
         if (selectedBookId == null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách!");
             return;
         }
-
+        
         if (customerId == null || customerId.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Lỗi: Không xác định được customerId!");
+            JOptionPane.showMessageDialog(this, "Lỗi: Không xác định được customerId!");
             return;
         }
-
+        
         CustomerDAO customerDAO = new CustomerDAO();
         if (!customerDAO.isCustomerInCustomerBuy(customerId)) {
             // Nếu customer chưa có trong CustomerBuy, thêm vào trước
             String insertSQL = "INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES (?, 0, 'Standard')";
             try (Connection conn = DatabaseConnection.getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
-                pstmt.setString(1, customerId);
-                pstmt.executeUpdate();
+                 pstmt.setString(1, customerId);
+                 pstmt.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
-                javax.swing.JOptionPane.showMessageDialog(this, "Lỗi khi thêm khách hàng vào CustomerBuy!");
-                return;
+                 e.printStackTrace();
+                 JOptionPane.showMessageDialog(this, "Lỗi khi thêm khách hàng vào CustomerBuy!");
+                 return;
             }
         }
         
@@ -570,29 +562,24 @@ public class CustomerPage extends javax.swing.JFrame {
         LocalDate purchaseDate = LocalDate.now();
         BookDAO bookDAO = new BookDAO();
         Book book = bookDAO.getById(selectedBookId);
-
+        
         if (book == null || book.getQuantity() < quantity) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sách không đủ số lượng hoặc không tồn tại!");
+            JOptionPane.showMessageDialog(this, "Sách không đủ số lượng hoặc không tồn tại!");
             return;
         }
-
-        BuyBook buyBook = new BuyBook(
-            "Order" + System.currentTimeMillis(), 
-            customerId, 
-            selectedBookId, 
-            quantity, 
-            book.getPrice() * quantity, 
-            purchaseDate
-        );
-
+        
+        // Truyền chuỗi rỗng cho orderId để DAO tự sinh UUID nếu cần.
+        BuyBook buyBook = new BuyBook("", customerId, selectedBookId, quantity, book.getPrice() * quantity, purchaseDate);
         BuyBookDAO buyBookDAO = new BuyBookDAO();
         buyBookDAO.insertBuyB(buyBook);
         bookDAO.updateQuantity(selectedBookId, book.getQuantity() - quantity);
-
+        
         DefaultTableModel buyModel = (DefaultTableModel) TableBuy.getModel();
-        buyModel.addRow(new Object[]{selectedBookId, book.getPrice(), quantity});
-
+        buyModel.addRow(new Object[]{buyBook.getOrderId(), selectedBookId, quantity});
         ReportContent.setText("Bạn đã mua sách: " + selectedBookTitle + "\nSố lượng: " + quantity);
+        
+        // Cập nhật lại bảng đơn mua
+        updateTableBuy();
     }//GEN-LAST:event_BUYActionPerformed
 
     private void InputToFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputToFindActionPerformed
@@ -604,17 +591,16 @@ public class CustomerPage extends javax.swing.JFrame {
     }//GEN-LAST:event_SelectedToFindActionPerformed
 
     private void FindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindActionPerformed
-        // TODO add your handling code here:
         String keyword = InputToFind.getText().trim();
         String selectedCriteria = SelectedToFind.getSelectedItem().toString();
         BookDAO bookDAO = new BookDAO();
         ArrayList<Book> result = new ArrayList<>();
-
+        
         if (keyword.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin tìm kiếm!");
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin tìm kiếm!");
             return;
         }
-
+        
         switch (selectedCriteria) {
             case "bookId":
                 Book book = bookDAO.getById(keyword);
@@ -629,29 +615,35 @@ public class CustomerPage extends javax.swing.JFrame {
                 result = bookDAO.findBookByType(keyword);
                 break;
             case "publishedDate":
-                result = bookDAO.findBookByPublishedDate(java.time.LocalDate.parse(keyword));
+                try {
+                    LocalDate date = LocalDate.parse(keyword);
+                    result = bookDAO.findBookByPublishedDate(date);
+                } catch (DateTimeParseException e) {
+                    JOptionPane.showMessageDialog(this, "Định dạng ngày không hợp lệ! Vui lòng nhập theo định dạng yyyy-MM-dd.");
+                    return;
+                }
                 break;
             default:
-                javax.swing.JOptionPane.showMessageDialog(this, "Tiêu chí tìm kiếm không hợp lệ!");
+                JOptionPane.showMessageDialog(this, "Tiêu chí tìm kiếm không hợp lệ!");
                 return;
         }
-
+        
         updateResultTable(result);
     }//GEN-LAST:event_FindActionPerformed
 
     private void BORROWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BORROWActionPerformed
         if (selectedBookId == null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách!");
             return;
         }
-        // Giả sử cardId có thể được liên kết với customerId (có thể điều chỉnh theo logic của bạn)
+        // Giả sử cardId được liên kết với customerId theo quy ước
         String cardId = "CardFor_" + customerId; 
         LocalDate borrowDate = LocalDate.now();
         LocalDate endDate = borrowDate.plusDays(7);
         BookDAO bookDAO = new BookDAO();
         Book book = bookDAO.getById(selectedBookId);
-        if (book.getQuantity() < 1) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Sách không có sẵn để mượn!");
+        if (book == null || book.getQuantity() < 1) {
+            JOptionPane.showMessageDialog(this, "Sách không có sẵn để mượn!");
             return;
         }
         BookBorrow borrow = new BookBorrow(cardId, selectedBookId, borrowDate, endDate);
@@ -667,23 +659,20 @@ public class CustomerPage extends javax.swing.JFrame {
     private void REPPORTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_REPPORTActionPerformed
         // Kiểm tra đã chọn sách hay chưa
         if (selectedBookId == null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách để báo cáo!");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách để báo cáo!");
             return;
         }
-        // Lấy nội dung báo cáo
         String reportContent = ReportContent.getText().trim();
         if (reportContent.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập nội dung báo cáo!");
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập nội dung báo cáo!");
             return;
         }
         LocalDate reportDate = LocalDate.now();
-        // Tạo đối tượng Report với customerId từ đối tượng CustomerPage
         Report report = new Report(customerId, selectedBookId, selectedBookTitle, reportDate, reportContent);
         ReportDAO reportDAO = new ReportDAO();
         reportDAO.insert(report);
-        // Reset nội dung báo cáo và thông báo cho người dùng
         ReportContent.setText("");
-        javax.swing.JOptionPane.showMessageDialog(this, "Báo cáo thành công cho sách: " + selectedBookTitle);
+        JOptionPane.showMessageDialog(this, "Báo cáo thành công cho sách: " + selectedBookTitle);
     }//GEN-LAST:event_REPPORTActionPerformed
 
     private void PAYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PAYActionPerformed
@@ -728,11 +717,7 @@ public class CustomerPage extends javax.swing.JFrame {
     }
     
     public static void run(String customerId) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CustomerPage(customerId).setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new CustomerPage(customerId).setVisible(true));
 }
 
 
