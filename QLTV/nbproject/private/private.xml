@@ -3,11 +3,41 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/Swing/Login.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/DAO/AccountDAO.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/DAO/CustomerDAO.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/Swing/CustomerPage.java</file>
-            <file>file:/D:/LAB211/QLTV/QLTV/src/Service/CustomerService.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Service/CustomerService.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Service/EmployeeService.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Run/Test.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/View/view.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/DAO/BuyBookDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Swing/Register.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Model/Account.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Service/BuyBookService.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/DAO/BillDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Swing/AdminPage.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Run/run.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Model/CustomerBorrow.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/ultils/ICustomerValidation.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Service/BillService.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Swing/EmployeePage.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/ultils/EmployeeValidation.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/DAO/DatabaseConnection.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/DAO/CustomerDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Service/AdminService.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/DAO/EmployeeDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Model/Employee.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/ultils/Validation.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/DAO/BookDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Swing/Login.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Run/Testnhucc.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Service/BorrowBookService.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Service/Service.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Model/BuyBook.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Service/AccountService.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Swing/CustomerPage.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Model/Customer.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/RecommentSystem/ContentBasedRecommender.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Service/BookService.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/DAO/AccountDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/GitHub/QLTV/QLTV/src/Model/BookBorrow.java</file>
         </group>
     </open-files>
 </project-private>
