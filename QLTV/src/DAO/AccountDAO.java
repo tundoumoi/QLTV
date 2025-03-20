@@ -10,11 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.HashSet;
+
 
 /**
  *
- * @author dangt
+ * @author HP
  */
 public class AccountDAO implements IAccountDAO {
 
@@ -63,24 +63,30 @@ public class AccountDAO implements IAccountDAO {
 //        this.adminAcc = adminAcc;
 //    }
 
-    @Override
-    public HashSet<Account> getAll() {
-        HashSet<Account> accounts = new HashSet<>();
-        String query = "SELECT * FROM Account";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-            while (rs.next()) {
-                int accountId = rs.getInt("AccountId");
-                String username = rs.getString("username");
-                String pass = rs.getString("Apass");
-                accounts.add(new Account(accountId, username, pass));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+@Override
+public HashMap<Integer, Account> getAll() {
+    HashMap<Integer, Account> accounts = new HashMap<>();
+    String query = "SELECT * FROM Account";
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(query);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            int accountId = rs.getInt("AccountId");
+            String username = rs.getString("username");
+            String pass = rs.getString("Apass");
+
+            Account account = new Account(accountId, username, pass);
+            accounts.put(accountId, account); 
         }
-        return accounts;
+
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
     }
+
+    return accounts;
+}
+
 
     @Override
     public Account getById(String id) {

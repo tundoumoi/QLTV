@@ -8,12 +8,13 @@ import Model.CustomerBorrow;
 import Model.CustomerBuy;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class CustomerService implements Service<Customer> {
     CustomerDAO cusDao = new CustomerDAO();
     AccountDAO accDao = new AccountDAO();
-    private HashSet<Account> customerACC = new HashSet<>();
+    private HashMap<Integer, Account> customerACC = new HashMap<>();
     private HashSet<Customer> customerSet = new HashSet<>();
 
 public CustomerService() {
@@ -22,9 +23,9 @@ public CustomerService() {
 }
 
 
-    public Boolean CheckAccount(String userName, String Pass) {
-        for (Account account : customerACC) {
-            if (account.getUsername().equalsIgnoreCase(userName) && account.getPass().equals(Pass)) {
+     public Boolean checkAccount(String userName, String pass) {
+        for (Account account : customerACC.values()) {
+            if (account.getUsername().equalsIgnoreCase(userName) && account.getPass().equals(pass)) {
                 return true;
             }
         }
