@@ -18,7 +18,7 @@ public class CustomerService implements Service<Customer> {
     private HashSet<Customer> customerSet = new HashSet<>();
 
 public CustomerService() {
-    customerSet = cusDao.getAll(); 
+    customerSet = cusDao.getCusSet(); 
     customerACC = accDao.getAll();
 }
 
@@ -65,6 +65,24 @@ public CustomerService() {
     public String increaseCUSID() {
         int count = customerSet.size() + 1;
         return String.format("C%03d", count);
+    }
+
+    public CustomerDAO getCusDao() {
+        return cusDao;
+    }
+
+    public AccountDAO getAccDao() {
+        return accDao;
+    }
+
+    public HashMap<Integer, Account> getCustomerACC() {
+        return customerACC;
+    }
+
+
+
+    public HashSet<Customer> getCustomerSet() {
+        return customerSet;
     }
     
     public String getCustomerIdByUsername(String username) {
