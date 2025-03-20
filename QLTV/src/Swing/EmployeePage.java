@@ -9,6 +9,7 @@ import Model.Customer;
 import Service.BookService;
 import Service.CustomerService;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class EmployeePage extends javax.swing.JFrame {
 
-    ArrayList<Book> BookList = new ArrayList<>();
+    HashMap<String, Book> bookMap = new HashMap<>();
     HashSet<Customer> CustomerList = new HashSet<>();
     BookService bookSer = new BookService();
     CustomerService customerService = new CustomerService();
@@ -32,15 +33,15 @@ public class EmployeePage extends javax.swing.JFrame {
         setTitle("Employee Page");
         setResizable(true);
         //setSize(WIDTH, );
-        jFormattedDate.setText("EX: 2025-03-25");
         //setSize(Toolkit.getDefaultToolkit().getScreenSize());
         displayBook();
+        displayCus();
     }
     public void displayBook(){
-        BookList= bookSer.getBookList();
+        bookMap= bookSer.getBookMap();
         DefaultTableModel model = (DefaultTableModel) JBookTable.getModel();
         model.setRowCount(0); // Xóa các dòng cũ (nếu có)
-        for (Book book : BookList) {
+        for (Book book : bookMap.values()) {
             model.addRow(new Object[]{book.getBookId(),book.getTitle(),book.getAuthor(),book.getPublisher(),book.getPublishedDate(),book.getPrice(),book.getQuantity(),book.getType(),book.getLanguage()});
             
         }
@@ -50,7 +51,7 @@ public class EmployeePage extends javax.swing.JFrame {
         DefaultTableModel model1 = (DefaultTableModel) jCusTable.getModel();
         model1.setRowCount(0);
         for (Customer customer : CustomerList) {
-          model1.  
+          model1.addRow(new Object[]{customer.getId(),customer.getName(),customer.getSSN(),customer.getBirthDate(),customer.getGender(),customer.getPhoneNumber(),customer.getEmail(),customer.getAddress(),customer.getTotalPayment()});
         }
     }
     /**
@@ -85,7 +86,6 @@ public class EmployeePage extends javax.swing.JFrame {
         jPrice = new javax.swing.JTextField();
         ValueQuantity = new javax.swing.JSpinner();
         jComboBox2 = new javax.swing.JComboBox<>();
-        jFormattedDate = new javax.swing.JFormattedTextField();
         jType = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -93,6 +93,7 @@ public class EmployeePage extends javax.swing.JFrame {
         jButtonDelete = new javax.swing.JButton();
         jButtonFind = new javax.swing.JButton();
         jButtonEdit = new javax.swing.JButton();
+        jDatePublisher = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         JBookTable = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
@@ -170,16 +171,6 @@ public class EmployeePage extends javax.swing.JFrame {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English", "Vietnamese", "Japanese", "chinese" }));
 
-        jFormattedDate.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                jFormattedDateAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
         jType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTypeActionPerformed(evt);
@@ -245,6 +236,8 @@ public class EmployeePage extends javax.swing.JFrame {
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
+        jDatePublisher.setDateFormatString("yyyy-MM-dd\n");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -258,8 +251,8 @@ public class EmployeePage extends javax.swing.JFrame {
                         .addComponent(JPublisher))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedDate))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jDatePublisher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -307,9 +300,9 @@ public class EmployeePage extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(JPublisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
-                    .addComponent(jFormattedDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDatePublisher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -377,7 +370,7 @@ public class EmployeePage extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(583, Short.MAX_VALUE))
+                .addContainerGap(584, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
@@ -421,6 +414,8 @@ public class EmployeePage extends javax.swing.JFrame {
         jFormattedTextCusSSN.setText("SSN 12 Index");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "An Giang", "Ba Ria - Vung Tau", "Bac Giang", "Bac Kan", "Bac Lieu", "Bac Ninh", "Ben Tre", "Binh Dinh", "Binh Duong", "Binh Phuoc", "Binh Thuan", "Ca Mau", "Can Tho", "Cao Bang", "Da Nang", "Dak Lak", "Dak Nong", "Dien Bien", "Dong Nai", "Dong Thap", "Gia Lai", "Ha Giang", "Ha Nam", "Ha Noi", "Ha Tinh", "Hai Duong", "Hai Phong", "Hau Giang", "Hoa Binh", "Hung Yen", "Khanh Hoa", "Kien Giang", "Kon Tum", "Lai Chau", "Lam Dong", "Lang Son", "Lao Cai", "Long An", "Nam Dinh", "Nghe An", "Ninh Binh", "Ninh Thuan", "Phu Tho", "Phu Yen", "Quang Binh", "Quang Nam", "Quang Ngai", "Quang Ninh", "Quang Tri", "Soc Trang", "Son La", "Tay Ninh", "Thai Binh", "Thai Nguyen", "Thanh Hoa", "Thua Thien Hue", "Tien Giang", "TP Ho Chi Minh", "Tra Vinh", "Tuyen Quang", "Vinh Long", "Vinh Phuc", "Yen Bai" }));
+
+        jDateChooser1.setDateFormatString("yyyy-MM-dd\n");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -492,56 +487,56 @@ public class EmployeePage extends javax.swing.JFrame {
 
         jCusTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "SSN", "Birth Date", "Gender", "Phone", "Email", "Address"
+                "ID", "Name", "SSN", "Birth Date", "Gender", "Phone", "Email", "Address", "total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -653,11 +648,6 @@ public class EmployeePage extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
 
-    private void jFormattedDateAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jFormattedDateAncestorAdded
-        // TODO add your handling code here:
-        jFormattedDate.setText("");
-    }//GEN-LAST:event_jFormattedDateAncestorAdded
-
     private void jTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTypeActionPerformed
@@ -718,7 +708,7 @@ public class EmployeePage extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboCusGender;
     private javax.swing.JTable jCusTable;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JFormattedTextField jFormattedDate;
+    private com.toedter.calendar.JDateChooser jDatePublisher;
     private javax.swing.JFormattedTextField jFormattedTextCusSSN;
     private javax.swing.JFormattedTextField jFormattedTextPhone;
     private javax.swing.JLabel jLabel1;
