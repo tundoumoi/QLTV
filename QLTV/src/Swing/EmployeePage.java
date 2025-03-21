@@ -10,7 +10,9 @@ import Service.BookService;
 import Service.CustomerService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -441,6 +443,11 @@ public class EmployeePage extends javax.swing.JFrame {
         DELETECUS.setText("DELETE");
 
         EDITCUS.setText("EDIT");
+        EDITCUS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EDITCUSMouseClicked(evt);
+            }
+        });
 
         FINDCUS.setText("FIND");
         FINDCUS.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -786,7 +793,7 @@ public class EmployeePage extends javax.swing.JFrame {
 
     private void FINDCUSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FINDCUSMouseClicked
         // TODO add your handling code here:
-                String cusID = jTextCusID.getText();
+        String cusID = jTextCusID.getText();
         Customer cus = customerService.findById(cusID);
         jTextCusID.setText(cus.getId());
         jTextCusName.setText(cus.getName());
@@ -806,6 +813,30 @@ public class EmployeePage extends javax.swing.JFrame {
         jComboAddress.setSelectedItem(cus.getAddress());
 
     }//GEN-LAST:event_FINDCUSMouseClicked
+
+    private void EDITCUSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITCUSMouseClicked
+        // TODO add your handling code here:
+        String cusID = jTextCusID.getText();
+        Customer cus = customerService.findById(cusID);
+        String CusName = jTextCusName.getName();
+        String CusSSN = jFormattedTextCusSSN.getText();
+        try {
+            Date date = jDateCusdate.getDate(); // Lấy giá trị từ JDateChooser
+            if (date != null) {
+                Instant instant = date.toInstant(); // Chuyển Date thành Instant
+                LocalDate CusDate = instant.atZone(ZoneId.systemDefault()).toLocalDate(); // Chuyển thành LocalDate
+            
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+// Hiển thị lỗi ra console
+       String gender=  jComboCusGender.get;
+        jFormattedTextPhone.setText(cus.getPhoneNumber());
+        jTextCusEmail.setText(cus.getEmail());
+        jComboAddress.setSelectedItem(cus.getAddress());
+    }//GEN-LAST:event_EDITCUSMouseClicked
 
     /**
      * @param args the command line arguments
