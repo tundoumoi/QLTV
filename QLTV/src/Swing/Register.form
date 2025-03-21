@@ -293,13 +293,13 @@
                                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="TextName" alignment="1" min="-2" pref="227" max="-2" attributes="0"/>
-                                          <Component id="jFormattedTextSSN" alignment="1" min="-2" pref="227" max="-2" attributes="0"/>
-                                          <Component id="jFormattedTextBirthDate" alignment="1" min="-2" pref="227" max="-2" attributes="0"/>
-                                          <Component id="jFormattedTextPhone" alignment="1" min="-2" pref="227" max="-2" attributes="0"/>
-                                          <Component id="EmailText" alignment="1" min="-2" pref="227" max="-2" attributes="0"/>
-                                          <Component id="jTextAddress" alignment="1" min="-2" pref="227" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="TextName" alignment="0" pref="227" max="32767" attributes="0"/>
+                                          <Component id="jFormattedTextSSN" alignment="0" pref="227" max="32767" attributes="0"/>
+                                          <Component id="jFormattedTextPhone" alignment="0" pref="227" max="32767" attributes="0"/>
+                                          <Component id="EmailText" alignment="0" pref="227" max="32767" attributes="0"/>
+                                          <Component id="jTextAddress" alignment="0" pref="227" max="32767" attributes="0"/>
+                                          <Component id="jCusDate" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -318,7 +318,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="RegisterBut1" min="-2" pref="112" max="-2" attributes="0"/>
-                                          <Component id="jPasswordField3" max="32767" attributes="0"/>
+                                          <Component id="jPasswordField3" pref="224" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -334,7 +334,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="77" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -357,58 +357,60 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <Component id="jFormattedTextBirthDate" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jFormattedTextPhone" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                      <Component id="EmailText" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Address" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextAddress" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jCheckOther" alignment="1" min="-2" pref="19" max="-2" attributes="0"/>
-                              <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jChecKFemale" alignment="1" min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                          <Component id="jCheckMale" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jTextFieldUser1" min="-2" max="-2" attributes="0"/>
-                              <Component id="UserLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jFormattedTextPhone" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPasswordField2" min="-2" pref="22" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <Component id="EmailText" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="Address" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextAddress" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jCheckOther" alignment="1" min="-2" pref="19" max="-2" attributes="0"/>
+                                      <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jChecKFemale" alignment="1" min="-2" pref="19" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jCheckMale" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jTextFieldUser1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="UserLabel1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jPasswordField2" min="-2" pref="22" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="PassWordLabel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jPasswordField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="RegisterBut1" min="-2" pref="38" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="PassWordLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCusDate" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPasswordField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                  <Component id="RegisterBut1" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace pref="42" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -505,13 +507,6 @@
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="BIRTHDATE"/>
           </AccessibilityProperties>
-        </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextBirthDate">
-          <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format format="yyyy-MM-dd" subtype="-1" type="1"/>
-            </Property>
-          </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="jFormattedTextSSN">
           <Properties>
@@ -651,6 +646,11 @@
           <Events>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BackMousePressed"/>
           </Events>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="jCusDate">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
