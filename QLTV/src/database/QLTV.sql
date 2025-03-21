@@ -75,13 +75,13 @@ CREATE TABLE CustomerBorrow (
 -- Bảng Book
 CREATE TABLE Book (
     bookId VARCHAR(50) PRIMARY KEY,
-    title NVARCHAR(100),
+    title NVARCHAR(200),
     author NVARCHAR(100),
     publisher NVARCHAR(100),
     publishedDate VARCHAR(100),
     price FLOAT CHECK (price >= 0),
     quantity INT CHECK (quantity >= 0),
-    type NVARCHAR(50), -- VD : Cười, Kinh dị, Kiến thức
+    type NVARCHAR(200), -- VD : Cười, Kinh dị, Kiến thức
     language NVARCHAR(20) -- VD : Việt, Anh, Nhật
 );
 -- Bảng BookBorrow (mối quan hệ giữa CustomerBorrow và Book)
@@ -138,7 +138,17 @@ CREATE TABLE Bill (
     FOREIGN KEY (Eid) REFERENCES Employee(Eid)
 );
 go
-
+INSERT INTO Account (AccountId, username, APass) VALUES
+(1, 'nambautroi', 'namfanbacmeo'),
+(2, 'ladititi', 'dititi'),
+(3, 'hoangluu', 'hoangluu217'),
+(4,'tundaumoi','tundaumoi1'),
+(5,'manhthang','manhthang1'),
+(6,'employee','employee1'),
+(7,'employee2','employee2'),
+(8,'employee3','employee3'),
+(9,'customer','customer1'),
+(10,'customer2','customer2')
     INSERT INTO Voucher (discountRate, Vdescription, minPurchase)
     VALUES 
     (10, 'Giam 10% khi mua tu $5', 9.99),
@@ -151,20 +161,14 @@ INSERT INTO Admin (ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADem
 VALUES 
 ('AD001', 'Phan Nhat Nam', '123456789', '1990-05-15', 'Nam', '0987654321', 'namphan@gmail.com', 'Hà Nội', 1),
 ('AD002', 'Dang Thanh Tung', '987654321', '1992-07-20', 'Nam', '0912345678', 'tungdang@gmail.com', 'TP.HCM', 2),
-('AD003', 'Luong Dang Hoang Luu', '456789123', '1988-09-10', 'Nam', '0901122334', 'luuhoang@gmail.com', 'Đà Nẵng', 3),
+('AD003', 'Luong Dang Hoang Luu', '456789123', '1988-09-10', 'Nam', '0901122334', 'luuhoang@gmail.com', 'Đà Nẵng', 3)
+INSERT INTO Admin (ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress, AccountId)
+VALUES 
 ('AD004', 'Tuan dau moi', '321654987', '1995-12-01', 'Nam', '0933221144', 'tuanmoi@gmail.com', 'Cần Thơ', 4),
 ('AD005', 'Manh Thang', '159753468', '1993-03-25', 'Nam', '0977885566', 'manhthang@gmail.com', 'Hải Phòng', 5)
 
 
-INSERT INTO Account (AccountId, username, APass) VALUES
-(1, 'nambautroi', 'namfanbacmeo'),
-(2, 'ladititi', 'dititi'),
-(3, 'hoangluu', 'hoangluu217'),
-(4,'tundaumoi','tundaumoi1'),
-(5,'manhthang','manhthang1'),
-(6,'employee','employee1'),
-(7,'customer','customer1'),
-(8,'customer2','customer2')
+
 
 SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a.AccountId = ad.AccountId
 --delete from account;
@@ -179,6 +183,8 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0007','Chicken Soup for the Soul: 101 Stories to Open the Heart and Rekindle the Spirit','By Canfield, Jack (COM) and Hansen, Mark Victor (COM)','Health Communications Inc','August,1993','4.99','877',' Self-help , Personal Growth , Self-Esteem','English'),
 ('B0008','Journey Through Heartsongs','By Stepanek, Mattie J. T.','VSP Books','September,2001','19.96','913',' Poetry , General','English'),
 ('B0009','In Search of Melancholy Baby','By Aksyonov, Vassily, Heim, Michael Henry, and Bouis, Antonina W.','Random House','October,1987','4.99','826',' Biography & Autobiography , General','English'),
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0010','Christmas Cookies','By Eakin, Katherine M. and Deaman, Joane (EDT)','Oxmoor House','November,1986','12.98','552',' Cooking , General','English'),
 ('B0011','The Dieter Guide to Weight Loss During Sex','By Smith, Richard','Workman Publishing Company','December,1978','4.99','768',' Health & Fitness , Diet & Nutrition , Diets','English'),
 ('B0012','Germs : Biological Weapons and America Secret War','By Miller, Judith, Engelberg, Stephen, and Broad, William J.','Simon & Schuster','January,2001','4.99','581',' Technology & Engineering , Military Science','English'),
@@ -187,7 +193,9 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0015','All over but the Shoutin','By Bragg, Rick','Vintage','April,1998','4.89','438',' Biography & Autobiography , Personal Memoirs','English'),
 ('B0016','Oilers and Sweepers and Other Stories','By Dennison, George','Random House','May,1979','5','959','','English'),
 ('B0017','Prince William','By Garner, Valerie','Benford Books','June,1998','4.99','46','','English'),
-('B0018','The Emperor New Mind','By Penrose, Roger','Penguin Books','July,1991','4.99','211',' Philosophy , General','English'),
+('B0018','The Emperor New Mind','By Penrose, Roger','Penguin Books','July,1991','4.99','211',' Philosophy , General','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0019','Touching Fire: Erotic Writings by Women','By Thornton, Louise, Sturtevant, Jan, and Sumrall, Amber Coverdale (EDT)','Carroll & Graf Pub','August,1990','5.29','915','','English'),
 ('B0020','Hill Rat: Blowing the Lid Off Congress','By Jackley, John L.','Regnery Publishing, Inc.','September,1992','4.99','701',' Political Science , General','English'),
 ('B0021','The Great ABC Treasure Hunt: A Hidden Picture Alphabet Book (Time-Life Early Learning Program)','By Time-Life for Children (Firm) (COR), Singer, Muff, and Hoggan, Pat (ILT)','Time Life Education','October,1991','5.29','400',' Juvenile Nonfiction , General','English'),
@@ -197,9 +205,10 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0025','Black Holes and Baby Universes and Other Essays','By Hawking, Stephen W.','Bantam','February,1993','5.29','624',' Biography & Autobiography , General','English'),
 ('B0026','Relativity: The Special and the General Theory','By Albert Einstein','Three Rivers Press','March,1961','8.79','794','','English'),
 ('B0027','Betrayal : How the Clinton Administration Undermined American Security','By Gertz, Bill','Regnery Pub','April,1999','4.99','972',' Political Science , General','English'),
-('B0028','Shadow Song','By Kay, Terry','Atria Books','May,1994','4.99','272',' Fiction , General','English'),
+('B0028','Shadow Song','By Kay, Terry','Atria Books','May,1994','4.99','272',' Fiction , General','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0029','Undercurrents: A Therapist Reckoning With Her Own Depression','By Manning, Martha','HarperCollins','June,1995','5.29','943',' Psychology , General','English'),
-('B0030','The Road Less Traveled and Beyond: Spiritual Growth in an Age of Anxiety','By Peck, M. Scott','Touchstone','July,1998','4.99','638',' Psychology , Psychopathology , Anxieties & Phobias','English'),
 ('B0031','The Kiss: A Memoir','By Harrison, Kathryn','Random House','August,1997','5.29','70',' Family & Relationships , Love & Romance','English'),
 ('B0032','Codebreakers Victory: How the Allied Cryptogaphers Won World War II','By Haufler, Hervie','NAL Trade','September,2003','5.29','509',' History , Military , World War II','English'),
 ('B0033','A Manual for Writers of Term Papers, Theses, and Dissertations, Fifth Edition','By Turabian, Kate L.','University of Chicago Press','October,1987','4.99','425','','English'),
@@ -207,56 +216,58 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0035','Best New American Voices 2003','By Kulka, John (EDT), Danford, Natalie (EDT), and Oates, Joyce Carol (EDT)','Harvest Books','December,2002','5.29','89',' Fiction , Anthologies (multiple authors)','English'),
 ('B0036','Escape from the CIA: How the CIA Won and Lost the Most Important KGB Spy Ever to Defect to the U.S.','By Kessler, Ronald','Pocket Books','January,1991','5.29','682',' Political Science , General','English'),
 ('B0037','Meditations: On the Monk Who Dwells in Daily Life','By Moore, Thomas','HarperCollins','February,1994','4.99','242',' Religion , General','English'),
-('B0038','Links Lore','By Stevens, Peter F.','POTOMAC BOOKS','March,2000','5.29','549',' Sports & Recreation , History','English'),
+('B0038','Links Lore','By Stevens, Peter F.','POTOMAC BOOKS','March,2000','5.29','549',' Sports & Recreation , History','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0039','Jackie by Josie: A Novel','By Preston, Caroline','Scribner','April,1998','4.99','127',' Fiction , Literary','English'),
 ('B0040','Joshua and the City','By Girzone, Joseph F.','Doubleday','May,1995','5.29','934',' Religion , Inspirational','English'),
 ('B0041','The Book of Courtly Love: The Passionate Code of the Troubadours','By Hopkins, Andrea','HarperCollins','June,1994','5.29','723','','English'),
 ('B0042','How Good Do We Have to Be? A New Understanding of Guilt and Forgiveness','By Kushner, Harold S.','Back Bay Books','July,1997','4.99','787',' Religion , Psychology of Religion','English'),
-('B0043','Eat More, Weigh Less: Dr. Dean Ornish Life Choice Program for Losing Weight Safely While Eating Abundantly','By Ornish, Dean and Brown, Shirley Elizabeth (EDT)','William Morrow Paperbacks','August,2000','5.29','715',' Cooking , Health & Healing , Low Fat','English'),
 ('B0044','Majorca: Culture and Life','By Konemann Inc. (EDT)','Konemann','September,2000','8.83','600',' Photography , Subjects & Themes , Regional','English'),
 ('B0045','Written by Herself: Autobiographies of American Women: An Anthology','By Conway, Jill Ker (EDT)','Vintage','October,1992','4.99','651',' Biography & Autobiography , Women','English'),
-('B0046','The Universe of Galaxies','By Hodge, Paul','W H Freeman & Co','November,1984','5.29','635','','English'),
+('B0046','The Universe of Galaxies','By Hodge, Paul','W H Freeman & Co','November,1984','5.29','635','','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0047','Ice Bound: A Doctor Incredible Battle For Survival at the South Pole','By Nielsen, Jerri and Vollers, Maryanne','Miramax','December,2002','4.89','51',' Biography & Autobiography , Women','English'),
-('B0048','Healing Benefits of Garlic','By Heinerman, John','Gramercy','January,1995','4.99','547',' Cooking , Specific Ingredients , Herbs, Spices, Condiments','English'),
 ('B0049','Me and Ted Against the World : The Unauthorized Story of the Founding of CNN','By Schonfeld, Reese','Harperbusiness','February,2001','4.99','997',' Business & Economics , Management','English'),
 ('B0050','Magnet Therapy: The Pain Cure Alternative','By Lawrence, Ronald Melvin, Plowden, Judith, and Rosch, Paul','Prima Pub','March,1998','5.29','647',' Medical , Holistic Medicine','English'),
-('B0051','Controlling Cholesterol: Dr. Kenneth H. Cooper Preventative Medicine Program','By Cooper, Kenneth H.','Bantam','April,1989','5.29','289',' Health & Fitness , Diet & Nutrition , Food Content Guides','English'),
 ('B0052','George Meany And His Times: A Biography','By Robinson, Archie','Simon & Schuster','May,1982','4.99','169',' Biography & Autobiography , General','English'),
 ('B0053','American Dreams: Lost & Found','By Terkel, Studs','Pantheon','June,1980','10.99','432','','English'),
 ('B0054','Sharing the Pie : A Citizen Guide to Wealth and Power','By Brodner, Steve (ILT) and Brouwer, Steve','Holt Paperbacks','July,1998','5.29','382',' Business & Economics , Economic Conditions','English'),
 ('B0055','Love, Love, and Love','By Bernhard, Sandra','HarperCollins','August,1993','5.29','807','','English'),
 ('B0056','Conflicting Accounts: The Creation and Crash of the Saatchi and Saatchi Advertising Empire','By Goldman, Kevin','Touchstone','September,1998','5.29','177',' Business & Economics , Advertising & Promotion','English'),
 ('B0057','What Went Wrong at Enron: Everyone Guide to the Largest Bankruptcy in U.S. History','By Fusaro, Peter C. and Miller, Ross M.','Wiley','October,2002','5.29','528',' Business & Economics , Finance , General','English'),
-('B0058','The Addictive Organization: Why We Overwork, Cover Up, Pick Up the Pieces, Please the Boss, and Perpetuate S','By Schaef, Anne Wilson and Fassel, Diane','HarperOne','November,1990','4.99','363',' Psychology , General','English'),
 ('B0059','From the Silent Earth: A Report on the Greek Bronze Age','By Joseph Alsop','Harper & Row','December,1964','6.22','300','','English'),
 ('B0060','Panic Disorder and Its Treatment (Medical Psychiatry Series)','By Pollack, Mark H. (EDT) and Rosenbaum, J. F. (EDT)','Informa Healthcare','January,1998','5.41','961',' Psychology , Psychopathology , General','English'),
 ('B0061','Henry VIII (English Monarchs Series)','By Scarisbrick, J. J.','University of California Press','February,1972','5.47','967',' Biography & Autobiography , Military','English'),
-('B0062','The Moral Intelligence of Children','By Coles, Robert','Random House','March,1997','5.29','798',' Psychology , General','English'),
+('B0062','The Moral Intelligence of Children','By Coles, Robert','Random House','March,1997','5.29','798',' Psychology , General','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0063','Concordance to the New English Bible, New Testament,','By Elder, E','Zondervan Pub. House','April,1965','10.99','726','','English'),
 ('B0064','Life at the Edge: Readings from Scientific American Magazine','By Gould, James L. and Gould, Carol Grant (EDT)','W H Freeman & Co','May,1989','4.99','527','','English'),
 ('B0065','Cook Healthy: Cook Quick','By Wesler, Cathy A.','UNKNO','January,1995','5.18','733',' Cooking , Health & Healing , Low Fat','English'),
 ('B0066','Images Of War: The Artist Vision of World War II','By McCormick, Ken','Orion Books','October,1990','10.02','492','','English'),
 ('B0067','Becoming Soul Mates: Cultivating Spiritual Intimacy in the Early Years of Marriage','By Parrott, Les','Zondervan','October,1995','5.29','638',' Family & Relationships , Reference','English'),
 ('B0068','Care of the Soul : A Guide for Cultivating Depth and Sacredness in Everyday Life','By Moore, Thomas','HarperPerennial','January,1994','4.99','514',' Self-help , General','English'),
-('B0069','Victims of Progress','By Bodley, John H.','Cummings Pub.Co.','September,1975','4.99','503','','English'),
+('B0069','Victims of Progress','By Bodley, John H.','Cummings Pub.Co.','September,1975','4.99','503','','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0070','Inside the Tornado: Marketing Strategies from Silicon Valley Cutting Edge','By Moore, Geoffrey A.','Harper Business','October,1995','5.29','82',' Business & Economics , Marketing , General','English'),
 ('B0071','Sunset at Rosalie: A Novel','By McLaughlin, Ann L.','Daniel & Daniel Pub','June,1996','5','142',' Fiction , General','English'),
 ('B0072','The Girlfriends Guide to Surviving the First Year of Motherhood, Packaging May Vary','By Iovine, Vicki','TarcherPerigee','October,1997','4.99','765',' Family & Relationships , Parenting , Motherhood','English'),
 ('B0073','Sherlock Holmes and the Red Demon by John H. Watson, M.D.','By Watson, John H. and Millett, Larry (EDT)','Viking','September,1996','4.99','224',' Fiction , Mystery & Detective , General','English'),
-('B0074','New Lands, New Men','By Goetzmann, William H.','Viking Adult','October,1986','10.99','737',' Biography & Autobiography , Adventurers & Explorers','English'),
-('B0075','Reinventing Government: How the Entrepreneurial Spirit is Transforming the Public Sector (Plume)','By Osborne, David and Gaebler, Ted','Plume','February,1993','4.99','732',' Political Science , American Government , General','English'),
 ('B0076','Proverbs For The People','By Price-Thompson, Tracy (EDT) and Stovall, Taressa (EDT)','Kensington','June,2003','5.88','521',' Fiction , Anthologies (multiple authors)','English'),
 ('B0077','Great American Countryside','By Landi, Val','Scribner','July,1982','10.99','676',' Travel , United States , General','English'),
 ('B0078','Rob Whitlock: A Pioneer Boy in Old Ohio','By Jackson, Kathryn','Simon and Schuster','January,1951','12.51','481','','English'),
 ('B0079','British Hospitals (Britain in Pictures)','By A. G. L. Ives','London : Collins','January,1948','18','569','','English'),
-('B0080','An essay on morals','By Wylie, Philip','Rinehart & Company, Inc','January,1947','4.99','589','','English'),
+('B0080','An essay on morals','By Wylie, Philip','Rinehart & Company, Inc','January,1947','4.99','589','','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0081','Kid, You Sing My Songs of Love, and Loss, and Hope','By Wyse, Lois and Rogers, Lilla (ILT)','Crown','February,1991','5.29','569',' Humor , Form , Limericks & Verse','English'),
 ('B0082','Re-Inventing the Corporation: Transforming Your Job and Your Company for the New Information Society','By Naisbitt, John and Aburdene, Patricia','Little Brown & Co','September,1985','5.29','572',' Business & Economics , General','English'),
-('B0083','A Sister Is Forever: A Blue Mountain Arts Collection for One of the Most Beautiful People You will Ever Know','By Morris, Gary (EDT) and Blue Mountain Arts Collection (COR)','Blue Mountain Arts','September,2002','4.99','551',' Family & Relationships , Siblings','English'),
 ('B0084','The Practical Stylist','By Baker, Sheridan Warner','Crowell','January,1973','4.99','805','','English'),
 ('B0085','The Periodic Kingdom: A Journey Into The Land Of The Chemical Elements (Science Masters Series)','By Atkins, P. W.','Basic Books','July,1995','4.99','445',' Science , Applied Sciences','English'),
 ('B0086','Titanic','By Kirkland, Douglas, Marsh, Ed W., and Kirkland, Douglas (PHT)','Harper Paperbacks','October,1997','8.79','72',' Performing Arts , Film , General','English'),
-('B0087','A Woman of Egypt','By Sadat, Jehan','Simon & Schuster','August,1987','8.79','156',' Biography & Autobiography , Presidents & Heads of State','English'),
 ('B0088','Civilization III: Instruction Manual','By Meier, Sid','Infogames Interactive','January,2001','4.99','641','','English'),
 ('B0089','Alcatraz 46;: The anatomy of a classic prison tragedy,','By Don DeNevi, Philip Bergen','Leswing Press','January,1974','5.29','883','','English'),
 ('B0090','Elvis in the Morning','By Buckley, William F.','Harvest Books','June,2002','5.29','467',' Fiction , Fantasy , Historical','English'),
@@ -266,7 +277,8 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0094','ON THE WING: The Life of Birds: From Feathers to Flight','By Brooks, Bruce','Scribner','September,1989','19.25','183',' Science , General','English'),
 ('B0095','Bringing Down the House: The Inside Story of Six M.I.T. Students Who Took Vegas for Millions','By Mezrich, Ben','Atria','September,2003','4.99','63',' Games & Activities , Gambling , Table','English'),
 ('B0096','Future Space: Beyond Earth','By Quigley, Sebastian (ILT) and Jefferis, David','Tangerine Pr','June,2001','5.29','549','','English'),
-('B0097','The young Jefferson, 1743-1789,','By Bowers, Claude Gernade','Houghton Mifflin Company','January,1945','5.29','684','','English'),
+('B0097','The young Jefferson, 1743-1789,','By Bowers, Claude Gernade','Houghton Mifflin Company','January,1945','5.29','684','','English')
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0098','Mayo Clinic On Hearing: Strategies for Managing Hearing Loss, Dizziness and Other Ear Problems ("MAYO CLINIC ON" SERIES)','By Olsen, Wayne, Ph.D. (EDT)','Kensington Pub Corp','October,2003','5.29','244',' Health & Fitness , Hearing & Speech','English'),
 ('B0099','Trust Me, Mom-Everyone Else Is Going!: The New Rules for Mothering Adolescent Girls','By Cohen-Sandler, Roni, Ph.D.','Penguin Books','February,2003','4.99','116',' Family & Relationships , Parenting , General','English'),
 ('B0100','I Hate School: How to Hang in and When to Drop Out','By Wirths, Claudine G. and Bowman-Kruhm, Mary','Trophy Pr','September,1986','5.29','808',' Young Adult Nonfiction , General','English'),
@@ -774,8 +786,8 @@ SELECT * FROM Book
 
 
 INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId) VALUES
-('C001', 'Nguyen Van An', '123456789', '1995-05-20', 'Male', '0905123456', 'nguyenvana@example.com', 'Ha Noi', 500000, 7),
-('C002', 'Tran Thi Bình', '987654321', '1998-09-15', 'Female', '0912987654', 'tranthib@example.com', 'TP Ho Chi Minh', 200000, 8)
+('C001', 'Nguyen Van An', '123456789', '1995-05-20', 'Male', '0905123456', 'nguyenvana@example.com', 'Ha Noi', 500000, 9),
+('C002', 'Tran Thi Bình', '987654321', '1998-09-15', 'Female', '0912987654', 'tranthib@example.com', 'TP Ho Chi Minh', 200000, 10)
 
 
 INSERT INTO CustomerBorrow (cardId, Cid, typeCard, cardExpiry, registrationDate, cardValue, borrowLimit) VALUES
@@ -789,19 +801,24 @@ INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES
 
 INSERT INTO Employee (Eid, Ename, Essn, EbirthDate, Egender, EphoneNumber, EDemail, Eaddress, Eposition, Esalary, EstartDate, AccountId) 
 VALUES 
-('E001', 'nam bau troi', '123456789', '1990-05-15', N'Nam', '0901234567', 'nva@example.com', 'Hà Nội', N'forever fan bac meo', 2000.0, '2020-06-01', 1),
-('E002', 'la dititi', '987654321', '1995-08-22', N'Nam', '0912345678', 'ttb@example.com', 'TP Hồ Chí Minh', N'lam cho vui', 1500.0, '2021-03-10', 2),
-('E003', 'hoang luu', '112233445', '1988-02-10', N'Nam', '0923456789', 'lvc@example.com', 'Đà Nẵng', N'Kế toán', 1800.0, '2019-11-20', 3),
-('E004', 'thang lo dai', '556677889', '1992-11-05', N'Nam', '0934567890', 'ptd@example.com', 'Cần Thơ', N'Nhân sự', 1700.0, '2022-07-15', 4),
-('E005', 'tun dau moi', '667788990', '1985-07-30', N'Nam', '0945678901', 'hme@example.com', 'Hải Phòng', N'Bán hàng', 1600.0, '2018-09-25', 5);
+('E001', 'nam bau troi', '123456789', '1990-05-15', N'Nam', '0901234567', 'nva@example.com', 'Hà Nội', N'forever fan bac meo', 2000.0, '2020-06-01', 6),
+('E002', 'la dititi', '987654321', '1995-08-22', N'Nam', '0912345678', 'ttb@example.com', 'TP Hồ Chí Minh', N'lam cho vui', 1500.0, '2021-03-10', 7),
+('E003', 'hoang luu', '112233445', '1988-02-10', N'Nam', '0923456789', 'lvc@example.com', 'Đà Nẵng', N'Kế toán', 1800.0, '2019-11-20', 8)
+--('E004', 'thang lo dai', '556677889', '1992-11-05', N'Nam', '0934567890', 'ptd@example.com', 'Cần Thơ', N'Nhân sự', 1700.0, '2022-07-15', 4),
+--('E005', 'tun dau moi', '667788990', '1985-07-30', N'Nam', '0945678901', 'hme@example.com', 'Hải Phòng', N'Bán hàng', 1600.0, '2018-09-25', 5);
 
 
 
 select * from Book
-delete from CustomerBuy
-delete from CustomerBorrow
+--delete from CustomerBuy
+--delete from CustomerBorrow
 select * from CustomerBuy
 SELECT a.AccountId,a.userName , a.Apass FROM Account a join customer cus on cus.AccountID = a.AccountId
 select * from Customer
-delete from Customer
-delete from Account
+select * from admin
+select * from Account
+select * from Employee
+--delete from Customer
+--delete from Account
+delete from Book
+drop table Book
