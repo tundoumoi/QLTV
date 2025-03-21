@@ -4,9 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Swing/EmployeePage.java</file>
+            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/DAO/AccountDAO.java</file>
             <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/DAO/CustomerDAO.java</file>
             <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Service/BorrowBookService.java</file>
+            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Service/AccountService.java</file>
+            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Service/EmployeeService.java</file>
             <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Service/BookService.java</file>
+            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Swing/Login.java</file>
             <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Swing/AdminPage.java</file>
             <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Model/Customer.java</file>
             <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Service/CustomerService.java</file>
