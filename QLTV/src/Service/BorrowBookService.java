@@ -40,13 +40,12 @@ public class BorrowBookService implements Service<BookBorrow> {
         
     }
 
-    @Override
-    public void delete(String id) {
-        BookBorrow borrowBook = findById(id);
-        if (borrowBook != null) {
-            borrowBookDAO.delete(id);
-            borrowBookList.remove(borrowBook);
-        }
+    public void delete(String cardId) {
+//        BookBorrow borrowBook = findById(cardId);
+//        if (borrowBook != null) {
+//            borrowBookDAO.delete(id);
+//            borrowBookList.remove(borrowBook);
+//        }
     }
 
     @Override
