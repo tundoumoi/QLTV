@@ -43,18 +43,19 @@ public class CustomerDAO implements ICustomerDAO {
     
     @Override
     public void update(Customer entity) {
-         String sql = "UPDATE Customer SET Cname = ?, CbirthDate = ?, Cgender = ?, Caddress = ?, Cphone = ?, Cemail = ?, CtotalPayment = ?, AccountId = ? WHERE Cid = ?";
+         String sql = "UPDATE Customer SET Cname = ?, Cssn = ?, CbirthDate = ?, Cgender = ?, Caddress = ?, Cphone = ?, Cemail = ?, CtotalPayment = ?, AccountId = ? WHERE Cid = ?";
          try (Connection conn = DatabaseConnection.getConnection();
               PreparedStatement pstmt = conn.prepareStatement(sql)) {
               pstmt.setString(1, entity.getName());
-              pstmt.setString(2, entity.getBirthDate().toString());
-              pstmt.setString(3, entity.getGender());
-              pstmt.setString(4, entity.getAddress());
-              pstmt.setString(5, entity.getPhoneNumber());
-              pstmt.setString(6, entity.getEmail());
-              pstmt.setDouble(7, entity.getTotalPayment());
-              pstmt.setInt(8, entity.getAccountId());
-              pstmt.setString(9, entity.getId());
+              pstmt.setString(2, entity.getSSN());
+              pstmt.setString(3, entity.getBirthDate().toString());
+              pstmt.setString(4, entity.getGender());
+              pstmt.setString(5, entity.getAddress());
+              pstmt.setString(6, entity.getPhoneNumber());
+              pstmt.setString(7, entity.getEmail());
+              pstmt.setDouble(8, entity.getTotalPayment());
+              pstmt.setInt(9, entity.getAccountId());
+              pstmt.setString(10, entity.getId());
               pstmt.executeUpdate();
          } catch (SQLException e) {
               e.printStackTrace();
