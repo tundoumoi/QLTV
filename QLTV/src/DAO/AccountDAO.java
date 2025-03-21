@@ -10,11 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-
+import java.util.HashSet;
 
 /**
  *
- * @author HP
+ * @author dangt
  */
 public class AccountDAO implements IAccountDAO {
 
@@ -63,30 +63,24 @@ public class AccountDAO implements IAccountDAO {
 //        this.adminAcc = adminAcc;
 //    }
 
-@Override
-public HashMap<Integer, Account> getAll() {
-    HashMap<Integer, Account> accounts = new HashMap<>();
-    String query = "SELECT * FROM Account";
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement stmt = conn.prepareStatement(query);
-         ResultSet rs = stmt.executeQuery()) {
-
-        while (rs.next()) {
-            int accountId = rs.getInt("AccountId");
-            String username = rs.getString("username");
-            String pass = rs.getString("Apass");
-
-            Account account = new Account(accountId, username, pass);
-            accounts.put(accountId, account); 
+    @Override
+    public HashSet<Account> getAll() {
+        HashSet<Account> accounts = new HashSet<>();
+        String query = "SELECT * FROM Account";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                int accountId = rs.getInt("AccountId");
+                String username = rs.getString("username");
+                String pass = rs.getString("Apass");
+                accounts.add(new Account(accountId, username, pass));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
-    } catch (SQLException e) {
-        System.out.println(e.getMessage());
+        return accounts;
     }
-
-    return accounts;
-}
-
 
     @Override
     public Account getById(String id) {
@@ -108,7 +102,7 @@ public HashMap<Integer, Account> getAll() {
         return null;
     }
 
-        public void insert(Account account) {
+    public void insert(Account account) {
         String sql = "INSERT INTO Account (AccountId, username, Apass) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1, account.getAccountId());
@@ -144,7 +138,6 @@ public HashMap<Integer, Account> getAll() {
             System.out.println(e.getMessage());
         }
     }
-    
     public boolean isduplicate(int accountId) {
         String sql = "SELECT COUNT(*) FROM Account WHERE AccountId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -160,5 +153,4 @@ public HashMap<Integer, Account> getAll() {
         }
         return false;
     }
-    
 }

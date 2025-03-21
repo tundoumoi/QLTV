@@ -14,32 +14,26 @@ import java.util.HashSet;
 public class CustomerService implements Service<Customer> {
     CustomerDAO cusDao = new CustomerDAO();
     AccountDAO accDao = new AccountDAO();
-    private HashMap<Integer, Account> customerACC = new HashMap<>();
+    private HashSet<Account> customerACC = new HashSet<>();
     private HashSet<Customer> customerSet = new HashSet<>();
 
 public CustomerService() {
-    customerSet = cusDao.getCusSet(); 
+    customerSet = cusDao.getAll(); 
     customerACC = accDao.getAll();
 }
 
 
-     public Boolean CheckAccount(String userName, String pass) {
-        for (Account account : customerACC.values()) {
-            if (account.getUsername().equalsIgnoreCase(userName) && account.getPass().equals(pass)) {
+       public Boolean CheckAccount(String userName, String Pass) {
+        for (Account account : customerACC) {
+            if (account.getUsername().equalsIgnoreCase(userName) && account.getPass().equals(Pass)) {
                 return true;
             }
         }
         return false;
     }
-
     @Override
     public Customer findById(String id) {
-        for (Customer customer : customerSet) {
-            if(customer.getId().equals(id)){
-                return customer;
-            }
-        }
-        return null;
+        return cusDao.getById(id);
     }
 
     public CustomerBuy findCusBuyById(String id) {
@@ -70,24 +64,6 @@ public CustomerService() {
     public String increaseCUSID() {
         int count = customerSet.size() + 1;
         return String.format("C%03d", count);
-    }
-
-    public CustomerDAO getCusDao() {
-        return cusDao;
-    }
-
-    public AccountDAO getAccDao() {
-        return accDao;
-    }
-
-    public HashMap<Integer, Account> getCustomerACC() {
-        return customerACC;
-    }
-
-
-
-    public HashSet<Customer> getCustomerSet() {
-        return customerSet;
     }
     
     public String getCustomerIdByUsername(String username) {

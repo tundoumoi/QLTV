@@ -5,20 +5,19 @@
 package DAO;
 
 import Model.Account;
-import java.util.HashMap;
-
+import java.util.HashSet;
 
 /**
  *
- * @author HP
+ * @author dangt
  */
-public interface IAccountDAO extends GenericDAO<Account, HashMap<Integer, Account>> {
+public interface IAccountDAO extends GenericDAO<Account, HashSet<Account>>{
 
     @Override
-    public default HashMap<Integer, Account> getAll() {
+    public default HashSet<Account> getAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     @Override
     public default Account getById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
