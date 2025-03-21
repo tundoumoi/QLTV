@@ -832,7 +832,7 @@ public class EmployeePage extends javax.swing.JFrame {
         }
 
 // Hiển thị lỗi ra console
-       String gender=  jComboCusGender.get;
+       String gender=  jComboCusGender.getSelectedItem().toString();
         jFormattedTextPhone.setText(cus.getPhoneNumber());
         jTextCusEmail.setText(cus.getEmail());
         jComboAddress.setSelectedItem(cus.getAddress());

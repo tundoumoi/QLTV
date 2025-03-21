@@ -320,7 +320,9 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0136','Houghton Mifflin Invitations to Literature: Student Anthology Level 1.3 Share 1997 (Invitations to Lit 1997)','By Hm (COR)','Houghton Mifflin','October,1996','5.94','636',' Juvenile Nonfiction , Language Arts , General','English'),
 ('B0137','Grow Greener: Ten Steps to a Richer Life','By Hoxton, Rob','Robinson Hoxton Publishing, LLC','November,2001','5.29','748','','English'),
 ('B0138','Frames of Reference: Looking at American Art, 1900-1950: Works from the Whitney Museum of American Art','By Fraser, Kennedy, Whitney Museum of American Art (COR), Weinberg, Adam D., and Venn, Beth','University of California Press','January,2000','6.42','645',' Art , History , General','English'),
-('B0139','Remembering Main Street: An American Album','By Ross, Pat','Studio','November,1994','10.99','751',' History , United States , General','English'),
+('B0139','Remembering Main Street: An American Album','By Ross, Pat','Studio','November,1994','10.99','751',' History , United States , General','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0140', 'Bi An Duoi Lop Tro Tan', 'Nguyen Van A', 'NXB Tre', 'July,2015', 10.5, 12, 'Kinh di', 'Tieng Viet'),
 ('B0141', 'Duong Den Thanh Cong', 'Tran Minh Hoang', 'NXB Lao Dong', 'September,2018', 9.8, 10, 'Kien thuc', 'Tieng Viet'),
 ('B0142', 'Hanh Trinh Vo Dinh', 'Le Thanh Tu', 'NXB Kim Dong', 'March,2017', 8.9, 8, 'Phieu luu', 'Tieng Viet'),
@@ -397,11 +399,15 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0213','Houghton Mifflin Invitations to Literature: Student Anthology Level 1.4 Surprise 1997 (Invitations to Lit 1997)','By Hm (COR)','Houghton Mifflin','October,1996','6.12','446',' Juvenile Nonfiction , Language Arts , General','English'),
 ('B0214','The Pharaohs of Ancient Egypt (Megascope Series)','By Derouin, Claire','Barrons Juveniles','April,1998','4.99','904','','English'),
 ('B0215','1776-1976: Zweihundert Jahre deutsch-amerikanische Beziehungen = two hundred years of German-American relations : eine Dokumentation (German Edition)','By Piltz, Thomas','H. Moos','January,1975','10.99','729','','English'),
-('B0216','Dannybird','By Philip Macht','Maxrom Press','January,1983','4.99','103','','English'),
+('B0216','Dannybird','By Philip Macht','Maxrom Press','January,1983','4.99','103','','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0217','Technical Manual and Dictionary of Classical Ballet (Dover Books on Dance)','By Grant, Gail','Dover Publications','January,1982','7.71','364',' Performing Arts , Dance , Classical & Ballet','English'),
 ('B0218','Life and Death in Shanghai','By Cheng, Nien','Penguin','May,1988','5.29','663',' Biography & Autobiography , Personal Memoirs','English'),
 ('B0219','100 Favorite Roses (100 Favorite Series)','By Dunn, Teri','Metro Books','May,2000','5.29','490',' Gardening , Flowers , Annuals','English'),
-('B0220','All Around The Town','By Clark, Mary Higgins','Simon & Schuster','January,1992','4.99','522',' Fiction , Thrillers , Suspense','English'),
+('B0220','All Around The Town','By Clark, Mary Higgins','Simon & Schuster','January,1992','4.99','522',' Fiction , Thrillers , Suspense','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0221','New World Visions of Household Gods and Sacred Places: American Art and the Metropolitan Museum of Art 1650-1914','By Scully, Vincent','NEW YORK GRAPHIC SOCIETY','January,1988','13.12','68',' Art , General','English'),
 ('B0222','New Stories from the South 2001: The Year Best','By Ravenel, Shannon','Algonquin Books','September,2001','5.29','414',' Fiction , Southern','English'),
 ('B0223','Orchids as House Plants','By Northen, Rebecca Tyson','Dover Publications','June,1976','4.99','284',' Gardening , Flowers , Orchids','English'),
@@ -424,7 +430,9 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0240','Wine in Everyday Cooking: "Cooking with Wine for Family and Friends"','By Ballard, Patricia','Wine Appreciation Guild','May,1995','5.29','643',' Cooking , Beverages , Wine & Spirits','English'),
 ('B0241','Leading Lady: The World and Theatre of Katharine Cornell','By Mosel, Ted','Little, Brown and Company','January,1978','10.99','529','','English'),
 ('B0242','Invasion of the Mind Swappers From Asteroid 6!','By Helquist, Brett (ILT) and Howe, James','Atheneum Books for Young Readers','July,2002','5.29','278',' Juvenile Fiction , Readers , Chapter Books','English'),
-('B0243','The march of democracy','By Adams, James Truslow','C. Scribner sons','January,1932','5.54','994','','English'),
+('B0243','The march of democracy','By Adams, James Truslow','C. Scribner sons','January,1932','5.54','994','','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0244','Einstein Monsters','By Amis, Martin','Harmony','May,1987','15.4','571',' Fiction , General','English'),
 ('B0245','How To Live Through A Bad Day: 7 Powerful Insights From Christ Words on the Cross','By Hayford, Jack W.','Thomas Nelson Publishers','September,2001','4.99','669',' Religion , Christian Life , General','English'),
 ('B0246','The Ideals Country Kitchen Cookbook','By Kronschnab','Ideals Publishing','June,1975','4.99','541',' Cooking , Reference','English'),
@@ -461,12 +469,13 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0277','Love Invents Us','By Amy Bloom','Pan Books Ltd','April,1997','4.99','254','','English'),
 ('B0278','Zero Db and Other Stories','By Bell, Madison Smartt','Ticknor & Fields','January,1987','5','932',' Fiction , General','English'),
 ('B0279','The Heart of a Leader','By Blanchard, Kenneth H.','David C. Cook','June,1999','4.99','242',' Religion , Inspirational','English'),
-('B0280','Hefner','By Brady, Frank','MACMILLAN','January,1974','5.29','113','','English'),
+('B0280','Hefner','By Brady, Frank','MACMILLAN','January,1974','5.29','113','','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0281','The Secrets of Savvy Networking: How to Make the Best Connections for Business and Personal Success','By RoAne, Susan','Grand Central Publishing','April,1993','5.29','538',' Business & Economics , General','English'),
 ('B0282','A Shaker Dozen','By Rocheleau, Paul (ILT) and Homsen, Kathleen','Chronicle Books','July,1999','5.29','198',' Juvenile Nonfiction , Concepts , Counting & Numbers','English'),
 ('B0283','Personal History','By Graham, Katharine','Alfred A. Knopf','February,1997','5.29','938',' Biography & Autobiography , Editors, Journalists, Publishers','English'),
 ('B0284','Friendship with God: an uncommon dialogue','By Walsch, Neale Donald','Putnam','October,1999','4.99','406',' Religion , Spirituality','English'),
-('B0285','Extravagant Grace','By Clairmont, Patsy, Walsh, Sheila, Johnson, Barbara, Clairmont, Patsy (EDT), Mullins, Traci (EDT), Swindoll, Luci, Meberg, Marilyn, Wells, Thelma, and Women Of Faith (COR)','Zondervan','January,2000','5.29','721',' Religion , Inspirational','English'),
 ('B0286','13 Things You Gotta Know to Make it as a Christian (Powerlink Student Devotional)','By McDowell, Josh and Hostetler, Bob','Thomas Nelson','November,1992','4.99','483',' Young Adult Nonfiction , Religious , Christian , General','English'),
 ('B0287','Dave Barry Guide to Marriage and/or Sex','By Barry, Dave','Rodale Books','January,2000','4.99','527',' Humor , Form , Comic Strips & Cartoons','English'),
 ('B0288','The Festival Cookbook: Four Seasons of Favorites','By Good, Phyllis Pellman','Good Books','May,2013','5.94','334',' Cooking , Seasonal','English'),
@@ -488,7 +497,6 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0304','Keeping Your Kids Catholic: It May Seem Impossible but It Can Be Done','By Bert Ghezzi','Servant Pubns','October,1989','4.99','292',' Religion , General','English'),
 ('B0305','Vines (Burpee American Gardening Series)','By Bales, Suzanne Frutig','Macmillan General Reference','February,1995','5.29','269',' Gardening , General','English'),
 ('B0306','Roads to Antietam','By Schildt, John W.','Burd Street Pr','May,1997','5.29','813',' History , Military , Wars & Conflicts (Other)','English'),
-('B0307','Nursery Rhymes: A Collection from Mother Goose (Illustrated Library for Child.)','By Hale, Glorya (EDT), Anderson, Anne, Lee, Ella Doldar, Anderson, Anne (ILT), and Lee, Ella Doldar (ILT)','Derrydale','September,2000','5.29','539',' Juvenile Fiction , Nursery Rhymes','English'),
 ('B0308','The Art of Cooking with Herbs & Spices','By Miloradovich, Milo','Doubleday','January,1950','5.29','426','','English'),
 ('B0309','The uncommon cookbook','By Mellinkoff, Ruth','W. Ritchie Press','January,1968','24.26','93','','English'),
 ('B0310','List Your Self: Listmaking as the Way to Self-Discovery','By Segalove, Ilene and Velick, Paul Bob','Andrews McMeel Publishing','September,1996','4.99','872',' Body, Mind & Spirit , Inspiration & Personal Growth','English'),
@@ -519,7 +527,8 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0335','The Shutterfly Guide to Great Digital Photos (CLS.EDUCATION)','By Johnson, Dave and Housenbold, Jeffrey','McGraw-Hill Professional','November,2008','4.99','452',' Computers , Programming , Games','English'),
 ('B0336','Henry VIII and His Court','By Williams, Neville','Macmillan Pub Co','October,1971','8.79','274',' History , General','English'),
 ('B0337','The New Grove Mozart','By Sadie, Stanley','W W Norton & Co Inc','February,1983','5.29','868',' Biography & Autobiography , Composers & Musicians','English'),
-('B0338','Short bike rides in New Jersey','By Santelli, Robert','Globe Pequot Press','January,1988','4.99','405','','English'),
+('B0338','Short bike rides in New Jersey','By Santelli, Robert','Globe Pequot Press','January,1988','4.99','405','','English')
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0339','Pledged: The Secret Life of Sororities','By Robbins, Alexandra','Hachette Books','July,2005','4.99','672',' Social Science , Women is Studies','English'),
 ('B0340','Smoky Mountains Trout Fishing Guide','By Kirk, Don','Menasha Ridge Press','May,1995','4.99','303',' Sports & Recreation , Fishing','English'),
 ('B0341','A Thing or Two About Soccer','By Buckley, James, Teitelbaum, Michael, and Wolff, Rick (FRW)','A Thing or Two Media','March,2001','5.29','472',' Sports & Recreation , Soccer','English'),
@@ -589,7 +598,9 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0405','25 Bicycle Tours in New Jersey','By Zatz, Aline and Zatz, Joel','Countryman Pr','May,1988','5.29','663',' Travel , United States , Northeast , Middle Atlantic (NJ, NY, PA)','English'),
 ('B0406','The World of the Ancient Maya','By Henderson, John S.','Cornell Univ Pr','December,1997','10.99','629',' Social Science , Archaeology','English'),
 ('B0407','A delicately personal matter: A J.D. Mulroy mystery novel','By Werry, Richard R.','Dodd, Mead','January,1986','5.29','28','','English'),
-('B0408','Terrorism and Democracy','By Turner, Stansfield','Houghton Mifflin Harcourt','July,1991','4.99','395','','English'),
+('B0408','Terrorism and Democracy','By Turner, Stansfield','Houghton Mifflin Harcourt','July,1991','4.99','395','','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0409','A Son of Thunder: Patrick Henry and the American Republic','By Mayer, Henry','Grove Press','June,2001','5.35','991',' Biography & Autobiography , Political','English'),
 ('B0410','Cam Jansen and the Triceratops Pops Mystery #15','By Adler, David A. and Natti, Susanna (ILT)','Viking Books for Young Readers','October,1995','4.99','302',' Juvenile Fiction , Readers , Chapter Books','English'),
 ('B0411','Summerland','By Chabon, Michael','Hyperion Books','October,2002','6.06','296',' Juvenile Fiction , Fantasy & Magic','English'),
@@ -598,10 +609,10 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0414','Doing It','By Burgess, Melvin','Henry Holt and Co. (BYR)','May,2004','5.29','833',' Young Adult Fiction , Social Themes , Emotions & Feelings','English'),
 ('B0415','The Wind in the Willows (Children is Classics)','By Kenneth Grahame','Gallery Books','November,1989','4.99','770','','English'),
 ('B0416','500 Full-Size Patchwork Patterns','By Malone, Maggie','Sterling Pub Co Inc','December,1899','5.29','600',' Art , General','English'),
-('B0417','Cases in managerial finance (The Dryden Press series in finance)','By Eugene F Brigham','Dryden Press','January,1983','11.01','193','','English'),
+('B0417','Cases in managerial finance (The Dryden Press series in finance)','By Eugene F Brigham','Dryden Press','January,1983','11.01','193','','English')
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0418','Stress And The Family: Coping With Normative Transitions (Psychosocial Stress Series)','By McCubbin, Hamilton I. (EDT)','Routledge','March,1983','5.29','248',' Psychology , Psychotherapy , Couples & Family','English'),
 ('B0419','Demon of the Waters: The True Story of the Mutiny on the Whaleship Globe','By Gibson, Gregory','Little Brown','May,2002','4.99','377',' History , Modern , 19th Century','English'),
-('B0420','The Tiananmen Papers : The Chinese Leadership is Decision to Use Force Against Their Own People - In Their Own Words','By Liang, Zhang (COM), Nathan, Andrew J. (EDT), Link, Perry (EDT), Nathan, Andrew J., Zhang, Liang, Link, E. Perry (EDT), Zhang, Liang (EDT), Link, E. Perry, and Liang, Zhang','PublicAffairs','January,2001','4.99','203',' History , Asia , China','English'),
 ('B0421','Struggle for Intimacy (Adult Children of Alcoholics series)','By Woititz, Janet Geringer','Health Communications Inc','August,1986','5.29','943',' Self-help , Codependency','English'),
 ('B0422','550 Home Landscaping Ideas','By Fell, Derek and Erler, Catriona','Simon & Schuster','February,1992','10.99','160',' Gardening , General','English'),
 ('B0423','Money Harmony: Resolving Money Conflicts in Your Life and Relationships','By Mellan, Olivia','Walker & Co','May,1994','16.49','715',' Family & Relationships , General','English'),
@@ -665,7 +676,9 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0481','Ripken: Cal on Cal','By Ripken, Cal, Jr., Iooss, Walter (PHT), and Vancil, Mark (EDT)','Summit Publishing Group','January,1997','8.79','513',' Biography & Autobiography , General','English'),
 ('B0482','German in 32 Lessons (Gimmick Series)','By Adrienne','W W Norton & Co Inc','January,1979','5.29','71','','English'),
 ('B0483','24 Essential Lessons for Investment Success: Learn the Most Important Investment Techniques from the Founder of Investor is Business Daily','By O Neil, William J.','McGraw-Hill','December,1999','4.99','148',' Business & Economics , Personal Finance , Investing','English'),
-('B0484','Many Waters','By L Engle, Madeleine','Laurel Leaf','August,1987','5.29','819','','English'),
+('B0484','Many Waters','By L Engle, Madeleine','Laurel Leaf','August,1987','5.29','819','','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0485','The Last Debate:  A Novel of Politics and Journalism','By Lehrer, James, Smith, Peter (EDT), and Osnos, Peter','Random House','August,1995','4.99','163',' Fiction , Political','English'),
 ('B0486','Parents in Charge: Setting Healthy, Loving Boundaries for You and Your Child','By Chidekel, Dana','Simon & Schuster','January,2002','5.29','784',' Family & Relationships , Parenting , General','English'),
 ('B0487','Prep (Junior Library Guild Selection)','By Coburn, Jake','Dutton Juvenile','September,2003','5.29','798',' Young Adult Fiction , Social Themes , Friendship','English'),
@@ -705,6 +718,8 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0521','A Contest of Faiths: Missionary Women and Pluralism in the America Southwest','By Yohn, Susan M.','Cornell University Press','May,1995','4.99','189',' Religion , General','English'),
 ('B0522','The Single Parent is Money Guide','By Card, Emily and Kelly, Christie Watts','Macmillan General Reference','October,1996','4.99','266',' Business & Economics , Personal Finance , General','English'),
 ('B0523','F2f','By Finch, Phillip','Bantam','March,1996','4.99','900',' Fiction , General','English'),
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0524','Freud is Wishful Dream Book','By Welsh, Alexander','Princeton University Press','September,1994','18','334',' Literary Collections , American , General','English'),
 ('B0525','Ingenious Inventions of Domestic Utility','By Bragdon, Allen D.','HarperCollins','December,1989','5.29','680','','English'),
 ('B0526','Complete Idiot is Guide to Parenting Your Teenager (The Complete Idiot is Guide)','By Kelly, Kate','Alpha','September,1996','5.29','226',' Social Science , Sociology , Marriage & Family','English'),
@@ -717,11 +732,10 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0533','The Big Book of Gardening Skills','By Gardenway Book (EDT)','Garden Way Pub Co','February,1993','10.99','197',' Gardening , Reference','English'),
 ('B0534','Eakins','By Schendler, Sylvan','Little Brown','January,1967','6.83','550','','English'),
 ('B0535','Race relations (Prentice-Hall sociology series)','By Kitano, Harry H. L.','Prentice Hall','January,1974','4.99','567','','English'),
-('B0536','The Washington ethnic food store guide','By Lawson, Jim C','Ardmore Publications','January,1992','12.99','880','','English'),
-('B0537','Reflections in a Glass Eye: Works from the International Center of Photography Collection','By International Center of Photography (PHT), Hollander, Anne (EDT), Handy, Ellen (EDT), and Handy, Ellen','Bulfinch Pr','January,1999','8.08','985',' Photography , General','English'),
+('B0536','The Washington ethnic food store guide','By Lawson, Jim C','Ardmore Publications','January,1992','12.99','880','','English')
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0538','Getting Started in Powerboating','By Armstrong, Bob','International Marine/Ragged Mountain Press','May,2005','5.29','399',' Sports & Recreation , Boating','English'),
 ('B0539','Worth the Fighting For: A Memoir','By McCain, John and Salter, Mark','Random House','September,2002','4.99','562',' Biography & Autobiography , Political','English'),
-('B0540','Red Dragon Rising: Communist China is Military Threat to America','By Timperlake, Edward and Triplett, William C., II','Regnery Publishing','October,1999','4.99','771',' Political Science , International Relations , General','English'),
 ('B0541','All the Way Home','By Giff, Patricia Reilly','Delacorte Books for Young Readers','October,2001','5.29','689',' Juvenile Fiction , Family , General','English'),
 ('B0542','Totline 123 Rhymes Stories & Songs ~ Open-Ended Language (1-2-3 Series) Ages 3-6','By Warren, Jean','Warren Publishing House, Inc.','March,1992','5.29','707','','English'),
 ('B0544','The Book of Ch I: Harnessing the Healing Forces of Energy','By Wildish, Paul','Tuttle Pub','October,2000','13.98','629',' Religion , Spirituality','English'),
@@ -730,7 +744,6 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0547','Western','By Yerby, Frank','Doubleday','August,1982','16.16','850',' Fiction , General','English'),
 ('B0548','Numbers (Wipe-Off Activity Books)','By','Learning Horizons','May,2002','5.29','865','','English'),
 ('B0549','Baroque Painting (Barron is Art Handbooks: Yellow Series)','By Parramon is Editorial Team (COR)','Barron is Educational Series, inc','August,1998','5.29','703',' Art , History , General','English'),
-('B0550','More Ghosts of Gettysburg: Spirits, Apparitions and Haunted Places of the Battlefield','By Nesbitt, Mark V.','Thomas Publications','June,1992','4.99','229',' History , United States , Civil War Period (1850-1877)','English'),
 ('B0551','Pierre Franey is Cooking In America','By Franey, Pierre, Jarrett, Lauren (ILT), and Flaste, Richard','Knopf','September,1994','5.29','668',' Cooking , Regional & Ethnic , American , General','English'),
 ('B0552','Greek Art (New Revised Edition)','By Boardman, John','Thames & Hudson','May,1985','5.29','313','','English'),
 ('B0553','Utopia (Crofts Classics)','By More, Thomas, Sir, Saint and Ogden, H. V. S. (EDT)','Appleton-Century-Crofts','January,1991','5.29','223',' History , United States , General','English'),
@@ -746,7 +759,6 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0563','The California Coastal Resource Guide','By California Coastal Commission, Caughman, Madge, and Ginsberg, Joanne S.','University of California Press','November,1987','10.99','724',' Nature , Reference','English'),
 ('B0564','Tools and Gadgets (Historic Communities (Paperback))','By Kalman, Bobbie','Crabtree Classics','October,1992','5.29','200',' Juvenile Nonfiction , Lifestyles , Farm & Ranch Life','English'),
 ('B0565','Matilda','By Gallico, Paul','Coward-McCann Inc.','January,1970','16.76','154','','English'),
-('B0566','The Ultimate Book Of Paint Effects','By Salli Brand, Jullie Collins, Catherine Cumming, Tricia Greening, Katrina Hall, Frances Halliday, Clare Louise Hunt, Joanna Jones, Lawrence Llewelyn Bo','BAY BOOKS','January,2004','8.79','686','','English'),
 ('B0567','Where No One Has Gone Before: A History in Pictures (Star Trek)','By Dillard, J. M. and Dillar, J. M.','Pocket Books','November,1994','8.29','702',' Fiction , Science Fiction , General','English'),
 ('B0568','Superdog: Raising the Perfect Canine Companion','By Fox, Michael W.','Howell Book House','July,1996','5.29','531',' Pets , Dogs , General','English'),
 ('B0569','Football America: Celebrating Our National Passion','By Barber, Phil and Didinger, Ray','Turner Pub','October,1996','7.62','343',' Sports & Recreation , Football','English'),
@@ -772,9 +784,10 @@ INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quanti
 ('B0589','Leaving Town Alive: Confessions of an Arts Warrior','By Frohnmayer, John','Houghton Mifflin Harcourt','April,1993','4.99','493',' Political Science , General','English'),
 ('B0590','A Show of Hands: Say It in Sign Language','By Sullivan, Mary Beth and Bourke, Linda','Trophy Pr','May,1985','5.29','357',' Juvenile Nonfiction , General','English'),
 ('B0591','Silent Sons: A Book for and About Men','By Ackerman, Robert J.','Touchstone','October,1994','4.99','986',' Psychology , General','English'),
-('B0592','Walker Evans: A Biography','By Evans, Walker and Rathbone, Belinda','Mariner Books','April,2000','5.29','109',' Biography & Autobiography , Artists, Architects, Photographers','English'),
+('B0592','Walker Evans: A Biography','By Evans, Walker and Rathbone, Belinda','Mariner Books','April,2000','5.29','109',' Biography & Autobiography , Artists, Architects, Photographers','English')
+
+INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
 ('B0593','Meteorology today: An introduction to weather, climate, and the environment','By Ahrens, C. Donald','West Pub. Co','January,1988','7.35','713','','English'),
-('B0594','Contest for a Capital: George Washington, Robert Morris, and Congress, 1783-1791, Contenders : Dramatized Events of America is Founding Years','By Loftin, T. L. and Zarambouka, Sofia (ILT)','Tee Loftin Pubs','October,1989','4.99','147',' History , General','English'),
 ('B0595','Americas Glorious Quilts','By Duke, Dennis','Hugh Lauter Levin Associates','January,1997','10.56','185','','English'),
 ('B0596','Cars 1886-1930','By Georgano, G. N.','Beekman House','January,1985','7.67','611',' Science , General','English'),
 ('B0597','Dr Jekyll and Mr Hyde and Weir of Hermiston (Oxford World is Classics)','By Stevenson, Robert Louis and Letley, Emma','Oxford University Press','July,1998','5.29','554',' Young Adult Fiction , Horror','English'),
@@ -820,5 +833,5 @@ select * from Account
 select * from Employee
 --delete from Customer
 --delete from Account
-delete from Book
-drop table Book
+--delete from Book
+--drop table Book

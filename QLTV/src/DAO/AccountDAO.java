@@ -108,7 +108,7 @@ public HashMap<Integer, Account> getAll() {
         return null;
     }
 
-    public void insert(Account account) {
+        public void insert(Account account) {
         String sql = "INSERT INTO Account (AccountId, username, Apass) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1, account.getAccountId());

@@ -759,7 +759,7 @@ public class Register extends javax.swing.JFrame {
         // Tạo tài khoản
         Account acc = new Account(newAccountId, UserName, PassWord);
         try {
-            accSer.insertAcc(acc);
+            accSer.insert(acc);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Lỗi khi tạo tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             return false; // Nếu lỗi, dừng lại
