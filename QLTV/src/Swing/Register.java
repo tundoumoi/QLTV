@@ -1,3 +1,6 @@
+package Swing;
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -10,10 +13,13 @@ import Service.AccountService;
 import Service.AdminService;
 import Service.CustomerService;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -70,7 +76,6 @@ public class Register extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         EmailText = new javax.swing.JTextField();
         Address = new javax.swing.JLabel();
-        jTextAddress = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jPasswordField3 = new javax.swing.JPasswordField();
         jLabel9 = new javax.swing.JLabel();
@@ -81,6 +86,7 @@ public class Register extends javax.swing.JFrame {
         jCheckOther = new javax.swing.JCheckBox();
         Back = new javax.swing.JLabel();
         jCusDate = new com.toedter.calendar.JDateChooser();
+        jTextAddress = new javax.swing.JComboBox<>();
 
         jPasswordField1.setBackground(new java.awt.Color(204, 204, 204));
         jPasswordField1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -395,6 +401,13 @@ public class Register extends javax.swing.JFrame {
 
         jCusDate.setDateFormatString("yyyy-MM-dd");
 
+        jTextAddress.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "An Giang", "Ba Ria - Vung Tau", "Bac Giang", "Bac Kan", "Bac Lieu", "Bac Ninh", "Ben Tre", "Binh Dinh", "Binh Duong", "Binh Phuoc", "Binh Thuan", "Ca Mau", "Can Tho", "Cao Bang", "Da Nang", "Dak Lak", "Dak Nong", "Dien Bien", "Dong Nai", "Dong Thap", "Gia Lai", "Ha Giang", "Ha Nam", "Ha Noi", "Ha Tinh", "Hai Duong", "Hai Phong", "Hau Giang", "Hoa Binh", "Hung Yen", "Khanh Hoa", "Kien Giang", "Kon Tum", "Lai Chau", "Lam Dong", "Lang Son", "Lao Cai", "Long An", "Nam Dinh", "Nghe An", "Ninh Binh", "Ninh Thuan", "Phu Tho", "Phu Yen", "Quang Binh", "Quang Nam", "Quang Ngai", "Quang Ninh", "Quang Tri", "Soc Trang", "Son La", "Tay Ninh", "Thai Binh", "Thai Nguyen", "Thanh Hoa", "Thua Thien Hue", "Tien Giang", "TP Ho Chi Minh", "Tra Vinh", "Tuyen Quang", "Vinh Long", "Vinh Phuc", "Yen Bai" }));
+        jTextAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextAddressActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -403,59 +416,55 @@ public class Register extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jChecKFemale)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckMale)
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckOther))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel7)
-                                        .addComponent(Address)
-                                        .addComponent(jLabel3))
-                                    .addGap(52, 52, 52)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(TextName, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                                        .addComponent(jFormattedTextSSN, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                                        .addComponent(jFormattedTextPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                                        .addComponent(EmailText, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                                        .addComponent(jTextAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                                        .addComponent(jCusDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(UserLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(PassWordLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jPasswordField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                                        .addComponent(jTextFieldUser1, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(RegisterBut1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jPasswordField3, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(Address)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TextName)
+                            .addComponent(jFormattedTextSSN)
+                            .addComponent(jFormattedTextPhone)
+                            .addComponent(EmailText)
+                            .addComponent(jCusDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextAddress, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(UserLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PassWordLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPasswordField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                            .addComponent(jTextFieldUser1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(RegisterBut1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPasswordField3)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jChecKFemale)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckMale)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckOther))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(Back)
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGap(332, 332, 332))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(jLabel2)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -483,38 +492,41 @@ public class Register extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(EmailText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Address)
-                            .addComponent(jTextAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jCheckOther, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addComponent(jChecKFemale, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel10)
-                                .addComponent(jCheckMale)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextFieldUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(UserLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(PassWordLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
-                        .addComponent(RegisterBut1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(EmailText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jCusDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(Address))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jTextAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jCheckOther, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(jChecKFemale, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel10)
+                        .addComponent(jCheckMale)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextFieldUser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UserLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PassWordLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addComponent(RegisterBut1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -525,11 +537,14 @@ public class Register extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -597,7 +612,7 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField2MouseReleased
 
     private void RegisterBut1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterBut1MouseClicked
-        if (insertAccountAndCustomer()) {
+        insertAccountAndCustomer();
             JOptionPane.showMessageDialog(rootPane, "Register Successful!");
             login.setVisible(true);
             setVisible(false);
@@ -681,6 +696,10 @@ public class Register extends javax.swing.JFrame {
         jPasswordField3.setEchoChar('*'); // ẩn mật khẩu khi thả chuột
         jPasswordField2.setEchoChar('*');
     }//GEN-LAST:event_jPasswordField3MouseReleased
+
+    private void jTextAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextAddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextAddressActionPerformed
     private String Genger() {
         if (jCheckMale.isSelected()) {
             return "Male";
@@ -691,110 +710,107 @@ public class Register extends javax.swing.JFrame {
         }
         return "Not specified";
     }
+int newAccountId = 0;
+   public boolean insertAccount() {
+    // Lấy thông tin tài khoản
+    String UserName = jTextFieldUser1.getText().trim();
+    String PassWord = jPasswordField2.getText().trim();
+    String ConfirmPassword = jPasswordField3.getText().trim();
 
-    public boolean insertAccountAndCustomer() {
-        // Lấy thông tin tài khoản
-        String UserName = jTextFieldUser1.getText().trim();
-        String PassWord = jPasswordField2.getText().trim();
-        String ConfirmPassword = jPasswordField3.getText().trim();
-
-        // Lấy thông tin khách hàng
-        String Name = TextName.getText().trim();
-        String SSN = jFormattedTextSSN.getText().trim();
-        String birthDateStr = null;
-        try {
-            Date selectedDate = jCusDate.getDate(); // Lấy ngày từ JDateChooser
-            if (selectedDate != null) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng mong muốn
-                 birthDateStr = dateFormat.format(selectedDate); // Chuyển Date thành String
-            } else {
-                
-                JOptionPane.showMessageDialog(rootPane, "you are do not input BirthDate", "ERROR", JOptionPane.WARNING_MESSAGE);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String gender = Genger();
-        String PhoneNumber = jFormattedTextPhone.getText().trim();
-        String Email = EmailText.getText().trim();
-        String Address = jTextAddress.getText().trim();
-
-        // Kiểm tra thông tin tài khoản và khách hàng đầy đủ
-        if (UserName.isEmpty() || PassWord.isEmpty() || ConfirmPassword.isEmpty()
-                || Name.isEmpty() || SSN.isEmpty() || birthDateStr.isEmpty() || gender.isEmpty()
-                || PhoneNumber.isEmpty() || Email.isEmpty() || Address.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin tài khoản và khách hàng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Kiểm tra tài khoản hợp lệ
-        if (UserName.length() < 5) {
-            JOptionPane.showMessageDialog(null, "Tên tài khoản phải có ít nhất 5 ký tự!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (!PassWord.equals(ConfirmPassword)) {
-            JOptionPane.showMessageDialog(null, "Mật khẩu không khớp! Vui lòng nhập lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        if (PassWord.length() < 6) {
-            JOptionPane.showMessageDialog(null, "Mật khẩu phải có ít nhất 6 ký tự!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Kiểm tra ngày sinh hợp lệ
-        LocalDate BirthDate;
-        try {
-            BirthDate = LocalDate.parse(BirthDateStr);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ! (Định dạng YYYY-MM-DD)", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Kiểm tra SSN hợp lệ (9 hoặc 12 số)
-        if (!SSN.matches("\\d{9}|\\d{12}")) {
-            JOptionPane.showMessageDialog(null, "SSN phải có 9 hoặc 12 chữ số!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Kiểm tra Email hợp lệ
-        if (!Email.matches("^[\\w.-]+@[a-zA-Z\\d.-]+\\.[a-zA-Z]{2,6}$")) {
-            JOptionPane.showMessageDialog(null, "Email không hợp lệ!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // Kiểm tra số điện thoại hợp lệ (9-10 số)
-        if (!PhoneNumber.matches("\\d{9,10}")) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ! Phải có 9-10 chữ số.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        // 🔹 **Tạo AccountId duy nhất**
-        int newAccountId = accSer.increaAcc() + 1;
-
-        // Tạo tài khoản
-        Account acc = new Account(newAccountId, UserName, PassWord);
-        try {
-            accSer.insert(acc);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi tạo tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false; // Nếu lỗi, dừng lại
-        }
-
-        // 🔹 **Tạo CusID duy nhất**
-        String CusID = CusSer.increaseCUSID(); // Tạo CusID mới (không trùng lặp)
-
-        double totalPayment = 0.0;
-        Customer cus = new Customer(CusID, Name, SSN, BirthDate, gender, PhoneNumber, Email, Address, totalPayment, newAccountId);
-
-        try {
-            CusSer.insert(cus);
-            JOptionPane.showMessageDialog(null, "Tài khoản và khách hàng đã được đăng ký thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi đăng ký khách hàng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
+    // Kiểm tra thông tin tài khoản hợp lệ
+    if (UserName.isEmpty() || PassWord.isEmpty() || ConfirmPassword.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin tài khoản!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
     }
+    if (UserName.length() < 5) {
+        JOptionPane.showMessageDialog(null, "Tên tài khoản phải có ít nhất 5 ký tự!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    if (!PassWord.equals(ConfirmPassword)) {
+        JOptionPane.showMessageDialog(null, "Mật khẩu không khớp! Vui lòng nhập lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+    if (PassWord.length() < 6) {
+        JOptionPane.showMessageDialog(null, "Mật khẩu phải có ít nhất 6 ký tự!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // 🔹 **Tạo AccountId duy nhất**
+     newAccountId = accSer.increaAcc() + 1;
+
+    // Tạo tài khoản
+    Account acc = new Account(newAccountId, UserName, PassWord);
+    try {
+        accSer.insert(acc);
+        JOptionPane.showMessageDialog(null, "Tài khoản đã được tạo thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        return true;
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Lỗi khi tạo tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+}
+
+public boolean insertCustomer(int accountId) {
+    // Lấy thông tin khách hàng
+    String Name = TextName.getText().trim();
+    String SSN = jFormattedTextSSN.getText().trim();
+    String birthDateStr = null;
+    try {
+        Date selectedDate = jCusDate.getDate();
+        if (selectedDate != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            birthDateStr = dateFormat.format(selectedDate);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Bạn chưa nhập ngày sinh!", "Lỗi", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+
+    String gender = Genger();
+    String PhoneNumber = jFormattedTextPhone.getText().trim();
+    String Email = EmailText.getText().trim();
+    String Address = jTextAddress.getSelectedItem().toString();
+
+    // Kiểm tra thông tin khách hàng hợp lệ
+    if (Name.isEmpty() || SSN.isEmpty() || birthDateStr.isEmpty() || gender.isEmpty()
+            || PhoneNumber.isEmpty() || Email.isEmpty() || Address.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin khách hàng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // 🔹 **Tạo CusID duy nhất**
+    String CusID = CusSer.increaseCUSID();
+
+    double totalPayment = 0.0;
+    Customer cus = new Customer(CusID, Name, SSN, LocalDate.parse(birthDateStr), gender, PhoneNumber, Email, Address, totalPayment, accountId);
+
+    try {
+        CusSer.insert(cus);
+        JOptionPane.showMessageDialog(null, "Khách hàng đã được đăng ký thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        return true;
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Lỗi khi đăng ký khách hàng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+}
+
+public void insertAccountAndCustomer() {
+    if (insertAccount()) {
+        
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                insertCustomer(newAccountId);
+            }
+        });
+        timer.setRepeats(false);
+        timer.start();
+    }
+}
+
 
     /**
      * @param args the command line arguments
@@ -868,7 +884,7 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JPasswordField jPasswordField3;
-    private javax.swing.JTextField jTextAddress;
+    private javax.swing.JComboBox<String> jTextAddress;
     private javax.swing.JTextField jTextFieldUser;
     private javax.swing.JTextField jTextFieldUser1;
     // End of variables declaration//GEN-END:variables
