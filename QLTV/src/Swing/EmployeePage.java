@@ -10,6 +10,7 @@ import Service.BookService;
 import Service.CustomerService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -231,10 +232,9 @@ public class EmployeePage extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
                         .addGap(3, 3, 3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonFind, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonFind, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
@@ -272,9 +272,7 @@ public class EmployeePage extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addGap(69, 69, 69)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -445,6 +443,11 @@ public class EmployeePage extends javax.swing.JFrame {
         EDITCUS.setText("EDIT");
 
         FINDCUS.setText("FIND");
+        FINDCUS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FINDCUSMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -739,6 +742,8 @@ public class EmployeePage extends javax.swing.JFrame {
 
     private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindActionPerformed
         // TODO add your handling code here:
+
+
     }//GEN-LAST:event_jButtonFindActionPerformed
 
     private void JBookTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBookTableMouseClicked
@@ -778,6 +783,29 @@ public class EmployeePage extends javax.swing.JFrame {
         jTextCusEmail.setText(jCusTable.getValueAt(row, 6).toString());
         jComboAddress.setSelectedItem(jCusTable.getValueAt(row, 7).toString());
     }//GEN-LAST:event_jCusTableMouseClicked
+
+    private void FINDCUSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FINDCUSMouseClicked
+        // TODO add your handling code here:
+                String cusID = jTextCusID.getText();
+        Customer cus = customerService.findById(cusID);
+        jTextCusID.setText(cus.getId());
+        jTextCusName.setText(cus.getName());
+        jFormattedTextCusSSN.setText(cus.getSSN());
+        try {
+            LocalDate localDate = cus.getBirthDate(); // Lấy LocalDate từ đối tượng Customer
+            Date date = java.sql.Date.valueOf(localDate); // Chuyển LocalDate thành Date
+            jDateCusdate.setDate(date); // Set vào JDateChooser
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+// Hiển thị lỗi ra console
+
+        jComboCusGender.setSelectedItem(cus.getGender());
+        jFormattedTextPhone.setText(cus.getPhoneNumber());
+        jTextCusEmail.setText(cus.getEmail());
+        jComboAddress.setSelectedItem(cus.getAddress());
+
+    }//GEN-LAST:event_FINDCUSMouseClicked
 
     /**
      * @param args the command line arguments

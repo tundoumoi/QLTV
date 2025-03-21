@@ -173,6 +173,7 @@ public class CustomerDAO implements ICustomerDAO {
               pstmt.setDouble(9, entity.getTotalPayment());
               pstmt.setInt(10, entity.getAccountId());
               pstmt.executeUpdate();
+              cusSet.add(entity);
          } catch (SQLException e) {
               e.printStackTrace();
          }

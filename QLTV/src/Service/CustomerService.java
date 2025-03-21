@@ -34,7 +34,12 @@ public CustomerService() {
 
     @Override
     public Customer findById(String id) {
-        return cusDao.getById(id);
+        for (Customer customer : customerSet) {
+            if(customer.getId().equals(id)){
+                return customer;
+            }
+        }
+        return null;
     }
 
     public CustomerBuy findCusBuyById(String id) {
