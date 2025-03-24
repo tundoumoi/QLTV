@@ -82,12 +82,12 @@ public class AccountDAO implements IAccountDAO {
         return accounts;
     }
 
-    @Override
-    public Account getById(String id) {
+ 
+    public Account getById(int id) {
         String query = "SELECT * FROM Account WHERE AccountId = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, id);
+            stmt.setString(1, String.valueOf(id));
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     int accountId = rs.getInt("AccountId");

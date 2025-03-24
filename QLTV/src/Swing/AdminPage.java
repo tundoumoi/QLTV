@@ -811,7 +811,7 @@ public class AdminPage extends javax.swing.JFrame {
         String position = jTextPosition.getText().trim();
         String salary = jTextSalary.getText().trim();
         String startDate = jTextStartDate.getText().trim();
-        int accountID = accountService.increaAcc();
+        int accountId = accountService.increaAcc();
         // Kiểm tra dữ liệu nhập vào
         if (id.isEmpty() || name.isEmpty() || ssn.isEmpty() || phone.isEmpty() || email.isEmpty()
                 || position.isEmpty() || salary.isEmpty() || startDate.isEmpty()) {
@@ -827,33 +827,24 @@ public class AdminPage extends javax.swing.JFrame {
                 return;
             }
         }
-        Account accountbyid = accountService.findById(id);
-        if (accountbyid == null) {
-            // Nếu chưa có tài khoản, mở form đăng ký
-            RegisterAccountForm registerForm = new RegisterAccountForm(this, true, id);
-            registerForm.setVisible(true);
 
-            // Sau khi đăng ký, kiểm tra lại
-            accountbyid = accountService.findById(id);
-            if (accountbyid == null) {
-                JOptionPane.showMessageDialog(this, "Tạo tài khoản thất bại, không thể thêm nhân viên!");
-                return;
-            }
-        }
-        // Kiểm tra trùng ID trong Database qua EmployeeDao
         if (employeeDAO.getById(id) != null) {
             JOptionPane.showMessageDialog(this, "ID đã tồn tại trong Database!");
             return;
         }
+        // Nếu chưa có tài khoản, mở form đăng ký
+        RegisterAccountForm registerForm = new RegisterAccountForm(this, true, id, accountService);
+        registerForm.setVisible(true);
+
         model.addRow(new Object[]{id, name, ssn, yob, gender, phone, email, address, position, salary, startDate});
-        // Gọi phương thức thêm vào Database
-        Employee emp = new Employee(id, name, ssn, LocalDate.parse(yob), gender, phone, email, address, position, Double.parseDouble(salary), LocalDate.parse(startDate), accountID);
+
+        Employee emp = new Employee(id, name, ssn, LocalDate.parse(yob), gender, phone, email, address, position, Double.parseDouble(salary), LocalDate.parse(startDate), accountId);
         employeeDAO.insert(emp);
 
         JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
 
         // Reset các ô nhập liệu
-        // ResetActionPerformed(evt);
+        ResetActionPerformed(evt);
     }//GEN-LAST:event_AddEmployeeActionPerformed
     public class RegisterAccountForm extends JDialog {
 
@@ -861,10 +852,12 @@ public class AdminPage extends javax.swing.JFrame {
         private JPasswordField txtPassword;
         private JButton btnRegister;
         private String employeeId;
+        private AccountService accountService;
 
-        public RegisterAccountForm(Frame parent, boolean modal, String employeeId) {
+        public RegisterAccountForm(Frame parent, boolean modal, String employeeId, AccountService accountService) {
             super(parent, modal);
             this.employeeId = employeeId;
+            this.accountService = accountService; // Lưu lại AccountService
             initComponents();
         }
 
@@ -897,11 +890,15 @@ public class AdminPage extends javax.swing.JFrame {
                 return;
             }
 
+            // Tạo accountID mới
+            int accountID = accountService.increaAcc();
+            Account account = new Account(accountID, username, password);
+            accountService.insert(account);
+            JOptionPane.showMessageDialog(this, "Tạo tài khoản thành công!");
+            dispose(); // Đóng form sau khi tạo tài khoản thành công
             // Gọi service để thêm tài khoản vào database
-//            boolean success = accountService.registerAccount(employeeId, username, password);
-//            if (success) {
-//                JOptionPane.showMessageDialog(this, "Tạo tài khoản thành công!");
-//                dispose();
+//            if () {
+//                
 //            } else {
 //                JOptionPane.showMessageDialog(this, "Tạo tài khoản thất bại!");
 //            }

@@ -41,20 +41,10 @@ public class AccountService implements Service<Account> {
         System.out.println("Account not found.");
     }
 
-    @Override
-    public Account findById(String id) {
-        try {
-            int accountId = Integer.parseInt(id);
-            for (Account account : accountSet) {
-                if (account.getAccountId() == accountId) {
-                    return account;
-                }
-            }
-            return null;
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid ID format.");
-            return null;
-        }
+    
+    public Account findById(int id) {
+
+       return accDao.getById(id);
     }
 
     @Override
@@ -65,5 +55,10 @@ public class AccountService implements Service<Account> {
     @Override
     public void display(Account account) {
        
+    }
+
+    @Override
+    public Account findById(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
