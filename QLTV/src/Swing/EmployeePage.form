@@ -873,6 +873,7 @@
                           </Properties>
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EDITCUSMouseClicked"/>
+                            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EDITCUSMousePressed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="FINDCUS">

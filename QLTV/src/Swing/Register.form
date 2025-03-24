@@ -282,45 +282,48 @@
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="jCheckOther" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="Address" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="Address" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="TextName" alignment="0" pref="227" max="32767" attributes="0"/>
+                                              <Component id="jFormattedTextSSN" alignment="0" pref="227" max="32767" attributes="0"/>
+                                              <Component id="jFormattedTextPhone" alignment="0" pref="227" max="32767" attributes="0"/>
+                                              <Component id="EmailText" alignment="0" pref="227" max="32767" attributes="0"/>
+                                              <Component id="jCusDate" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jTextAddress" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="TextName" alignment="0" pref="227" max="32767" attributes="0"/>
-                                          <Component id="jFormattedTextSSN" alignment="0" pref="227" max="32767" attributes="0"/>
-                                          <Component id="jFormattedTextPhone" alignment="0" pref="227" max="32767" attributes="0"/>
-                                          <Component id="EmailText" alignment="0" pref="227" max="32767" attributes="0"/>
-                                          <Component id="jTextAddress" alignment="0" pref="227" max="32767" attributes="0"/>
-                                          <Component id="jCusDate" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="UserLabel1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="PassWordLabel1" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jPasswordField2" alignment="1" pref="227" max="32767" attributes="0"/>
+                                              <Component id="jTextFieldUser1" alignment="1" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="RegisterBut1" min="-2" pref="112" max="-2" attributes="0"/>
+                                              <Component id="jPasswordField3" pref="224" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="UserLabel1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="PassWordLabel1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jPasswordField2" alignment="1" pref="227" max="32767" attributes="0"/>
-                                          <Component id="jTextFieldUser1" alignment="1" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="RegisterBut1" min="-2" pref="112" max="-2" attributes="0"/>
-                                          <Component id="jPasswordField3" pref="224" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -329,12 +332,12 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="59" max="32767" attributes="0"/>
+                  <EmptySpace pref="117" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="77" max="32767" attributes="0"/>
+                  <EmptySpace pref="139" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -357,7 +360,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -369,48 +372,48 @@
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                               <Component id="EmailText" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="Address" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextAddress" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jCheckOther" alignment="1" min="-2" pref="19" max="-2" attributes="0"/>
-                                      <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jChecKFemale" alignment="1" min="-2" pref="19" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jCheckMale" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jTextFieldUser1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="UserLabel1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPasswordField2" min="-2" pref="22" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="PassWordLabel1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPasswordField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Component id="RegisterBut1" min="-2" pref="38" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jCusDate" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCusDate" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="Address" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextAddress" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jCheckOther" alignment="1" min="-2" pref="19" max="-2" attributes="0"/>
+                              <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jChecKFemale" alignment="1" min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckMale" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jTextFieldUser1" min="-2" max="-2" attributes="0"/>
+                              <Component id="UserLabel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPasswordField2" min="-2" pref="22" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="PassWordLabel1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPasswordField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="RegisterBut1" min="-2" pref="38" max="-2" attributes="0"/>
                   <EmptySpace pref="42" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -554,8 +557,6 @@
             <Property name="text" type="java.lang.String" value="ADDRESS:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextAddress">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -651,6 +652,80 @@
           <Properties>
             <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jTextAddress">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="63">
+                <StringItem index="0" value="An Giang"/>
+                <StringItem index="1" value="Ba Ria - Vung Tau"/>
+                <StringItem index="2" value="Bac Giang"/>
+                <StringItem index="3" value="Bac Kan"/>
+                <StringItem index="4" value="Bac Lieu"/>
+                <StringItem index="5" value="Bac Ninh"/>
+                <StringItem index="6" value="Ben Tre"/>
+                <StringItem index="7" value="Binh Dinh"/>
+                <StringItem index="8" value="Binh Duong"/>
+                <StringItem index="9" value="Binh Phuoc"/>
+                <StringItem index="10" value="Binh Thuan"/>
+                <StringItem index="11" value="Ca Mau"/>
+                <StringItem index="12" value="Can Tho"/>
+                <StringItem index="13" value="Cao Bang"/>
+                <StringItem index="14" value="Da Nang"/>
+                <StringItem index="15" value="Dak Lak"/>
+                <StringItem index="16" value="Dak Nong"/>
+                <StringItem index="17" value="Dien Bien"/>
+                <StringItem index="18" value="Dong Nai"/>
+                <StringItem index="19" value="Dong Thap"/>
+                <StringItem index="20" value="Gia Lai"/>
+                <StringItem index="21" value="Ha Giang"/>
+                <StringItem index="22" value="Ha Nam"/>
+                <StringItem index="23" value="Ha Noi"/>
+                <StringItem index="24" value="Ha Tinh"/>
+                <StringItem index="25" value="Hai Duong"/>
+                <StringItem index="26" value="Hai Phong"/>
+                <StringItem index="27" value="Hau Giang"/>
+                <StringItem index="28" value="Hoa Binh"/>
+                <StringItem index="29" value="Hung Yen"/>
+                <StringItem index="30" value="Khanh Hoa"/>
+                <StringItem index="31" value="Kien Giang"/>
+                <StringItem index="32" value="Kon Tum"/>
+                <StringItem index="33" value="Lai Chau"/>
+                <StringItem index="34" value="Lam Dong"/>
+                <StringItem index="35" value="Lang Son"/>
+                <StringItem index="36" value="Lao Cai"/>
+                <StringItem index="37" value="Long An"/>
+                <StringItem index="38" value="Nam Dinh"/>
+                <StringItem index="39" value="Nghe An"/>
+                <StringItem index="40" value="Ninh Binh"/>
+                <StringItem index="41" value="Ninh Thuan"/>
+                <StringItem index="42" value="Phu Tho"/>
+                <StringItem index="43" value="Phu Yen"/>
+                <StringItem index="44" value="Quang Binh"/>
+                <StringItem index="45" value="Quang Nam"/>
+                <StringItem index="46" value="Quang Ngai"/>
+                <StringItem index="47" value="Quang Ninh"/>
+                <StringItem index="48" value="Quang Tri"/>
+                <StringItem index="49" value="Soc Trang"/>
+                <StringItem index="50" value="Son La"/>
+                <StringItem index="51" value="Tay Ninh"/>
+                <StringItem index="52" value="Thai Binh"/>
+                <StringItem index="53" value="Thai Nguyen"/>
+                <StringItem index="54" value="Thanh Hoa"/>
+                <StringItem index="55" value="Thua Thien Hue"/>
+                <StringItem index="56" value="Tien Giang"/>
+                <StringItem index="57" value="TP Ho Chi Minh"/>
+                <StringItem index="58" value="Tra Vinh"/>
+                <StringItem index="59" value="Tuyen Quang"/>
+                <StringItem index="60" value="Vinh Long"/>
+                <StringItem index="61" value="Vinh Phuc"/>
+                <StringItem index="62" value="Yen Bai"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

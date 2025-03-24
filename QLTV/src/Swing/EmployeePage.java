@@ -4,6 +4,7 @@
  */
 package Swing;
 
+import DAO.CustomerDAO;
 import Model.Book;
 import Model.Customer;
 import Service.BookService;
@@ -444,6 +445,9 @@ public class EmployeePage extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 EDITCUSMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                EDITCUSMousePressed(evt);
+            }
         });
 
         FINDCUS.setText("FIND");
@@ -812,28 +816,35 @@ public class EmployeePage extends javax.swing.JFrame {
     }//GEN-LAST:event_FINDCUSMouseClicked
 
     private void EDITCUSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITCUSMouseClicked
+
+    }//GEN-LAST:event_EDITCUSMouseClicked
+
+    private void EDITCUSMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITCUSMousePressed
         // TODO add your handling code here:
         String cusID = jTextCusID.getText();
         Customer cus = customerService.findById(cusID);
-        String CusName = jTextCusName.getName();
+        String CusName = jTextCusName.getText();
         String CusSSN = jFormattedTextCusSSN.getText();
-        LocalDate CusDate = null;
-        try {
-            Date date = jDateCusdate.getDate(); // Lấy giá trị từ JDateChooser
-            if (date != null) {
-                Instant instant = date.toInstant(); // Chuyển Date thành Instant
-               CusDate  = instant.atZone(ZoneId.systemDefault()).toLocalDate(); // Chuyển thành LocalDate     
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        Date date = jDateCusdate.getDate();
+        String CustomerDate = null;// Lấy ngày từ JDateChooser
+        if (date != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng theo kiểu SQL
+            CustomerDate = sdf.format(date); // Chuyển Date thành String
+            System.out.println("Ngày đã chọn: " + CustomerDate);
         }
-       String gender=  jComboCusGender.getSelectedItem().toString();
+        LocalDate CusDate = null;
+        if (CustomerDate != null && !CustomerDate.isEmpty()) {
+            CusDate = LocalDate.parse(CustomerDate);
+        }
+        String gender = jComboCusGender.getSelectedItem().toString();
         String Phone = jFormattedTextPhone.getText();
         String Email = jTextCusEmail.getText();
         String Address = (String) jComboAddress.getSelectedItem();
         Customer cusUpdate = new Customer(cusID, CusName, CusSSN, CusDate, gender, Phone, Email, Address);
+        CustomerDAO cusDao = new CustomerDAO();
+        //cusDao.update(cus);
         customerService.update(cus);
-    }//GEN-LAST:event_EDITCUSMouseClicked
+    }//GEN-LAST:event_EDITCUSMousePressed
 
     /**
      * @param args the command line arguments
