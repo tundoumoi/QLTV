@@ -4,9 +4,31 @@
  */
 package Swing;
 
+import DAO.EmployeeDAO;
+import Model.Account;
 import Model.Employee;
+import Service.AccountService;
+import java.sql.*;
 import Service.EmployeeService;
+import com.sun.jdi.connect.spi.Connection;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.TreeSet;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,7 +36,10 @@ import javax.swing.table.DefaultTableModel;
  * @author NHAT NAM
  */
 public class AdminPage extends javax.swing.JFrame {
+
+    EmployeeDAO employeeDAO = new EmployeeDAO();
     EmployeeService employeeService = new EmployeeService();
+    AccountService accountService = new AccountService();
     TreeSet<Employee> employeeList = new TreeSet<>();
 
     /**
@@ -23,6 +48,11 @@ public class AdminPage extends javax.swing.JFrame {
     public AdminPage() {
         initComponents();
         displayListEmployee();
+
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setVisible(true);
     }
 
     public void displayListEmployee() {
@@ -32,6 +62,10 @@ public class AdminPage extends javax.swing.JFrame {
         for (Employee employee : employeeList) {
             model.addRow(new Object[]{employee.getId(), employee.getName(), employee.getSSN(), employee.getBirthDate(), employee.getGender(), employee.getPhoneNumber(), employee.getEmail(), employee.getAddress(), employee.getPosition(), employee.getSalary(), employee.getStartDate()});
         }
+    }
+
+    public void displayListVoucher() {
+
     }
 
     /**
@@ -62,7 +96,7 @@ public class AdminPage extends javax.swing.JFrame {
         jTextSSN = new javax.swing.JTextField();
         jTextPhoneNumber = new javax.swing.JTextField();
         jTextEmail = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        jTextSalary = new javax.swing.JTextField();
         jTextPosition = new javax.swing.JTextField();
         jTextStartDate = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -71,12 +105,14 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jTextID = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateYob = new com.toedter.calendar.JDateChooser();
         jComboGerder = new javax.swing.JComboBox<>();
         jComboBox1 = new javax.swing.JComboBox<>();
-        ADD = new javax.swing.JButton();
+        AddEmployee = new javax.swing.JButton();
         Find = new javax.swing.JButton();
         Edit = new javax.swing.JButton();
+        Delete = new javax.swing.JButton();
+        Reset = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -97,6 +133,7 @@ public class AdminPage extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
+        logoutt = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -178,6 +215,11 @@ public class AdminPage extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTableEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableEmployeeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableEmployee);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
@@ -195,13 +237,18 @@ public class AdminPage extends javax.swing.JFrame {
             }
         });
 
-        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+        jDateYob.setDateFormatString("yyyy-MM-dd");
 
         jComboGerder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Female", "Male", "Other" }));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "An Giang", "Ba Ria - Vung Tau", "Bac Giang", "Bac Kan", "Bac Lieu", "Bac Ninh", "Ben Tre", "Binh Dinh", "Binh Duong", "Binh Phuoc", "Binh Thuan", "Ca Mau", "Can Tho", "Cao Bang", "Da Nang", "Dak Lak", "Dak Nong", "Dien Bien", "Dong Nai", "Dong Thap", "Gia Lai", "Ha Giang", "Ha Nam", "Ha Noi", "Ha Tinh", "Hai Duong", "Hai Phong", "Hau Giang", "Hoa Binh", "Hung Yen", "Khanh Hoa", "Kien Giang", "Kon Tum", "Lai Chau", "Lam Dong", "Lang Son", "Lao Cai", "Long An", "Nam Dinh", "Nghe An", "Ninh Binh", "Ninh Thuan", "Phu Tho", "Phu Yen", "Quang Binh", "Quang Nam", "Quang Ngai", "Quang Ninh", "Quang Tri", "Soc Trang", "Son La", "Tay Ninh", "Thai Binh", "Thai Nguyen", "Thanh Hoa", "Thua Thien Hue", "Tien Giang", "TP Ho Chi Minh", "Tra Vinh", "Tuyen Quang", "Vinh Long", "Vinh Phuc", "Yen Bai" }));
 
-        ADD.setText("Add");
+        AddEmployee.setText("Add");
+        AddEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddEmployeeActionPerformed(evt);
+            }
+        });
 
         Find.setText("Find");
         Find.addActionListener(new java.awt.event.ActionListener() {
@@ -212,6 +259,20 @@ public class AdminPage extends javax.swing.JFrame {
 
         Edit.setText("Edit");
 
+        Delete.setText("Delete");
+        Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteActionPerformed(evt);
+            }
+        });
+
+        Reset.setText("Reset");
+        Reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -220,34 +281,25 @@ public class AdminPage extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(66, 66, 66)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(87, 87, 87)
-                                .addComponent(ADD)))
+                                .addGap(66, 66, 66)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(Find)
-                                .addGap(50, 50, 50)
-                                .addComponent(Edit))
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jTextName, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                                 .addComponent(jTextID, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
@@ -255,19 +307,31 @@ public class AdminPage extends javax.swing.JFrame {
                                 .addComponent(jTextPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                                 .addComponent(jTextEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                                 .addComponent(jTextPosition, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                                .addComponent(jTextField8, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                                .addComponent(jTextSalary, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                                 .addComponent(jTextStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jDateYob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jComboGerder, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(63, 63, 63)
+                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Edit)
+                                    .addComponent(AddEmployee))
+                                .addGap(33, 33, 33)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Find)
+                                    .addComponent(Delete))))
+                        .addGap(70, 70, 70)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(138, 138, 138)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(382, 382, 382)
-                        .addComponent(jLabel16)))
-                .addContainerGap(2898, Short.MAX_VALUE))
+                        .addComponent(jLabel16))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(254, 254, 254)
+                        .addComponent(Reset)))
+                .addContainerGap(2889, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,9 +340,9 @@ public class AdminPage extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -295,7 +359,7 @@ public class AdminPage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jDateYob, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,22 +385,25 @@ public class AdminPage extends javax.swing.JFrame {
                             .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
-                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jTextStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(2, 2, 2)))
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ADD)
-                            .addComponent(Find)
-                            .addComponent(Edit)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(AddEmployee)
+                            .addComponent(Find, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Edit)
+                            .addComponent(Delete)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(Reset)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("EMPLOYEE", jPanel3);
@@ -382,7 +449,7 @@ public class AdminPage extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(3110, Short.MAX_VALUE))
+                .addContainerGap(3109, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -482,7 +549,7 @@ public class AdminPage extends javax.swing.JFrame {
                         .addComponent(jLabel19)
                         .addGap(376, 376, 376)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(2923, Short.MAX_VALUE))
+                .addContainerGap(2922, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -532,7 +599,7 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(6, 141, 4392, 640);
+        jPanel2.setBounds(6, 141, 4391, 640);
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 204));
 
@@ -553,6 +620,14 @@ public class AdminPage extends javax.swing.JFrame {
             .addGap(0, 10, Short.MAX_VALUE)
         );
 
+        logoutt.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        logoutt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/log-out-outline-icon.png"))); // NOI18N
+        logoutt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MouseClickedAdmin(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -561,14 +636,22 @@ public class AdminPage extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(695, 695, 695)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(652, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
+                .addComponent(logoutt, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(163, 163, 163))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(32, 32, 32)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(26, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(32, 32, 32))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(logoutt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -579,9 +662,44 @@ public class AdminPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void FindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FindActionPerformed
+        String searchID = jTextID.getText().trim();
+        DefaultTableModel model = (DefaultTableModel) jTableEmployee.getModel();
 
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String id = model.getValueAt(i, 0).toString(); // Cột ID là cột 0
+
+            if (id.equalsIgnoreCase(searchID)) {
+                jTableEmployee.setRowSelectionInterval(i, i); // Chọn dòng tìm thấy
+                jTableEmployee.setDefaultRenderer(Object.class, new CustomTableCellRenderer(i));
+                jTableEmployee.repaint(); // Cập nhật giao diện
+                jTextID.setText("");
+                return;
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Không tìm thấy nhân viên có ID: " + searchID);
+        jTextID.setText("");
+    }//GEN-LAST:event_FindActionPerformed
+    class CustomTableCellRenderer extends DefaultTableCellRenderer {
+
+        private int highlightRow;
+
+        public CustomTableCellRenderer(int row) {
+            this.highlightRow = row;
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            if (row == highlightRow) {
+                cell.setFont(cell.getFont().deriveFont(Font.BOLD)); // In đậm dòng tìm thấy
+            } else {
+                cell.setFont(cell.getFont().deriveFont(Font.PLAIN)); // Giữ nguyên font mặc định
+            }
+            return cell;
+        }
+
+    }
     private void jTextIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextIDActionPerformed
@@ -613,6 +731,182 @@ public class AdminPage extends javax.swing.JFrame {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void MouseClickedAdmin(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MouseClickedAdmin
+        // TODO add your handling code here:
+        setVisible(false);
+        Login login = new Login();
+        login.setVisible(true);
+
+
+    }//GEN-LAST:event_MouseClickedAdmin
+
+    private void jTableEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmployeeMouseClicked
+        int selectedRow = jTableEmployee.getSelectedRow();
+        if (selectedRow != -1) {
+            jTextID.setText(jTableEmployee.getValueAt(selectedRow, 0).toString());
+            jTextName.setText(jTableEmployee.getValueAt(selectedRow, 1).toString());
+            jTextSSN.setText(jTableEmployee.getValueAt(selectedRow, 2).toString());
+            try {
+                String dateString = jTableEmployee.getValueAt(selectedRow, 3).toString();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng ngày
+                Date date = dateFormat.parse(dateString); // Chuyển đổi chuỗi thành Date
+                jDateYob.setDate(date);
+            } catch (ParseException e) {
+                e.printStackTrace(); // Hiển thị lỗi ra console
+            }
+            //add
+            jComboGerder.setSelectedItem(jTableEmployee.getValueAt(selectedRow, 4).toString());
+            jTextPhoneNumber.setText(jTableEmployee.getValueAt(selectedRow, 5).toString());
+            jTextEmail.setText(jTableEmployee.getValueAt(selectedRow, 6).toString());
+            jComboBox1.setSelectedItem(jTableEmployee.getValueAt(selectedRow, 7).toString());
+            jTextPosition.setText(jTableEmployee.getValueAt(selectedRow, 8).toString());
+            jTextSalary.setText(jTableEmployee.getValueAt(selectedRow, 9).toString());
+            jTextStartDate.setText(jTableEmployee.getValueAt(selectedRow, 10).toString());
+
+            // Xóa in đậm trên bảng
+            jTableEmployee.setDefaultRenderer(Object.class, new DefaultTableCellRenderer());
+            jTableEmployee.repaint();
+        }
+    }//GEN-LAST:event_jTableEmployeeMouseClicked
+
+    private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
+        int selectedRow = jTableEmployee.getSelectedRow();
+        if (selectedRow != -1) {
+            DefaultTableModel model = (DefaultTableModel) jTableEmployee.getModel();
+            model.removeRow(selectedRow);
+            String id = jTableEmployee.getValueAt(selectedRow, 0).toString();
+            employeeService.delete(id);
+
+            JOptionPane.showMessageDialog(this, "Deleted Successfully!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select an employee to delete.");
+        }
+
+    }//GEN-LAST:event_DeleteActionPerformed
+
+    private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
+        jTextID.setText("");
+        jTextName.setText("");
+        jTextSSN.setText("");
+        jDateYob.setDate(null);
+        jTextPhoneNumber.setText("");
+        jComboGerder.setSelectedIndex(0);
+        jTextEmail.setText("");
+        jComboBox1.setSelectedIndex(0);
+        jTextPosition.setText("");
+        jTextSalary.setText("");
+        jTextStartDate.setText("");
+    }//GEN-LAST:event_ResetActionPerformed
+
+    private void AddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEmployeeActionPerformed
+        String id = jTextID.getText().trim();
+        String name = jTextName.getText().trim();
+        String ssn = jTextSSN.getText().trim();
+        String yob = ((JTextField) jDateYob.getDateEditor().getUiComponent()).getText();
+        String gender = jComboGerder.getSelectedItem().toString();
+        String phone = jTextPhoneNumber.getText().trim();
+        String email = jTextEmail.getText().trim();
+        String address = jComboBox1.getSelectedItem().toString();
+        String position = jTextPosition.getText().trim();
+        String salary = jTextSalary.getText().trim();
+        String startDate = jTextStartDate.getText().trim();
+        int accountID = accountService.increaAcc();
+        // Kiểm tra dữ liệu nhập vào
+        if (id.isEmpty() || name.isEmpty() || ssn.isEmpty() || phone.isEmpty() || email.isEmpty()
+                || position.isEmpty() || salary.isEmpty() || startDate.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+
+        // Kiểm tra trùng ID trong JTable
+        DefaultTableModel model = (DefaultTableModel) jTableEmployee.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (model.getValueAt(i, 0).toString().equalsIgnoreCase(id)) {
+                JOptionPane.showMessageDialog(this, "ID đã tồn tại trong bảng!");
+                return;
+            }
+        }
+        Account accountbyid = accountService.findById(id);
+        if (accountbyid == null) {
+            // Nếu chưa có tài khoản, mở form đăng ký
+            RegisterAccountForm registerForm = new RegisterAccountForm(this, true, id);
+            registerForm.setVisible(true);
+
+            // Sau khi đăng ký, kiểm tra lại
+            accountbyid = accountService.findById(id);
+            if (accountbyid == null) {
+                JOptionPane.showMessageDialog(this, "Tạo tài khoản thất bại, không thể thêm nhân viên!");
+                return;
+            }
+        }
+        // Kiểm tra trùng ID trong Database qua EmployeeDao
+        if (employeeDAO.getById(id) != null) {
+            JOptionPane.showMessageDialog(this, "ID đã tồn tại trong Database!");
+            return;
+        }
+        model.addRow(new Object[]{id, name, ssn, yob, gender, phone, email, address, position, salary, startDate});
+        // Gọi phương thức thêm vào Database
+        Employee emp = new Employee(id, name, ssn, LocalDate.parse(yob), gender, phone, email, address, position, Double.parseDouble(salary), LocalDate.parse(startDate), accountID);
+        employeeDAO.insert(emp);
+
+        JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
+
+        // Reset các ô nhập liệu
+        // ResetActionPerformed(evt);
+    }//GEN-LAST:event_AddEmployeeActionPerformed
+    public class RegisterAccountForm extends JDialog {
+
+        private JTextField txtUsername;
+        private JPasswordField txtPassword;
+        private JButton btnRegister;
+        private String employeeId;
+
+        public RegisterAccountForm(Frame parent, boolean modal, String employeeId) {
+            super(parent, modal);
+            this.employeeId = employeeId;
+            initComponents();
+        }
+
+        private void initComponents() {
+            setTitle("Đăng ký tài khoản");
+            setSize(300, 200);
+            setLayout(new GridLayout(3, 2));
+
+            add(new JLabel("Username:"));
+            txtUsername = new JTextField();
+            add(txtUsername);
+
+            add(new JLabel("Password:"));
+            txtPassword = new JPasswordField();
+            add(txtPassword);
+
+            btnRegister = new JButton("Đăng ký");
+            add(btnRegister);
+
+            btnRegister.addActionListener(evt -> registerAccount());
+            setLocationRelativeTo(null);
+        }
+
+        private void registerAccount() {
+            String username = txtUsername.getText().trim();
+            String password = new String(txtPassword.getPassword()).trim();
+
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            // Gọi service để thêm tài khoản vào database
+//            boolean success = accountService.registerAccount(employeeId, username, password);
+//            if (success) {
+//                JOptionPane.showMessageDialog(this, "Tạo tài khoản thành công!");
+//                dispose();
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Tạo tài khoản thất bại!");
+//            }
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -651,14 +945,16 @@ public class AdminPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ADD;
+    private javax.swing.JButton AddEmployee;
+    private javax.swing.JButton Delete;
     private javax.swing.JButton Edit;
     private javax.swing.JButton Find;
+    private javax.swing.JButton Reset;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboGerder;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateYob;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -698,12 +994,13 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextID;
     private javax.swing.JTextField jTextName;
     private javax.swing.JTextField jTextPhoneNumber;
     private javax.swing.JTextField jTextPosition;
     private javax.swing.JTextField jTextSSN;
+    private javax.swing.JTextField jTextSalary;
     private javax.swing.JTextField jTextStartDate;
+    private javax.swing.JLabel logoutt;
     // End of variables declaration//GEN-END:variables
 }

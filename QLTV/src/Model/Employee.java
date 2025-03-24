@@ -26,6 +26,13 @@ public class Employee extends Person {
         this.accountId = accountId;
     }
 
+    public Employee( String id, String name, String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address,String position, double salary, LocalDate startDate) {
+        super(id, name, SSN, birthDate, gender, phoneNumber, email, address);
+        this.position = position;
+        this.salary = salary;
+        this.startDate = startDate;
+    }
+    
     public String getPosition() {
         return position;
     }

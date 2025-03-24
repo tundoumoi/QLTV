@@ -108,6 +108,7 @@ public class AccountDAO implements IAccountDAO {
             pstmt.setInt(1, account.getAccountId());
             pstmt.setString(2, account.getUsername());
             pstmt.setString(3, account.getPass());
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
