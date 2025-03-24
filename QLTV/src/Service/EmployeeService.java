@@ -66,6 +66,8 @@ public class EmployeeService implements Service<Employee> {
     }
 
     public String increaseEMPID() {
+        employTree.clear();
+        employTree = employeeDAO.getAll();
         int count = employTree.size() + 1;
         return String.format("E%03d", count);
     }

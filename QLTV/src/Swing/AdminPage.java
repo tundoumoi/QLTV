@@ -12,9 +12,13 @@ import java.sql.*;
 import Service.EmployeeService;
 import com.sun.jdi.connect.spi.Connection;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -800,7 +804,9 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_ResetActionPerformed
 
     private void AddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddEmployeeActionPerformed
-        String id = jTextID.getText().trim();
+        
+        jTextID.setText(employeeService.increaseEMPID().trim());
+        String id = employeeService.increaseEMPID().trim();
         String name = jTextName.getText().trim();
         String ssn = jTextSSN.getText().trim();
         String yob = ((JTextField) jDateYob.getDateEditor().getUiComponent()).getText();
@@ -836,14 +842,19 @@ public class AdminPage extends javax.swing.JFrame {
         RegisterAccountForm registerForm = new RegisterAccountForm(this, true, id, accountService);
         registerForm.setVisible(true);
 
-        model.addRow(new Object[]{id, name, ssn, yob, gender, phone, email, address, position, salary, startDate});
+        
 
         Employee emp = new Employee(id, name, ssn, LocalDate.parse(yob), gender, phone, email, address, position, Double.parseDouble(salary), LocalDate.parse(startDate), accountId);
         employeeDAO.insert(emp);
-
-        JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
-
-        // Reset các ô nhập liệu
+        
+        
+        if(employeeService.findById(id) == null){
+            JOptionPane.showMessageDialog(null, "Thêm nhân viên không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
+        model.addRow(new Object[]{id, name, ssn, yob, gender, phone, email, address, position, salary, startDate});
+        }
+        
         ResetActionPerformed(evt);
     }//GEN-LAST:event_AddEmployeeActionPerformed
     public class RegisterAccountForm extends JDialog {
@@ -864,20 +875,49 @@ public class AdminPage extends javax.swing.JFrame {
         private void initComponents() {
             setTitle("Đăng ký tài khoản");
             setSize(300, 200);
-            setLayout(new GridLayout(3, 2));
+            setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(5, 5, 5, 5); // Khoảng cách giữa các thành phần
+            gbc.fill = GridBagConstraints.HORIZONTAL;
 
-            add(new JLabel("Username:"));
+            // Label Username
+            JLabel lblUsername = new JLabel("Username:");
+            lblUsername.setPreferredSize(new Dimension(80, 25)); // Thiết lập kích thước label
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            add(lblUsername, gbc);
+
+            // TextField Username
             txtUsername = new JTextField();
-            add(txtUsername);
+            txtUsername.setPreferredSize(new Dimension(150, 25)); // Thiết lập kích thước text field
+            gbc.gridx = 1;
+            gbc.gridy = 0;
+            add(txtUsername, gbc);
 
-            add(new JLabel("Password:"));
+            // Label Password
+            JLabel lblPassword = new JLabel("Password:");
+            lblPassword.setPreferredSize(new Dimension(80, 25));
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            add(lblPassword, gbc);
+
+            // Password Field
             txtPassword = new JPasswordField();
-            add(txtPassword);
+            txtPassword.setPreferredSize(new Dimension(150, 25));
+            gbc.gridx = 1;
+            gbc.gridy = 1;
+            add(txtPassword, gbc);
 
+            // Button Register
             btnRegister = new JButton("Đăng ký");
-            add(btnRegister);
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            gbc.gridwidth = 2;
+            gbc.anchor = GridBagConstraints.CENTER;
+            add(btnRegister, gbc);
 
             btnRegister.addActionListener(evt -> registerAccount());
+
             setLocationRelativeTo(null);
         }
 
