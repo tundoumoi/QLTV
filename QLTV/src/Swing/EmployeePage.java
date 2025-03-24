@@ -4,20 +4,18 @@
  */
 package Swing;
 
-import DAO.CustomerDAO;
 import Model.Book;
 import Model.Customer;
 import Service.BookService;
 import Service.CustomerService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -57,6 +55,7 @@ public class EmployeePage extends javax.swing.JFrame {
     }
 
     public void displayCus() {
+        CustomerList.clear();
         CustomerList = customerService.getCustomerSet();
         DefaultTableModel model1 = (DefaultTableModel) jCusTable.getModel();
         model1.setRowCount(0);
@@ -122,7 +121,6 @@ public class EmployeePage extends javax.swing.JFrame {
         jTextCusEmail = new javax.swing.JTextField();
         jComboAddress = new javax.swing.JComboBox<>();
         jDateCusdate = new com.toedter.calendar.JDateChooser();
-        ADDCUSS = new javax.swing.JButton();
         DELETECUS = new javax.swing.JButton();
         EDITCUS = new javax.swing.JButton();
         FINDCUS = new javax.swing.JButton();
@@ -430,15 +428,19 @@ public class EmployeePage extends javax.swing.JFrame {
         jFormattedTextPhone.setText("ex:0775660817");
         jFormattedTextPhone.setToolTipText("ex:0775660817");
 
-        jFormattedTextCusSSN.setText("SSN 12 Index");
+        jFormattedTextCusSSN.setToolTipText("SSN 12 Index");
 
         jComboAddress.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "An Giang", "Ba Ria - Vung Tau", "Bac Giang", "Bac Kan", "Bac Lieu", "Bac Ninh", "Ben Tre", "Binh Dinh", "Binh Duong", "Binh Phuoc", "Binh Thuan", "Ca Mau", "Can Tho", "Cao Bang", "Da Nang", "Dak Lak", "Dak Nong", "Dien Bien", "Dong Nai", "Dong Thap", "Gia Lai", "Ha Giang", "Ha Nam", "Ha Noi", "Ha Tinh", "Hai Duong", "Hai Phong", "Hau Giang", "Hoa Binh", "Hung Yen", "Khanh Hoa", "Kien Giang", "Kon Tum", "Lai Chau", "Lam Dong", "Lang Son", "Lao Cai", "Long An", "Nam Dinh", "Nghe An", "Ninh Binh", "Ninh Thuan", "Phu Tho", "Phu Yen", "Quang Binh", "Quang Nam", "Quang Ngai", "Quang Ninh", "Quang Tri", "Soc Trang", "Son La", "Tay Ninh", "Thai Binh", "Thai Nguyen", "Thanh Hoa", "Thua Thien Hue", "Tien Giang", "TP Ho Chi Minh", "Tra Vinh", "Tuyen Quang", "Vinh Long", "Vinh Phuc", "Yen Bai" }));
 
-        jDateCusdate.setDateFormatString("yyyy-MM-dd\n");
-
-        ADDCUSS.setText("ADD");
+        jDateCusdate.setDateFormatString("yyyy-MM-dd");
+        jDateCusdate.setDebugGraphicsOptions(javax.swing.DebugGraphics.BUFFERED_OPTION);
 
         DELETECUS.setText("DELETE");
+        DELETECUS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                DELETECUSMousePressed(evt);
+            }
+        });
 
         EDITCUS.setText("EDIT");
         EDITCUS.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -455,6 +457,9 @@ public class EmployeePage extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 FINDCUSMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                FINDCUSMousePressed(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -462,17 +467,9 @@ public class EmployeePage extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(ADDCUSS, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(DELETECUS, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(EDITCUS, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(FINDCUS, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel14)
@@ -492,7 +489,15 @@ public class EmployeePage extends javax.swing.JFrame {
                             .addComponent(jFormattedTextCusSSN)
                             .addComponent(jTextCusEmail)
                             .addComponent(jComboAddress, 0, 318, Short.MAX_VALUE)
-                            .addComponent(jDateCusdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jDateCusdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(DELETECUS, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(EDITCUS, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(FINDCUS, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -530,12 +535,11 @@ public class EmployeePage extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ADDCUSS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DELETECUS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EDITCUS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FINDCUS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(EDITCUS, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(DELETECUS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FINDCUS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(372, Short.MAX_VALUE))
         );
 
@@ -654,7 +658,9 @@ public class EmployeePage extends javax.swing.JFrame {
         jLabel1.setText("EMPLOYEE PAGE");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        jLabel2.setText("Logout");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/log-out-outline-icon.png"))); // NOI18N
+        jLabel2.setMaximumSize(new java.awt.Dimension(20, 20));
+        jLabel2.setMinimumSize(new java.awt.Dimension(20, 20));
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
@@ -669,18 +675,18 @@ public class EmployeePage extends javax.swing.JFrame {
                 .addContainerGap(707, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(616, 616, 616))))
+                        .addGap(616, 616, 616))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(51, Short.MAX_VALUE))
         );
@@ -821,30 +827,101 @@ public class EmployeePage extends javax.swing.JFrame {
 
     private void EDITCUSMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EDITCUSMousePressed
         // TODO add your handling code here:
-        String cusID = jTextCusID.getText();
-        Customer cus = customerService.findById(cusID);
-        String CusName = jTextCusName.getText();
-        String CusSSN = jFormattedTextCusSSN.getText();
-        Date date = jDateCusdate.getDate();
-        String CustomerDate = null;// Lấy ngày từ JDateChooser
-        if (date != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng theo kiểu SQL
-            CustomerDate = sdf.format(date); // Chuyển Date thành String
-            System.out.println("Ngày đã chọn: " + CustomerDate);
+        String cusID = jTextCusID.getText().trim();
+        if (cusID.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Customer ID không được để trống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        LocalDate CusDate = null;
-        if (CustomerDate != null && !CustomerDate.isEmpty()) {
-            CusDate = LocalDate.parse(CustomerDate);
+        Customer cus = customerService.findById(cusID);
+        if (cus == null) {
+            JOptionPane.showMessageDialog(null, "Customer không tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        // Lấy thông tin từ giao diện
+        String CusName = jTextCusName.getText().trim();
+        String CusSSN = jFormattedTextCusSSN.getText().trim();
+        String birthDateStr = null;
+
+        Date selectedDate = jDateCusdate.getDate(); // Lấy ngày từ JDateChooser
+
+        if (selectedDate != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng mong muốn
+            birthDateStr = dateFormat.format(selectedDate);
+        } else {
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn ngày sinh!", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
         String gender = jComboCusGender.getSelectedItem().toString();
-        String Phone = jFormattedTextPhone.getText();
-        String Email = jTextCusEmail.getText();
+        String Phone = jFormattedTextPhone.getText().trim();
+        String Email = jTextCusEmail.getText().trim();
         String Address = (String) jComboAddress.getSelectedItem();
-        Customer cusUpdate = new Customer(cusID, CusName, CusSSN, CusDate, gender, Phone, Email, Address);
-        CustomerDAO cusDao = new CustomerDAO();
-        //cusDao.update(cus);
-        customerService.update(cus);
+
+        // Kiểm tra dữ liệu đầu vào
+        if (CusName.isEmpty() || CusSSN.isEmpty() || birthDateStr.isEmpty() || gender.isEmpty() || Phone.isEmpty() || Email.isEmpty() || Address.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin khách hàng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Tạo đối tượng Customer để cập nhật
+        Customer cusUpdate = new Customer(cusID, CusName, CusSSN, LocalDate.parse(birthDateStr), gender, Phone, Email, Address);
+
+        try {
+            // Gọi phương thức update từ CustomerService
+            customerService.update(cusUpdate);
+            displayCus();
+            JOptionPane.showMessageDialog(null, "Cập nhật thông tin khách hàng thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật thông tin khách hàng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+
+        }
     }//GEN-LAST:event_EDITCUSMousePressed
+
+    private void DELETECUSMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DELETECUSMousePressed
+        // TODO add your handling code here:
+        String cusID = jTextCusID.getText().trim();
+        if (cusID.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Customer ID cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            // Gọi phương thức update từ CustomerService
+            customerService.delete(cusID);
+            displayCus();
+            JOptionPane.showMessageDialog(null, "Customer deleted successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error updating customer information: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+
+        }
+
+    }//GEN-LAST:event_DELETECUSMousePressed
+
+    private void FINDCUSMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FINDCUSMousePressed
+        // TODO add your handling code here:
+        String cusID = jTextCusID.getText().trim();
+        Customer cus = customerService.findById(cusID);
+        if (cusID.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Customer ID cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        jTextCusID.setText(cus.getId());
+        jTextCusName.setText(cus.getName());
+        jFormattedTextCusSSN.setText(cus.getSSN());
+        try {
+            String dateString = cus.getBirthDate().toString();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng ngày
+            Date date = dateFormat.parse(dateString); // Chuyển đổi chuỗi thành Date
+            jDateCusdate.setDate(date); // Set vào JDateChooser
+        } catch (ParseException e) {
+            e.printStackTrace(); // Hiển thị lỗi ra console
+        }
+        jComboCusGender.setSelectedItem(cus.getGender());
+        jFormattedTextPhone.setText(cus.getPhoneNumber());
+        jTextCusEmail.setText(cus.getEmail());
+        jComboAddress.setSelectedItem(cus.getAddress());
+    }//GEN-LAST:event_FINDCUSMousePressed
 
     /**
      * @param args the command line arguments
@@ -885,7 +962,6 @@ public class EmployeePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ADDCUSS;
     private javax.swing.JButton DELETECUS;
     private javax.swing.JButton EDITCUS;
     private javax.swing.JButton FINDCUS;

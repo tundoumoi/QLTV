@@ -12,15 +12,16 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class CustomerService implements Service<Customer> {
+
     CustomerDAO cusDao = new CustomerDAO();
     AccountDAO accDao = new AccountDAO();
     private HashSet<Account> customerACC = new HashSet<>();
     private HashSet<Customer> customerSet = new HashSet<>();
 
-public CustomerService() {
-    customerSet = cusDao.getAll(); 
-    customerACC = accDao.getAll();
-}
+    public CustomerService() {
+        customerSet = cusDao.getAll();
+        customerACC = accDao.getAll();
+    }
 
     public CustomerDAO getCusDao() {
         return cusDao;
@@ -31,15 +32,17 @@ public CustomerService() {
     }
 
     public HashSet<Account> getCustomerACC() {
+
         return customerACC;
     }
 
     public HashSet<Customer> getCustomerSet() {
+        customerSet.clear();
+        customerSet = cusDao.getAll();
         return customerSet;
     }
 
-
-       public Boolean CheckAccount(String userName, String Pass) {
+    public Boolean CheckAccount(String userName, String Pass) {
         for (Account account : customerACC) {
             if (account.getUsername().equalsIgnoreCase(userName) && account.getPass().equals(Pass)) {
                 return true;
@@ -47,6 +50,7 @@ public CustomerService() {
         }
         return false;
     }
+
     @Override
     public Customer findById(String id) {
         return cusDao.getById(id);
@@ -68,20 +72,22 @@ public CustomerService() {
     @Override
     public void display(Customer entity) {
     }
-    
+
     public void update(Customer customer) {
         cusDao.update(customer);
     }
+
     @Override
     public void insert(Customer entity) {
         cusDao.insert(entity);
         customerSet.add(entity);
     }
+
     public String increaseCUSID() {
         int count = customerSet.size() + 1;
         return String.format("C%03d", count);
     }
-    
+
     public String getCustomerIdByUsername(String username) {
         Customer customer = CustomerDAO.findByUsername(username);
         return customer != null ? customer.getId() : null;

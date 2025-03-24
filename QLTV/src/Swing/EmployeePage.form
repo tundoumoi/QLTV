@@ -582,18 +582,9 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="ADDCUSS" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                          <Component id="DELETECUS" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="EDITCUS" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="FINDCUS" min="-2" pref="100" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -617,6 +608,15 @@
                                               <Component id="jComboAddress" pref="318" max="32767" attributes="0"/>
                                               <Component id="jDateCusdate" max="32767" attributes="0"/>
                                           </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                                          <Component id="DELETECUS" min="-2" pref="106" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                          <Component id="EDITCUS" min="-2" pref="114" max="-2" attributes="0"/>
+                                          <EmptySpace pref="32" max="32767" attributes="0"/>
+                                          <Component id="FINDCUS" min="-2" pref="111" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace pref="12" max="32767" attributes="0"/>
@@ -666,12 +666,11 @@
                                       <Component id="jLabel21" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       <Component id="jComboAddress" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="ADDCUSS" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="DELETECUS" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="EDITCUS" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="FINDCUS" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="EDITCUS" pref="50" max="32767" attributes="0"/>
+                                      <Component id="DELETECUS" max="32767" attributes="0"/>
+                                      <Component id="FINDCUS" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="372" max="32767" attributes="0"/>
                               </Group>
@@ -773,7 +772,7 @@
                         </Component>
                         <Component class="javax.swing.JFormattedTextField" name="jFormattedTextCusSSN">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="SSN 12 Index"/>
+                            <Property name="toolTipText" type="java.lang.String" value="SSN 12 Index"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jTextCusEmail">
@@ -854,18 +853,17 @@
                         </Component>
                         <Component class="com.toedter.calendar.JDateChooser" name="jDateCusdate">
                           <Properties>
-                            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd&#xa;"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="ADDCUSS">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" value="ADD"/>
+                            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+                            <Property name="debugGraphicsOptions" type="int" value="4"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="DELETECUS">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="DELETE"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DELETECUSMousePressed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="EDITCUS">
                           <Properties>
@@ -882,6 +880,7 @@
                           </Properties>
                           <Events>
                             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="FINDCUSMouseClicked"/>
+                            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="FINDCUSMousePressed"/>
                           </Events>
                         </Component>
                       </SubComponents>
@@ -989,12 +988,12 @@
                           <EmptySpace pref="707" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel1" min="-2" pref="557" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="616" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1004,8 +1003,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" pref="36" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" pref="47" max="-2" attributes="0"/>
                           <EmptySpace pref="51" max="32767" attributes="0"/>
                       </Group>
@@ -1026,7 +1025,15 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="12" style="2"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Logout"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icon/log-out-outline-icon.png"/>
+                    </Property>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[20, 20]"/>
+                    </Property>
+                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[20, 20]"/>
+                    </Property>
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel2MouseClicked"/>
