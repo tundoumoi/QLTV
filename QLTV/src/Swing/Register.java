@@ -744,7 +744,7 @@ public class Register extends javax.swing.JFrame {
         // Kiểm tra ngày sinh hợp lệ
         LocalDate BirthDate;
         try {
-            BirthDate = LocalDate.parse(BirthDateStr);
+            BirthDate = LocalDate.parse(SSN);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ! (Định dạng YYYY-MM-DD)", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return false;
