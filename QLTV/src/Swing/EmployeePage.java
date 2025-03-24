@@ -13,13 +13,10 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -820,22 +817,22 @@ public class EmployeePage extends javax.swing.JFrame {
         Customer cus = customerService.findById(cusID);
         String CusName = jTextCusName.getName();
         String CusSSN = jFormattedTextCusSSN.getText();
+        LocalDate CusDate = null;
         try {
             Date date = jDateCusdate.getDate(); // Lấy giá trị từ JDateChooser
             if (date != null) {
                 Instant instant = date.toInstant(); // Chuyển Date thành Instant
-                LocalDate CusDate = instant.atZone(ZoneId.systemDefault()).toLocalDate(); // Chuyển thành LocalDate
-            
+               CusDate  = instant.atZone(ZoneId.systemDefault()).toLocalDate(); // Chuyển thành LocalDate     
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-// Hiển thị lỗi ra console
        String gender=  jComboCusGender.getSelectedItem().toString();
-        jFormattedTextPhone.setText(cus.getPhoneNumber());
-        jTextCusEmail.setText(cus.getEmail());
-        jComboAddress.setSelectedItem(cus.getAddress());
+        String Phone = jFormattedTextPhone.getText();
+        String Email = jTextCusEmail.getText();
+        String Address = (String) jComboAddress.getSelectedItem();
+        Customer cusUpdate = new Customer(cusID, CusName, CusSSN, CusDate, gender, Phone, Email, Address);
+        customerService.update(cus);
     }//GEN-LAST:event_EDITCUSMouseClicked
 
     /**

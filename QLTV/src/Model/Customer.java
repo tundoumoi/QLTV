@@ -14,6 +14,10 @@ public class Customer extends Person {
     protected double totalPayment;
     protected int accountId;
 
+    public Customer(String id, String name, String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address) {
+        super(id, name, SSN, birthDate, gender, phoneNumber, email, address);
+    }
+
 
     public Customer(String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, int accountId) {
         super(id, name,SSN, birthDate, gender, phoneNumber, email, address);

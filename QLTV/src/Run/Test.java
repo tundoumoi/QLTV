@@ -108,11 +108,18 @@ public class Test {
 //   
 //        empService.display(emp2);
 //        empService.display(emp3);
-
-    AccountService acc = new AccountService();
-        System.out.println(acc.increaAcc()+1);
-        CustomerService cusSer = new CustomerService();
-        System.out.println(cusSer.increaseCUSID());
+// String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, int accountId) {
+//
+//    }
+    Customer cus = new Customer("C001", "Ha","98787347545" ,LocalDate.parse("2004-12-02") , "Male", "0775660817", "Hoangluu327@gmail.com", "Quang NAm");
+    CustomerDAO customerDAO = new CustomerDAO();
+    customerDAO.update(cus);
+    
+    
+//    AccountService acc = new AccountService();
+//        System.out.println(acc.increaAcc()+1);
+//        CustomerService cusSer = new CustomerService();
+//        System.out.println(cusSer.increaseCUSID());
     }
     
             
