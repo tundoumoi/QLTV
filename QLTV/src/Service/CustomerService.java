@@ -22,6 +22,22 @@ public CustomerService() {
     customerACC = accDao.getAll();
 }
 
+    public CustomerDAO getCusDao() {
+        return cusDao;
+    }
+
+    public AccountDAO getAccDao() {
+        return accDao;
+    }
+
+    public HashSet<Account> getCustomerACC() {
+        return customerACC;
+    }
+
+    public HashSet<Customer> getCustomerSet() {
+        return customerSet;
+    }
+
 
        public Boolean CheckAccount(String userName, String Pass) {
         for (Account account : customerACC) {
