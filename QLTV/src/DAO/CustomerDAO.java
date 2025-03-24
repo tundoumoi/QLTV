@@ -40,10 +40,10 @@ public class CustomerDAO implements ICustomerDAO {
               e.printStackTrace();
          }
     }
-    
+                  //  (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId)
     @Override
     public void update(Customer entity) {
-         String sql = "UPDATE Customer SET Cname = ?, Cssn = ?, CbirthDate = ?, Cgender = ?, Caddress = ?, Cphone = ?, Cemail = ?, CtotalPayment = ?, AccountId = ? WHERE Cid = ?";
+         String sql = "UPDATE Customer SET Cname = ?, Cssn = ?, CbirthDate = ?, Cgender = ?, Caddress = ?, CphoneNumber = ?, Cemail = ? WHERE Cid = ?";
          try (Connection conn = DatabaseConnection.getConnection();
               PreparedStatement pstmt = conn.prepareStatement(sql)) {
               pstmt.setString(1, entity.getName());
@@ -53,9 +53,7 @@ public class CustomerDAO implements ICustomerDAO {
               pstmt.setString(5, entity.getAddress());
               pstmt.setString(6, entity.getPhoneNumber());
               pstmt.setString(7, entity.getEmail());
-              pstmt.setDouble(8, entity.getTotalPayment());
-              pstmt.setInt(9, entity.getAccountId());
-              pstmt.setString(10, entity.getId());
+              pstmt.setString(8, entity.getId());
               pstmt.executeUpdate();
          } catch (SQLException e) {
               e.printStackTrace();
