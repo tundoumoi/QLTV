@@ -33,40 +33,33 @@ public class PromotionDAO implements IPromotionDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Trả về null nếu không có voucher phù hợp
+        return null; 
     }
     
 
+    
     @Override
-    public PromotionDAO getAll() {
- List<Promotion> promotions = new ArrayList<>();
-        String sql = "SELECT * FROM Voucher";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                int discountRate = rs.getInt("discountRate");
-                String description = rs.getString("Vdescription");
-                double minPurchase = rs.getDouble("minPurchase");
+    public ArrayList<Promotion> getAll() {
+ArrayList<Promotion> promotions = new ArrayList<>();
+    String sql = "SELECT * FROM Voucher"; 
 
-                promotions.add(new Promotion(discountRate, description, minPurchase));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+
+        while (rs.next()) {
+            int discountRate = rs.getInt("discountRate");
+            String description = rs.getString("Vdescription"); 
+            double minPurchase = rs.getDouble("minPurchase");
+
+            promotions.add(new Promotion(discountRate, description, minPurchase));
         }
-        return (PromotionDAO) promotions;   
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return promotions;    }
 
-    @Override
-    public PromotionDAO getById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void insert(PromotionDAO entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+ 
     @Override
     public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -127,13 +120,20 @@ public class PromotionDAO implements IPromotionDAO {
     }
 }
 
-    
-
     @Override
-    public void update(PromotionDAO entity) {
+    public Promotion getById(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
+    public void insert(Promotion entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
+    
+
+ 
   
   
 

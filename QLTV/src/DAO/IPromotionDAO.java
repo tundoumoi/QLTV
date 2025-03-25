@@ -5,35 +5,26 @@
 package DAO;
 
 import Model.Promotion;
+import java.util.ArrayList;
 
 
-public interface IPromotionDAO extends GenericDAO<PromotionDAO, PromotionDAO> {
+
+public interface IPromotionDAO extends GenericDAO<Promotion, ArrayList<Promotion>> {
+    @Override
+    ArrayList<Promotion> getAll();
 
     @Override
-    public default PromotionDAO getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    Promotion getById(String id);
 
     @Override
-    public default PromotionDAO getById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-
+    void insert(Promotion entity);
 
     @Override
-    public default void insert(PromotionDAO entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-   
-    public default void update(Promotion prom) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    void update(Promotion entity);
 
     @Override
-    public default void delete(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
+    void delete(String id);
 }
+
+
+  

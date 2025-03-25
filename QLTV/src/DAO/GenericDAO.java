@@ -1,4 +1,4 @@
-package DAO;
+    package DAO;
 
 public interface GenericDAO<T, C> {
     // Lấy tất cả các bản ghi từ bảng
