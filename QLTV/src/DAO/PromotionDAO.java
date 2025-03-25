@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -34,20 +36,25 @@ public class PromotionDAO implements IPromotionDAO {
         return null; // Trả về null nếu không có voucher phù hợp
     }
     
-    @Override
-    public void update(Promotion prom) {
-        String sql = "UPDATE Voucher SET minPurchase = ? WHERE discountRate = ?";
-        try (Connection conn =DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setDouble(1, prom.getMinPurchase());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    
 
     @Override
     public PromotionDAO getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+ List<Promotion> promotions = new ArrayList<>();
+        String sql = "SELECT * FROM Voucher";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                int discountRate = rs.getInt("discountRate");
+                String description = rs.getString("Vdescription");
+                double minPurchase = rs.getDouble("minPurchase");
+
+                promotions.add(new Promotion(discountRate, description, minPurchase));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return (PromotionDAO) promotions;   
     }
 
     @Override
@@ -65,9 +72,69 @@ public class PromotionDAO implements IPromotionDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+
+ 
+    
+        @Override
+    public void update(Promotion prom) {
+              String sql = "UPDATE Voucher SET Vdescription = ?, minPurchase = ? WHERE discountRate = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, prom.getDescription());
+            pstmt.setDouble(2, prom.getMinPurchase());
+            pstmt.setInt(3, prom.getDiscontRate());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }  
+    public void updateDescription(int discountRate, String description) {
+    String sql = "UPDATE Voucher SET Vdescription = ? WHERE discountRate = ?";
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, description);
+        pstmt.setInt(2, discountRate);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+ 
+    
+    public void updateMinPurchase(int discountRate, double minPurchase) {
+    String sql = "UPDATE Voucher SET minPurchase = ? WHERE discountRate = ?";
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setDouble(1, minPurchase);
+        pstmt.setInt(2, discountRate);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+    public void updatePromotion(int discountRate, String description, double minPurchase) {
+    String sql = "UPDATE Voucher SET Vdescription = ?, minPurchase = ? WHERE discountRate = ?";
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setString(1, description);
+        pstmt.setDouble(2, minPurchase);
+        pstmt.setInt(3, discountRate);
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
+    
+
     @Override
     public void update(PromotionDAO entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+  
+  
 
 }
