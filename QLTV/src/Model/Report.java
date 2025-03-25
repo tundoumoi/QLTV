@@ -3,9 +3,9 @@ package Model;
 import java.time.LocalDate;
 
 public class Report {
+    private String reportId;
     private String customerId;
-    private String bookId;
-    private String title;
+    private String bookId;  
     private LocalDate reportDate;
     private String content;
 
@@ -16,7 +16,7 @@ public class Report {
     }
 
     public Report(String title, LocalDate reportDate, String content) {
-        this.title = title;
+        this.reportId = title;
         this.reportDate = reportDate;
         this.content = content;
     }
@@ -24,7 +24,7 @@ public class Report {
     public Report(String customerId, String bookId, String title, LocalDate reportDate, String content) {
         this.customerId = customerId;
         this.bookId = bookId;
-        this.title = title;
+        this.reportId = title;
         this.reportDate = reportDate;
         this.content = content;
     }
@@ -47,12 +47,12 @@ public class Report {
         this.bookId = bookId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getReportId() {
+        return reportId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setReportId(String reportId) {
+        this.reportId = reportId;
     }
 
     public LocalDate getReportDate() {
@@ -73,7 +73,7 @@ public class Report {
 
     @Override
     public String toString() {
-        return "Report{" + "customerId=" + customerId + ", bookId=" + bookId + ", title=" + title + ", reportDate=" + reportDate + ", content=" + content + '}';
+        return "Report{" + "customerId=" + customerId + ", bookId=" + bookId + ", title=" + reportId + ", reportDate=" + reportDate + ", content=" + content + '}';
     }
     
 }

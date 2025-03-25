@@ -36,7 +36,7 @@ public class ReportDAO implements IReportDAO {
         String sql = "UPDATE Report SET bookId = ?, title = ?, reportDate = ?, content = ? WHERE customerId = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, entity.getBookId());
-            pstmt.setString(2, entity.getTitle());
+            pstmt.setString(2, entity.getReportId());
             pstmt.setString(3, entity.getReportDate().toString());
             pstmt.setString(4, entity.getContent());
             pstmt.setString(5, entity.getCustomerId());
@@ -52,7 +52,7 @@ public class ReportDAO implements IReportDAO {
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, entity.getCustomerId());
             pstmt.setString(2, entity.getBookId());
-            pstmt.setString(3, entity.getTitle());
+            pstmt.setString(3, entity.getReportId());
             pstmt.setString(4, entity.getReportDate().toString());
             pstmt.setString(5, entity.getContent());
             pstmt.executeUpdate();
