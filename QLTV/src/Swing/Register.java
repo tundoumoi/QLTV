@@ -585,7 +585,6 @@ public class Register extends javax.swing.JFrame {
 
     private void RegisterBut1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterBut1MouseClicked
         if (insertAccountAndCustomer()) {
-            JOptionPane.showMessageDialog(rootPane, "Register Successful!");
             login.setVisible(true);
             setVisible(false);
         }
@@ -662,24 +661,17 @@ public class Register extends javax.swing.JFrame {
         return "Not specified";
     }
 
-   
- int progress = 0;
-    String percent;
-    private int startProgressBar() {
-   
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                if (progress <= 100) {
-                    progress += 20;
-                } else {
-                    timer.cancel();
+    private void delayProgressBar(Runnable action) {
+        new Thread(() -> {
+            try {
+                for (int i = 0; i <= 100; i += 10) {
+                    Thread.sleep(100); // Đợi 100ms mỗi lần tăng progress
                 }
+                action.run(); // Gọi hành động sau khi hoàn thành
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        };
-        timer.schedule(task, 30, 100); // Bắt đầu sau 1 giây, cập nhật mỗi giây
-        return progress;
+        }).start();
     }
 
     public boolean insertAccountAndCustomer() {
@@ -699,7 +691,7 @@ public class Register extends javax.swing.JFrame {
                 birthDateStr = dateFormat.format(selectedDate); // Chuyển Date thành String
             } else {
 
-                JOptionPane.showMessageDialog(rootPane, "You are do not input BirthDate", "ERROR", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Khong duoc de trong ngay sinh", "ERROR", JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -775,26 +767,25 @@ public class Register extends javax.swing.JFrame {
             return false; // Nếu lỗi, dừng lại
         }
 
-        startProgressBar();
-
+        // 🔹 **Tạo CusID duy nhất**
         // 🔹 **Tạo CusID duy nhất**
         String CusID = CusSer.increaseCUSID();
-
         double totalPayment = 0.0;
         Customer cus = new Customer(CusID, Name, SSN, BirthDate, gender, PhoneNumber, Email, Address, totalPayment, newAccountId);
-    
-        try {
-            if (startProgressBar() > 90) {
+
+        // Gọi hàm delay trước khi thêm vào database
+        delayProgressBar(() -> {
+            try {
                 CustomerDAO cusDao = new CustomerDAO();
                 cusDao.insert(cus);
-                JOptionPane.showMessageDialog(null, startProgressBar());
-                // CusSer.insert(cus);
-                JOptionPane.showMessageDialog(null, "Tài khoản và khách hàng đã được đăng ký thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Tài khoản đã được đăng ký thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Lỗi khi đăng ký khách hàng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi đăng ký khách hàng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
-        return false;
+        );
+
+        return true;
     }
 
     /**
@@ -823,7 +814,7 @@ public class Register extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
