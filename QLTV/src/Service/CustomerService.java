@@ -20,7 +20,7 @@ public class CustomerService implements Service<Customer> {
 
     public CustomerService() {
         customerSet = cusDao.getAll();
-        customerACC = accDao.getAll();
+        
     }
 
     public CustomerDAO getCusDao() {
@@ -43,6 +43,8 @@ public class CustomerService implements Service<Customer> {
     }
 
     public Boolean CheckAccount(String userName, String Pass) {
+        customerACC.clear();
+        customerACC = accDao.getAll();
         for (Account account : customerACC) {
             if (account.getUsername().equalsIgnoreCase(userName) && account.getPass().equals(Pass)) {
                 return true;
@@ -84,7 +86,7 @@ public class CustomerService implements Service<Customer> {
     }
 
     public String increaseCUSID() {
-        int count = customerSet.size() + 1;
+        int count = cusDao.getnumberCus()+1;
         return String.format("C%03d", count);
     }
 

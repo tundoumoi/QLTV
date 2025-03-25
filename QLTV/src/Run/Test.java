@@ -111,9 +111,13 @@ public class Test {
 // String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, int accountId) {
 //
 //    }
+CustomerDAO customerDAO = new CustomerDAO();
+CustomerService cusSer = new CustomerService();
+AccountService acc = new AccountService();
     Customer cus = new Customer("C001", "Ha","98787347545" ,LocalDate.parse("2004-12-02") , "Male", "0775660817", "Hoangluu327@gmail.com", "Quang NAm");
-    CustomerDAO customerDAO = new CustomerDAO();
-    customerDAO.update(cus);
+    Customer cus1 = new Customer(cusSer.increaseCUSID(), "Ha", "98787347545", LocalDate.parse("2004-12-02"), "Male","0775660817", "Hoangluu327@gmail.com", "Quang NAm",0,14);
+
+    customerDAO.insert(cus1);
     
     
 //    AccountService acc = new AccountService();

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class BookService implements Service<Book> {
+
     private final BookDAO bookDAO = new BookDAO();
     private HashMap<String, Book> bookMap = new HashMap<>();
     View.view view = new view();
@@ -17,11 +18,11 @@ public class BookService implements Service<Book> {
             bookMap.put(book.getBookId(), book);
         }
     }
-public String increaseBOOKID() {
+
+    public String increaseBOOKID() {
         int count = bookMap.size() + 1;
         return String.format("B%03d", count);
     }
-
 
     @Override
     public Book findById(String id) {
@@ -32,14 +33,9 @@ public String increaseBOOKID() {
         return book;
     }
 
-    @Override
-    public void insert(Book book) {
-        if (!bookMap.containsKey(book.getBookId())) {
-            bookDAO.insert(book);
-            bookMap.put(book.getBookId(), book);
-        } else {
-            view.message("Book id da ton tai");
-        }
+    public boolean insert1(Book book) {
+        return bookDAO.insert1(book);
+
     }
 
     @Override
@@ -74,5 +70,10 @@ public String increaseBOOKID() {
         }
         return bookMap;
     }
-    
+
+    @Override
+    public void insert(Book entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

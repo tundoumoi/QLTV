@@ -54,7 +54,33 @@ public class BookDAO implements IBookDAO {
     }
     
     // Các phương thức update riêng lẻ (updateName, updateAuthor, ...) giữ nguyên hoặc có thể refactor thêm.
-    
+    public boolean insert1(Book entity) {
+        String sql = "INSERT INTO Book (bookId, isbn, title, author, publisher, publishedDate, price, quantity, type, language) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             pstmt.setString(1, entity.getBookId());
+             pstmt.setString(2, entity.getIsbn().trim());
+             pstmt.setString(3, entity.getTitle());
+             pstmt.setString(4, entity.getAuthor());
+             pstmt.setString(5, entity.getPublisher());
+             pstmt.setString(6, entity.getPublishedDate().toString());
+             pstmt.setDouble(7, entity.getPrice());
+             pstmt.setInt(8, entity.getQuantity());
+             pstmt.setString(9, entity.getType());
+             pstmt.setString(10, entity.getLanguage());
+        int rowsInserted = pstmt.executeUpdate();
+        return rowsInserted > 0; // Trả về true nếu thêm thành công
+
+    } catch (SQLException e) {
+        if (e.getErrorCode() == 2627) { // Mã lỗi SQL Server khi trùng khóa chính
+            System.out.println("Lỗi: Mã sách đã tồn tại trong hệ thống!");
+        } else {
+            e.printStackTrace();
+        }
+        return false; // Thêm thất bại
+    }
+}
+
     @Override
     public void insert(Book entity) {
         String sql = "INSERT INTO Book (bookId, isbn, title, author, publisher, publishedDate, price, quantity, type, language) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

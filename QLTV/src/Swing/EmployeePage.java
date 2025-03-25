@@ -49,7 +49,7 @@ public class EmployeePage extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) JBookTable.getModel();
         model.setRowCount(0); // Xóa các dòng cũ (nếu có)
         for (Book book : bookMap.values()) {
-            model.addRow(new Object[]{book.getBookId(), book.getTitle(), book.getAuthor(), book.getPublishedDate(), book.getQuantity(), book.getType(), book.getPrice()});
+            model.addRow(new Object[]{book.getBookId(), book.getTitle(), book.getAuthor(), book.getIsbn(),book.getPublishedDate(), book.getQuantity(), book.getType(), book.getPrice()});
 
         }
     }
@@ -91,7 +91,7 @@ public class EmployeePage extends javax.swing.JFrame {
         jTextAuthor = new javax.swing.JTextField();
         jPrice = new javax.swing.JTextField();
         ValueQuantity = new javax.swing.JSpinner();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jCombolanguage = new javax.swing.JComboBox<>();
         jType = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -100,6 +100,8 @@ public class EmployeePage extends javax.swing.JFrame {
         jButtonFind = new javax.swing.JButton();
         jButtonEdit = new javax.swing.JButton();
         jTextPublishDate = new javax.swing.JTextField();
+        jTextIsBN = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JBookTable = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
@@ -172,7 +174,8 @@ public class EmployeePage extends javax.swing.JFrame {
 
         ValueQuantity.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English", "Vietnamese", "Japanese", "chinese" }));
+        jCombolanguage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English", "Vietnamese", "Japanese", "chinese", " ", " " }));
+        jCombolanguage.setSelectedItem("");
 
         jType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,6 +191,11 @@ public class EmployeePage extends javax.swing.JFrame {
         jButtonAdd.setBackground(new java.awt.Color(204, 204, 204));
         jButtonAdd.setFont(new java.awt.Font("Meiryo UI", 1, 18)); // NOI18N
         jButtonAdd.setText("ADD");
+        jButtonAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonAddMousePressed(evt);
+            }
+        });
 
         jButtonDelete.setBackground(new java.awt.Color(204, 204, 204));
         jButtonDelete.setFont(new java.awt.Font("Meiryo UI", 1, 18)); // NOI18N
@@ -242,6 +250,15 @@ public class EmployeePage extends javax.swing.JFrame {
             }
         });
 
+        jTextIsBN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextIsBNActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel22.setText("Isbn");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -264,17 +281,20 @@ public class EmployeePage extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ValueQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCombolanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jType, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(69, 69, 69)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel22))
+                        .addGap(68, 68, 68)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextBookID, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextBookID, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addComponent(jPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addComponent(jTextAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addComponent(JTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addComponent(jTextIsBN)))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -293,7 +313,11 @@ public class EmployeePage extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextIsBN, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jTextPublishDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -312,7 +336,7 @@ public class EmployeePage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCombolanguage, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -320,23 +344,23 @@ public class EmployeePage extends javax.swing.JFrame {
 
         JBookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Book ID ", "Title ", "Author", "PublishDate", "Quantity", "Type", "Price"
+                "Book ID ", "Title ", "Author", "ISBN", "PublishDate", "Quantity", "Type", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -384,7 +408,7 @@ public class EmployeePage extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addGap(12, 12, 12)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(485, Short.MAX_VALUE))
+                .addContainerGap(299, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("BOOK", jPanel3);
@@ -627,14 +651,14 @@ public class EmployeePage extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
+                        .addGap(22, 22, 22)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1259, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(473, 473, 473)
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -643,11 +667,9 @@ public class EmployeePage extends javax.swing.JFrame {
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 402, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1031, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("CUSTOMER", jPanel6);
@@ -708,7 +730,8 @@ public class EmployeePage extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -764,14 +787,19 @@ public class EmployeePage extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         int row = JBookTable.getSelectedRow();
-        String dateStr = JBookTable.getValueAt(row, 3).toString();
+        
         jTextBookID.setText(JBookTable.getValueAt(row, 0).toString());
+        String id = jTextBookID.getText();
         JTitle.setText(JBookTable.getValueAt(row, 1).toString());
         jTextAuthor.setText(JBookTable.getValueAt(row, 2).toString());
-        jPrice.setText(JBookTable.getValueAt(row, 6).toString());
+        String dateStr = JBookTable.getValueAt(row, 4).toString();
+        jTextIsBN.setText(JBookTable.getValueAt(row, 3).toString());
+        jPrice.setText(JBookTable.getValueAt(row, 7).toString());
         jTextPublishDate.setText(dateStr);
-        ValueQuantity.setValue(Integer.parseInt(JBookTable.getValueAt(row, 4).toString()));
-        jType.setText(JBookTable.getValueAt(row, 5).toString());
+        ValueQuantity.setValue(Integer.parseInt(JBookTable.getValueAt(row, 5).toString()));
+        jType.setText(JBookTable.getValueAt(row, 6).toString());
+       Book book = bookSer.findById(id);
+        jCombolanguage.setSelectedItem(book.getLanguage());
     }//GEN-LAST:event_JBookTableMouseClicked
 
     private void jTextPublishDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextPublishDateActionPerformed
@@ -923,6 +951,60 @@ public class EmployeePage extends javax.swing.JFrame {
         jComboAddress.setSelectedItem(cus.getAddress());
     }//GEN-LAST:event_FINDCUSMousePressed
 
+    private void jTextIsBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIsBNActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextIsBNActionPerformed
+
+    private void jButtonAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddMousePressed
+        // TODO add your handling code here:
+try {
+    // Lấy dữ liệu từ các JTextField
+    String bookID = jTextBookID.getText();
+    String title = JTitle.getText();
+    String author = jTextAuthor.getText();
+    String isbn = jTextIsBN.getText();
+    String publishDateStr = jTextPublishDate.getText();
+    String type = jType.getText();
+    String price = jPrice.getText();
+    int quantity = (int) ValueQuantity.getValue();
+    String language = jCombolanguage.getSelectedItem().toString();
+
+    // Chuyển đổi giá trị số
+    double bookPrice = Double.parseDouble(price);
+
+
+    Book existingBook = bookSer.findById(bookID);
+    if (existingBook != null) {
+        JOptionPane.showMessageDialog(null, "Lỗi: Mã sách đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Tạo đối tượng Book
+    Book book = new Book(bookID, isbn, title, author, publishDateStr, bookPrice, quantity, type, language);
+
+    // Gọi service để thêm sách
+    boolean success = bookSer.insert1(book);
+
+    // Kiểm tra kết quả
+    if (success) {
+        JOptionPane.showMessageDialog(null, "Thêm sách thành công!");
+    } else {
+        JOptionPane.showMessageDialog(null, "Lỗi khi thêm sách!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+
+} catch (NumberFormatException e) {
+    JOptionPane.showMessageDialog(null, "Lỗi: Giá sách không hợp lệ!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+}
+         catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+    e.printStackTrace();
+}
+
+
+
+
+    }//GEN-LAST:event_jButtonAddMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -973,8 +1055,8 @@ public class EmployeePage extends javax.swing.JFrame {
     private javax.swing.JButton jButtonEdit;
     private javax.swing.JButton jButtonFind;
     private javax.swing.JComboBox<String> jComboAddress;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboCusGender;
+    private javax.swing.JComboBox<String> jCombolanguage;
     private javax.swing.JTable jCusTable;
     private com.toedter.calendar.JDateChooser jDateCusdate;
     private javax.swing.JFormattedTextField jFormattedTextCusSSN;
@@ -993,6 +1075,7 @@ public class EmployeePage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1017,6 +1100,7 @@ public class EmployeePage extends javax.swing.JFrame {
     private javax.swing.JTextField jTextCusEmail;
     private javax.swing.JTextField jTextCusID;
     private javax.swing.JTextField jTextCusName;
+    private javax.swing.JTextField jTextIsBN;
     private javax.swing.JTextField jTextPublishDate;
     private javax.swing.JTextField jType;
     // End of variables declaration//GEN-END:variables
