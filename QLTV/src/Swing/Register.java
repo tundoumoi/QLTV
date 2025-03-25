@@ -662,12 +662,11 @@ public class Register extends javax.swing.JFrame {
         return "Not specified";
     }
 
-    int progress = 0;
+   
+ int progress = 0;
     String percent;
-
     private int startProgressBar() {
-
-        progress = 0;
+   
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -771,7 +770,6 @@ public class Register extends javax.swing.JFrame {
         Account acc = new Account(newAccountId, UserName, PassWord);
         try {
             accSer.insert(acc);
-            JOptionPane.showMessageDialog(null, "Tài khoản đã được đăng ký thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Lỗi khi tạo tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             return false; // Nếu lỗi, dừng lại
@@ -784,11 +782,12 @@ public class Register extends javax.swing.JFrame {
 
         double totalPayment = 0.0;
         Customer cus = new Customer(CusID, Name, SSN, BirthDate, gender, PhoneNumber, Email, Address, totalPayment, newAccountId);
-
+    
         try {
-            if (startProgressBar() == 90) {
+            if (startProgressBar() > 90) {
                 CustomerDAO cusDao = new CustomerDAO();
                 cusDao.insert(cus);
+                JOptionPane.showMessageDialog(null, startProgressBar());
                 // CusSer.insert(cus);
                 JOptionPane.showMessageDialog(null, "Tài khoản và khách hàng đã được đăng ký thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -824,7 +823,7 @@ public class Register extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Register.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
