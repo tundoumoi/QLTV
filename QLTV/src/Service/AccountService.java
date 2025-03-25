@@ -49,7 +49,7 @@ public class AccountService implements Service<Account> {
 
     @Override
     public void delete(String id) {
-     
+      accDao.delete(id);
     }
 
     @Override
