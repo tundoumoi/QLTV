@@ -257,10 +257,10 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel19.setText("EDIT  VOUCHER");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Discount Rate");
+        jLabel6.setText("Discount Rate:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("Min Purchase");
+        jLabel7.setText("Min Purchase:");
 
         jTextFieldMinPurchase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,7 +284,22 @@ public class AdminPage extends javax.swing.JFrame {
             new String [] {
                 "Discount Rate", "Description", "Min Purchase"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableListVoucher.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableListVoucherMouseClicked(evt);
@@ -293,7 +308,7 @@ public class AdminPage extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTableListVoucher);
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel23.setText("Description");
+        jLabel23.setText("Description:");
 
         jTextFieldDescription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -700,7 +715,7 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(6, 141, 4396, 640);
+        jPanel2.setBounds(6, 141, 4395, 640);
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 204));
 
@@ -826,7 +841,39 @@ public class AdminPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldDescriptionActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTableListVoucher.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn voucher cần chỉnh sửa!");
+            return;
+        }
+
+        try {
+            int discountRate = Integer.parseInt(jTextFieldDiscountRate.getText().trim());
+            String description = jTextFieldDescription.getText().trim();
+            double minPurchase = Double.parseDouble(jTextFieldMinPurchase.getText().trim());
+
+            if (description.isEmpty() || String.valueOf(discountRate).isEmpty() || String.valueOf(minPurchase).isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+                return;
+            }
+
+            // Lấy ID của voucher được chọn từ bảng
+            int discountrate = (int) jTableListVoucher.getValueAt(selectedRow, 0);
+            // Cập nhật đối tượng Voucher
+
+            promotionDAO.updatePromotion(discountrate, description, minPurchase);
+
+            // Cập nhật dữ liệu trong bảng
+            DefaultTableModel model = (DefaultTableModel) jTableListVoucher.getModel();
+            model.setValueAt(discountRate, selectedRow, 0);
+            model.setValueAt(description, selectedRow, 1);
+            model.setValueAt(minPurchase, selectedRow, 2);
+
+            JOptionPane.showMessageDialog(this, "Cập nhật voucher thành công!");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho Discount Rate và Min Purchase!");
+        } 
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jTextFieldDiscountRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDiscountRateActionPerformed

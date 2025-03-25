@@ -63,11 +63,12 @@ public class PromotionDAO implements IPromotionDAO {
 
     @Override
     public void update(Promotion prom) {
-        String sql = "UPDATE Voucher SET Vdescription = ?, minPurchase = ? WHERE discountRate = ?";
+        String sql = "UPDATE Voucher SET discountRate = ? Vdescription = ?, minPurchase = ? WHERE discountRate = ?";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, prom.getDescription());
-            pstmt.setDouble(2, prom.getMinPurchase());
-            pstmt.setInt(3, prom.getDiscontRate());
+            pstmt.setInt(1, prom.getDiscontRate());
+            pstmt.setString(2, prom.getDescription());
+            pstmt.setDouble(3, prom.getMinPurchase());
+            
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
