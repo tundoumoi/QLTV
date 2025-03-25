@@ -44,6 +44,8 @@ public class ReportService implements Service<Report> {
     }
 
     public HashMap<Report, Report> getReportMap() {
+        reportMap.clear();
+         reportMap = reportDAO.getAll();
         return reportMap;
     }
 }

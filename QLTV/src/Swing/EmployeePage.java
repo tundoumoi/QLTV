@@ -45,11 +45,12 @@ public class EmployeePage extends javax.swing.JFrame {
     }
 
     public void displayBook() {
+        bookMap.clear();
         bookMap = bookSer.getBookMap();
         DefaultTableModel model = (DefaultTableModel) JBookTable.getModel();
         model.setRowCount(0); // Xóa các dòng cũ (nếu có)
         for (Book book : bookMap.values()) {
-            model.addRow(new Object[]{book.getBookId(), book.getTitle(), book.getAuthor(), book.getIsbn(),book.getPublishedDate(), book.getQuantity(), book.getType(), book.getPrice()});
+            model.addRow(new Object[]{book.getBookId(), book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublishedDate(), book.getQuantity(), book.getType(), book.getPrice()});
 
         }
     }
@@ -96,8 +97,8 @@ public class EmployeePage extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButtonAdd = new javax.swing.JButton();
-        jButtonDelete = new javax.swing.JButton();
-        jButtonFind = new javax.swing.JButton();
+        jButtonDeleteBook = new javax.swing.JButton();
+        jButtonFindBook = new javax.swing.JButton();
         jButtonEdit = new javax.swing.JButton();
         jTextPublishDate = new javax.swing.JTextField();
         jTextIsBN = new javax.swing.JTextField();
@@ -197,16 +198,26 @@ public class EmployeePage extends javax.swing.JFrame {
             }
         });
 
-        jButtonDelete.setBackground(new java.awt.Color(204, 204, 204));
-        jButtonDelete.setFont(new java.awt.Font("Meiryo UI", 1, 18)); // NOI18N
-        jButtonDelete.setText("Delete");
+        jButtonDeleteBook.setBackground(new java.awt.Color(204, 204, 204));
+        jButtonDeleteBook.setFont(new java.awt.Font("Meiryo UI", 1, 18)); // NOI18N
+        jButtonDeleteBook.setText("Delete");
+        jButtonDeleteBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonDeleteBookMousePressed(evt);
+            }
+        });
 
-        jButtonFind.setBackground(new java.awt.Color(204, 204, 204));
-        jButtonFind.setFont(new java.awt.Font("Meiryo UI", 1, 18)); // NOI18N
-        jButtonFind.setText("Find");
-        jButtonFind.addActionListener(new java.awt.event.ActionListener() {
+        jButtonFindBook.setBackground(new java.awt.Color(204, 204, 204));
+        jButtonFindBook.setFont(new java.awt.Font("Meiryo UI", 1, 18)); // NOI18N
+        jButtonFindBook.setText("Find");
+        jButtonFindBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButtonFindBookMousePressed(evt);
+            }
+        });
+        jButtonFindBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFindActionPerformed(evt);
+                jButtonFindBookActionPerformed(evt);
             }
         });
 
@@ -222,10 +233,10 @@ public class EmployeePage extends javax.swing.JFrame {
                 .addGap(64, 64, 64)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(jButtonFind, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                    .addComponent(jButtonFindBook, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonDeleteBook, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(75, 75, 75))
         );
@@ -236,11 +247,11 @@ public class EmployeePage extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                        .addComponent(jButtonDeleteBook, javax.swing.GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
                         .addGap(3, 3, 3)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonFind, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonFindBook, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(56, Short.MAX_VALUE))
         );
 
@@ -393,7 +404,7 @@ public class EmployeePage extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1253, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(308, 308, 308)
+                        .addGap(220, 220, 220)
                         .addComponent(jLabel6)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
@@ -405,10 +416,11 @@ public class EmployeePage extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel6)
-                        .addGap(12, 12, 12)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(299, Short.MAX_VALUE))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("BOOK", jPanel3);
@@ -777,17 +789,17 @@ public class EmployeePage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTypeActionPerformed
 
-    private void jButtonFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindActionPerformed
+    private void jButtonFindBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFindBookActionPerformed
         // TODO add your handling code here:
 
 
-    }//GEN-LAST:event_jButtonFindActionPerformed
+    }//GEN-LAST:event_jButtonFindBookActionPerformed
 
     private void JBookTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JBookTableMouseClicked
 
         // TODO add your handling code here:
         int row = JBookTable.getSelectedRow();
-        
+
         jTextBookID.setText(JBookTable.getValueAt(row, 0).toString());
         String id = jTextBookID.getText();
         JTitle.setText(JBookTable.getValueAt(row, 1).toString());
@@ -798,7 +810,7 @@ public class EmployeePage extends javax.swing.JFrame {
         jTextPublishDate.setText(dateStr);
         ValueQuantity.setValue(Integer.parseInt(JBookTable.getValueAt(row, 5).toString()));
         jType.setText(JBookTable.getValueAt(row, 6).toString());
-       Book book = bookSer.findById(id);
+        Book book = bookSer.findById(id);
         jCombolanguage.setSelectedItem(book.getLanguage());
     }//GEN-LAST:event_JBookTableMouseClicked
 
@@ -928,12 +940,16 @@ public class EmployeePage extends javax.swing.JFrame {
 
     private void FINDCUSMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FINDCUSMousePressed
         // TODO add your handling code here:
-        String cusID = jTextCusID.getText().trim();
+           String cusID = jTextCusID.getText().trim();
         Customer cus = customerService.findById(cusID);
         if (cusID.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Customer ID cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+         if (cus == null) {
+            JOptionPane.showConfirmDialog(null, "Invalid Book", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+         }else{
         jTextCusID.setText(cus.getId());
         jTextCusName.setText(cus.getName());
         jFormattedTextCusSSN.setText(cus.getSSN());
@@ -949,6 +965,7 @@ public class EmployeePage extends javax.swing.JFrame {
         jFormattedTextPhone.setText(cus.getPhoneNumber());
         jTextCusEmail.setText(cus.getEmail());
         jComboAddress.setSelectedItem(cus.getAddress());
+         }
     }//GEN-LAST:event_FINDCUSMousePressed
 
     private void jTextIsBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIsBNActionPerformed
@@ -957,53 +974,89 @@ public class EmployeePage extends javax.swing.JFrame {
 
     private void jButtonAddMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddMousePressed
         // TODO add your handling code here:
-try {
-    // Lấy dữ liệu từ các JTextField
-    String bookID = jTextBookID.getText();
-    String title = JTitle.getText();
-    String author = jTextAuthor.getText();
-    String isbn = jTextIsBN.getText();
-    String publishDateStr = jTextPublishDate.getText();
-    String type = jType.getText();
-    String price = jPrice.getText();
-    int quantity = (int) ValueQuantity.getValue();
-    String language = jCombolanguage.getSelectedItem().toString();
+        try {
+            // Lấy dữ liệu từ các JTextField
+            String bookID = jTextBookID.getText();
+            String title = JTitle.getText();
+            String author = jTextAuthor.getText();
+            String isbn = jTextIsBN.getText();
+            String publishDateStr = jTextPublishDate.getText();
+            String type = jType.getText();
+            String price = jPrice.getText();
+            int quantity = (int) ValueQuantity.getValue();
+            String language = jCombolanguage.getSelectedItem().toString();
+            double bookPrice = Double.parseDouble(price);
+            Book existingBook = bookSer.findById(bookID);
+            if (existingBook != null) {
+                JOptionPane.showMessageDialog(null, "Lỗi: Mã sách đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Book book = new Book(bookID, isbn, title, author, publishDateStr, bookPrice, quantity, type, language);
 
-    // Chuyển đổi giá trị số
-    double bookPrice = Double.parseDouble(price);
+            // Gọi service để thêm sách
+            boolean success = bookSer.insert1(book);
 
+            // Kiểm tra kết quả
+            if (success) {
+                JOptionPane.showMessageDialog(null, "Thêm sách thành công!");
+                displayBook();
+            } else {
+                JOptionPane.showMessageDialog(null, "Lỗi khi thêm sách!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
 
-    Book existingBook = bookSer.findById(bookID);
-    if (existingBook != null) {
-        JOptionPane.showMessageDialog(null, "Lỗi: Mã sách đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // Tạo đối tượng Book
-    Book book = new Book(bookID, isbn, title, author, publishDateStr, bookPrice, quantity, type, language);
-
-    // Gọi service để thêm sách
-    boolean success = bookSer.insert1(book);
-
-    // Kiểm tra kết quả
-    if (success) {
-        JOptionPane.showMessageDialog(null, "Thêm sách thành công!");
-    } else {
-        JOptionPane.showMessageDialog(null, "Lỗi khi thêm sách!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-    }
-
-} catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(null, "Lỗi: Giá sách không hợp lệ!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
-}
-         catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-    e.printStackTrace();
-}
-
-
-
-
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Lỗi: Giá sách không hợp lệ!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButtonAddMousePressed
+
+    private void jButtonFindBookMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonFindBookMousePressed
+        // TODO add your handling code here:
+
+       String bookID = jTextBookID.getText();
+        Book bk = bookSer.findById(bookID);
+         if (bookID.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Book ID cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (bk == null) {
+            JOptionPane.showConfirmDialog(null, "Invalid Book", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else {
+            JTitle.setText(bk.getTitle());
+            jTextAuthor.setText(bk.getAuthor());
+            jTextIsBN.setText(bk.getIsbn());
+            jTextPublishDate.setText(bk.getPublishedDate());
+            jType.setText(bk.getType());
+            jPrice.setText(String.valueOf(bk.getPrice())); // Chuyển số thành chuỗi nếu cần
+            ValueQuantity.setValue(bk.getQuantity()); // Giữ nguyên nếu là JSpinner
+            jCombolanguage.setSelectedItem(bk.getLanguage()); // Đặt giá trị cho JComboBox
+        }
+
+    }//GEN-LAST:event_jButtonFindBookMousePressed
+
+    private void jButtonDeleteBookMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonDeleteBookMousePressed
+        String bookID = jTextBookID.getText().trim();
+        if (bookID.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Book ID cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            // Gọi phương thức update từ CustomerService
+            bookSer.delete(bookID);
+            displayBook();
+            JOptionPane.showMessageDialog(null, "Book deleted successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error updating book information: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+
+        }
+
+
+    }//GEN-LAST:event_jButtonDeleteBookMousePressed
 
     /**
      * @param args the command line arguments
@@ -1051,9 +1104,9 @@ try {
     private javax.swing.JTextField JTitle;
     private javax.swing.JSpinner ValueQuantity;
     private javax.swing.JButton jButtonAdd;
-    private javax.swing.JButton jButtonDelete;
+    private javax.swing.JButton jButtonDeleteBook;
     private javax.swing.JButton jButtonEdit;
-    private javax.swing.JButton jButtonFind;
+    private javax.swing.JButton jButtonFindBook;
     private javax.swing.JComboBox<String> jComboAddress;
     private javax.swing.JComboBox<String> jComboCusGender;
     private javax.swing.JComboBox<String> jCombolanguage;

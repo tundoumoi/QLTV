@@ -17,7 +17,7 @@ import java.util.List;
  * @author dangt
  */
 public class PromotionDAO implements IPromotionDAO {
-    
+
     public Promotion checkVoucher(double purchaseAmount) {
         String sql = "SELECT * FROM Voucher WHERE minPurchase <= ? ORDER BY discountRate DESC LIMIT 1";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -33,46 +33,38 @@ public class PromotionDAO implements IPromotionDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; 
+        return null;
     }
-    
 
-    
     @Override
     public ArrayList<Promotion> getAll() {
-ArrayList<Promotion> promotions = new ArrayList<>();
-    String sql = "SELECT * FROM Voucher"; 
+        ArrayList<Promotion> promotions = new ArrayList<>();
+        String sql = "SELECT * FROM Voucher";
 
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql);
-         ResultSet rs = pstmt.executeQuery()) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
 
-        while (rs.next()) {
-            int discountRate = rs.getInt("discountRate");
-            String description = rs.getString("Vdescription"); 
-            double minPurchase = rs.getDouble("minPurchase");
+            while (rs.next()) {
+                int discountRate = rs.getInt("discountRate");
+                String description = rs.getString("Vdescription");
+                double minPurchase = rs.getDouble("minPurchase");
 
-            promotions.add(new Promotion(discountRate, description, minPurchase));
+                promotions.add(new Promotion(discountRate, description, minPurchase));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return promotions;
     }
-    return promotions;    }
 
- 
     @Override
     public void delete(String id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-
- 
-    
-        @Override
+    @Override
     public void update(Promotion prom) {
-              String sql = "UPDATE Voucher SET Vdescription = ?, minPurchase = ? WHERE discountRate = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        String sql = "UPDATE Voucher SET Vdescription = ?, minPurchase = ? WHERE discountRate = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, prom.getDescription());
             pstmt.setDouble(2, prom.getMinPurchase());
             pstmt.setInt(3, prom.getDiscontRate());
@@ -81,44 +73,41 @@ ArrayList<Promotion> promotions = new ArrayList<>();
             e.printStackTrace();
         }
 
-    }  
+    }
+
     public void updateDescription(int discountRate, String description) {
-    String sql = "UPDATE Voucher SET Vdescription = ? WHERE discountRate = ?";
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setString(1, description);
-        pstmt.setInt(2, discountRate);
-        pstmt.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
+        String sql = "UPDATE Voucher SET Vdescription = ? WHERE discountRate = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, description);
+            pstmt.setInt(2, discountRate);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
- 
-    
+
     public void updateMinPurchase(int discountRate, double minPurchase) {
-    String sql = "UPDATE Voucher SET minPurchase = ? WHERE discountRate = ?";
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setDouble(1, minPurchase);
-        pstmt.setInt(2, discountRate);
-        pstmt.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
+        String sql = "UPDATE Voucher SET minPurchase = ? WHERE discountRate = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setDouble(1, minPurchase);
+            pstmt.setInt(2, discountRate);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
 
     public void updatePromotion(int discountRate, String description, double minPurchase) {
-    String sql = "UPDATE Voucher SET Vdescription = ?, minPurchase = ? WHERE discountRate = ?";
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setString(1, description);
-        pstmt.setDouble(2, minPurchase);
-        pstmt.setInt(3, discountRate);
-        pstmt.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
+        String sql = "UPDATE Voucher SET Vdescription = ?, minPurchase = ? WHERE discountRate = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, description);
+            pstmt.setDouble(2, minPurchase);
+            pstmt.setInt(3, discountRate);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-}
 
     @Override
     public Promotion getById(String id) {
@@ -129,12 +118,5 @@ ArrayList<Promotion> promotions = new ArrayList<>();
     public void insert(Promotion entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-
-    
-
- 
-  
-  
 
 }

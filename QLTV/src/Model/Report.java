@@ -21,15 +21,13 @@ public class Report {
         this.content = content;
     }
 
-    public Report(String customerId, String bookId, String title, LocalDate reportDate, String content) {
+    public Report(String reportId, String customerId, String bookId, LocalDate reportDate, String content) {
+        this.reportId = reportId;
         this.customerId = customerId;
         this.bookId = bookId;
-        this.reportId = title;
         this.reportDate = reportDate;
         this.content = content;
     }
-
-    
 
     public String getCustomerId() {
         return customerId;
