@@ -4,6 +4,8 @@
  */
 package Swing;
 
+import Model.Customer;
+import Model.Employee;
 import Service.*;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
@@ -330,7 +332,14 @@ public class Login extends javax.swing.JFrame {
         Register rg = new Register();
         rg.setVisible(true);
     }//GEN-LAST:event_jLabel2MouseClicked
-
+public Customer checkCusOwnerAccount(){
+    String userName = jTextFieldUser.getText();
+   return CusSer.CheckOwner(userName);
+}
+public Employee checkEmOwnerAccount(){
+    String userName = jTextFieldUser.getText();
+   return EmSer.CheckOwner(userName);
+}
     /**
      * @param args the command line arguments
      */

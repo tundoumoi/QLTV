@@ -71,6 +71,27 @@ public class EmployeeService implements Service<Employee> {
         int count = employTree.size() + 1;
         return String.format("E%03d", count);
     }
+        public Employee CheckOwner(String userName){
+        emAcc.clear();
+        emAcc = employeeDAO.getEmAcc();
+        for (Account account : emAcc) {
+            if(account.getUsername().equals(userName)){
+              return findByAccID(account.getAccountId());
+                
+            }
+        }
+        return null;
+    }
+    public Employee findByAccID(int accID){
+        employTree.clear();
+        employTree =employeeDAO.getAll();
+        for (Employee customer : employTree) {
+            if(customer.getAccountId()== accID){
+                return customer;
+            }
+        }
+        return null;
+    }
 //
 //
 //public void updateEmployee(int choice , String id) {

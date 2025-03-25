@@ -22,7 +22,27 @@ public class CustomerService implements Service<Customer> {
         customerSet = cusDao.getAll();
         
     }
-
+    public Customer CheckOwner(String userName){
+        customerACC.clear();
+        customerACC = cusDao.getCustomerAccSet();
+        for (Account account : customerACC) {
+            if(account.getUsername().equals(userName)){
+              return findByAccID(account.getAccountId());
+                
+            }
+        }
+        return null;
+    }
+    public Customer findByAccID(int accID){
+        customerSet.clear();
+        customerSet =cusDao.getAll();
+        for (Customer customer : customerSet) {
+            if(customer.getAccountId()== accID){
+                return customer;
+            }
+        }
+        return null;
+    }
     public CustomerDAO getCusDao() {
         return cusDao;
     }
