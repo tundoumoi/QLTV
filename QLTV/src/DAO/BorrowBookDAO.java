@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.BookBorrow;
+import Model.CustomerBorrow;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +13,8 @@ public class BorrowBookDAO {
     private ArrayList<BookBorrow> bookBorrowList = new ArrayList<>();
     
     public void insertBorrowB(BookBorrow entity) {
-         String checkSql = "SELECT COUNT(*) FROM BookBorrow WHERE cardId = ? AND bookId = ?";
-         String insertSql = "INSERT INTO BookBorrow (cardId, bookId, borrowDate, endDate) VALUES (?, ?, ?, ?)";
+         String checkSql = "SELECT COUNT(*) FROM BorrowBook WHERE cardId = ? AND bookId = ?";
+         String insertSql = "INSERT INTO BorrowBook (cardId, bookId, borrowDate, endDate) VALUES (?, ?, ?, ?)";
          
          try (Connection conn = DatabaseConnection.getConnection();
               PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
@@ -44,7 +45,7 @@ public class BorrowBookDAO {
     
     // Sửa phương thức delete để sử dụng composite key (cardId, bookId)
     public void delete(String cardId, String bookId) {
-         String sql = "DELETE FROM BookBorrow WHERE cardId = ? AND bookId = ?";
+         String sql = "DELETE FROM BorrowBook WHERE cardId = ? AND bookId = ?";
          try (Connection conn = DatabaseConnection.getConnection();
               PreparedStatement pstmt = conn.prepareStatement(sql)) {
               pstmt.setString(1, cardId);
@@ -57,7 +58,7 @@ public class BorrowBookDAO {
     
     // Sửa update để sử dụng composite key trong WHERE clause
     public void update(BookBorrow entity) {
-         String sql = "UPDATE BookBorrow SET borrowDate = ?, endDate = ? WHERE cardId = ? AND bookId = ?";
+         String sql = "UPDATE BorrowBook SET borrowDate = ?, endDate = ? WHERE cardId = ? AND bookId = ?";
          try (Connection conn = DatabaseConnection.getConnection();
               PreparedStatement pstmt = conn.prepareStatement(sql)) {
               pstmt.setString(1, entity.getBorrowDate().toString());
@@ -72,7 +73,7 @@ public class BorrowBookDAO {
     
     // Thêm phương thức getByIds thay vì getById
     public BookBorrow getByIds(String cardId, String bookId) {
-         String sql = "SELECT * FROM BookBorrow WHERE cardId = ? AND bookId = ?";
+         String sql = "SELECT * FROM BorrowBook WHERE cardId = ? AND bookId = ?";
          try (Connection conn = DatabaseConnection.getConnection();
               PreparedStatement pstmt = conn.prepareStatement(sql)) {
               pstmt.setString(1, cardId);
@@ -92,7 +93,7 @@ public class BorrowBookDAO {
     
     public ArrayList<BookBorrow> getAllBorrow() {
          bookBorrowList.clear();
-         String sql = "SELECT * FROM BookBorrow";
+         String sql = "SELECT * FROM BorrowBook";
          try (Connection conn = DatabaseConnection.getConnection();
               PreparedStatement pstmt = conn.prepareStatement(sql);
               ResultSet rs = pstmt.executeQuery()) {
@@ -108,5 +109,55 @@ public class BorrowBookDAO {
               e.printStackTrace();
          }
          return bookBorrowList;
+    }
+    
+    public ArrayList<BookBorrow> getAllBorrowsForCustomer(String customerId) {
+        ArrayList<BookBorrow> borrowList = new ArrayList<>();
+        // Xây dựng cardId theo quy ước đã dùng khi tạo thẻ (ví dụ: "Card" + phần sau của customerId)
+        String cardId = "Card" + customerId.substring(1);
+        String sql = "SELECT * FROM BorrowBook WHERE cardId = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             pstmt.setString(1, cardId);
+             try (ResultSet rs = pstmt.executeQuery()) {
+                 while (rs.next()) {
+                     // Giả sử bảng BorrowBook có các cột: bookId, borrowDate, endDate
+                     String bookId = rs.getString("bookId");
+                     LocalDate borrowDate = rs.getDate("borrowDate").toLocalDate();
+                     LocalDate endDate = rs.getDate("endDate").toLocalDate();
+
+                     // Khởi tạo đối tượng BookBorrow. 
+                     // Lưu ý: Bạn cần đảm bảo rằng lớp BookBorrow có constructor phù hợp với các tham số này.
+                     BookBorrow bb = new BookBorrow(cardId, bookId, borrowDate, endDate);
+                     borrowList.add(bb);
+                 }
+             }
+        } catch (SQLException e) {
+             e.printStackTrace();
+        }
+        return borrowList;
+    }
+    
+    public CustomerBorrow getById(String cardId) {
+        String sql = "SELECT * FROM CustomerBorrow WHERE cardId = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, cardId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String Cid = rs.getString("Cid");
+                    String typeCard = rs.getString("typeCard");
+                    LocalDate cardExpiry = rs.getDate("cardExpiry").toLocalDate();
+                    LocalDate registrationDate = rs.getDate("registrationDate").toLocalDate();
+                    double cardValue = rs.getDouble("cardValue");
+                    int borrowLimit = rs.getInt("borrowLimit");
+
+                    return new CustomerBorrow(cardId, Cid, typeCard, cardExpiry, registrationDate, cardValue, borrowLimit);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Nếu không tìm thấy thẻ, trả về null
     }
 }

@@ -3,7 +3,7 @@ package DAO;
 import Model.Report;
 import java.util.HashMap;
 
-public interface IReportDAO extends GenericDAO<Report, HashMap<Report, Report>> {
+public interface IReportDAO extends GenericDAO<Report, HashMap<String, Report>> {
 
     @Override
     void delete(String id);
@@ -18,5 +18,5 @@ public interface IReportDAO extends GenericDAO<Report, HashMap<Report, Report>> 
     Report getById(String id);
 
     @Override
-    HashMap<Report, Report> getAll();
+    HashMap<String, Report> getAll();
 }
