@@ -33,26 +33,26 @@ public class ReportDAO implements IReportDAO {
 
     @Override
     public void update(Report entity) {
-        String sql = "UPDATE Report SET bookId = ?, title = ?, reportDate = ?, content = ? WHERE customerId = ?";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, entity.getBookId());
-            pstmt.setString(2, entity.getReportId());
-            pstmt.setString(3, entity.getReportDate().toString());
-            pstmt.setString(4, entity.getContent());
-            pstmt.setString(5, entity.getCustomerId());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        String sql = "UPDATE Report SET bookId = ?, title = ?, reportDate = ?, content = ? WHERE customerId = ?";
+//        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+//            pstmt.setString(1, entity.getBookId());
+//            pstmt.setString(2, entity.getReportId());
+//            pstmt.setString(3, entity.getReportDate().toString());
+//            pstmt.setString(4, entity.getContent());
+//            pstmt.setString(5, entity.getCustomerId());
+//            pstmt.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
     public void insert(Report entity) {
-        String sql = "INSERT INTO Report (customerId, bookId, title, reportDate, content) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Report (reportId, customerId, bookId, reportDate, content) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, entity.getCustomerId());
-            pstmt.setString(2, entity.getBookId());
-            pstmt.setString(3, entity.getReportId());
+            pstmt.setString(1, entity.getReportId());
+            pstmt.setString(2, entity.getCustomerId());
+            pstmt.setString(3, entity.getBookId());
             pstmt.setString(4, entity.getReportDate().toString());
             pstmt.setString(5, entity.getContent());
             pstmt.executeUpdate();
@@ -89,13 +89,13 @@ public class ReportDAO implements IReportDAO {
         String sql = "SELECT * FROM Report";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
+                int reportId = rs.getInt("reportId");
                 String customerId = rs.getString("customerId");
                 String bookId = rs.getString("bookId");
-                String title = rs.getString("title");
                 LocalDate reportDate = LocalDate.parse(rs.getString("reportDate"));
                 String content = rs.getString("content");
-                Report reportKey = new Report(customerId, bookId);
-                Report reportValue = new Report(title, reportDate, content);
+                Report reportKey = new Report(String.valueOf(reportId), customerId);
+                Report reportValue = new Report(String.valueOf(reportId), customerId, bookId, reportDate, content);
                 reportMap.put(reportKey, reportValue);
             }
         } catch (SQLException e) {
