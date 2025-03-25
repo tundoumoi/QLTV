@@ -7,9 +7,11 @@ package Swing;
 import DAO.EmployeeDAO;
 import Model.Account;
 import Model.Employee;
+import Model.Report;
 import Service.AccountService;
 import java.sql.*;
 import Service.EmployeeService;
+import Service.ReportService;
 import com.sun.jdi.connect.spi.Connection;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -23,6 +25,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeSet;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -44,7 +48,9 @@ public class AdminPage extends javax.swing.JFrame {
     EmployeeDAO employeeDAO = new EmployeeDAO();
     EmployeeService employeeService = new EmployeeService();
     AccountService accountService = new AccountService();
+    ReportService reportService = new ReportService();
     TreeSet<Employee> employeeList = new TreeSet<>();
+    HashMap<Report, Report> hashMap = new HashMap<>();
 
     /**
      * Creates new form Admin
@@ -52,7 +58,7 @@ public class AdminPage extends javax.swing.JFrame {
     public AdminPage() {
         initComponents();
         displayListEmployee();
-
+        displayListVoucher();
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -69,7 +75,13 @@ public class AdminPage extends javax.swing.JFrame {
     }
 
     public void displayListVoucher() {
-
+        hashMap = reportService.getReportMap();
+        DefaultTableModel model = (DefaultTableModel) jTableListReport.getModel();
+        model.setRowCount(0);
+        for (Map.Entry<Report, Report> entry : hashMap.entrySet()) {
+            model.addRow(new Object[] {"", entry.getValue().getCustomerId(),"","",""});
+            
+        }
     }
 
     /**
@@ -120,7 +132,7 @@ public class AdminPage extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jTableListReport = new javax.swing.JTable();
         jLabel21 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
@@ -423,7 +435,7 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         jLabel20.setText("LIST REPORT");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jTableListReport.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -442,7 +454,7 @@ public class AdminPage extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(jTableListReport);
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         jLabel21.setText("FORECAST");
@@ -1097,8 +1109,8 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTable jTableEmployee;
+    private javax.swing.JTable jTableListReport;
     private javax.swing.JTextField jTextEmail;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
