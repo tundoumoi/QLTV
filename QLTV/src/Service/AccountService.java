@@ -42,7 +42,7 @@ public class AccountService implements Service<Account> {
     }
 
     
-    public Account findById(int id) {
+    public Account findByid(int id) {
 
        return accDao.getById(id);
     }
