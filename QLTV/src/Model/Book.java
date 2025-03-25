@@ -9,6 +9,7 @@ package Model;
  */
 public class Book {
     protected String bookId;
+    protected String isbn;
     protected String title;
     protected String author;
     protected String publisher;
@@ -17,6 +18,19 @@ public class Book {
     protected int quantity;
     protected String type;
     protected String language;
+
+    public Book(String bookId, String isbn, String title, String author, String publisher, String publishedDate, double price, int quantity, String type, String language) {
+        this.bookId = bookId;
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.publishedDate = publishedDate;
+        this.price = price;
+        this.quantity = quantity;
+        this.type = type;
+        this.language = language;
+    }
 
     public Book(String bookId, String title, String author, String publisher, String publishedDate, double price, int quantity, String type, String language) {
         this.bookId = bookId;
@@ -28,6 +42,14 @@ public class Book {
         this.quantity = quantity;
         this.type = type;
         this.language = language;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getBookId() {

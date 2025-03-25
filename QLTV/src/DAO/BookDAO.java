@@ -57,18 +57,19 @@ public class BookDAO implements IBookDAO {
     
     @Override
     public void insert(Book entity) {
-        String sql = "INSERT INTO Book (bookId, title, author, publisher, publishedDate, price, quantity, type, language) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Book (bookId, isbn, title, author, publisher, publishedDate, price, quantity, type, language) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
              pstmt.setString(1, entity.getBookId());
-             pstmt.setString(2, entity.getTitle());
-             pstmt.setString(3, entity.getAuthor());
-             pstmt.setString(4, entity.getPublisher());
-             pstmt.setString(5, entity.getPublishedDate().toString());
-             pstmt.setDouble(6, entity.getPrice());
-             pstmt.setInt(7, entity.getQuantity());
-             pstmt.setString(8, entity.getType());
-             pstmt.setString(9, entity.getLanguage());
+             pstmt.setString(2, entity.getIsbn().trim());
+             pstmt.setString(3, entity.getTitle());
+             pstmt.setString(4, entity.getAuthor());
+             pstmt.setString(5, entity.getPublisher());
+             pstmt.setString(6, entity.getPublishedDate().toString());
+             pstmt.setDouble(7, entity.getPrice());
+             pstmt.setInt(8, entity.getQuantity());
+             pstmt.setString(9, entity.getType());
+             pstmt.setString(10, entity.getLanguage());
              pstmt.executeUpdate();
         } catch (SQLException e) {
              e.printStackTrace();
@@ -94,6 +95,7 @@ public class BookDAO implements IBookDAO {
              ResultSet rs = pstmt.executeQuery()) {
              while (rs.next()) {
                   String bookId = rs.getString("bookId");
+                  String Isbn = rs.getString("isbn");
                   String title = rs.getString("title");
                   String author = rs.getString("author");
                   String publisher = rs.getString("publisher");
@@ -102,7 +104,7 @@ public class BookDAO implements IBookDAO {
                   int quantity = rs.getInt("quantity");
                   String type = rs.getString("type");
                   String language = rs.getString("language");
-                  Book book = new Book(bookId, title, author, publisher, publishedDate, price, quantity, type, language);
+                  Book book = new Book(bookId, Isbn, title, author, publisher, publishedDate, price, quantity, type, language);
                   books.add(book);
              }
         } catch (SQLException e) {

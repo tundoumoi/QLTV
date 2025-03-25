@@ -511,3 +511,4 @@ select * from Employee
 --delete from Account
 --delete from Book
 --drop table Book
+drop database QLTV
