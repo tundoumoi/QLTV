@@ -153,11 +153,11 @@ public class CustomerPage extends javax.swing.JFrame {
         QuantityRecharge = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         Bill = new javax.swing.JTextArea();
-        LogOut = new javax.swing.JButton();
+        Logout = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(102, 255, 255));
 
         javax.swing.GroupLayout ChatbotPanelLayout = new javax.swing.GroupLayout(ChatbotPanel);
         ChatbotPanel.setLayout(ChatbotPanelLayout);
@@ -170,7 +170,7 @@ public class CustomerPage extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CUSTOMER");
 
@@ -494,16 +494,16 @@ public class CustomerPage extends javax.swing.JFrame {
                     .addComponent(RECHARGE)
                     .addComponent(QuantityRecharge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         TotalPurchaseAndMakingCard.addTab("TOTAL PURCHASE", jPanel4);
 
-        LogOut.setText("LOG OUT");
-        LogOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogOutActionPerformed(evt);
+        Logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/log-out-outline-icon.png"))); // NOI18N
+        Logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                LogoutMousePressed(evt);
             }
         });
 
@@ -517,21 +517,20 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ChatbotPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(LogOut)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(545, 545, 545))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(369, 369, 369)
+                .addComponent(Logout)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(LogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(1, 1, 1))
+                    .addComponent(Logout)
                     .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -801,14 +800,6 @@ public class CustomerPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_QuantityRechargeActionPerformed
 
-    private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
-        // TODO add your handling code here:
-        // Mở trang Login ban đầu. Giả sử lớp LoginPage là trang đăng nhập.
-        new Login().setVisible(true);
-        // Đóng cửa sổ CustomerPage hiện tại.
-        this.dispose();
-    }//GEN-LAST:event_LogOutActionPerformed
-
     private void CreateCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateCardActionPerformed
         // TODO add your handling code here:
         CustomerDAO cDao = new CustomerDAO();
@@ -858,6 +849,15 @@ public class CustomerPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CreateCardActionPerformed
 
+    private void LogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMousePressed
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        // Mở trang Login ban đầu. Giả sử lớp LoginPage là trang đăng nhập.
+        new Login().setVisible(true);
+        // Đóng cửa sổ CustomerPage hiện tại.
+        this.dispose();
+    }//GEN-LAST:event_LogoutMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -902,7 +902,7 @@ public class CustomerPage extends javax.swing.JFrame {
     private javax.swing.JButton Find;
     private javax.swing.JTextField InputQuantity;
     private javax.swing.JTextField InputToFind;
-    private javax.swing.JButton LogOut;
+    private javax.swing.JLabel Logout;
     private javax.swing.JButton PAY;
     private javax.swing.JTextField QuantityRecharge;
     private javax.swing.JButton RECHARGE;
