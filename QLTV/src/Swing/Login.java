@@ -338,13 +338,23 @@ public Customer checkCusOwnerAccount(){
     String userName = jTextFieldUser.getText();
    return CusSer.CheckOwner(userName);
 }
-public Employee checkEmOwnerAccount(){
-    String userName = jTextFieldUser.getText();
-    Employee emInfo = EmSer.CheckOwner(userName);
-    System.out.println(emInfo.getName());
-   return emInfo;
-
+public Employee checkEmOwnerAccount() {
+    try {
+        String userName = jTextFieldUser.getText();
+        Employee emInfo = EmSer.CheckOwner(userName);
+        
+        if (emInfo == null) {
+            JOptionPane.showMessageDialog(null, "User is not available", "Not Exist", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        return emInfo;
+    } catch (Exception e) {
+        e.printStackTrace(); // In lỗi ra console để debug
+        JOptionPane.showMessageDialog(null, "Lỗi khi kiểm tra tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return null;
+    }
 }
+
     /**
      * @param args the command line arguments
      */
