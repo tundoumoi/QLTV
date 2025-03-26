@@ -290,7 +290,7 @@ public class Login extends javax.swing.JFrame {
             String user = jTextFieldUser.getText();
             String pass = jPasswordField1.getText();
             if(EmSer.CheckAccount(user, pass)){
-                EmployeePage emPage = new EmployeePage();
+                EmployeePage emPage = new EmployeePage(this);
                 emPage.setVisible(true);
                 setVisible(false);
             }
@@ -314,6 +314,7 @@ public class Login extends javax.swing.JFrame {
     private void ShowPassMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPassMousePressed
         // TODO add your handling code here:
         jPasswordField1.setEchoChar((char) 0); // Hiện mật khẩu khi giữ chuột
+        checkEmOwnerAccount();
     }//GEN-LAST:event_ShowPassMousePressed
 
     private void ShowPassMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPassMouseReleased
@@ -338,7 +339,10 @@ public Customer checkCusOwnerAccount(){
 }
 public Employee checkEmOwnerAccount(){
     String userName = jTextFieldUser.getText();
-   return EmSer.CheckOwner(userName);
+    Employee emInfo = EmSer.CheckOwner(userName);
+    System.out.println(emInfo.getName());
+   return emInfo;
+
 }
     /**
      * @param args the command line arguments

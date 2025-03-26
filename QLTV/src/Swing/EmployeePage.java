@@ -6,6 +6,7 @@ package Swing;
 
 import Model.Book;
 import Model.Customer;
+import Model.Employee;
 import Service.BookService;
 import Service.CustomerService;
 import java.text.ParseException;
@@ -28,13 +29,14 @@ public class EmployeePage extends javax.swing.JFrame {
     HashSet<Customer> CustomerList = new HashSet<>();
     BookService bookSer = new BookService();
     CustomerService customerService = new CustomerService();
-    Login login = new Login();
+    Login LoginPage ;
     SimpleDateFormat tableDateFormat = new SimpleDateFormat("MMM, yyyy", Locale.ENGLISH);
 
     /**
      * Creates new form CustomerPage
      */
-    public EmployeePage() {
+    public EmployeePage(Login login) {
+        this.LoginPage = login;
         initComponents();
         setTitle("Employee Page");
         setResizable(true);
@@ -133,6 +135,7 @@ public class EmployeePage extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        EmployeeInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -701,6 +704,13 @@ public class EmployeePage extends javax.swing.JFrame {
             }
         });
 
+        EmployeeInfo.setText("User Info");
+        EmployeeInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                EmployeeInfoMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -712,14 +722,21 @@ public class EmployeePage extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(616, 616, 616))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                        .addComponent(EmployeeInfo)
+                        .addGap(42, 42, 42)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(EmployeeInfo)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(51, Short.MAX_VALUE))
@@ -780,7 +797,7 @@ public class EmployeePage extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
-        login.setVisible(true);
+        LoginPage.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -940,32 +957,32 @@ public class EmployeePage extends javax.swing.JFrame {
 
     private void FINDCUSMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FINDCUSMousePressed
         // TODO add your handling code here:
-           String cusID = jTextCusID.getText().trim();
+        String cusID = jTextCusID.getText().trim();
         Customer cus = customerService.findById(cusID);
         if (cusID.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Customer ID cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-         if (cus == null) {
+        if (cus == null) {
             JOptionPane.showConfirmDialog(null, "Invalid Book", "Error", JOptionPane.WARNING_MESSAGE);
             return;
-         }else{
-        jTextCusID.setText(cus.getId());
-        jTextCusName.setText(cus.getName());
-        jFormattedTextCusSSN.setText(cus.getSSN());
-        try {
-            String dateString = cus.getBirthDate().toString();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng ngày
-            Date date = dateFormat.parse(dateString); // Chuyển đổi chuỗi thành Date
-            jDateCusdate.setDate(date); // Set vào JDateChooser
-        } catch (ParseException e) {
-            e.printStackTrace(); // Hiển thị lỗi ra console
+        } else {
+            jTextCusID.setText(cus.getId());
+            jTextCusName.setText(cus.getName());
+            jFormattedTextCusSSN.setText(cus.getSSN());
+            try {
+                String dateString = cus.getBirthDate().toString();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng ngày
+                Date date = dateFormat.parse(dateString); // Chuyển đổi chuỗi thành Date
+                jDateCusdate.setDate(date); // Set vào JDateChooser
+            } catch (ParseException e) {
+                e.printStackTrace(); // Hiển thị lỗi ra console
+            }
+            jComboCusGender.setSelectedItem(cus.getGender());
+            jFormattedTextPhone.setText(cus.getPhoneNumber());
+            jTextCusEmail.setText(cus.getEmail());
+            jComboAddress.setSelectedItem(cus.getAddress());
         }
-        jComboCusGender.setSelectedItem(cus.getGender());
-        jFormattedTextPhone.setText(cus.getPhoneNumber());
-        jTextCusEmail.setText(cus.getEmail());
-        jComboAddress.setSelectedItem(cus.getAddress());
-         }
     }//GEN-LAST:event_FINDCUSMousePressed
 
     private void jTextIsBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIsBNActionPerformed
@@ -1015,9 +1032,9 @@ public class EmployeePage extends javax.swing.JFrame {
     private void jButtonFindBookMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonFindBookMousePressed
         // TODO add your handling code here:
 
-       String bookID = jTextBookID.getText();
+        String bookID = jTextBookID.getText();
         Book bk = bookSer.findById(bookID);
-         if (bookID.isEmpty()) {
+        if (bookID.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Book ID cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -1058,47 +1075,38 @@ public class EmployeePage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonDeleteBookMousePressed
 
+    private void EmployeeInfoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmployeeInfoMousePressed
+   
+try {
+    Employee employeeOwner = LoginPage.checkEmOwnerAccount();
+
+    if (employeeOwner != null) {
+        EmployeeInfo.setText(employeeOwner.getName());
+    } else {
+        EmployeeInfo.setText("Không tìm thấy nhân viên!");
+    }
+} catch (NullPointerException e) {
+    System.out.println("Lỗi NullPointerException: " + e.getMessage());
+    EmployeeInfo.setText("Lỗi dữ liệu!");
+    e.printStackTrace(); // In lỗi để dễ debug
+} catch (Exception e) {
+    System.out.println("Lỗi không xác định: " + e.getMessage());
+    EmployeeInfo.setText("Đã xảy ra lỗi!");
+    e.printStackTrace();
+}
+
+
+    }//GEN-LAST:event_EmployeeInfoMousePressed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmployeePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmployeePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmployeePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmployeePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmployeePage().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton DELETECUS;
     private javax.swing.JButton EDITCUS;
+    private javax.swing.JLabel EmployeeInfo;
     private javax.swing.JButton FINDCUS;
     private javax.swing.JTable JBookTable;
     private javax.swing.JTextField JTitle;
@@ -1157,4 +1165,5 @@ public class EmployeePage extends javax.swing.JFrame {
     private javax.swing.JTextField jTextPublishDate;
     private javax.swing.JTextField jType;
     // End of variables declaration//GEN-END:variables
+
 }
