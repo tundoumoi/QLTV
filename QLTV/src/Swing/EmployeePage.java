@@ -430,7 +430,7 @@ public class EmployeePage extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(287, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("BOOK", jPanel3);
@@ -764,7 +764,7 @@ public class EmployeePage extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1044, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -891,12 +891,12 @@ public class EmployeePage extends javax.swing.JFrame {
         // TODO add your handling code here:
         String cusID = jTextCusID.getText().trim();
         if (cusID.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Customer ID không được để trống!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Customer ID not blank!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         Customer cus = customerService.findById(cusID);
         if (cus == null) {
-            JOptionPane.showMessageDialog(null, "Customer không tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Customer is not valid!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         // Lấy thông tin từ giao diện
@@ -910,7 +910,7 @@ public class EmployeePage extends javax.swing.JFrame {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng mong muốn
             birthDateStr = dateFormat.format(selectedDate);
         } else {
-            JOptionPane.showMessageDialog(null, "Bạn chưa chọn ngày sinh!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You have not selected a date of birth!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         String gender = jComboCusGender.getSelectedItem().toString();
         String Phone = jFormattedTextPhone.getText().trim();
@@ -919,7 +919,7 @@ public class EmployeePage extends javax.swing.JFrame {
 
         // Kiểm tra dữ liệu đầu vào
         if (CusName.isEmpty() || CusSSN.isEmpty() || birthDateStr.isEmpty() || gender.isEmpty() || Phone.isEmpty() || Email.isEmpty() || Address.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin khách hàng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter complete customer information!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -930,10 +930,10 @@ public class EmployeePage extends javax.swing.JFrame {
             // Gọi phương thức update từ CustomerService
             customerService.update(cusUpdate);
             displayCus();
-            JOptionPane.showMessageDialog(null, "Cập nhật thông tin khách hàng thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Customer information updated successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật thông tin khách hàng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error updating customer information: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
 
         }
@@ -1011,7 +1011,7 @@ public class EmployeePage extends javax.swing.JFrame {
             double bookPrice = Double.parseDouble(price);
             Book existingBook = bookSer.findById(bookID);
             if (existingBook != null) {
-                JOptionPane.showMessageDialog(null, "Lỗi: Mã sách đã tồn tại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error: Book code already exists!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
   //          String bookId, String isbn, String title, String author, String publisher, String publishedDate, double price, int quantity, String type, String language
@@ -1022,16 +1022,16 @@ public class EmployeePage extends javax.swing.JFrame {
 
             // Kiểm tra kết quả
             if (success) {
-                JOptionPane.showMessageDialog(null, "Thêm sách thành công!");
+                JOptionPane.showMessageDialog(null, "Added book successfully!");
                 displayBook();
             } else {
-                JOptionPane.showMessageDialog(null, "Lỗi khi thêm sách!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error adding book!", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Lỗi: Giá sách không hợp lệ!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error: Invalid book price!", "Input error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }//GEN-LAST:event_jButtonAddBookMousePressed

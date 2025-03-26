@@ -158,37 +158,37 @@ if (employee != null) {
         jLabel12.setText("StartDate");
 
         Name.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Name.setText("vvvv");
+        Name.setText("Example");
 
         SSN.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        SSN.setText("dd");
+        SSN.setText("Example");
 
         DOB.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        DOB.setText("fffff");
+        DOB.setText("Example");
 
         Gender.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Gender.setText("jLabel14");
+        Gender.setText("Example");
 
         Phone.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Phone.setText("jLabel14");
+        Phone.setText("Example");
 
         Email.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Email.setText("jLabel14");
+        Email.setText("Example");
 
         Address.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Address.setText("jLabel14");
+        Address.setText("Example");
 
         Position.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Position.setText("jLabel14");
+        Position.setText("Example");
 
         Salary.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Salary.setText("jLabel14");
+        Salary.setText("Example");
 
         StartDate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        StartDate.setText("jLabel14");
+        StartDate.setText("Example");
 
         ID.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        ID.setText("vvv");
+        ID.setText("Example");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -211,24 +211,22 @@ if (employee != null) {
                     .addComponent(jLabel12)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(jLabel3)
-                        .addGap(80, 80, 80)))
-                .addGap(18, 33, Short.MAX_VALUE)
+                        .addComponent(jLabel3)))
+                .addGap(18, 42, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(SSN, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Gender, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(DOB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(Phone)
-                        .addComponent(Email)
-                        .addComponent(Address)
-                        .addComponent(Position)
-                        .addComponent(Salary)
-                        .addComponent(StartDate))
-                    .addComponent(ID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(121, 121, 121))
+                    .addComponent(SSN, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(Gender, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(DOB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Phone)
+                    .addComponent(Email)
+                    .addComponent(Address)
+                    .addComponent(Position)
+                    .addComponent(Salary)
+                    .addComponent(StartDate)
+                    .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(112, 112, 112))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +234,9 @@ if (employee != null) {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(ID))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -258,8 +258,7 @@ if (employee != null) {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel12))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(ID)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(38, 38, 38)
                         .addComponent(Name)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(SSN)
