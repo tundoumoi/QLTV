@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import Model.Book;
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 public class BookDAO implements IBookDAO {
 
@@ -34,24 +35,37 @@ public class BookDAO implements IBookDAO {
     }
     
     @Override
-    public void update(Book entity) {
-        String sql = "UPDATE Book SET title = ?, author = ?, publisher = ?, publishedDate = ?, price = ?, quantity = ?, type = ?, language = ? WHERE bookId = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-             pstmt.setString(1, entity.getTitle());
-             pstmt.setString(2, entity.getAuthor());
-             pstmt.setString(3, entity.getPublisher());
-             pstmt.setString(4, entity.getPublishedDate());
-             pstmt.setDouble(5, entity.getPrice());
-             pstmt.setInt(6, entity.getQuantity());
-             pstmt.setString(7, entity.getType());
-             pstmt.setString(8, entity.getLanguage());
-             pstmt.setString(9, entity.getBookId());
-             pstmt.executeUpdate();
-        } catch (SQLException e) {
-             e.printStackTrace();
+public void update(Book entity) {
+    String sql = "UPDATE Book SET isbn = ?, title = ?, author = ?, publisher = ?, publishedDate = ?, price = ?, quantity = ?, type = ?, language = ? WHERE bookId = ?";
+    
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+         
+        pstmt.setString(1, entity.getIsbn());
+        pstmt.setString(2, entity.getTitle());
+        pstmt.setString(3, entity.getAuthor());
+        pstmt.setString(4, entity.getPublisher());
+        pstmt.setString(5, entity.getPublishedDate());
+        pstmt.setDouble(6, entity.getPrice());
+        pstmt.setInt(7, entity.getQuantity());
+        pstmt.setString(8, entity.getType());
+        pstmt.setString(9, entity.getLanguage());
+        pstmt.setString(10, entity.getBookId());
+        
+        int rowsAffected = pstmt.executeUpdate();
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "Edit successfull!", "Successfull",JOptionPane.INFORMATION_MESSAGE);
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid Book "+entity.getBookId(), "warming",JOptionPane.INFORMATION_MESSAGE);
         }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Lỗi khi cập nhật sách: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        
+        e.printStackTrace();
     }
+}
+
     
     // Các phương thức update riêng lẻ (updateName, updateAuthor, ...) giữ nguyên hoặc có thể refactor thêm.
     public boolean insert1(Book entity) {
@@ -59,7 +73,7 @@ public class BookDAO implements IBookDAO {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
              pstmt.setString(1, entity.getBookId());
-             pstmt.setString(2, entity.getIsbn().trim());
+             pstmt.setString(2, entity.getIsbn());
              pstmt.setString(3, entity.getTitle());
              pstmt.setString(4, entity.getAuthor());
              pstmt.setString(5, entity.getPublisher());
@@ -101,7 +115,19 @@ public class BookDAO implements IBookDAO {
              e.printStackTrace();
         }
     }
-    
+    public int getBookCount() {
+        String sql = "SELECT COUNT(*) FROM Book";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // Trả về 0 nếu có lỗi
+    }
     @Override
     public Book getById(String id) {
         for (Book book : bookList) {

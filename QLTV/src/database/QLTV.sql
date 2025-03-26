@@ -498,7 +498,7 @@ VALUES
 
 
 
-select * from Book
+select * from Book where bookId ='B2172'
 --delete from CustomerBuy
 --delete from CustomerBorrow
 select * from CustomerBuy

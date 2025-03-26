@@ -20,13 +20,13 @@ public class BookService implements Service<Book> {
     }
 
     public String increaseBOOKID() {
-        int count = bookMap.size() + 1;
-        return String.format("B%03d", count);
+        int count = bookDAO.getBookCount()+1;
+        return String.format("B%04d", count);
     }
 
     @Override
     public Book findById(String id) {
-        Book book = bookMap.get(id);
+        Book book = bookDAO.getById(id);
         if (book == null) {
             view.message("Invalid id Book");
         }
@@ -54,12 +54,9 @@ public class BookService implements Service<Book> {
     }
 
     public void update(Book book) {
-        if (bookMap.containsKey(book.getBookId())) {
             bookDAO.update(book);
             bookMap.put(book.getBookId(), book);
-        } else {
-            view.message("Invalid id Book");
-        }
+
     }
 
     public HashMap<String, Book> getBookMap() {
