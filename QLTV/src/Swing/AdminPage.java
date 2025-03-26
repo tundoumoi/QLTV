@@ -94,14 +94,12 @@ public class AdminPage extends javax.swing.JFrame {
     }
 
     public void displayListReport() {
-        // Lấy dữ liệu từ reportService và bookService
-        hashMap = reportService.getReportMap(); // Giả sử kiểu HashMap<Integer, Report>
-        hashMapboo = bookService.getBookMap(); // Giả sử kiểu HashMap<Integer, Book>
+        hashMap = reportService.getReportMap(); 
+        hashMapboo = bookService.getBookMap(); 
 
         DefaultTableModel model = (DefaultTableModel) jTableListReport.getModel();
-        model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
+        model.setRowCount(0); 
 
-// Duyệt danh sách Report
         for (Report report : hashMap.values()) {
             Book book = hashMapboo.get(report.getBookId()); // Tìm Book có cùng BookId
 
@@ -887,7 +885,7 @@ public class AdminPage extends javax.swing.JFrame {
             }
         }
 
-        JOptionPane.showMessageDialog(this, "Không tìm thấy nhân viên có ID: " + searchID);
+        JOptionPane.showMessageDialog(this, "No employee found with ID:" + searchID);
         ResetActionPerformed(evt);
     }//GEN-LAST:event_FindActionPerformed
     class CustomTableCellRenderer extends DefaultTableCellRenderer {
@@ -943,7 +941,7 @@ public class AdminPage extends javax.swing.JFrame {
             double minPurchase = Double.parseDouble(jTextFieldMinPurchase.getText().trim());
 
             if (description.isEmpty() || String.valueOf(discountRate).isEmpty() || String.valueOf(minPurchase).isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+                JOptionPane.showMessageDialog(this, "Please enter complete information!");
                 return;
             }
 
@@ -959,10 +957,10 @@ public class AdminPage extends javax.swing.JFrame {
             model.setValueAt(description, selectedRow, 1);
             model.setValueAt(minPurchase, selectedRow, 2);
 
-            JOptionPane.showMessageDialog(this, "Cập nhật voucher thành công!");
+            JOptionPane.showMessageDialog(this, "Voucher updated successfully!");
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho Discount Rate và Min Purchase!");
+            JOptionPane.showMessageDialog(this, "Please enter valid numbers for Discount Rate and Min Purchase!");
         }
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
@@ -1025,7 +1023,7 @@ public class AdminPage extends javax.swing.JFrame {
         String employeeId = jTableEmployee.getValueAt(selectedRow, 0).toString();
 
         // Xác nhận trước khi xóa
-        int confirm = JOptionPane.showConfirmDialog(this, " Bạn có chắc chắn muốn xóa nhân viên này? ",
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this employee?",
                 " Xác nhận ", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) {
             return;
@@ -1033,7 +1031,7 @@ public class AdminPage extends javax.swing.JFrame {
         // Tìm nhân viên trong hệ thống
         Employee employee = employeeService.findById(employeeId);
         if (employee == null) {
-            JOptionPane.showMessageDialog(this, "Không tìm thấy nhân viên!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No staff found!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         int accounid = employee.getAccountId();
@@ -1043,9 +1041,9 @@ public class AdminPage extends javax.swing.JFrame {
         // Kiểm tra lại trong hệ thống
         if (employeeService.findById(employeeId) == null) { // Nếu không tìm thấy => đã xóa thành công
             ((DefaultTableModel) jTableEmployee.getModel()).removeRow(selectedRow);
-            JOptionPane.showMessageDialog(this, "Xóa nhân viên thành công!");
+            JOptionPane.showMessageDialog(this, "Employee deleted successfully!");
         } else {
-            JOptionPane.showMessageDialog(this, "Xóa nhân viên thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Delete employee failed!", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_DeleteEmployeeActionPerformed
@@ -1082,35 +1080,35 @@ public class AdminPage extends javax.swing.JFrame {
 
         if (id.isEmpty() || name.isEmpty() || ssn.isEmpty() || phone.isEmpty() || email.isEmpty()
                 || position.isEmpty() || salary.isEmpty() || startDate.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+            JOptionPane.showMessageDialog(this, "Please enter complete information!");
             return;
         }
 
         if (!phone.matches("^0\\d{9}$")) {
-            JOptionPane.showMessageDialog(this, "Số điện thoại phải có 10 số và bắt đầu bằng số 0!");
+            JOptionPane.showMessageDialog(this, "Phone number must be 10 digits and start with 0!");
             return;
         }
 
         if (!ssn.matches("^\\d{9}$")) {
-            JOptionPane.showMessageDialog(this, "SSN phải gồm đúng 9 chữ số!");
+            JOptionPane.showMessageDialog(this, "SSN must be exactly 9 digits!");
             return;
         }
 
         if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+            JOptionPane.showMessageDialog(this, "Invalid email!");
             return;
         }
 
         DefaultTableModel model = (DefaultTableModel) jTableEmployee.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             if (model.getValueAt(i, 0).toString().equalsIgnoreCase(id)) {
-                JOptionPane.showMessageDialog(this, "ID đã tồn tại trong bảng!");
+                JOptionPane.showMessageDialog(this, "ID already exists in table!");
                 return;
             }
         }
 
         if (employeeDAO.getById(id) != null) {
-            JOptionPane.showMessageDialog(this, "ID đã tồn tại trong Database!");
+            JOptionPane.showMessageDialog(this, "ID already exists in Database!");
             return;
         }
         // Nếu chưa có tài khoản, mở form đăng ký
@@ -1119,17 +1117,17 @@ public class AdminPage extends javax.swing.JFrame {
 
         Account newAccount = accountService.findByid(accountId);
         if (newAccount == null) {
-            JOptionPane.showMessageDialog(this, "Bạn chưa tạo tài khoản. Vui lòng tạo tài khoản trước!");
+            JOptionPane.showMessageDialog(this, "You have not created an account. Please create an account first!");
             return;
         }
         Employee emp = new Employee(id, name, ssn, LocalDate.parse(yob), gender, phone, email, address, position, Double.parseDouble(salary), LocalDate.parse(startDate), accountId);
         employeeService.insert(emp);
         if (employeeService.findById(id) != null) {
             model.addRow(new Object[]{id, name, ssn, yob, gender, phone, email, address, position, salary, startDate});
-            JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
+            JOptionPane.showMessageDialog(this, "Add employee successfully!");
             return;
         } else {
-            JOptionPane.showMessageDialog(null, "Thêm nhân viên không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Add employee failed!", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         ResetActionPerformed(evt);
@@ -1138,7 +1136,7 @@ public class AdminPage extends javax.swing.JFrame {
     private void EditEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditEmployeeActionPerformed
         int selectedRow = jTableEmployee.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn nhân viên cần chỉnh sửa!");
+            JOptionPane.showMessageDialog(this, "Please select the employee you want to edit!");
             return;
         }
 
@@ -1156,7 +1154,7 @@ public class AdminPage extends javax.swing.JFrame {
 
         if (name.isEmpty() || ssn.isEmpty() || phone.isEmpty() || email.isEmpty()
                 || position.isEmpty() || salary.isEmpty() || startDate.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+            JOptionPane.showMessageDialog(this, "Please enter complete information!");
             return;
         }
         String employeeId = jTableEmployee.getValueAt(selectedRow, 0).toString();
@@ -1164,8 +1162,8 @@ public class AdminPage extends javax.swing.JFrame {
         Employee employee = new Employee(id, name, ssn, LocalDate.parse(yob), gender, phone, email, address, position,
                 Double.parseDouble(salary), LocalDate.parse(startDate), e.getAccountId()
         );
-        int confirm = JOptionPane.showConfirmDialog(this, " Bạn có chắc chắn muốn chỉnh sửa nhân viên này? ",
-                " Xác nhận ", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to edit this employee?",
+                "Confirm", JOptionPane.YES_NO_OPTION);
         if (confirm != JOptionPane.YES_OPTION) {
             return;
         }
@@ -1184,7 +1182,7 @@ public class AdminPage extends javax.swing.JFrame {
         model.setValueAt(salary, selectedRow, 9);
         model.setValueAt(startDate, selectedRow, 10);
 
-        JOptionPane.showMessageDialog(this, "Cập nhật thông tin nhân viên thành công!");
+        JOptionPane.showMessageDialog(this, "Employee information updated successfully!");
     }//GEN-LAST:event_EditEmployeeActionPerformed
 
     private void jTableListVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListVoucherMouseClicked
@@ -1287,7 +1285,7 @@ public class AdminPage extends javax.swing.JFrame {
             add(txtConfirmPassword, gbc);
 
             // Button Register
-            btnRegister = new JButton("Đăng ký");
+            btnRegister = new JButton("Register");
             btnRegister.setPreferredSize(new Dimension(200, 40)); // Tăng kích thước nút
             btnRegister.setMargin(new Insets(10, 20, 10, 20)); // Tạo khoảng cách trên, trái, dưới, phải
             btnRegister.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa chữ
@@ -1306,35 +1304,35 @@ public class AdminPage extends javax.swing.JFrame {
             String password = new String(txtPassword.getPassword()).trim();
             String confirmPassword = new String(txtConfirmPassword.getPassword()).trim();
             if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+                JOptionPane.showMessageDialog(this, "Please enter complete information!");
                 return;
             }
             // Kiểm tra username có ít nhất 5 ký tự
             if (username.length() < 5) {
-                JOptionPane.showMessageDialog(this, "Username phải có ít nhất 5 ký tự!");
+                JOptionPane.showMessageDialog(this, "Username must be at least 5 characters!");
                 return;
             }
 
             // Kiểm tra password có ít nhất 6 ký tự
             if (password.length() < 6) {
-                JOptionPane.showMessageDialog(this, "Password phải có ít nhất 6 ký tự!");
+                JOptionPane.showMessageDialog(this, "Password must be at least 6 characters!");
                 return;
             }
             if (!password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(this, "Mật khẩu nhập lại không khớp!");
+                JOptionPane.showMessageDialog(this, "Re-entered password does not match!");
                 return;
             }
 
             int accountID = accountService.increaAcc();
             if (accountDAO.findByUsername(username) != null) {
-                JOptionPane.showMessageDialog(this, "Username đã tồn tại. Vui lòng chọn username khác!");
+                JOptionPane.showMessageDialog(this, "Username already exists. Please choose another username!");
                 return;
             }
             // Tạo accountID mới
 
             Account account = new Account(accountID, username, password);
             accountService.insert(account);
-            JOptionPane.showMessageDialog(this, "Tạo tài khoản thành công!");
+            JOptionPane.showMessageDialog(this, "Account created successfully!");
             dispose(); // Đóng form sau khi tạo tài khoản thành công
 
         }
