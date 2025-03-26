@@ -1085,11 +1085,11 @@ for (Report report : hashMap.values()) {
         registerForm.setVisible(true);
 
         Employee emp = new Employee(id, name, ssn, LocalDate.parse(yob), gender, phone, email, address, position, Double.parseDouble(salary), LocalDate.parse(startDate), accountId);
-        employeeDAO.insert(emp);
         employeeService.insert(emp);
 
         Employee e = employeeService.findById(id);
         if (employeeService.findById(id) != null) {
+            
             model.addRow(new Object[]{id, name, ssn, yob, gender, phone, email, address, position, salary, startDate});
             JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
         } else {
@@ -1238,7 +1238,7 @@ for (Report report : hashMap.values()) {
             // Button Register
             btnRegister = new JButton("Đăng ký");
             btnRegister.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa chữ
-            btnRegister.setPreferredSize(new Dimension(1000, 40)); // Tăng kích thước nút
+            btnRegister.setPreferredSize(new Dimension(200, 40)); // Tăng kích thước nút
             gbc.gridx = 0;
             gbc.gridy = 2;
             gbc.gridwidth = 3;
