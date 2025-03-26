@@ -4,6 +4,7 @@
  */
 package Swing;
 
+import Model.Admin;
 import Model.Customer;
 import Model.Employee;
 import Service.*;
@@ -19,6 +20,8 @@ public class Login extends javax.swing.JFrame {
     private AdminService AddSer = new AdminService();
     private CustomerService CusSer = new CustomerService();
     private EmployeeService EmSer = new EmployeeService();
+    private AdminService adminService = new AdminService();
+
     /**
      * Creates new form Login
      */
@@ -168,6 +171,11 @@ public class Login extends javax.swing.JFrame {
                 ShowPassMouseReleased(evt);
             }
         });
+        ShowPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ShowPassActionPerformed(evt);
+            }
+        });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/User.png"))); // NOI18N
 
@@ -263,11 +271,9 @@ public class Login extends javax.swing.JFrame {
             String user = jTextFieldUser.getText();
             String pass = jPasswordField1.getText();
             if (AddSer.CheckAccount(user, pass)) {
-                jTextFieldUser.setText("");
-                jPasswordField1.setText("");
-                AdminPage adminpage = new AdminPage();
-
-                adminpage.setVisible(true);
+                Admin ad = checkAdOwnerAccount();
+                AdminPage adminPage = new AdminPage(ad);
+                adminPage.setVisible(true);
                 setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Login fail!");
@@ -289,7 +295,7 @@ public class Login extends javax.swing.JFrame {
         } else if (JchoiceRole.getSelectedItem().equals("Employee")) {
             String user = jTextFieldUser.getText();
             String pass = jPasswordField1.getText();
-            if(EmSer.CheckAccount(user, pass)){
+            if (EmSer.CheckAccount(user, pass)) {
                 Employee em = checkEmOwnerAccount();
                 EmployeePage emPage = new EmployeePage(em);
                 emPage.setVisible(true);
@@ -315,7 +321,7 @@ public class Login extends javax.swing.JFrame {
     private void ShowPassMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPassMousePressed
         // TODO add your handling code here:
         jPasswordField1.setEchoChar((char) 0); // Hiện mật khẩu khi giữ chuột
-        checkEmOwnerAccount();
+        //checkEmOwnerAccount();
     }//GEN-LAST:event_ShowPassMousePressed
 
     private void ShowPassMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPassMouseReleased
@@ -330,31 +336,52 @@ public class Login extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
-                setVisible(false);
+        setVisible(false);
         Register rg = new Register();
         rg.setVisible(true);
     }//GEN-LAST:event_jLabel2MouseClicked
-public Customer checkCusOwnerAccount(){
-    String userName = jTextFieldUser.getText();
-   return CusSer.CheckOwner(userName);
-}
-public Employee checkEmOwnerAccount() {
-    try {
-        String userName = jTextFieldUser.getText();
-        Employee emInfo = EmSer.CheckOwner(userName);
-        
-        if (emInfo == null) {
-            JOptionPane.showMessageDialog(null, "User is not available", "Not Exist", JOptionPane.WARNING_MESSAGE);
-        }
-        
-        return emInfo;
-    } catch (Exception e) {
-        e.printStackTrace(); // In lỗi ra console để debug
-        JOptionPane.showMessageDialog(null, "Lỗi khi kiểm tra tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-        return null;
-    }
-}
 
+    private void ShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ShowPassActionPerformed
+    public Customer checkCusOwnerAccount() {
+        String userName = jTextFieldUser.getText();
+        return CusSer.CheckOwner(userName);
+    }
+
+    public Employee checkEmOwnerAccount() {
+        try {
+            String userName = jTextFieldUser.getText();
+            Employee emInfo = EmSer.CheckOwner(userName);
+
+            if (emInfo == null) {
+                JOptionPane.showMessageDialog(null, "User is not available", "Not Exist", JOptionPane.WARNING_MESSAGE);
+            }
+
+            return emInfo;
+        } catch (Exception e) {
+            e.printStackTrace(); // In lỗi ra console để debug
+            JOptionPane.showMessageDialog(null, "Lỗi khi kiểm tra tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
+    public Admin checkAdOwnerAccount(){
+        try {
+            String userName = jTextFieldUser.getText();
+            Admin ad = adminService.checkOner(userName);
+            
+            if(ad == null){
+                JOptionPane.showMessageDialog(null, "User is not available", "Not Exist", JOptionPane.WARNING_MESSAGE);
+            }
+            return ad;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi khi kiểm tra tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */

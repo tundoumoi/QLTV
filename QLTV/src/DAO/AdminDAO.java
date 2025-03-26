@@ -2,6 +2,7 @@ package DAO;
 
 import Model.Account;
 import Model.Admin;
+import Model.Employee;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -87,7 +88,7 @@ public class AdminDAO implements IAdminDAO {
 
     public void update(Admin admin) {
         String sql = "UPDATE Admin Set Aname = ?, Assn = ?, ADbirthdate = ?, ADgrender = ?, ADphoneNumber = ?, ADemail = ?, ADaddress = ?, AcountId = ? WHERE ADid = ?";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, admin.getAname());
             pstmt.setString(2, admin.getAssn());
             pstmt.setString(3, admin.getADbirthDate().toString());
@@ -102,22 +103,21 @@ public class AdminDAO implements IAdminDAO {
             e.printStackTrace();
         }
     }
-    
+
     public boolean isDupliacate(String ADid) {
         String sql = "SELECT COUNT (*) FROM Admin WHERE ADid = ?";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, ADid);
-            try (ResultSet rs = pstmt.executeQuery()){
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1) > 0;
                 }
-            }  
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
-    
 
     @Override
     public void insert(AdminDAO entity) {
@@ -137,6 +137,32 @@ public class AdminDAO implements IAdminDAO {
     @Override
     public HashMap<Integer, Admin> getAll() {
         return AdminMap;
+    }
+    public Admin getAdminByUsername(String username) {
+        String sql = "SELECT ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress, ad.AccountId "
+                + "FROM Account acc "
+                + "JOIN Admin ad ON acc.AccountId = ad.AccountId "
+                + "WHERE acc.username = ?";
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Admin(
+                        rs.getString("ADid"),
+                        rs.getString("Aname"),
+                        rs.getString("Assn"),
+                        rs.getObject("ADbirthDate", LocalDate.class),
+                        rs.getString("ADgender"),
+                        rs.getString("ADphoneNumber"),
+                        rs.getString("ADemail"),
+                        rs.getString("ADaddress"),
+                        rs.getInt("AccountId")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Trả về null nếu không tìm thấy admin
     }
 
 }

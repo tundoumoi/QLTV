@@ -8,6 +8,7 @@ import DAO.AccountDAO;
 import DAO.EmployeeDAO;
 import DAO.PromotionDAO;
 import Model.Account;
+import Model.Admin;
 import Model.Book;
 import Model.Employee;
 import Model.Promotion;
@@ -65,12 +66,15 @@ public class AdminPage extends javax.swing.JFrame {
     HashMap<Report, Report> hashMap = new HashMap<>();
     ArrayList<Promotion> promotions = new ArrayList<>();
     HashMap<String, Book> hashMapboo = new HashMap<>();
+    AdminIfo adminIfo;
 
     /**
      * Creates new form Admin
      */
-    public AdminPage() {
+    public AdminPage(Admin admin) {
+        adminIfo = new AdminIfo(admin);
         initComponents();
+        setTitle("Admin Page");
         displayListEmployee();
         displayListVoucher();
         displayListReport();
@@ -205,6 +209,7 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         logoutt = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -789,7 +794,7 @@ public class AdminPage extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(6, 141, 4393, 640);
+        jPanel2.setBounds(6, 141, 4392, 640);
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 204));
 
@@ -818,15 +823,25 @@ public class AdminPage extends javax.swing.JFrame {
             }
         });
 
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/profile.png"))); // NOI18N
+        jLabel21.setText("jLabel21");
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MouseClickedProfile(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(695, 695, 695)
+                .addGap(77, 77, 77)
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(554, 554, 554)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 525, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 521, Short.MAX_VALUE)
                 .addComponent(logoutt)
                 .addGap(29, 29, 29))
         );
@@ -834,19 +849,24 @@ public class AdminPage extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap(13, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(7, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18))
+                        .addGap(24, 24, 24))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(logoutt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(logoutt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel21)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(jPanel5);
-        jPanel5.setBounds(0, 0, 1544, 135);
+        jPanel5.setBounds(0, 0, 1540, 135);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1179,6 +1199,10 @@ public class AdminPage extends javax.swing.JFrame {
             jTableEmployee.repaint();
         }
     }//GEN-LAST:event_jTableListVoucherMouseClicked
+
+    private void MouseClickedProfile(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MouseClickedProfile
+        adminIfo.setVisible(true);
+    }//GEN-LAST:event_MouseClickedProfile
     public class RegisterAccountForm extends JDialog {
 
         private JTextField txtUsername;
@@ -1242,7 +1266,19 @@ public class AdminPage extends javax.swing.JFrame {
             gbc.gridx = 0;
             gbc.gridy = 2;
             add(lblConfirmPassword, gbc);
+            btnShowPassword.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    txtPassword.setEchoChar((char) 0); // Hiển thị mật khẩu
+                    txtConfirmPassword.setEchoChar((char) 0);
+                }
 
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    txtPassword.setEchoChar('•'); // Ẩn lại mật khẩu
+                    txtConfirmPassword.setEchoChar('•');
+                }
+            });
             // Confirm Password Field
             txtConfirmPassword = new JPasswordField();
             txtConfirmPassword.setPreferredSize(textFieldSize);
@@ -1307,38 +1343,7 @@ public class AdminPage extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminPage().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddEmployee;
@@ -1365,6 +1370,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1374,7 +1380,6 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;

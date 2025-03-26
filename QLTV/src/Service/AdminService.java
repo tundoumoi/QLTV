@@ -21,7 +21,7 @@ public class AdminService implements Service<Admin> {
     private HashMap<Integer, Admin> AdminMap = new HashMap<Integer, Admin>();
     private final AdminDAO adminDAO = new AdminDAO();
 
-    public AdminService() {      
+    public AdminService() {
         AdminMap = adminDAO.getAll();
     }
 
@@ -35,6 +35,15 @@ public class AdminService implements Service<Admin> {
         return false;
     }
 
+    public Admin checkOner(String username) {
+        Admin ad = adminDAO.getAdminByUsername(username);
+        if(ad != null){
+            return ad;
+        }
+        return null;
+    }
+
+
     public HashSet<Account> getAdminAcc() {
         return adminAcc;
     }
@@ -42,7 +51,7 @@ public class AdminService implements Service<Admin> {
     public HashMap<Integer, Admin> getAdminMap() {
         return AdminMap;
     }
-    
+
     public void update(Admin admin) {
         adminDAO.update(admin);
     }
