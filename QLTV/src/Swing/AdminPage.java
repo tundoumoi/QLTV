@@ -91,31 +91,30 @@ public class AdminPage extends javax.swing.JFrame {
 
     public void displayListReport() {
         // Lấy dữ liệu từ reportService và bookService
-hashMap = reportService.getReportMap(); // Giả sử kiểu HashMap<Integer, Report>
-hashMapboo = bookService.getBookMap(); // Giả sử kiểu HashMap<Integer, Book>
+        hashMap = reportService.getReportMap(); // Giả sử kiểu HashMap<Integer, Report>
+        hashMapboo = bookService.getBookMap(); // Giả sử kiểu HashMap<Integer, Book>
 
-DefaultTableModel model = (DefaultTableModel) jTableListReport.getModel();
-model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
+        DefaultTableModel model = (DefaultTableModel) jTableListReport.getModel();
+        model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
 
 // Duyệt danh sách Report
-for (Report report : hashMap.values()) {
-    Book book = hashMapboo.get(report.getBookId()); // Tìm Book có cùng BookId
-    
+        for (Report report : hashMap.values()) {
+            Book book = hashMapboo.get(report.getBookId()); // Tìm Book có cùng BookId
 
-        model.addRow(new Object[]{
-        report.getReportId(),
-        report.getCustomerId(),
-        report.getBookId(),
-        report.getReportDate(),
-        report.getContent(),
-        (book != null) ? book.getTitle() : "N/A",
-        (book != null) ? book.getAuthor() : "N/A",
-        (book != null) ? book.getPublisher() : "N/A",
-        (book != null) ? book.getPublishedDate() : "N/A",
-        (book != null) ? book.getPrice() : "N/A",
-        (book != null) ? book.getQuantity() : "N/A"
-    });
-}
+            model.addRow(new Object[]{
+                report.getReportId(),
+                report.getCustomerId(),
+                report.getBookId(),
+                report.getReportDate(),
+                report.getContent(),
+                (book != null) ? book.getTitle() : "N/A",
+                (book != null) ? book.getAuthor() : "N/A",
+                (book != null) ? book.getPublisher() : "N/A",
+                (book != null) ? book.getPublishedDate() : "N/A",
+                (book != null) ? book.getPrice() : "N/A",
+                (book != null) ? book.getQuantity() : "N/A"
+            });
+        }
         TableColumnModel columnModel = jTableListReport.getColumnModel();
 
         // Đặt độ rộng mong muốn cho từng cột
@@ -1060,14 +1059,28 @@ for (Report report : hashMap.values()) {
         String salary = jTextSalary.getText().trim();
         String startDate = ((JTextField) jDateStartDate.getDateEditor().getUiComponent()).getText();
         int accountId = accountService.increaAcc();
-        // Kiểm tra dữ liệu nhập vào
+
         if (id.isEmpty() || name.isEmpty() || ssn.isEmpty() || phone.isEmpty() || email.isEmpty()
                 || position.isEmpty() || salary.isEmpty() || startDate.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
             return;
         }
 
-        // Kiểm tra trùng ID trong JTable
+        if (!phone.matches("^0\\d{9}$")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại phải có 10 số và bắt đầu bằng số 0!");
+            return;
+        }
+
+        if (!ssn.matches("^\\d{9}$")) {
+            JOptionPane.showMessageDialog(this, "SSN phải gồm đúng 9 chữ số!");
+            return;
+        }
+
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ!");
+            return;
+        }
+
         DefaultTableModel model = (DefaultTableModel) jTableEmployee.getModel();
         for (int i = 0; i < model.getRowCount(); i++) {
             if (model.getValueAt(i, 0).toString().equalsIgnoreCase(id)) {
@@ -1084,14 +1097,17 @@ for (Report report : hashMap.values()) {
         RegisterAccountForm registerForm = new RegisterAccountForm(this, true, id, accountService);
         registerForm.setVisible(true);
 
+        Account newAccount = accountService.findByid(accountId);
+        if (newAccount == null) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa tạo tài khoản. Vui lòng tạo tài khoản trước!");
+            return;
+        }
         Employee emp = new Employee(id, name, ssn, LocalDate.parse(yob), gender, phone, email, address, position, Double.parseDouble(salary), LocalDate.parse(startDate), accountId);
         employeeService.insert(emp);
-
-        Employee e = employeeService.findById(id);
         if (employeeService.findById(id) != null) {
-            
             model.addRow(new Object[]{id, name, ssn, yob, gender, phone, email, address, position, salary, startDate});
             JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
+            return;
         } else {
             JOptionPane.showMessageDialog(null, "Thêm nhân viên không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
@@ -1166,7 +1182,7 @@ for (Report report : hashMap.values()) {
     public class RegisterAccountForm extends JDialog {
 
         private JTextField txtUsername;
-        private JPasswordField txtPassword;
+        private JPasswordField txtPassword, txtConfirmPassword;
         private JButton btnRegister;
         private JButton btnShowPassword; // Nút giữ để hiển thị mật khẩu
         private String employeeId;
@@ -1181,71 +1197,69 @@ for (Report report : hashMap.values()) {
 
         private void initComponents() {
             setTitle("Đăng ký tài khoản");
-            setSize(350, 200);
+            setSize(400, 250); // Tăng chiều rộng cửa sổ
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.insets = new Insets(5, 5, 5, 5);
             gbc.fill = GridBagConstraints.HORIZONTAL;
 
+            Dimension textFieldSize = new Dimension(180, 25); // Tăng độ rộng các ô nhập liệu
+
             // Label Username
             JLabel lblUsername = new JLabel("Username:");
-            lblUsername.setPreferredSize(new Dimension(80, 25));
             gbc.gridx = 0;
             gbc.gridy = 0;
             add(lblUsername, gbc);
 
             // TextField Username
             txtUsername = new JTextField();
-            txtUsername.setPreferredSize(new Dimension(150, 25));
+            txtUsername.setPreferredSize(textFieldSize);
             gbc.gridx = 1;
             gbc.gridy = 0;
             add(txtUsername, gbc);
 
             // Label Password
             JLabel lblPassword = new JLabel("Password:");
-            lblPassword.setPreferredSize(new Dimension(80, 25));
             gbc.gridx = 0;
             gbc.gridy = 1;
             add(lblPassword, gbc);
 
             // Password Field
             txtPassword = new JPasswordField();
-            txtPassword.setPreferredSize(new Dimension(150, 25));
-            txtPassword.setEchoChar('*'); // Mặc định ẩn password
+            txtPassword.setPreferredSize(textFieldSize);
             gbc.gridx = 1;
             gbc.gridy = 1;
             add(txtPassword, gbc);
 
-            // Nút giữ để hiển thị mật khẩu
+            // Nút hiển thị mật khẩu
             btnShowPassword = new JButton("👁");
             gbc.gridx = 2;
             gbc.gridy = 1;
             add(btnShowPassword, gbc);
 
-            // Sự kiện giữ nút để hiển thị password
-            btnShowPassword.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    txtPassword.setEchoChar((char) 0); // Hiển thị mật khẩu
-                }
+            // Label Confirm Password
+            JLabel lblConfirmPassword = new JLabel("Comfirm Password:");
+            gbc.gridx = 0;
+            gbc.gridy = 2;
+            add(lblConfirmPassword, gbc);
 
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                    txtPassword.setEchoChar('*'); // Ẩn mật khẩu khi thả ra
-                }
-            });
+            // Confirm Password Field
+            txtConfirmPassword = new JPasswordField();
+            txtConfirmPassword.setPreferredSize(textFieldSize);
+            gbc.gridx = 1;
+            gbc.gridy = 2;
+            add(txtConfirmPassword, gbc);
 
             // Button Register
             btnRegister = new JButton("Đăng ký");
-            btnRegister.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa chữ
             btnRegister.setPreferredSize(new Dimension(200, 40)); // Tăng kích thước nút
+            btnRegister.setMargin(new Insets(10, 20, 10, 20)); // Tạo khoảng cách trên, trái, dưới, phải
+            btnRegister.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa chữ
             gbc.gridx = 0;
-            gbc.gridy = 2;
+            gbc.gridy = 3;
             gbc.gridwidth = 3;
             gbc.anchor = GridBagConstraints.CENTER;
             add(btnRegister, gbc);
-
-            // Sự kiện đăng ký
             btnRegister.addActionListener(evt -> registerAccount());
 
             setLocationRelativeTo(null);
@@ -1254,8 +1268,8 @@ for (Report report : hashMap.values()) {
         private void registerAccount() {
             String username = txtUsername.getText().trim();
             String password = new String(txtPassword.getPassword()).trim();
-
-            if (username.isEmpty() || password.isEmpty()) {
+            String confirmPassword = new String(txtConfirmPassword.getPassword()).trim();
+            if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
                 return;
             }
@@ -1270,6 +1284,11 @@ for (Report report : hashMap.values()) {
                 JOptionPane.showMessageDialog(this, "Password phải có ít nhất 6 ký tự!");
                 return;
             }
+            if (!password.equals(confirmPassword)) {
+                JOptionPane.showMessageDialog(this, "Mật khẩu nhập lại không khớp!");
+                return;
+            }
+
             int accountID = accountService.increaAcc();
             if (accountDAO.findByUsername(username) != null) {
                 JOptionPane.showMessageDialog(this, "Username đã tồn tại. Vui lòng chọn username khác!");
