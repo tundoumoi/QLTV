@@ -62,7 +62,7 @@ public class Chatbot extends javax.swing.JPanel {
         this.setLayout(new BorderLayout());
 
         // Tạo vùng hiển thị chat
-        chatArea = new JTextArea(15, 40);
+        chatArea = new JTextArea(15, 20);
         chatArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(chatArea);
 
