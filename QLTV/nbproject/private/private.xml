@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Swing/EmployeePage.java</file>
-            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Swing/EmployeeInfor.java</file>
-            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Service/EmployeeService.java</file>
-            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Model/Admin.java</file>
-            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Swing/Login.java</file>
-            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/Swing/AdminPage.java</file>
-            <file>file:/C:/Users/84367/OneDrive/Documents/GitHub/QLTV/QLTV/src/DAO/EmployeeDAO.java</file>
+            <file>file:/D:/LAB211/QLTV/QLTV/src/Swing/Login.java</file>
+            <file>file:/D:/LAB211/QLTV/QLTV/src/Service/ReportService.java</file>
+            <file>file:/D:/LAB211/QLTV/QLTV/src/DAO/ReportDAO.java</file>
+            <file>file:/D:/LAB211/QLTV/QLTV/src/Swing/CustomerPage.java</file>
         </group>
     </open-files>
 </project-private>

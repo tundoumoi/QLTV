@@ -723,7 +723,7 @@ public class CustomerPage extends javax.swing.JFrame {
         }
 
         LocalDate reportDate = LocalDate.now();
-        Report report = new Report(null, customerId, selectedBookId, "", reportDate, reportContent);
+        Report report = new Report(null, customerId, selectedBookId, reportDate, reportContent);
 
         try {
             ReportDAO reportDAO = new ReportDAO();

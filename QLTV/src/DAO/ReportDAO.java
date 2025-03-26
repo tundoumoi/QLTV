@@ -48,18 +48,27 @@ public class ReportDAO implements IReportDAO {
 
     @Override
     public void insert(Report entity) {
-        String sql = "INSERT INTO Report (reportId, customerId, bookId, reportDate, content) VALUES (?, ?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, entity.getReportId());
-            pstmt.setString(2, entity.getCustomerId());
-            pstmt.setString(3, entity.getBookId());
-            pstmt.setString(4, entity.getReportDate().toString());
-            pstmt.setString(5, entity.getContent());
+        String sql = "INSERT INTO Report (customerId, bookId, reportDate, content) VALUES (?, ?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, entity.getCustomerId());
+            pstmt.setString(2, entity.getBookId());
+            pstmt.setString(3, entity.getReportDate().toString());
+            pstmt.setString(4, entity.getContent());
             pstmt.executeUpdate();
+
+            // Nếu cần lấy lại reportId được sinh tự động
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    String generatedReportId = String.valueOf(generatedKeys.getInt(1));
+                    entity.setReportId(generatedReportId);
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public Report getById(String id) {
