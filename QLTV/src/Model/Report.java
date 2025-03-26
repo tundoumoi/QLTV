@@ -9,6 +9,12 @@ public class Report {
     private LocalDate reportDate;
     private String content;
 
+    public Report(String customerId, String bookId) {
+        this.customerId = customerId;
+        this.bookId = bookId;
+    }
+
+  
     public Report(String title, LocalDate reportDate, String content) {
         this.reportId = title;
         this.reportDate = reportDate;
