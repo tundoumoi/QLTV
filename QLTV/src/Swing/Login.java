@@ -290,7 +290,8 @@ public class Login extends javax.swing.JFrame {
             String user = jTextFieldUser.getText();
             String pass = jPasswordField1.getText();
             if(EmSer.CheckAccount(user, pass)){
-                EmployeePage emPage = new EmployeePage(this);
+                Employee em = checkEmOwnerAccount();
+                EmployeePage emPage = new EmployeePage(em);
                 emPage.setVisible(true);
                 setVisible(false);
             }
