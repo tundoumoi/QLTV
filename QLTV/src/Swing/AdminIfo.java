@@ -26,6 +26,7 @@ public class AdminIfo extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocation(750, 350);
         setResizable(false);
+        
     }
 
     public void display() {
@@ -51,6 +52,16 @@ public class AdminIfo extends javax.swing.JFrame {
             accountid.setText("N/A");
          
         }
+        id.setEditable(false);
+        name.setEditable(false);
+        ssn.setEditable(false);
+        birthday.setEditable(false);
+        gender.setEditable(false);
+        phone.setEditable(false);
+        email.setEditable(false);
+        address.setEditable(false);
+        accountid.setEditable(false);
+           
     }
 
     /**
