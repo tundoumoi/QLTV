@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package chatbot;
+import Swing.CustomerPage;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,10 +27,10 @@ public class Chatbot extends javax.swing.JPanel {
     /**
      * Creates new form Chatbot
      */
-     public Chatbot() {
-        initComponents();            // Khởi tạo giao diện
+     public Chatbot(CustomerPage customerPage) {
+        initComponents();
         customInit();
-        controller = new ChatbotController();  // Tạo đối tượng controller
+        controller = new ChatbotController(customerPage);
     }
 
     /**

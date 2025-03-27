@@ -46,7 +46,7 @@ public class CustomerPage extends javax.swing.JFrame {
         addEventListeners();
         
         // Khởi tạo Chatbot panel (nếu cần)
-        chatbot.Chatbot chatbotPanel = new chatbot.Chatbot();
+        chatbot.Chatbot chatbotPanel = new chatbot.Chatbot(this);
         ChatbotPanel.setLayout(new java.awt.BorderLayout());
         ChatbotPanel.add(chatbotPanel, java.awt.BorderLayout.CENTER);
         ChatbotPanel.revalidate();
@@ -115,7 +115,90 @@ public class CustomerPage extends javax.swing.JFrame {
         return customer != null ? customer.getId() : null;
     }
     
+    public String processPurchase(String bookId, int quantity) {
+        if (bookId == null) {
+            return "Vui lòng chọn một cuốn sách!";
+        }
+        if (customerId == null || customerId.isEmpty()) {
+            return "Error: Unable to determine customerId!";
+        }
+
+        CustomerDAO customerDAO = new CustomerDAO();
+        if (!customerDAO.isCustomerInCustomerBuy(customerId)) {
+            // Nếu customer chưa có trong CustomerBuy, thêm vào trước
+            String insertSQL = "INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES (?, 0, 'Standard')";
+            try (Connection conn = DatabaseConnection.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+                 pstmt.setString(1, customerId);
+                 pstmt.executeUpdate();
+            } catch (SQLException e) {
+                 e.printStackTrace();
+                 return "Error adding customer to CustomerBuy!";
+            }
+        }
+
+        BookDAO bookDAO = new BookDAO();
+        Book book = bookDAO.getById(bookId);
+
+        if (book == null || book.getQuantity() < quantity) {
+            return "Sách không đủ số lượng hoặc không tồn tại!";
+        }
+
+        LocalDate purchaseDate = LocalDate.now();
+        // Tạo đơn mua, cho orderId rỗng để hệ thống tự sinh nếu cần.
+        BuyBook buyBook = new BuyBook("", customerId, bookId, quantity, book.getPrice() * quantity, purchaseDate);
+        BuyBookDAO buyBookDAO = new BuyBookDAO();
+        buyBookDAO.insertBuyB(buyBook);
+        bookDAO.updateQuantity(bookId, book.getQuantity() - quantity);
+
+        // Nếu cần cập nhật lại giao diện bảng đơn mua, gọi updateTableBuy()
+        updateTableBuy();
+
+        return "Bạn đã mua sách: " + book.getTitle() + "\nSố lượng: " + quantity;
+    }
     
+    public String processRental(String bookId) {
+        // Kiểm tra thẻ thư viện của khách hàng
+        String cardId = "Card" + customerId.substring(1);
+        CustomerBorrowDAO cbDao = new CustomerBorrowDAO();
+        CustomerBorrow cusBorrow = cbDao.getById(cardId);
+
+        if (cusBorrow == null) {
+            return "Bạn chưa có thẻ thư viện. Phải tạo thẻ thư viện trước.";
+        }
+        if (bookId == null) {
+            return "Vui lòng chọn một cuốn sách!";
+        }
+
+        BookDAO bookDAO = new BookDAO();
+        Book book = bookDAO.getById(bookId);
+        if (book == null || book.getQuantity() < 1) {
+            return "Sách không có sẵn để mượn!";
+        }
+
+        // Tính phí mượn (ví dụ: 1/10 giá bán)
+        double rentalPrice = book.getPrice() / 10;
+        if (cusBorrow.getCardValue() < rentalPrice) {
+            return "Thẻ của bạn không đủ số dư. Hãy nạp lại thẻ.";
+        }
+
+        LocalDate borrowDate = LocalDate.now();
+        LocalDate endDate = borrowDate.plusDays(7);
+        BookBorrow borrow = new BookBorrow(cardId, bookId, borrowDate, endDate);
+        BorrowBookDAO borrowBookDAO = new BorrowBookDAO();
+        borrowBookDAO.insertBorrowB(borrow);
+        bookDAO.updateQuantity(bookId, book.getQuantity() - 1);
+
+        // Sau khi mượn thành công, trừ số dư thẻ theo phí mượn
+        double newBalance = cusBorrow.getCardValue() - rentalPrice;
+        cusBorrow.setCardValue(newBalance);
+        cbDao.update(cusBorrow);
+        
+        DefaultTableModel borrowModel = (DefaultTableModel) TableBorrow.getModel();
+        borrowModel.addRow(new Object[]{book.getTitle(), rentalPrice, borrowDate, endDate});
+
+        return "Bạn đã mượn sách: " + book.getTitle() + "\nNgày mượn: " + borrowDate + "\nNgày trả: " + endDate;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -308,7 +391,7 @@ public class CustomerPage extends javax.swing.JFrame {
                     .addComponent(RECHARGE)
                     .addComponent(QuantityRecharge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -562,7 +645,7 @@ public class CustomerPage extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         TotalPurchaseAndMakingCard.addTab("SERVICE", jPanel3);
@@ -596,7 +679,7 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addComponent(Cusinfo)
                 .addGap(671, 671, 671)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 541, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 235, Short.MAX_VALUE)
                 .addComponent(Logout)
                 .addGap(50, 50, 50))
         );
@@ -618,7 +701,7 @@ public class CustomerPage extends javax.swing.JFrame {
         ChatbotPanel.setLayout(ChatbotPanelLayout);
         ChatbotPanelLayout.setHorizontalGroup(
             ChatbotPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 809, Short.MAX_VALUE)
+            .addGap(0, 494, Short.MAX_VALUE)
         );
         ChatbotPanelLayout.setVerticalGroup(
             ChatbotPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -646,10 +729,8 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(TotalPurchaseAndMakingCard, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(TotalPurchaseAndMakingCard, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ChatbotPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -660,11 +741,11 @@ public class CustomerPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
