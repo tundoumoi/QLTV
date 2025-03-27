@@ -53,7 +53,7 @@ public class EmployeePage extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) JBookTable.getModel();
         model.setRowCount(0); // Xóa các dòng cũ (nếu có)
         for (Book book : bookMap.values()) {
-           // (bookID, title,isbn, author, publishDateStr, bookPrice, quantity, type, language);
+            // (bookID, title,isbn, author, publishDateStr, bookPrice, quantity, type, language);
             model.addRow(new Object[]{book.getBookId(), book.getTitle(), book.getAuthor(), book.getIsbn(), book.getPublishedDate(), book.getQuantity(), book.getType(), book.getPrice()});
 
         }
@@ -820,13 +820,13 @@ public class EmployeePage extends javax.swing.JFrame {
         jTextBookID.setText(JBookTable.getValueAt(row, 0).toString());
         String id = jTextBookID.getText();
         JTitle.setText(JBookTable.getValueAt(row, 1).toString());
-        jTextAuthor.setText(JBookTable.getValueAt(row, 2).toString());        
+        jTextAuthor.setText(JBookTable.getValueAt(row, 2).toString());
         jTextIsBN.setText(JBookTable.getValueAt(row, 3).toString());
         String dateStr = JBookTable.getValueAt(row, 4).toString();
         jTextPublishDate.setText(dateStr);
         ValueQuantity.setValue(Integer.parseInt(JBookTable.getValueAt(row, 5).toString()));
         jType.setText(JBookTable.getValueAt(row, 6).toString());
-                jPrice.setText(JBookTable.getValueAt(row, 7).toString());
+        jPrice.setText(JBookTable.getValueAt(row, 7).toString());
         Book book = bookSer.findById(id);
         jCombolanguage.setSelectedItem(book.getLanguage());
     }//GEN-LAST:event_JBookTableMouseClicked
@@ -1009,8 +1009,8 @@ public class EmployeePage extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error: Book code already exists!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-  //          String bookId, String isbn, String title, String author, String publisher, String publishedDate, double price, int quantity, String type, String language
-            Book book = new Book(bookID, isbn,title, author,"null" ,publishDateStr, bookPrice, quantity, type, language);
+            //          String bookId, String isbn, String title, String author, String publisher, String publishedDate, double price, int quantity, String type, String language
+            Book book = new Book(bookID, isbn, title, author, "null", publishDateStr, bookPrice, quantity, type, language);
 
             // Gọi service để thêm sách
             boolean success = bookSer.insert1(book);
@@ -1034,34 +1034,34 @@ public class EmployeePage extends javax.swing.JFrame {
     private void jButtonFindBookMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonFindBookMousePressed
         // TODO add your handling code here:
 
-try {
-        String bookID = jTextBookID.getText();
-        
-        if (bookID.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Book ID cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+        try {
+            String bookID = jTextBookID.getText();
+
+            if (bookID.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Book ID cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Book bk = bookSer.findById(bookID);
+
+            if (bk == null) {
+                JOptionPane.showMessageDialog(null, "Invalid Book", "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            JTitle.setText(bk.getTitle());
+            jTextAuthor.setText(bk.getAuthor());
+            jTextIsBN.setText(bk.getIsbn());
+            jTextPublishDate.setText(bk.getPublishedDate());
+            jType.setText(bk.getType());
+            jPrice.setText(String.valueOf(bk.getPrice())); // Chuyển số thành chuỗi nếu cần
+            ValueQuantity.setValue(bk.getQuantity()); // Giữ nguyên nếu là JSpinner
+            jCombolanguage.setSelectedItem(bk.getLanguage()); // Đặt giá trị cho JComboBox
+
+        } catch (Exception e) {
+            e.printStackTrace(); // In lỗi ra console để debug
+            JOptionPane.showMessageDialog(null, "Error while searching for book: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-        Book bk = bookSer.findById(bookID);
-        
-        if (bk == null) {
-            JOptionPane.showMessageDialog(null, "Invalid Book", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-     
-        JTitle.setText(bk.getTitle());
-        jTextAuthor.setText(bk.getAuthor());
-        jTextIsBN.setText(bk.getIsbn());
-        jTextPublishDate.setText(bk.getPublishedDate());
-        jType.setText(bk.getType());
-        jPrice.setText(String.valueOf(bk.getPrice())); // Chuyển số thành chuỗi nếu cần
-        ValueQuantity.setValue(bk.getQuantity()); // Giữ nguyên nếu là JSpinner
-        jCombolanguage.setSelectedItem(bk.getLanguage()); // Đặt giá trị cho JComboBox
-        
-    } catch (Exception e) {
-        e.printStackTrace(); // In lỗi ra console để debug
-        JOptionPane.showMessageDialog(null, "Error while searching for book: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
 
     }//GEN-LAST:event_jButtonFindBookMousePressed
 
@@ -1071,8 +1071,14 @@ try {
             JOptionPane.showMessageDialog(null, "Book ID cannot be blank!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this Customer?",
+                "Confirm", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
         try {
             // Gọi phương thức update từ CustomerService
+
             bookSer.delete(bookID);
             displayBook();
             JOptionPane.showMessageDialog(null, "Book deleted successfully!", "Notification", JOptionPane.INFORMATION_MESSAGE);
@@ -1106,14 +1112,12 @@ try {
             String language = jCombolanguage.getSelectedItem().toString();
             double bookPrice = Double.parseDouble(price);
 
-  //          String bookId, String isbn, String title, String author, String publisher, String publishedDate, double price, int quantity, String type, String language
-            Book book = new Book(bookID, isbn,title, author,"null" ,publishDateStr, bookPrice, quantity, type, language);
+            //          String bookId, String isbn, String title, String author, String publisher, String publishedDate, double price, int quantity, String type, String language
+            Book book = new Book(bookID, isbn, title, author, "null", publishDateStr, bookPrice, quantity, type, language);
 
-   
             // Gọi service để thêm sách
             bookSer.update(book);
             displayBook();
-            
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Lỗi: Giá sách không hợp lệ!", "Lỗi nhập liệu", JOptionPane.ERROR_MESSAGE);

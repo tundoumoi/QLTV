@@ -33,6 +33,7 @@ public class CustomerService implements Service<Customer> {
         }
         return null;
     }
+
     public Customer findByAccID(int accID){
         customerSet.clear();
         customerSet =cusDao.getAll();
@@ -64,7 +65,7 @@ public class CustomerService implements Service<Customer> {
 
     public Boolean CheckAccount(String userName, String Pass) {
         customerACC.clear();
-        customerACC = accDao.getAll();
+        customerACC = cusDao.getCustomerAccSet();
         for (Account account : customerACC) {
             if (account.getUsername().equalsIgnoreCase(userName) && account.getPass().equals(Pass)) {
                 return true;

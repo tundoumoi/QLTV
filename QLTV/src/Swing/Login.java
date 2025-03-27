@@ -8,6 +8,7 @@ import Model.Admin;
 import Model.Customer;
 import Model.Employee;
 import Service.*;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 
@@ -29,8 +30,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocation(750, 350);
         setResizable(false);
-        setTitle("Đăng Nhập Vào Hệ Thống");
-
+        setTitle("Login into system");
     }
 
     /**
@@ -57,9 +57,9 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 204));
 
-        jPanel2.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(0, 153, 204));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.lightGray, java.awt.Color.gray, java.awt.Color.pink));
 
         LoginBut.setBackground(new java.awt.Color(204, 204, 204));
@@ -77,7 +77,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         JchoiceRole.setBackground(new java.awt.Color(204, 204, 204));
-        JchoiceRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee", "Customer", " " }));
+        JchoiceRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee", "Customer" }));
         JchoiceRole.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         JchoiceRole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +85,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel2.setText("Press to create Customer Account");
+        jLabel2.setInheritsPopupMenu(false);
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
@@ -100,15 +102,15 @@ public class Login extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(44, 44, 44)
                 .addComponent(JchoiceRole, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LoginBut, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,9 +119,8 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(LoginBut, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JchoiceRole, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         LoginBut.getAccessibleContext().setAccessibleName("login");
@@ -204,7 +205,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(113, 113, 113)
                         .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -213,8 +214,8 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jTextFieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -245,8 +246,6 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUserActionPerformed
-        // TODO add your handling code here:
-
 
     }//GEN-LAST:event_jTextFieldUserActionPerformed
 
@@ -255,18 +254,14 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldUserMouseClicked
 
     private void JchoiceRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JchoiceRoleActionPerformed
-        // TODO add your handling code here:
 
     }//GEN-LAST:event_JchoiceRoleActionPerformed
 
     private void LoginButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButActionPerformed
 
-        // TODO add your handling code here:
     }//GEN-LAST:event_LoginButActionPerformed
 
     private void LoginButMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButMouseClicked
-        // TODO add your handling code here:
-
         if (JchoiceRole.getSelectedItem().equals("Admin")) {
             String user = jTextFieldUser.getText();
             String pass = jPasswordField1.getText();
@@ -276,6 +271,7 @@ public class Login extends javax.swing.JFrame {
                 adminPage.setVisible(true);
                 setVisible(false);
             } else {
+                jTextFieldUser.setToolTipText("Wrong.");
                 JOptionPane.showMessageDialog(rootPane, "Login fail!");
             }
         } else if (JchoiceRole.getSelectedItem().equals("Customer")) {
@@ -287,10 +283,9 @@ public class Login extends javax.swing.JFrame {
                 // Chuyển sang trang CustomerPage với customerId lấy được
                 CustomerPage.run(customerId);
                 setVisible(false);
-                System.out.println("Đăng nhập thành công, customerId: " + customerId);
             } else {
                 jTextFieldUser.setToolTipText("Wrong.");
-                javax.swing.JOptionPane.showMessageDialog(rootPane, "Login fail!");
+                JOptionPane.showMessageDialog(rootPane, "Login fail!");
             }
         } else if (JchoiceRole.getSelectedItem().equals("Employee")) {
             String user = jTextFieldUser.getText();
@@ -300,8 +295,9 @@ public class Login extends javax.swing.JFrame {
                 EmployeePage emPage = new EmployeePage(em);
                 emPage.setVisible(true);
                 setVisible(false);
-            }else{
-                JOptionPane.showMessageDialog(null, "Login fail!", "Error", JOptionPane.WARNING_MESSAGE);
+            } else {
+                jTextFieldUser.setToolTipText("Wrong.");
+                JOptionPane.showMessageDialog(rootPane, "Login fail!");
             }
         }
     }//GEN-LAST:event_LoginButMouseClicked
@@ -327,24 +323,21 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_ShowPassMousePressed
 
     private void ShowPassMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowPassMouseReleased
-        // TODO add your handling code here:
         jPasswordField1.setEchoChar('*'); // Ẩn mật khẩu khi thả chuột
     }//GEN-LAST:event_ShowPassMouseReleased
 
     private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
-        // TODO add your handling code here:
 
     }//GEN-LAST:event_jLabel2MousePressed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        // TODO add your handling code here:
         setVisible(false);
         Register rg = new Register();
         rg.setVisible(true);
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void ShowPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowPassActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_ShowPassActionPerformed
     public Customer checkCusOwnerAccount() {
         String userName = jTextFieldUser.getText();
@@ -363,27 +356,27 @@ public class Login extends javax.swing.JFrame {
             return emInfo;
         } catch (Exception e) {
             e.printStackTrace(); // In lỗi ra console để debug
-            JOptionPane.showMessageDialog(null, "Lỗi khi kiểm tra tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error checking account: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
-    
-    public Admin checkAdOwnerAccount(){
+
+    public Admin checkAdOwnerAccount() {
         try {
             String userName = jTextFieldUser.getText();
             Admin ad = adminService.checkOner(userName);
-            
-            if(ad == null){
+
+            if (ad == null) {
                 JOptionPane.showMessageDialog(null, "User is not available", "Not Exist", JOptionPane.WARNING_MESSAGE);
             }
             return ad;
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Lỗi khi kiểm tra tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error checking account: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */

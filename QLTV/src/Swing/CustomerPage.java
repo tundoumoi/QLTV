@@ -156,8 +156,8 @@ public class CustomerPage extends javax.swing.JFrame {
         BORROW = new javax.swing.JButton();
         BUY = new javax.swing.JButton();
         REPPORT = new javax.swing.JButton();
-        InputQuantity = new javax.swing.JTextField();
         ReportContent = new javax.swing.JTextField();
+        InputQuantity = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         Cusinfo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -170,6 +170,7 @@ public class CustomerPage extends javax.swing.JFrame {
 
         TotalPurchaseAndMakingCard.setBackground(new java.awt.Color(153, 153, 153));
         TotalPurchaseAndMakingCard.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        TotalPurchaseAndMakingCard.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -465,6 +466,8 @@ public class CustomerPage extends javax.swing.JFrame {
 
         ReportContent.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
+        InputQuantity.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -485,16 +488,6 @@ public class CustomerPage extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(214, 214, 214))))
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(InputQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addComponent(BUY)
-                .addGap(18, 18, 18)
-                .addComponent(BORROW)
-                .addGap(18, 18, 18)
-                .addComponent(REPPORT)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -509,6 +502,16 @@ public class CustomerPage extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ReportContent))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(InputQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
+                .addComponent(BUY)
+                .addGap(18, 18, 18)
+                .addComponent(BORROW)
+                .addGap(18, 18, 18)
+                .addComponent(REPPORT)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -532,10 +535,10 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(InputQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BUY)
                     .addComponent(BORROW)
-                    .addComponent(REPPORT))
+                    .addComponent(REPPORT)
+                    .addComponent(InputQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addComponent(ReportContent, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                 .addContainerGap())
@@ -667,12 +670,12 @@ public class CustomerPage extends javax.swing.JFrame {
 
     private void BUYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUYActionPerformed
         if (selectedBookId == null) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn một cuốn sách!");
+            JOptionPane.showMessageDialog(this, "Please select a book!");
             return;
         }
         
         if (customerId == null || customerId.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Lỗi: Không xác định được customerId!");
+            JOptionPane.showMessageDialog(this, "Error: Unable to determine customerId!");
             return;
         }
         
@@ -686,16 +689,16 @@ public class CustomerPage extends javax.swing.JFrame {
                  pstmt.executeUpdate();
             } catch (SQLException e) {
                  e.printStackTrace();
-                 JOptionPane.showMessageDialog(this, "Lỗi khi thêm khách hàng vào CustomerBuy!");
+                 JOptionPane.showMessageDialog(this, "Error adding customer to CustomerBuy!");
                  return;
             }
         }
         
         int quantity;
         try {
-            quantity = Integer.parseInt(InputQuantity.getText().trim());
+            quantity = (int)InputQuantity.getValue();
             if (quantity <= 0) {
-                JOptionPane.showMessageDialog(this, "Số lượng phải lớn hơn 0!");
+                JOptionPane.showMessageDialog(this, "Quantity must be greater than 0!");
                 return;
             }
         } catch (NumberFormatException e) {
@@ -1021,7 +1024,7 @@ public class CustomerPage extends javax.swing.JFrame {
     private javax.swing.JButton CreateCard;
     private javax.swing.JLabel Cusinfo;
     private javax.swing.JButton Find;
-    private javax.swing.JTextField InputQuantity;
+    private javax.swing.JSpinner InputQuantity;
     private javax.swing.JTextField InputToFind;
     private javax.swing.JLabel Logout;
     private javax.swing.JButton PAY;

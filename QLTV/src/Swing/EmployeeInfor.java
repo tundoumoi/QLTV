@@ -13,50 +13,54 @@ import Model.Employee;
 public class EmployeeInfor extends javax.swing.JFrame {
 
     Employee employee;
+
     /**
      * Creates new form EmployeeInfor
      */
     public EmployeeInfor(Employee employee) {
-        setTitle("Employee Information");     
+        setTitle("Employee Information");
         initComponents();
-        this.employee= employee;
+        this.employee = employee;
         display();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
+        setLocation(750, 300);
+        setResizable(false);
     }
 
     public EmployeeInfor() {
     }
-    public void display(){
-      //  try {
-    //setVisible(true);
-if (employee != null) {
-    ID.setText(employee.getId());
-    Name.setText(employee.getName());
-    SSN.setText(employee.getSSN());
-    DOB.setText(employee.getBirthDate().toString());
-    Gender.setText(employee.getGender());
-    Phone.setText(employee.getPhoneNumber());
-    Email.setText(employee.getEmail());
-    Address.setText(employee.getAddress());
-    Position.setText(employee.getPosition());
-    Salary.setText(String.valueOf(employee.getSalary()));
-    StartDate.setText(employee.getStartDate().toString());
-} else {
-    ID.setText("N/A");
-    Name.setText("N/A");
-    SSN.setText("N/A");
-    DOB.setText("N/A");
-    Gender.setText("N/A");
-    Phone.setText("N/A");
-    Email.setText("N/A");
-    Address.setText("N/A");
-    Position.setText("N/A");
-    Salary.setText("N/A");
-    StartDate.setText("N/A");
-}
+
+    public void display() {
+        //  try {
+        //setVisible(true);
+        if (employee != null) {
+            ID.setText(employee.getId());
+            Name.setText(employee.getName());
+            SSN.setText(employee.getSSN());
+            DOB.setText(employee.getBirthDate().toString());
+            Gender.setText(employee.getGender());
+            Phone.setText(employee.getPhoneNumber());
+            Email.setText(employee.getEmail());
+            Address.setText(employee.getAddress());
+            Position.setText(employee.getPosition());
+            Salary.setText(String.valueOf(employee.getSalary()));
+            StartDate.setText(employee.getStartDate().toString());
+        } else {
+            ID.setText("N/A");
+            Name.setText("N/A");
+            SSN.setText("N/A");
+            DOB.setText("N/A");
+            Gender.setText("N/A");
+            Phone.setText("N/A");
+            Email.setText("N/A");
+            Address.setText("N/A");
+            Position.setText("N/A");
+            Salary.setText("N/A");
+            StartDate.setText("N/A");
+        }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -326,7 +330,6 @@ if (employee != null) {
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Address;
