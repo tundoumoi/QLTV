@@ -13,16 +13,16 @@ import Model.Customer;
 public class CustomerInfo extends javax.swing.JFrame {
 
     Customer customer;
+
     /**
      * Creates new form EmployeeInfor
      */
     public CustomerInfo(Customer customer) {
-        setTitle("Employee Information");     
+        setTitle("Employee Information");
         initComponents();
-        this.customer= customer;
+        this.customer = customer;
         display();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
     }
 
     public CustomerInfo() {
@@ -32,35 +32,36 @@ public class CustomerInfo extends javax.swing.JFrame {
         this.customer = customer;
         display();
     }
-    
-    public void display(){
-      //  try {
-    //setVisible(true);
-    //String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, int accountId
-if (customer != null) {
-    ID.setText(customer.getId());
-    Name.setText(customer.getName());
-    SSN.setText(customer.getSSN());
-    DOB.setText(customer.getBirthDate().toString());
-    Gender.setText(customer.getGender());
-    Phone.setText(customer.getPhoneNumber());
-    Email.setText(customer.getEmail());
-    Address.setText(customer.getAddress());
-    Total.setText(String.valueOf(customer.getTotalPayment()));
-} else {
-    ID.setText("N/A");
-    Name.setText("N/A");
-    SSN.setText("N/A");
-    DOB.setText("N/A");
-    Gender.setText("N/A");
-    Phone.setText("N/A");
-    Email.setText("N/A");
-    Address.setText("N/A");
-    Position.setText("N/A");
-    Total.setText("N/A");
-}
+
+    public void display() {
+        //  try {
+        //setVisible(true);
+        //String id, String name,String SSN, LocalDate birthDate, String gender, String phoneNumber, String email, String address, double totalPayment, int accountId
+        if (customer != null) {
+            ID.setText(customer.getId());
+            Name.setText(customer.getName());
+            SSN.setText(customer.getSSN());
+            DOB.setText(customer.getBirthDate().toString());
+            Gender.setText(customer.getGender());
+            Phone.setText(customer.getPhoneNumber());
+            Email.setText(customer.getEmail());
+            Address.setText(customer.getAddress());
+            Total.setText(String.valueOf(customer.getTotalPayment()));
+        } else {
+            ID.setText("N/A");
+            Name.setText("N/A");
+            SSN.setText("N/A");
+            DOB.setText("N/A");
+            Gender.setText("N/A");
+            Phone.setText("N/A");
+            Email.setText("N/A");
+            Address.setText("N/A");
+            Position.setText("N/A");
+            Total.setText("N/A");
+        }
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -281,17 +282,17 @@ if (customer != null) {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -316,7 +317,6 @@ if (customer != null) {
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Address;
