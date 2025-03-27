@@ -300,6 +300,8 @@ public class Login extends javax.swing.JFrame {
                 EmployeePage emPage = new EmployeePage(em);
                 emPage.setVisible(true);
                 setVisible(false);
+            }else{
+                JOptionPane.showMessageDialog(null, "Login fail!", "Error", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_LoginButMouseClicked
