@@ -27,6 +27,12 @@ public class CustomerInfo extends javax.swing.JFrame {
 
     public CustomerInfo() {
     }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        display();
+    }
+    
     public void display(){
       //  try {
     //setVisible(true);

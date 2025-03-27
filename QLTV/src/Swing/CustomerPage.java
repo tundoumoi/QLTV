@@ -71,7 +71,7 @@ public class CustomerPage extends javax.swing.JFrame {
         ArrayList<Book> availableBooks = bookDAO.getBooksWithQuantityGreaterThanZero(); 
         DefaultTableModel model = (DefaultTableModel) AvailableBook.getModel(); 
         model.setRowCount(0); for (Book book : availableBooks) { 
-            model.addRow(new Object[]{book.getBookId(), book.getTitle(), book.getType(), book.getQuantity()}); 
+            model.addRow(new Object[]{book.getBookId(), book.getTitle(), book.getType(), book.getPrice()}); 
         }    
     }
 
@@ -285,10 +285,10 @@ public class CustomerPage extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(CreateCard)
                                 .addGap(18, 18, 18)
-                                .addComponent(QuantityRecharge)
+                                .addComponent(QuantityRecharge, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(TypeCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1027, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane4))))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -361,11 +361,11 @@ public class CustomerPage extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "BookId", "Title", "Type", "Quantity"
+                "BookId", "Title", "Type", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -549,7 +549,7 @@ public class CustomerPage extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -596,19 +596,21 @@ public class CustomerPage extends javax.swing.JFrame {
                 .addComponent(Cusinfo)
                 .addGap(671, 671, 671)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 611, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 541, Short.MAX_VALUE)
                 .addComponent(Logout)
-                .addContainerGap())
+                .addGap(50, 50, 50))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Logout)
-                    .addComponent(Cusinfo))
+                .addComponent(Cusinfo)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Logout)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -616,7 +618,7 @@ public class CustomerPage extends javax.swing.JFrame {
         ChatbotPanel.setLayout(ChatbotPanelLayout);
         ChatbotPanelLayout.setHorizontalGroup(
             ChatbotPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
+            .addGap(0, 809, Short.MAX_VALUE)
         );
         ChatbotPanelLayout.setVerticalGroup(
             ChatbotPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -629,10 +631,10 @@ public class CustomerPage extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(TotalPurchaseAndMakingCard)
+                .addComponent(TotalPurchaseAndMakingCard, javax.swing.GroupLayout.PREFERRED_SIZE, 1088, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ChatbotPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -658,7 +660,7 @@ public class CustomerPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -975,10 +977,18 @@ public class CustomerPage extends javax.swing.JFrame {
     }//GEN-LAST:event_LogoutMousePressed
 
     private void CusinfoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CusinfoMousePressed
-        // TODO add your handling code here:
-        
-        CustomerInfo cusinfo = new CustomerInfo(customer);
-        cusinfo.setVisible(true);
+        // Truy vấn lại thông tin khách hàng từ database
+        CustomerDAO customerDAO = new CustomerDAO();
+        Customer updatedCustomer = customerDAO.findById(customerId);
+
+        if(updatedCustomer == null) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin khách hàng!");
+            return;
+        }
+
+        // Tạo cửa sổ CustomerInfo mới với thông tin cập nhật và hiển thị nó
+        CustomerInfo cusInfo = new CustomerInfo(updatedCustomer);
+        cusInfo.setVisible(true);
     }//GEN-LAST:event_CusinfoMousePressed
 
     /**

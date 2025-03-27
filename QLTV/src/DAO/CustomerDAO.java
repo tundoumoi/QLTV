@@ -347,4 +347,32 @@ public class CustomerDAO implements ICustomerDAO {
         }
         return false;
     }
+    
+    public Customer findById(String id) {
+        String sql = "SELECT * FROM Customer WHERE Cid = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String Cid = rs.getString("Cid");
+                    String Cname = rs.getString("Cname");
+                    String Cssn = rs.getString("Cssn");
+                    String CbirthDateStr = rs.getString("CbirthDate");
+                    LocalDate CbirthDate = LocalDate.parse(CbirthDateStr);
+                    String Cgender = rs.getString("Cgender");
+                    String CphoneNumber = rs.getString("CphoneNumber");
+                    String Cemail = rs.getString("Cemail");
+                    String Caddress = rs.getString("Caddress");
+                    double CtotalPayment = rs.getDouble("CtotalPayment");
+                    int accountId = rs.getInt("AccountId");
+                    return new Customer(Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, accountId);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
