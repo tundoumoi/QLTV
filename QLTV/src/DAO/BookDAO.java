@@ -139,33 +139,35 @@ public void update(Book entity) {
     }
     
     @Override
-    public ArrayList<Book> getAll() {
-        ArrayList<Book> books = new ArrayList<>();
-        String sql = "SELECT * FROM Book";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-             while (rs.next()) {
-                  String bookId = rs.getString("bookId");
-                  String Isbn = rs.getString("isbn");
-                  String title = rs.getString("title");
-                  String author = rs.getString("author");
-                  String publisher = rs.getString("publisher");
-                  String publishedDate = rs.getString("publishedDate");
-                  double price = rs.getDouble("price");
-                  int quantity = rs.getInt("quantity");
-                  String type = rs.getString("type");
-                  String language = rs.getString("language");
-                  Book book = new Book(bookId, Isbn, title, author, publisher, publishedDate, price, quantity, type, language);
-                  books.add(book);
-             }
-        } catch (SQLException e) {
-             e.printStackTrace();
-        }
-        // Cập nhật lại danh sách bookList
-        this.bookList = books;
-        return books;
+public ArrayList<Book> getAll() {
+    ArrayList<Book> books = new ArrayList<>();
+    String sql = "SELECT * FROM Book ORDER BY bookId"; // Sắp xếp tăng dần theo bookId
+    try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         ResultSet rs = pstmt.executeQuery()) {
+         while (rs.next()) {
+              String bookId = rs.getString("bookId");
+              String Isbn = rs.getString("isbn");
+              String title = rs.getString("title");
+              String author = rs.getString("author");
+              String publisher = rs.getString("publisher");
+              String publishedDate = rs.getString("publishedDate");
+              double price = rs.getDouble("price");
+              int quantity = rs.getInt("quantity");
+              String type = rs.getString("type");
+              String language = rs.getString("language");
+              Book book = new Book(bookId, Isbn, title, author, publisher, publishedDate, price, quantity, type, language);
+              books.add(book);
+         }
+    } catch (SQLException e) {
+         e.printStackTrace();
     }
+
+    // Cập nhật lại danh sách bookList
+    this.bookList = books;
+    return books;
+}
+
     
     public ArrayList<Book> findBookByPublishedDate(LocalDate publishedDate) {
          String sql = "SELECT * FROM Book WHERE publishedDate = ?";

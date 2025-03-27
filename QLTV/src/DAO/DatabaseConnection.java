@@ -20,13 +20,13 @@ public class DatabaseConnection {
         }
         return conn;
     }
-    public static void main(String[] args) {
-        try (Connection connection = getConnection()) {
-            if (connection != null) {
-                System.out.println("Database connection is active.");
-            }
-        } catch (SQLException ex) {
-                Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null,ex);
-        }
-    }
+//    public static void main(String[] args) {
+//        try (Connection connection = getConnection()) {
+//            if (connection != null) {
+//                System.out.println("Database connection is active.");
+//            }
+//        } catch (SQLException ex) {
+//                Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null,ex);
+//        }
+//    }
 }
