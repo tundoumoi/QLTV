@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static java.util.regex.Pattern.CASE_INSENSITIVE;
 
 public class ChatbotController {
     private BookDAO bookDAO;
@@ -172,17 +173,23 @@ public class ChatbotController {
     }
     
     private String handleSearchByTitle(String input) {
-        Pattern titlePattern = Pattern.compile("tiêu đề\\s*(?:là\\s*)?(?:[:]\\s*)?(.*)", Pattern.CASE_INSENSITIVE);
+        Pattern titlePattern = Pattern.compile("(?:tìm|tôi muốn tìm|tìm kiếm|có sách nào tên là|cho tôi sách tên)\\s*(?:có tên)?\\s*(.+)", Pattern.CASE_INSENSITIVE);
         Matcher matcher = titlePattern.matcher(input);
         if (matcher.find()) {
-            String title = matcher.group(1).replace(":", "").trim();
+            String title = matcher.group(1).trim();
             if (title.isEmpty()) {
-                return "Vui lòng cung cấp tiêu đề để tìm kiếm.";
+                return "Vui lòng cung cấp tên sách để tìm kiếm.";
             }
-            ArrayList<Book> books = bookDAO.findBookByTitle(title);
-            return formatBookList(books);
+            ArrayList<Book> books = bookDAO.getBookList();
+            ArrayList<Book> filteredBooks = new ArrayList<>();
+            for (Book book : books) {
+                if (book.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                    filteredBooks.add(book);
+                }
+            }
+            return formatBookList(filteredBooks);
         }
-        return "Không tìm thấy tiêu đề trong yêu cầu của bạn.";
+        return "Không tìm thấy sách theo tiêu đề yêu cầu.";
     }
     
     private String handleSearchByType(String input) {
@@ -193,8 +200,14 @@ public class ChatbotController {
             if (type.isEmpty()) {
                 return "Vui lòng cung cấp thể loại để tìm kiếm.";
             }
-            ArrayList<Book> books = bookDAO.findBookByType(type);
-            return formatBookList(books);
+            ArrayList<Book> books = bookDAO.getBookList();
+            ArrayList<Book> filteredBooks = new ArrayList<>();
+            for (Book book : books) {
+                if (book.getType().toLowerCase().contains(type.toLowerCase())) {
+                    filteredBooks.add(book);
+                }
+            }
+            return formatBookList(filteredBooks);
         }
         return "Không tìm thấy thể loại trong yêu cầu của bạn.";
     }

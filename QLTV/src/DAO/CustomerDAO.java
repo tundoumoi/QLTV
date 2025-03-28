@@ -171,10 +171,28 @@ public class CustomerDAO implements ICustomerDAO {
 
     @Override
     public Customer getById(String id) {
-        for (Customer customer : cusSet) {
-            if (customer.getId().equalsIgnoreCase(id)) {
-                return customer;
+        String sql = "SELECT * FROM Customer WHERE Cid = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String Cid = rs.getString("Cid");
+                    String Cname = rs.getString("Cname");
+                    String Cssn = rs.getString("Cssn");
+                    // Giả sử CbirthDate lưu dưới dạng chuỗi và có thể parse sang LocalDate
+                    LocalDate CbirthDate = LocalDate.parse(rs.getString("CbirthDate"));
+                    String Cgender = rs.getString("Cgender");
+                    String CphoneNumber = rs.getString("CphoneNumber");
+                    String Cemail = rs.getString("Cemail");
+                    String Caddress = rs.getString("Caddress");
+                    double totalPayment = rs.getDouble("CtotalPayment");
+                    int accountId = rs.getInt("AccountId");
+                    return new Customer(Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, totalPayment, accountId);
+                }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return null;
     }

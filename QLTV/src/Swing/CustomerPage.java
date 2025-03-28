@@ -157,6 +157,22 @@ public class CustomerPage extends javax.swing.JFrame {
         return "Bạn đã mua sách: " + book.getTitle() + "\nSố lượng: " + quantity;
     }
     
+    private double calculateCurrentPurchase() {
+        double sum = 0;
+        for (int i = 0; i < TableBuy.getRowCount(); i++) {
+            // Giả sử cột thứ 3 chứa quantity và bạn có thể truy xuất giá trị giá sách từ database hoặc bảng khác
+            int quantity = Integer.parseInt(TableBuy.getValueAt(i, 2).toString());
+            // Bạn cần có cách lấy giá sách tương ứng với BookId (cột thứ 2)
+            String bookId = TableBuy.getValueAt(i, 1).toString();
+            BookDAO bookDAO = new BookDAO();
+            Book book = bookDAO.getById(bookId);
+            if (book != null) {
+                sum += book.getPrice() * quantity;
+            }
+        }
+        return sum;
+    }
+    
     public String processRental(String bookId) {
         // Kiểm tra thẻ thư viện của khách hàng
         String cardId = "Card" + customerId.substring(1);
@@ -960,6 +976,38 @@ public class CustomerPage extends javax.swing.JFrame {
 
         // Thông báo thành công cho người dùng
         JOptionPane.showMessageDialog(this, "Thanh toán thành công. Bill đã được tạo!");
+        
+        
+        // Tính tổng giá trị đơn mua từ bảng TableBuy
+        double currentPurchase = calculateCurrentPurchase();
+
+        // Lấy thông tin khách hàng hiện tại từ database
+        CustomerDAO customerDAO = new CustomerDAO();
+        Customer customer = customerDAO.getById(customerId);
+
+        if (customer != null) {
+            // Tính tổng thanh toán mới: tổng hiện tại cộng với giá trị đơn mua
+            double newTotal = customer.getTotalPayment() + currentPurchase;
+
+            // Cập nhật tổng thanh toán mới vào database
+            customerDAO.updateTotalPayment(customerId, newTotal);
+
+            // Cập nhật lại đối tượng Customer trong bộ nhớ (nếu cần)
+            customer.setTotalPayment(newTotal);
+
+            // Cập nhật giao diện hiển thị thông tin khách hàng
+            // Giả sử bạn có giao diện CustomerInfo để hiển thị thông tin của khách hàng
+            CustomerInfo customerInfo = new CustomerInfo(customer);
+            customerInfo.setCustomer(customer);
+            customerInfo.display();
+
+            // Cập nhật nội dung bill (ví dụ hiển thị trên JTextArea Bill)
+            Bill.setText("Thanh toán thành công!\n"
+                    + "Tổng giá trị đơn mua: " + currentPurchase + "\n"
+                    + "Tổng thanh toán mới: " + newTotal);
+        } else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin khách hàng!");
+        }
     }//GEN-LAST:event_PAYActionPerformed
 
     private void RECHARGEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RECHARGEActionPerformed
@@ -1026,7 +1074,7 @@ public class CustomerPage extends javax.swing.JFrame {
 
         // Thiết lập ngày đăng ký hiện tại và thời hạn hiệu lực thẻ (vd: 1 năm)
         LocalDate registrationDate = LocalDate.now();
-        LocalDate cardExpiry = registrationDate.plusYears(1);
+        LocalDate cardExpiry = registrationDate.plusMonths(1);
 
         // Tạo đối tượng CustomerBorrow mới
         CustomerBorrow newCard = new CustomerBorrow(cardId, cid, typeCard, cardExpiry, registrationDate, cardValue, borrowLimit);
