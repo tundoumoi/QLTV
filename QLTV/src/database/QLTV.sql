@@ -1,36 +1,36 @@
-﻿﻿-- bảng accoun
-create DataBase QLTV
+﻿create DataBase QLTV
 use QLTV
+
 CREATE TABLE Account (
 	AccountId INT PRIMARY KEY,
-	username VARCHAR(50) UNIQUE NOT NULL,
+	username NVARCHAR(50) UNIQUE NOT NULL,
 	APass VARCHAR(255) NOT NULL
 );
 
--- Bảng Admin (kế thừa Person)
+
 CREATE TABLE Admin (
     ADid VARCHAR(50) PRIMARY KEY,
-	Aname VARCHAR(50),
+	Aname NVARCHAR(50),
 	Assn VARCHAR(50),
 	ADbirthDate DATE,
     ADgender NVARCHAR(10),
 	ADphoneNumber NVARCHAR(10),
 	ADemail NVARCHAR(50),
-    ADaddress VARCHAR(255),
+    ADaddress NVARCHAR(255),
     AccountId INT,
 	FOREIGN KEY (AccountId) REFERENCES Account(AccountId) ON DELETE CASCADE
 );
-SELECT * FROM Account a inner join admin ad on a.AccountId = ad.AccountId
--- Bảng Employee (kế thừa Person)
+
+
 CREATE TABLE Employee (
     Eid VARCHAR(50) PRIMARY KEY,
-	Ename VARCHAR(50),
+	Ename NVARCHAR(50),
 	Essn VARCHAR(50),
     EbirthDate DATE,
     Egender NVARCHAR(10),
 	EphoneNumber NVARCHAR(10),
 	EDemail NVARCHAR(50),
-    Eaddress VARCHAR(255),
+    Eaddress NVARCHAR(255),
     Eposition NVARCHAR(50),
     Esalary FLOAT,
     EstartDate DATE ,
@@ -39,40 +39,41 @@ CREATE TABLE Employee (
 );
 
 
--- Bảng Customer (kế thừa Person)
--- thieu sdt email account id
 CREATE TABLE Customer (
     Cid VARCHAR(50) PRIMARY KEY,
-	Cname VARCHAR(50),
+	Cname NVARCHAR(50),
 	Cssn VARCHAR(50),
 	CbirthDate DATE,
     Cgender NVARCHAR(10),
 	CphoneNumber NVARCHAR(10),
 	Cemail NVARCHAR(50),
-    Caddress VARCHAR(255),
-    CtotalPayment FLOAT DEFAULT 0,--(giá trị của typeCard + totalpurchase)tăng lên khi mua sách và làm thẻ
+    Caddress NVARCHAR(255),
+    CtotalPayment FLOAT DEFAULT 0,
 	AccountId INT,
 	FOREIGN KEY (AccountId) REFERENCES Account(AccountId) ON DELETE CASCADE
 );
--- Bảng CustomerBuy (kế thừa Customer)
+
+
 CREATE TABLE CustomerBuy (
     Cid VARCHAR(50) PRIMARY KEY,
-    totalPurchase FLOAT DEFAULT 0,--dựa trên mua sách    <500.000: member; < 1.000.000:vip ; > 1.000.000 : platinum
+    totalPurchase FLOAT DEFAULT 0,
     membershipLevel NVARCHAR(50),
 	FOREIGN KEY (Cid) REFERENCES Customer(Cid) ON DELETE CASCADE
 );
--- Bảng CustomerBorrow (kế thừa Customer)
+
+
 CREATE TABLE CustomerBorrow (
     cardId VARCHAR(50) PRIMARY KEY,
     Cid VARCHAR(50) NOT NULL,
-    typeCard NVARCHAR(50), -- Đồng : 50.000, Bạc 100000, Vàng : 200000
-    cardExpiry DATE, --hêt tiền 1 tháng là cook 
+    typeCard NVARCHAR(50),
+    cardExpiry DATE, 
     registrationDate DATE,
-	cardValue FLOAT DEFAULT 0,--(gán giá trị theo typeCard) sau đó trừ đi khi thuê
-    borrowLimit INT CHECK (borrowLimit >= 0),--Đồng 10 , bạc 15 , vàng no limit
+	cardValue FLOAT DEFAULT 0,
+    borrowLimit INT CHECK (borrowLimit >= 0),
     FOREIGN KEY (Cid) REFERENCES Customer(Cid) ON DELETE CASCADE
 );
--- Bảng Book
+
+
 CREATE TABLE Book (
     bookId VARCHAR(50) PRIMARY KEY,
 	isbn VARCHAR(50),
@@ -82,12 +83,11 @@ CREATE TABLE Book (
     publishedDate VARCHAR(100),
     price FLOAT CHECK (price >= 0),
     quantity INT CHECK (quantity >= 0),
-    type NVARCHAR(200), -- VD : Cười, Kinh dị, Kiến thức
-    language NVARCHAR(20) -- VD : Việt, Anh, Nhật
+    type NVARCHAR(200), 
+    language NVARCHAR(20) 
 ); 
 
 
--- Bảng BookBorrow (mối quan hệ giữa CustomerBorrow và Book)
 CREATE TABLE BorrowBook (
     borrowId INT PRIMARY KEY IDENTITY,
     cardId VARCHAR(50),
@@ -97,7 +97,8 @@ CREATE TABLE BorrowBook (
 	FOREIGN KEY (cardId) REFERENCES CustomerBorrow(cardId) ON DELETE CASCADE,
     FOREIGN KEY (bookId) REFERENCES Book(bookId) ON DELETE CASCADE
 );
--- Bảng BuyBook (mối quan hệ giữa CustomerBuy và Book)
+
+
 CREATE TABLE BuyBook (
     orderId VARCHAR(50) PRIMARY KEY,
     Cid VARCHAR(50) NOT NULL,
@@ -110,7 +111,6 @@ CREATE TABLE BuyBook (
 );
 
 
--- Bảng Report (Khách hàng báo cáo về sách)
 CREATE TABLE Report (
     reportId INT PRIMARY KEY IDENTITY,
     customerId VARCHAR(50),
@@ -121,14 +121,15 @@ CREATE TABLE Report (
     FOREIGN KEY (bookId) REFERENCES Book(bookId) ON DELETE CASCADE
 
 );
--- Bảng voucher
+
+
 CREATE TABLE Voucher (
     discountRate INT NOT NULL, 
-    Vdescription VARCHAR(255) NOT NULL,  
+    Vdescription NVARCHAR(255) NOT NULL,  
     minPurchase DECIMAL(10,2) NOT NULL,
 );
 
---Bảng Bill
+
 CREATE TABLE Bill (
     billID INT identity(1,1) PRIMARY KEY,
     bookId VARCHAR(50) not null,
@@ -140,43 +141,39 @@ CREATE TABLE Bill (
     FOREIGN KEY (Cid) REFERENCES Customer(Cid),
     FOREIGN KEY (Eid) REFERENCES Employee(Eid)
 );
-go
+
+
 INSERT INTO Account (AccountId, username, APass) VALUES
-(1, 'nambautroi', 'namfanbacmeo'),
-(2, 'ladititi', 'dititi'),
+(1, 'nhatnam', 'nhatnam123'),
+(2, 'thanhtung', 'dititi1'),
 (3, 'hoangluu', 'hoangluu217'),
-(4,'tundaumoi','tundaumoi1'),
-(5,'manhthang','manhthang1'),
-(6,'employee','employee1'),
-(7,'employee2','employee2'),
-(8,'employee3','employee3'),
-(9,'customer','customer1'),
-(10,'customer2','customer2')
-    INSERT INTO Voucher (discountRate, Vdescription, minPurchase)
-    VALUES 
-    (10, 'Giam 10% khi mua tu $5', 9.99),
-    (20, 'Giam 20% khi mua tu $20', 19.99),
-    (50, 'Giam 50% khi mua tu $50', 49.99)
+(4, 'vantuan', 'tuan123'),
+(5, 'manhthang','manhthang1'),
+(6, 'thimay','may123'),
+(7, 'dung', 'dung2301'),
+(8, 'namne','nam0608'),
+(9, 'anvan','an8386'),
+(10, 'binh','binh123'),
+(11, 'thang','thang2004'),
+(12, 'thihuyen','huyen0923'),
+(13, 'vanquyet','vanquyet1')
 
+
+
+INSERT INTO Voucher (discountRate, Vdescription, minPurchase)
+VALUES 
+    (10, N'Giảm 10% khi mua từ $5', 9.99),
+    (20, N'Giảm 20% khi mua từ $20', 19.99),
+    (50, N'Giảm 50% khi mua từ $50', 49.99)
 
 
 INSERT INTO Admin (ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress, AccountId)
 VALUES 
-('AD001', 'Phan Nhat Nam', '123456789', '1990-05-15', 'Nam', '0987654321', 'namphan@gmail.com', 'Hà Nội', 1),
-('AD002', 'Dang Thanh Tung', '987654321', '1992-07-20', 'Nam', '0912345678', 'tungdang@gmail.com', 'TP.HCM', 2),
-('AD003', 'Luong Dang Hoang Luu', '456789123', '1988-09-10', 'Nam', '0901122334', 'luuhoang@gmail.com', 'Đà Nẵng', 3)
-INSERT INTO Admin (ADid, Aname, Assn, ADbirthDate, ADgender, ADphoneNumber, ADemail, ADaddress, AccountId)
-VALUES 
-('AD004', 'Tuan dau moi', '321654987', '1995-12-01', 'Nam', '0933221144', 'tuanmoi@gmail.com', 'Cần Thơ', 4),
-('AD005', 'Manh Thang', '159753468', '1993-03-25', 'Nam', '0977885566', 'manhthang@gmail.com', 'Hải Phòng', 5)
-
-
-
-
-SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a.AccountId = ad.AccountId
---delete from account;
-select * from Account;
-
+('AD001', N'Phan Nhật Nam', '123456789', '2004-05-15', 'Nam', '0987654321', 'namphan@gmail.com', N'Hà Nội', 1),
+('AD002', N'Đặng Thanh Tùng', '987654321', '2004-07-20', 'Nam', '0912345678', 'tungdang@gmail.com', 'TP.HCM', 2),
+('AD003', N'Lương Đặng Hoàng Lưu', '456789123', '2004-09-10', 'Nam', '0945325675', 'luuhoang@gmail.com', N'Đà Nẵng', 3),
+('AD004', N'Văn Tuấn', '456324128', '2004-04-13', 'Nam', '0935322675', 'vantuan@gmail.com', N'Đà Nẵng', 4),
+('AD005', N'Phan Mạnh Thắng', '987543521', '2004-08-05', 'Nam', '0935618324', 'manhthang@gmail.com', N'Đà Nẵng', 5)
 
 
 INSERT INTO Book (bookId, isbn, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
@@ -310,71 +307,70 @@ INSERT INTO Book (bookId, isbn, title, author, publisher, publishedDate, price, 
 ('B0137', '978-8267361286', 'Grow Greener: Ten Steps to a Richer Life','Hoxton, Rob','Robinson Hoxton Publishing, LLC','November,2001','5.29','748','','English'),
 ('B0138', '978-4454032164', 'Frames of Reference: Looking at American Art, 1900-1950: Works from the Whitney Museum of American Art','Fraser, Kennedy, Whitney Museum of American Art (COR), Weinberg, Adam D., and Venn, Beth','University of California Press','January,2000','6.42','645',' Art , History , General','English'),
 ('B0139', '978-6041351162', 'Remembering Main Street: An American Album','Ross, Pat','Studio','November,1994','10.99','751',' History , United States , General','English'),
-('B0140', '978-2869368846',  'Bi An Duoi Lop Tro Tan', 'Nguyen Van A', 'NXB Tre', 'July,2015', 10.5, 12, 'Kinh di', 'Tieng Viet'),
-('B0141', '978-3173698447',  'Duong Den Thanh Cong', 'Tran Minh Hoang', 'NXB Lao Dong', 'September,2018', 9.8, 10, 'Kien thuc', 'Tieng Viet'),
-('B0142', '978-6789063755',  'Hanh Trinh Vo Dinh', 'Le Thanh Tu', 'NXB Kim Dong', 'March,2017', 8.9, 8, 'Phieu luu', 'Tieng Viet'),
-('B0143', '978-5275968708',  'Bong Dem Vinh Cuu', 'Pham Thi Lan', 'NXB Van Hoc', 'November,2020', 12, 5, 'Kinh di', 'Tieng Viet'),
-('B0144', '978-4634660091',  'Cuoc Song Khong Gioi Han', 'Hoang Anh Tuan', 'NXB Tre', 'May,2016', 11.5, 6, 'Kien thuc', 'Tieng Viet'),
-('B0145', '978-4480248227',  'Bi Kip Thanh Cong', 'Do Thi Ngoc', 'NXB Thanh Nien', 'February,2019', 9.9, 11, 'Ky nang song', 'Tieng Viet'),
-('B0146', '978-7297232171',  'Hen Nhau Ngay Ay', 'Mai Xuan Hoa', 'NXB Kim Dong', 'August,2022', 7.5, 9, 'Tinh cam', 'Tieng Viet'),
-('B0147', '978-4812450415',  'Vung Dat Bi An', 'Trinh Huu Nam', 'NXB Van Hoc', 'June,2014', 10.5, 7, 'Phieu luu', 'Tieng Viet'),
-('B0148', '978-8923603692',  'Cuoc Chien Khong Hoi Ket', 'Ngo Thanh Hai', 'NXB Quan Doi', 'December,2013', 12.5, 5, 'Lich su', 'Tieng Viet'),
-('B0149', '978-9885255703',  'Ban Tay Mau', 'Vu Dinh Lam', 'NXB Tre', 'April,2018', 9.5, 6, 'Kinh di', 'Tieng Viet'),
-('B0150', '978-5216027003',  'Tam Ly Hoc Dam Dong', 'Le Huu Phuoc', 'NXB Tong Hop', 'October,2021', 13.5, 10, 'Tam ly', 'Tieng Viet'),
-('B0151', '978-0439943468',  'Vuot Qua So Phan', 'Tran Ngoc Minh', 'NXB Phu Nu', 'January,2015', 8.9, 4, 'Tu truyen', 'Tieng Viet'),
-('B0152', '978-2665839744',  'Chinh Phuc Giac Mo', 'Dinh Hoang Phong', 'NXB Thanh Nien', 'July,2017', 9.9, 6, 'Ky nang song', 'Tieng Viet'),
-('B0153', '978-3986003957',  'Am Anh', 'Ho Thanh Tam', 'NXB Van Hoc', 'June,2019', 10.8, 8, 'Kinh di', 'Tieng Viet'),
-('B0154', '978-9131245814',  'Mat Ma Phuong Dong', 'Pham Van Hau', 'NXB Tong Hop', 'March,2016', 12.9, 5, 'Trinh tham', 'Tieng Viet'),
-('B0155', '978-4912992884',  'Cau Chuyen Tinh Yeu', 'Nguyen Hong Nhung', 'NXB Kim Dong', 'May,2023', 8.5, 12, 'Tinh cam', 'Tieng Viet'),
-('B0156', '978-7043032523',  'Nhung Buoc Chan Dau Tien', 'Vo Hoai Nam', 'NXB Lao Dong', 'November,2014', 9.9, 9, 'Ky nang song', 'Tieng Viet'),
-('B0157', '978-1135943394',  'Bong Hinh Nguoi Xua', 'Trinh Hoang Son', 'NXB Van Hoc', 'August,2021', 10.9, 7, 'Lang man', 'Tieng Viet'),
-('B0158', '978-4533936258',  'Nhat Ky Ke Sat Nhan', 'Nguyen Dang Khoa', 'NXB Tre', 'February,2018', 11.5, 6, 'Kinh di', 'Tieng Viet'),
-('B0159', '978-0967678522',  'Ky Uc Mot Thoi', 'Do Minh Tam', 'NXB Kim Dong', 'December,2022', 7.8, 10, 'Tu truyen', 'Tieng Viet'),
-('B0160', '978-7114614199',  'Hanh Trinh Ky La', 'Lam Quang Dai', 'NXB Van Hoc', 'September,2017', 10.5, 8, 'Phieu luu', 'Tieng Viet'),
-('B0161', '978-8149447718',  'Lua Thieng', 'Vu Thi Minh', 'NXB Thanh Nien', 'April,2020', 8.9, 9, 'Lich su', 'Tieng Viet'),
-('B0162', '978-0404495354',  'Ke Thu Ben Trong', 'Nguyen Quoc Bao', 'NXB Tong Hop', 'June,2016', 12.2, 5, 'Trinh tham', 'Tieng Viet'),
-('B0163', '978-7449402524',  'Ban Giao Huong Mua Thu', 'Tran Thi Hai Yen', 'NXB Phu Nu', 'January,2019', 9.8, 6, 'Tinh cam', 'Tieng Viet'),
-('B0164', '978-1254337869',  'Cuoc Chien Trong Bong Toi', 'Hoang Trong Nghia', 'NXB Quan Doi', 'November,2015', 12.5, 4, 'Lich su', 'Tieng Viet'),
-('B0165', '978-2623216945',  'Nhung Giac Mo Co That', 'Le Minh Tuan', 'NXB Kim Dong', 'February,2021', 8.9, 10, 'Tam ly', 'Tieng Viet'),
-('B0166', '978-2720996667',  'Vi Vua Cuoi Cung', 'Pham Ngoc Khanh', 'NXB Van Hoc', 'May,2014', 11.5, 5, 'Lich su', 'Tieng Viet'),
-('B0167', '978-2600544573',  'Anh Sang Trong Dem', 'Ngo Huy Hoang', 'NXB Thanh Nien', 'December,2017', 10.2, 8, 'Kinh di', 'Tieng Viet'),
-('B0168', '978-7961183779',  'Me Cung Bi An', 'Vo Quoc Dung', 'NXB Tong Hop', 'October,2018', 12, 6, 'Trinh tham', 'Tieng Viet'),
-('B0169', '978-7645221946',  'Nhung Buoc Chan Hoang Da', 'Dinh Hoai Bao', 'NXB Tre', 'September,2019', 10.9, 9, 'Phieu luu', 'Tieng Viet'),
-('B0170', '978-3454691389',  'Bong Ma Tren Doi', 'Nguyen Thanh Son', 'NXB Kim Dong', 'August,2016', 9.9, 7, 'Kinh di', 'Tieng Viet'),
-('B0171', '978-7037887503',  'Chuyen Tinh Khong Ten', 'Le Thi Mai', 'NXB Van Hoc', 'June,2023', 8.7, 12, 'Tinh cam', 'Tieng Viet'),
-('B0172', '978-9076344448',  'Nguoi Dan Ong Huyen Bi', 'Tran Van Nam', 'NXB Thanh Nien', 'March,2021', 12.9, 5, 'Trinh tham', 'Tieng Viet'),
-('B0173', '978-2169693111',  'Lac Loi Giua Hai The Gioi', 'Hoang Minh Anh', 'NXB Tong Hop', 'July,2015', 11.8, 7, 'Khoa hoc vien tuong', 'Tieng Viet'),
-('B0174', '978-7713948318',  'Di san trong bong toi', 'Oliver Sinclair', 'Kodansha', 'July,2015', 5.5, 8, 'Bi an', 'Tieng Nhat'),
-('B0175', '978-3035046147',  'Manh moi cuoi cung', 'Rachel Dawson', 'Shinchosha', 'September,2018', 5.8, 6, 'Kinh di', 'Tieng Nhat'),
-('B0176', '978-9598679829',  'Duoi tan tich', 'Edward Harris', 'Kadokawa Shoten', 'May,2012', 6.0, 5, 'Tieu thuyet lich su', 'Tieng Nhat'),
-('B0177', '978-0988690240',  'Nhat ky bi mat', 'Emma Clarkson', 'Shueisha', 'December,2020', 5.2, 10, 'Lang man', 'Tieng Nhat'),
-('B0178', '978-7661571457',  'Vuong quoc bi nguyen rua', 'William Everett', 'Gentosha', 'July,2021', 6.5, 4, 'Gia tuong', 'Tieng Nhat'),
-('B0179', '978-6497495491',  'Buoc chan lang le', 'Julia Bennett', 'Kodansha', 'February,2016', 5.6, 7, 'Bi an', 'Tieng Nhat'),
-('B0180', '978-7142471455',  'Vuong mien sat', 'Marcus Holt', 'Hayakawa Shobo', 'June,2019', 6.3, 6, 'Gia tuong', 'Tieng Nhat'),
-('B0181', '978-7335921272',  'Loi thi tham bi lang quen', 'Charlotte Evans', 'Futabasha', 'October,2015', 5.4, 8, 'Kinh di', 'Tieng Nhat'),
-('B0182', '978-2067497550',  'Dong chay thoi gian', 'Hannah Richardson', 'Shodensha', 'April,2023', 6.0, 5, 'Khoa hoc vien tuong', 'Tieng Nhat'),
-('B0183', '978-8372018107',  'Kho bau an giau', 'Benjamin Scott', 'Bungei Shunju', 'March,2014', 5.3, 9, 'Phieu luu', 'Tieng Nhat'),
-('B0184', '978-0768767217',  'Giao uoc vinh cuu', 'Daniel Stevenson', 'Kadokawa Shoten', 'September,2022', 5.9, 3, 'Gia tuong', 'Tieng Nhat'),
-('B0185', '978-3467526229',  'Chen doc', 'Catherine Morris', 'Shinchosha', 'November,2010', 5.55, 7, 'Bi an', 'Tieng Nhat'),
-('B0186', '978-8746668253',  'The gioi bong toi', 'Vincent Howard', 'Hayakawa Shobo', 'July,2017', 6.2, 6, 'Gia tuong', 'Tieng Nhat'),
-('B0187', '978-8719800523',  'Nguoi vieng tham luc nua dem', 'Sophia Grant', 'Futabasha', 'June,2013', 5.45, 5, 'Kinh di', 'Tieng Nhat'),
-('B0188', '978-8465244863',  'Thanh dia cuoi cung', 'Patrick Wallace', 'Kodansha', 'December,2019', 5.95, 4, 'Chinh kich', 'Tieng Nhat'),
-('B0189', '978-6224985863',  'Bi an dinh thu Blackwood', 'Theresa Carter', 'Kadokawa Shoten', 'October,2021', 5.75, 5, 'Kinh di', 'Tieng Nhat'),
-('B0190', '978-0059935991',  'Canh cua dinh menh', 'Nathaniel Brooks', 'Shodensha', 'May,2015', 6.4, 3, 'Gia tuong', 'Tieng Nhat'),
-('B0191', '978-5481787048',  'Loi tien tri bong toi', 'Catherine Andrews', 'Bungei Shunju', 'September,2012', 5.8, 6, 'Kinh di', 'Tieng Nhat'),
-('B0192', '978-4866868559',  'Loi nguyen cua Hoang de', 'Frederick Langley', 'Hayakawa Shobo', 'February,2020', 6.7, 4, 'Gia tuong', 'Tieng Nhat'),
-('B0193', '978-0401123433',  'Su that bi lang quen', 'Melissa Quinn', 'Futabasha', 'July,2014', 5.35, 9, 'Bi an', 'Tieng Nhat'),
-('B0194', '978-9113364958',  'Vuong quoc phan loan', 'David Thornton', 'Shinchosha', 'May,2023', 6.8, 3, 'Kinh di', 'Tieng Nhat'),
-('B0195', '978-1541903003',  'Hieu truong', 'Eliza Montgomery', 'Kadokawa Shoten', 'August,2011', 5.7, 8, 'Tieu thuyet lich su', 'Tieng Nhat'),
-('B0196', '978-0392802746',  'Thoat khoi xieng xich', 'Samantha Price', 'Shodensha', 'January,2016', 5.6, 7, 'Chinh kich', 'Tieng Nhat'),
-('B0197', '978-5664189249',  'Xuong dia nguc', 'Alexander Foster', 'Hayakawa Shobo', 'June,2021', 5.95, 5, 'Kinh di', 'Tieng Nhat'),
-('B0198', '978-2348516917',  'Cuoc tham hiem bac', 'Richard Coleman', 'Futabasha', 'April,2009', 5.65, 6, 'Bi an', 'Tieng Nhat'),
-('B0199', '978-2342773823',  'Su im lang vinh cuu', 'Jonathan Nash', 'Shinchosha', 'August,2018', 5.85, 5, 'Tam ly kinh di', 'Tieng Nhat'),
-('B0200', '978-4780732397',  'Loi nguyen mua dong', 'Isabel Norton', 'Kadokawa Shoten', 'January,2022', 6.25, 3, 'Gia tuong', 'Tieng Nhat'),
-('B0201', '978-1583326550',  'Bi mat bi lang quen', 'Derek Walsh', 'Bungei Shunju', 'November,2015', 5.55, 7, 'Bi an', 'Tieng Nhat'),
-('B0202', '978-1252467325',  'Khu rung ma thuat', 'Sophia Henderson', 'Hayakawa Shobo', 'March,2013', 6.5, 4, 'Gia tuong', 'Tieng Nhat'),
-('B0203', '978-6324631084',  'Tieng than khoc ao anh', 'Vincent Ellis', 'Shodensha', 'May,2016', 5.7, 6, 'Kinh di', 'Tieng Nhat'),
-('B0204', '978-8171230299',  'Ngon lua ben trong', 'Amelia Hudson', 'Futabasha', 'April,2020', 6.1, 5, 'Phieu luu', 'Tieng Nhat'),
+('B0141', '978-3173698447', N'Dường Đến Thành Công', N'Trần Minh Hoàng', N'NXB Lao Động', 'September,2018', 9.8, 10, N'Kiến thức', N'Tiếng Việt'),
+('B0142', '978-6789063755', N'Hành Trình Vô Định', N'Lê Thanh Tú', N'NXB Kim Đồng', 'March,2017', 8.9, 8, N'Phiêu lưu', N'Tiếng Việt'),
+('B0143', '978-5275968708', N'Bóng Đêm Vĩnh Cửu', N'Phạm Thị Lan', N'NXB Văn Học', 'November,2020', 12, 5, N'Kinh dị', N'Tiếng Việt'),
+('B0144', '978-4634660091', N'Cuộc Sống Không Giới Hạn', N'Hoàng Anh Tuấn', N'NXB Trẻ', 'May,2016', 11.5, 6, N'Kiến thức', N'Tiếng Việt'),
+('B0145', '978-4480248227', N'Bí Kíp Thành Công', N'Đỗ Thị Ngọc', N'NXB Thanh Niên', 'February,2019', 9.9, 11, N'Kỹ năng sống', N'Tiếng Việt'),
+('B0146', '978-7297232171', N'Hẹn Nhau Ngày Ấy', N'Mai Xuân Hoa', N'NXB Kim Đồng', 'August,2022', 7.5, 9, N'Tình cảm', N'Tiếng Việt'),
+('B0147', '978-4812450415', N'Vùng Đất Bí Ẩn', N'Trịnh Hữu Nam', N'NXB Văn Học', 'June,2014', 10.5, 7, N'Phiêu lưu', N'Tiếng Việt'),
+('B0148', '978-8923603692', N'Cuộc Chiến Không Hồi Kết', N'Ngô Thanh Hải', N'NXB Quân Đội', 'December,2013', 12.5, 5, N'Lịch sử', N'Tiếng Việt'),
+('B0149', '978-9885255703', N'Bàn Tay Máu', N'Vũ Đình Lâm', N'NXB Trẻ', 'April,2018', 9.5, 6, N'Kinh dị', N'Tiếng Việt'),
+('B0150', '978-5216027003', N'Tâm Lý Học Đám Đông', N'Lê Hữu Phước', N'NXB Tổng Hợp', 'October,2021', 13.5, 10, N'Tâm lý', N'Tiếng Việt'),
+('B0151', '978-0439943468', N'Vượt Qua Số Phận', N'Trần Ngọc Minh', N'NXB Phụ Nữ', 'January,2015', 8.9, 4, N'Tự truyện', N'Tiếng Việt'),
+('B0152', '978-2665839744', N'Chinh Phục Giấc Mơ', N'Đinh Hoàng Phong', N'NXB Thanh Niên', 'July,2017', 9.9, 6, N'Kỹ năng sống', N'Tiếng Việt'),
+('B0153', '978-3986003957', N'Ám Ảnh', N'Hồ Thanh Tâm', N'NXB Văn Học', 'June,2019', 10.8, 8, N'Kinh dị', N'Tiếng Việt'),
+('B0154', '978-9131245814', N'Mật Mã Phương Đông', N'Phạm Văn Hậu', N'NXB Tổng Hợp', 'March,2016', 12.9, 5, N'Trinh thám', N'Tiếng Việt'),
+('B0155', '978-4912992884', N'Câu Chuyện Tình Yêu', N'Nguyễn Hồng Nhung', N'NXB Kim Đồng', 'May,2023', 8.5, 12, N'Tình cảm', N'Tiếng Việt'),
+('B0156', '978-7043032523', N'Những Bước Chân Đầu Tiên', N'Võ Hoài Nam', N'NXB Lao Động', 'November,2014', 9.9, 9, N'Kỹ năng sống', N'Tiếng Việt'),
+('B0157', '978-1135943394', N'Bóng Hình Người Xưa', N'Trịnh Hoàng Sơn', N'NXB Văn Học', 'August,2021', 10.9, 7, N'Lãng mạn', N'Tiếng Việt'),
+('B0158', '978-4533936258', N'Nhật Ký Kẻ Sát Nhân', N'Nguyễn Đăng Khoa', N'NXB Trẻ', 'February,2018', 11.5, 6, N'Kinh dị', N'Tiếng Việt'),
+('B0159', '978-0967678522', N'Ký Ức Một Thời', N'Đỗ Minh Tâm', N'NXB Kim Đồng', 'December,2022', 7.8, 10, N'Tự truyện', N'Tiếng Việt'),
+('B0160', '978-7114614199', N'Hành Trình Kỳ Lạ', N'Lâm Quang Đại', N'NXB Văn Học', 'September,2017', 10.5, 8, N'Phiêu lưu', N'Tiếng Việt'),
+('B0161', '978-8149447718', N'Lửa Thiêng', N'Vũ Thị Minh', N'NXB Thanh Niên', 'April,2020', 8.9, 9, N'Lịch sử', N'Tiếng Việt'),
+('B0162', '978-0404495354', N'Kẻ Thù Bên Trong', N'Nguyễn Quốc Bảo', N'NXB Tổng Hợp', 'June,2016', 12.2, 5, N'Trinh thám', N'Tiếng Việt'),
+('B0163', '978-7449402524', N'Bản Giao Hưởng Mùa Thu', N'Trần Thị Hải Yến', N'NXB Phụ Nữ', 'January,2019', 9.8, 6, N'Tình cảm', N'Tiếng Việt'),
+('B0164', '978-1254337869', N'Cuộc Chiến Trong Bóng Tối', N'Hoàng Trọng Nghĩa', N'NXB Quân Đội', 'November,2015', 12.5, 4, N'Lịch sử', N'Tiếng Việt'),
+('B0165', '978-2623216945', N'Những Giấc Mơ Có Thật', N'Lê Minh Tuấn', N'NXB Kim Đồng', 'February,2021', 8.9, 10, N'Tâm lý', N'Tiếng Việt'),
+('B0166', '978-2720996667', N'Vị Vua Cuối Cùng', N'Phạm Ngọc Khánh', N'NXB Văn Học', 'May,2014', 11.5, 5, N'Lịch sử', N'Tiếng Việt'),
+('B0167', '978-2600544573', N'Ánh Sáng Trong Đêm', N'Ngô Huy Hoàng', N'NXB Thanh Niên', 'December,2017', 10.2, 8, N'Kinh dị', N'Tiếng Việt'),
+('B0168', '978-7961183779', N'Mê Cung Bí Ẩn', N'Võ Quốc Dũng', N'NXB Tổng Hợp', 'October,2018', 12, 6, N'Trinh thám', N'Tiếng Việt'),
+('B0169', '978-7645221946', N'Những Bước Chân Hoang Dã', N'Đinh Hoài Bảo', N'NXB Trẻ', 'September,2019', 10.9, 9, N'Phiêu lưu', N'Tiếng Việt'),
+('B0170', '978-3454691389', N'Bóng Ma Trên Đồi', N'Nguyễn Thanh Sơn', N'NXB Kim Đồng', 'August,2016', 9.9, 7, N'Kinh dị', N'Tiếng Việt'),
+('B0171', '978-7037887503', N'Chuyện Tình Không Tên', N'Lê Thị Mai', N'NXB Văn Học', 'June,2023', 8.7, 12, N'Tình cảm', N'Tiếng Việt'),
+('B0172', '978-9076344448', N'Người Đàn Ông Huyền Bí', N'Trần Văn Nam', N'NXB Thanh Niên', 'March,2021', 12.9, 5, N'Trinh thám', N'Tiếng Việt'),
+('B0173', '978-2169693111', N'Lạc Lối Giữa Hai Thế Giới', N'Hoàng Minh Anh', N'NXB Tổng Hợp', 'July,2015', 11.8, 7, N'Khoa học viễn tưởng', N'Tiếng Việt'),
+('B0174', '978-7713948318',  N'Di sản trong bóng tối', 'Oliver Sinclair', 'Kodansha', 'July,2015', 5.5, 8, N'Bí ẩn', N'Tiếng Nhật'),
+('B0175', '978-3035046147',  N'Mảnh mối cuối cùng', 'Rachel Dawson', 'Shinchosha', 'September,2018', 5.8, 6, N'Kinh dị', N'Tiếng Nhật'),
+('B0176', '978-9598679829',  N'Dưới tàn tích', 'Edward Harris', 'Kadokawa Shoten', 'May,2012', 6.0, 5, N'Tiểu thuyết lịch sử', N'Tiếng Nhật'),
+('B0177', '978-0988690240',  N'Nhật ký bí mật', 'Emma Clarkson', 'Shueisha', 'December,2020', 5.2, 10, N'Lãng mạn', N'Tiếng Nhật'),
+('B0178', '978-7661571457',  N'Vương quốc bị nguyền rủa', 'William Everett', 'Gentosha', 'July,2021', 6.5, 4, N'Giả tưởng', N'Tiếng Nhật'),
+('B0179', '978-6497495491',  N'Bước chân lặng lẽ', 'Julia Bennett', 'Kodansha', 'February,2016', 5.6, 7, N'Bí ẩn', N'Tiếng Nhật'),
+('B0180', '978-7142471455',  N'Vương miện sắt', 'Marcus Holt', 'Hayakawa Shobo', 'June,2019', 6.3, 6, N'Giả tưởng', N'Tiếng Nhật'),
+('B0181', '978-7335921272',  N'Lời thì thầm bị lãng quên', 'Charlotte Evans', 'Futabasha', 'October,2015', 5.4, 8, N'Kinh dị', N'Tiếng Nhật'),
+('B0182', '978-2067497550',  N'Dòng chảy thời gian', 'Hannah Richardson', 'Shodensha', 'April,2023', 6.0, 5, N'Khoa học viễn tưởng', N'Tiếng Nhật'),
+('B0183', '978-8372018107',  N'Kho báu ẩn giấu', 'Benjamin Scott', 'Bungei Shunju', 'March,2014', 5.3, 9, N'Phiêu lưu', N'Tiếng Nhật'),
+('B0184', '978-0768767217',  N'Giao ước vĩnh cửu', 'Daniel Stevenson', 'Kadokawa Shoten', 'September,2022', 5.9, 3, N'Giả tưởng', N'Tiếng Nhật'),
+('B0185', '978-3467526229',  N'Chén độc', 'Catherine Morris', 'Shinchosha', 'November,2010', 5.55, 7, N'Bí ẩn', N'Tiếng Nhật'),
+('B0186', '978-8746668253',  N'Thế giới bóng tối', 'Vincent Howard', 'Hayakawa Shobo', 'July,2017', 6.2, 6, N'Giả tưởng', N'Tiếng Nhật'),
+('B0187', '978-8719800523',  N'Người viếng thăm lúc nửa đêm', 'Sophia Grant', 'Futabasha', 'June,2013', 5.45, 5, N'Kinh dị', N'Tiếng Nhật'),
+('B0188', '978-8465244863',  N'Thánh địa cuối cùng', 'Patrick Wallace', 'Kodansha', 'December,2019', 5.95, 4, N'Chính kịch', N'Tiếng Nhật'),
+('B0189', '978-6224985863',  N'Bí ẩn dinh thự Blackwood', 'Theresa Carter', 'Kadokawa Shoten', 'October,2021', 5.75, 5, N'Kinh dị', N'Tiếng Nhật'),
+('B0190', '978-0059935991',  N'Cánh cửa định mệnh', 'Nathaniel Brooks', 'Shodensha', 'May,2015', 6.4, 3, N'Giả tưởng', N'Tiếng Nhật'),
+('B0191', '978-5481787048',  N'Lời tiên tri bóng tối', 'Catherine Andrews', 'Bungei Shunju', 'September,2012', 5.8, 6, N'Kinh dị', N'Tiếng Nhật'),
+('B0192', '978-4866868559',  N'Lời nguyền của Hoàng đế', 'Frederick Langley', 'Hayakawa Shobo', 'February,2020', 6.7, 4, N'Giả tưởng', N'Tiếng Nhật'),
+('B0193', '978-0401123433',  N'Sự thật bị lãng quên', 'Melissa Quinn', 'Futabasha', 'July,2014', 5.35, 9, N'Bí ẩn', N'Tiếng Nhật'),
+('B0194', '978-9113364958',  N'Vương quốc phản loạn', 'David Thornton', 'Shinchosha', 'May,2023', 6.8, 3, N'Kinh dị', N'Tiếng Nhật'),
+('B0195', '978-1541903003',  N'Hiệu trưởng', 'Eliza Montgomery', 'Kadokawa Shoten', 'August,2011', 5.7, 8, N'Tiểu thuyết lịch sử', N'Tiếng Nhật'),
+('B0196', '978-0392802746',  N'Thoát khỏi xiềng xích', 'Samantha Price', 'Shodensha', 'January,2016', 5.6, 7, N'Chính kịch', N'Tiếng Nhật'),
+('B0197', '978-5664189249',  N'Xuống địa ngục', 'Alexander Foster', 'Hayakawa Shobo', 'June,2021', 5.95, 5, N'Kinh dị', N'Tiếng Nhật'),
+('B0198', '978-2348516917',  N'Cuộc thám hiểm Bắc', 'Richard Coleman', 'Futabasha', 'April,2009', 5.65, 6, N'Bí ẩn', N'Tiếng Nhật'),
+('B0199', '978-2342773823',  N'Sự im lặng vĩnh cửu', 'Jonathan Nash', 'Shinchosha', 'August,2018', 5.85, 5, N'Tâm lý kinh dị', N'Tiếng Nhật'),
+('B0200', '978-4780732397',  N'Lời nguyền mùa đông', 'Isabel Norton', 'Kadokawa Shoten', 'January,2022', 6.25, 3, N'Giả tưởng', N'Tiếng Nhật'),
+('B0201', '978-1583326550',  N'Bí mật bị lãng quên', 'Derek Walsh', 'Bungei Shunju', 'November,2015', 5.55, 7, N'Bí ẩn', N'Tiếng Nhật'),
+('B0202', '978-1252467325',  N'Khu rừng ma thuật', 'Sophia Henderson', 'Hayakawa Shobo', 'March,2013', 6.5, 4, N'Giả tưởng', N'Tiếng Nhật'),
+('B0203', '978-6324631084',  N'Tiếng than khóc ảo ảnh', 'Vincent Ellis', 'Shodensha', 'May,2016', 5.7, 6, N'Kinh dị', N'Tiếng Nhật'),
+('B0204', '978-8171230299',  N'Ngọn lửa bên trong', 'Amelia Hudson', 'Futabasha', 'April,2020', 6.1, 5, N'Phiêu lưu', N'Tiếng Nhật'),
 ('B0205', '978-3027534201', 'The Mozart Companion a Symposium by leading Mozart Scholar','Landon, Harold R.','W W Norton & Co Inc','November,1969','4.99','773','','English'),
 ('B0206', '978-2134815396', 'Joshua and the Children: A Parable','Joseph F. Girzone','Collier Books','October,1991','5.29','560','','English'),
 ('B0207', '978-6765190487', 'Red Square','Smith, Martin Cruz','Random House','October,1992','4.99','899',' Fiction , General','English'),
@@ -471,44 +467,29 @@ INSERT INTO Book (bookId, isbn, title, author, publisher, publishedDate, price, 
 ('B0299', '978-8354833862', 'Analyzing Performance Problems, or You Really Oughta Wanna','Robert Frank Mager, Peter Pipe','Pitman Management and Training','January,1984','5.29','277','','English'),
 ('B0300', '978-1227802131', 'Reviving Ophelia: Saving the Selves of Adolescent Girls (Ballantine Reader Circle)','Pipher, Mary Bray','Ballantine Books','February,1995','4.99','904',' Family & Relationships , Life Stages , Adolescence','English');
 
-SELECT * FROM Book
---delete from Book
 
 INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId) VALUES
-('C001', 'Nguyen Van An', '123456789', '1995-05-20', 'Male', '0905123456', 'nguyenvana@example.com', 'Ha Noi', 500000, 9),
-('C002', 'Tran Thi Bình', '987654321', '1998-09-15', 'Female', '0912987654', 'tranthib@example.com', 'TP Ho Chi Minh', 200000, 10)
+('C001', N'Nguyễn Văn An', '123456789', '2000-05-20', 'Nam', '0905123456', 'nguyenvana@gmail.com', N'Đà Nẵng', 500000, 9),
+('C002', N'Trần Thị Bình', '987654321', '2001-09-15', N'Nữ', '0912987654', 'tranthib@gmail.com', N'Hà Nội', 200000, 10),
+('C003', N'Nguyễn Mạnh Thắng', '654542345', '2004-09-15', 'Nam', '0976534213', 'thangmanh@gmail.com', N'TP Hồ Chí Minh', 200000, 11),
+('C004', N'Võ Thị Huyền', '546342348', '2004-09-15', N'Nữ', '0967548564', 'huyenthivo@gmail.com', N'Đà Nẵng', 100000, 12),
+('C005', N'Đặng Văn Quyết', '675435643', '2004-09-15', 'Nam', '0967785436', 'vanquyet@gmail.com', N'Đà Nẵng', 100000, 13)
+
 
 
 INSERT INTO CustomerBorrow (cardId, Cid, typeCard, cardExpiry, registrationDate, cardValue, borrowLimit) VALUES
-('CB001', 'C001', 'Member', '2024-04-01', '2024-03-01', 50000, 10),
-('CB002', 'C002', 'Vip', '2024-04-05', '2024-03-05', 100000, 15)
+('CB001', 'C001', 'Member', '2025-04-01', '2025-03-01', 50000, 10),
+('CB002', 'C002', 'Vip', '2025-04-05', '2025-03-05', 100000, 15)
 
 
 INSERT INTO CustomerBuy (Cid, totalPurchase, membershipLevel) VALUES
 ('C001', 120000, 'Member'),
 ('C002', 600000, 'Vip')
 
+
 INSERT INTO Employee (Eid, Ename, Essn, EbirthDate, Egender, EphoneNumber, EDemail, Eaddress, Eposition, Esalary, EstartDate, AccountId) 
 VALUES 
-('E001', 'nam bau troi', '123456789', '1990-05-15', N'Nam', '0901234567', 'nva@example.com', 'Hà Nội', N'forever fan bac meo', 2000.0, '2020-06-01', 6),
-('E002', 'la dititi', '987654321', '1995-08-22', N'Nam', '0912345678', 'ttb@example.com', 'TP Hồ Chí Minh', N'lam cho vui', 1500.0, '2021-03-10', 7),
-('E003', 'hoang luu', '112233445', '1988-02-10', N'Nam', '0923456789', 'lvc@example.com', 'Đà Nẵng', N'Kế toán', 1800.0, '2019-11-20', 8)
---('E004', 'thang lo dai', '556677889', '1992-11-05', N'Nam', '0934567890', 'ptd@example.com', 'Cần Thơ', N'Nhân sự', 1700.0, '2022-07-15', 4),
---('E005', 'tun dau moi', '667788990', '1985-07-30', N'Nam', '0945678901', 'hme@example.com', 'Hải Phòng', N'Bán hàng', 1600.0, '2018-09-25', 5);
+('E001', N'Phan Thị Mây', '123456789', '1990-05-15', N'Nữ', '0901234567', 'thimay@gmail.com', N'Đà Nẵng', N'Pha chế', 2000.0, '2025-03-28', 6),
+('E002', N'Nguyễn Văn Dũng', '987654321', '1995-08-22', N'Nam', '0912345678', 'nvd@gmail.com', N'Đà Nẵng', N'Đứng quầy', 1500.0, '2025-03-28', 7),
+('E003', N'Trần Văn Nam', '112233445', '1988-02-10', N'Nam', '0923456789', 'namtran@gmail.com', N'Đà Nẵng', N'Chạy bàn', 1800.0, '2015-03-28', 8)
 
-
-
-select * from Book where bookId ='B2172'
---delete from CustomerBuy
---delete from CustomerBorrow
-select * from CustomerBuy
-SELECT a.AccountId,a.userName , a.Apass FROM Account a join customer cus on cus.AccountID = a.AccountId
-select * from Customer
-select * from admin
-select * from Account
-select * from Employee
---delete from Customer
---delete from Account
---delete from Book
---drop table Book
-drop database QLTV
