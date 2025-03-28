@@ -56,7 +56,7 @@ public class CustomerInfo extends javax.swing.JFrame {
             Phone.setText("N/A");
             Email.setText("N/A");
             Address.setText("N/A");
-            Position.setText("N/A");
+            
             Total.setText("N/A");
         }
 
@@ -83,7 +83,6 @@ public class CustomerInfo extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         Name = new javax.swing.JLabel();
         SSN = new javax.swing.JLabel();
@@ -92,7 +91,6 @@ public class CustomerInfo extends javax.swing.JFrame {
         Phone = new javax.swing.JLabel();
         Email = new javax.swing.JLabel();
         Address = new javax.swing.JLabel();
-        Position = new javax.swing.JLabel();
         Total = new javax.swing.JLabel();
         ID = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -151,9 +149,6 @@ public class CustomerInfo extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel9.setText("Address");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel10.setText("Position");
-
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel11.setText("Total");
 
@@ -178,9 +173,6 @@ public class CustomerInfo extends javax.swing.JFrame {
         Address.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Address.setText("Example");
 
-        Position.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Position.setText("Example");
-
         Total.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Total.setText("Example");
 
@@ -202,9 +194,8 @@ public class CustomerInfo extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel10)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SSN, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Name, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,7 +205,6 @@ public class CustomerInfo extends javax.swing.JFrame {
                     .addComponent(Phone)
                     .addComponent(Email)
                     .addComponent(Address)
-                    .addComponent(Position)
                     .addComponent(Total)
                     .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(112, 112, 112))
@@ -242,9 +232,7 @@ public class CustomerInfo extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel11))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
@@ -261,11 +249,9 @@ public class CustomerInfo extends javax.swing.JFrame {
                         .addComponent(Email)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Address)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Position)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(Total)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -322,11 +308,9 @@ public class CustomerInfo extends javax.swing.JFrame {
     private javax.swing.JLabel ID;
     private javax.swing.JLabel Name;
     private javax.swing.JLabel Phone;
-    private javax.swing.JLabel Position;
     private javax.swing.JLabel SSN;
     private javax.swing.JLabel Total;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
