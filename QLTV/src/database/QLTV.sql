@@ -1,5 +1,6 @@
 ﻿create DataBase QLTV
 use QLTV
+
 CREATE TABLE Account (
 	AccountId INT PRIMARY KEY,
 	username NVARCHAR(50) UNIQUE NOT NULL,
@@ -148,11 +149,15 @@ INSERT INTO Account (AccountId, username, APass) VALUES
 (3, 'hoangluu', 'hoangluu217'),
 (4, 'vantuan', 'tuan123'),
 (5, 'manhthang','manhthang1'),
-(6, 'manhdung','dung123'),
-(7, 'thivan', 'van2301'),
-(8, 'vanlai','lai0608'),
-(9, 'duc','duc12345'),
-(10, 'hanh','hanh0401')
+(6, 'thimay','may123'),
+(7, 'dung', 'dung2301'),
+(8, 'namne','nam0608'),
+(9, 'anvan','an8386'),
+(10, 'binh','binh123'),
+(11, 'thang','thang2004'),
+(12, 'thihuyen','huyen0923'),
+(13, 'vanquyet','vanquyet1')
+
 
 
 INSERT INTO Voucher (discountRate, Vdescription, minPurchase)
@@ -169,11 +174,6 @@ VALUES
 ('AD003', N'Lương Đặng Hoàng Lưu', '456789123', '2004-09-10', 'Nam', '0945325675', 'luuhoang@gmail.com', N'Đà Nẵng', 3),
 ('AD004', N'Văn Tuấn', '456324128', '2004-04-13', 'Nam', '0935322675', 'vantuan@gmail.com', N'Đà Nẵng', 4),
 ('AD005', N'Phan Mạnh Thắng', '987543521', '2004-08-05', 'Nam', '0935618324', 'manhthang@gmail.com', N'Đà Nẵng', 5)
-
-
-SELECT a.AccountId, a.username , a.APass FROM Account a inner join admin ad on a.AccountId = ad.AccountId
---delete from account;
-select * from Account;
 
 
 INSERT INTO Book (bookId, isbn, title, author, publisher, publishedDate, price, quantity, type, language) VALUES
@@ -469,8 +469,12 @@ INSERT INTO Book (bookId, isbn, title, author, publisher, publishedDate, price, 
 
 
 INSERT INTO Customer (Cid, Cname, Cssn, CbirthDate, Cgender, CphoneNumber, Cemail, Caddress, CtotalPayment, AccountId) VALUES
-('C001', N'Nguyễn Văn An', '123456789', '1995-05-20', 'Nam', '0905123456', 'nguyenvana@gmail.com', N'Đà Nẵng', 500000, 9),
-('C002', N'Trần Thị Bình', '987654321', '1998-09-15', 'Nữ', '0912987654', 'tranthib@gmail.com', N'Đà Nẵng', 200000, 10)
+('C001', N'Nguyễn Văn An', '123456789', '2000-05-20', 'Nam', '0905123456', 'nguyenvana@gmail.com', N'Đà Nẵng', 500000, 9),
+('C002', N'Trần Thị Bình', '987654321', '2001-09-15', N'Nữ', '0912987654', 'tranthib@gmail.com', N'Hà Nội', 200000, 10),
+('C003', N'Nguyễn Mạnh Thắng', '654542345', '2004-09-15', 'Nam', '0976534213', 'thangmanh@gmail.com', N'TP Hồ Chí Minh', 200000, 11),
+('C004', N'Võ Thị Huyền', '546342348', '2004-09-15', N'Nữ', '0967548564', 'huyenthivo@gmail.com', N'Đà Nẵng', 100000, 12),
+('C005', N'Đặng Văn Quyết', '675435643', '2004-09-15', 'Nam', '0967785436', 'vanquyet@gmail.com', N'Đà Nẵng', 100000, 13)
+
 
 
 INSERT INTO CustomerBorrow (cardId, Cid, typeCard, cardExpiry, registrationDate, cardValue, borrowLimit) VALUES
@@ -488,3 +492,4 @@ VALUES
 ('E001', N'Phan Thị Mây', '123456789', '1990-05-15', N'Nữ', '0901234567', 'thimay@gmail.com', N'Đà Nẵng', N'Pha chế', 2000.0, '2025-03-28', 6),
 ('E002', N'Nguyễn Văn Dũng', '987654321', '1995-08-22', N'Nam', '0912345678', 'nvd@gmail.com', N'Đà Nẵng', N'Đứng quầy', 1500.0, '2025-03-28', 7),
 ('E003', N'Trần Văn Nam', '112233445', '1988-02-10', N'Nam', '0923456789', 'namtran@gmail.com', N'Đà Nẵng', N'Chạy bàn', 1800.0, '2015-03-28', 8)
+
